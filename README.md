@@ -1,5 +1,10 @@
 ## Ground rules
 
+#### File names
+
+- Components & pages: PascalCase (e.g. `NavigationMenu`)
+- Functions: camelCase (e.g. `getUserInfo`)
+
 ### GIT
 
 #### Branch
