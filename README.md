@@ -11,7 +11,9 @@
     - `header`
 - OR pull `dev` branch into your branch frequently to avoid merge conflicts
 
-`git merge dev`
+```
+git merge dev
+```
 
 #### Commit message
 
