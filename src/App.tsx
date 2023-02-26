@@ -1,4 +1,10 @@
-import { Box, Alert, AlertTitle, CircularProgress } from '@mui/material';
+import {
+  Box,
+  Alert,
+  AlertTitle,
+  CircularProgress,
+  CssBaseline,
+} from '@mui/material';
 
 const App = () => {
   // use Redux for loading state
@@ -12,6 +18,7 @@ const App = () => {
 
   return (
     <Box>
+      <CssBaseline />
       {isLoading && <CircularProgress />}
       {sampleAlert.message && (
         <Alert
