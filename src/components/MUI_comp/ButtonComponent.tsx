@@ -6,17 +6,16 @@ interface CustomButtonProps extends ButtonProps {
   height?: string;
   customColor?: string;
   sx?: SxProps;
-
 }
 
-const ButtonComponent: React.FC<CustomButtonProps> = ({
+const ButtonComponent = ({
   children,
   width,
   height,
   customColor,
   sx,
   ...rest
-}) => {
+}: CustomButtonProps) => {
   const buttonStyles: SxProps = {
     backgroundColor: customColor,
     height: height ? height : 'auto',

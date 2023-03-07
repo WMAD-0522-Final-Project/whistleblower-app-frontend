@@ -10,16 +10,15 @@ interface CustomTextFieldProps extends Omit<TextFieldProps, 'label'> {
     textColor: string;
   }
 
-const TextFieldCustom: React.FC<CustomTextFieldProps> = ({
-    label,
-    width,
-    mainColor,
-    secondaryColor,
-    textColor,
+const TextFieldCustom = ({
+  label,
+  width,
+  mainColor,
+  secondaryColor,
+  textColor,
   ...props
-}) => {
-    
-const textFieldStyle = {
+}: CustomTextFieldProps) => {
+  const textFieldStyle = {
     width: `${width}`,
     "& label.Mui-focused": {
         color: `${mainColor}`
