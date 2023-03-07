@@ -1,3 +1,4 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {
   Box,
   Alert,
@@ -35,8 +36,11 @@ const App = () => {
           <AlertTitle>{sampleAlert.type}</AlertTitle>
           {sampleAlert.message}
         </Alert>
-      )}
-    </Box>
+        <Router>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </Router>
   );
 };
 
