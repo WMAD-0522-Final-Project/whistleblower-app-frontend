@@ -1,14 +1,14 @@
 import React from 'react';
-import { TextField, TextFieldProps } from '@mui/material'
+import { TextField, TextFieldProps } from '@mui/material';
 import { SxProps } from '@mui/system';
 
 interface CustomTextFieldProps extends Omit<TextFieldProps, 'label'> {
-    label: string;
-    width: string;
-    mainColor: string;
-    secondaryColor: string;
-    textColor: string;
-  }
+  label: string;
+  width: string;
+  mainColor: string;
+  secondaryColor: string;
+  textColor: string;
+}
 
 const TextFieldCustom = ({
   label,
@@ -20,31 +20,31 @@ const TextFieldCustom = ({
 }: CustomTextFieldProps) => {
   const textFieldStyle = {
     width: `${width}`,
-    "& label.Mui-focused": {
-        color: `${mainColor}`
-      },
-    "& .MuiOutlinedInput-root": {
+    '& label.Mui-focused': {
+      color: `${mainColor}`,
+    },
+    '& .MuiOutlinedInput-root': {
       color: `${textColor}`,
-          backgroundColor: `${secondaryColor}`,
-          "& fieldset": {
-            borderColor: `${mainColor}`,        
-          },
-          '&:hover fieldset': {
-            borderColor: `${mainColor}`,
-          },
-        },
-        "& .MuiOutlinedInput-root.Mui-focused":{
-          color: `${textColor}`,
-          backgroundColor: `${secondaryColor}`,
-          "& fieldset": {
-            borderColor: `${mainColor}`
-          }
-        },
-      };
+      backgroundColor: `${secondaryColor}`,
+      '& fieldset': {
+        borderColor: `${mainColor}`,
+      },
+      '&:hover fieldset': {
+        borderColor: `${mainColor}`,
+      },
+    },
+    '& .MuiOutlinedInput-root.Mui-focused': {
+      color: `${textColor}`,
+      backgroundColor: `${secondaryColor}`,
+      '& fieldset': {
+        borderColor: `${mainColor}`,
+      },
+    },
+  };
   return (
     <TextField
-    label={label}
-    id="mui-theme-provider-standard-input"
+      label={label}
+      id="mui-theme-provider-standard-input"
       sx={{ ...textFieldStyle }}
       variant="outlined"
       {...props}
