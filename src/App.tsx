@@ -5,7 +5,10 @@ import {
   AlertTitle,
   CircularProgress,
   CssBaseline,
+  ThemeProvider,
+  createTheme,
 } from '@mui/material';
+import Login from './pages/Login';
 
 const App = () => {
   // use Redux for loading state
@@ -17,10 +20,14 @@ const App = () => {
     type: 'success',
   };
 
+  // Juan is making the theme here
+  const theme = createTheme({});
+
   return (
-    <Box>
-      <CssBaseline />
-      {isLoading && <CircularProgress />}
+    <ThemeProvider theme={theme}>
+      <Box>
+        <CssBaseline />
+        {/* {isLoading && <CircularProgress />}
       {sampleAlert.message && (
         <Alert
           severity={sampleAlert.type}
@@ -36,11 +43,14 @@ const App = () => {
           <AlertTitle>{sampleAlert.type}</AlertTitle>
           {sampleAlert.message}
         </Alert>
+      )} */}
         <Router>
           <Routes>
             <Route path="/login" element={<Login />} />
           </Routes>
         </Router>
+      </Box>
+    </ThemeProvider>
   );
 };
 
