@@ -10,4 +10,4 @@ const sampleSlice = createSlice({
 
 export const sampleSliceActions = sampleSlice.actions;
 
-export default sampleSlice;
+export default sampleSlice.reducer;

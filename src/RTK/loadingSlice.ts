@@ -8,6 +8,8 @@ const loadingSlice = createSlice({
   },
 });
 
+export const selectLoading = (state: { loading: boolean }) => state.loading;
+
 export const { loadingSwitch } = loadingSlice.actions;
 
 export default loadingSlice.reducer;
