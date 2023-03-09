@@ -42,6 +42,7 @@ const App = () => {
         >
           <AlertTitle>{sampleAlert.type}</AlertTitle>
           {sampleAlert.message}
+
         </Alert>
       )} */}
         <Router>
