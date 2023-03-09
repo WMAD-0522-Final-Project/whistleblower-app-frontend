@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 
 import TextFieldCustom from './TextFieldCustom';
 import ButtonComponent from './ButtonComponent';
+import NestedList from './ColorPallete';
 
 const TestComponent = () => {
   const [name, setName] = useState('');
@@ -25,7 +26,7 @@ const TestComponent = () => {
         width="500px" //Set the Input field width
         mainColor="black" // ==> Border color of the input
         secondaryColor="white" // ==> color of the background
-        textColor="grey"
+        textColor="black"
         // (We can style this more manually or by putting more
         // props this is just for demo purposes if u want to try change the colors in the
         // root component called "TextFieldCustom.tsx")
@@ -44,6 +45,8 @@ const TestComponent = () => {
       {/*(We can style this more manually or by putting more
         props this is just for demo purposes if u want to try change the colors in the
         root component called "TextFieldCustom.tsx") */}
+
+      <NestedList/>
     </div>
   );
 };
