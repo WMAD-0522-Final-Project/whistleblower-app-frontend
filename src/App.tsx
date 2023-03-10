@@ -8,6 +8,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { setLoading } from './RTK/loadingSlice';
 import { selectLoading } from './RTK/loadingSlice';
+import ButtonComponent from './components/MUI_comp/ButtonComponent';
 
 const App = () => {
   // use Redux for loading state
@@ -43,6 +44,15 @@ const App = () => {
           {sampleAlert.message}
         </Alert>
       )}
+
+      <ButtonComponent
+        width="100px"
+        height="50px"
+        customColor="#f96a02"
+        variant="contained"
+      >
+        submit
+      </ButtonComponent>
     </Box>
   );
 };
