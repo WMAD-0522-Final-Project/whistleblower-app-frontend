@@ -31,7 +31,7 @@ const App = () => {
   const isLoading = useSelector(selectLoading);
   const loadingDispatch = useDispatch();
   loadingDispatch(setLoading(true));
-  console.log(isLoading);
+  // console.log(isLoading);
 
   // use Redux for alert state
   const sampleAlert = {
