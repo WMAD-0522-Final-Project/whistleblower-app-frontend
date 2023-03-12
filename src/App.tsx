@@ -8,6 +8,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { setLoading } from './RTK/loadingSlice';
 import { selectLoading } from './RTK/loadingSlice';
+import { selectCompanyData } from './RTK/companySlice';
 import AvatarIcon from './components/admin/AvatarIcon';
 import ButtonComponent from './components/MUI_comp/ButtonComponent';
 
@@ -26,12 +27,10 @@ const userData = {
 };
 
 const App = () => {
-  // use Redux for loading state
-  // const isLoading = true;
-  const isLoading = useSelector(selectLoading);
+  const { isLoading } = useSelector(selectLoading);
+  const { companyData } = useSelector(selectCompanyData);
   const loadingDispatch = useDispatch();
   loadingDispatch(setLoading(true));
-  console.log(isLoading);
 
   // use Redux for alert state
   const sampleAlert = {
