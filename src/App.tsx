@@ -8,6 +8,8 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { setLoading } from './RTK/loadingSlice';
 import { selectLoading } from './RTK/loadingSlice';
+import { setUserData } from './RTK/userDataSlice';
+import { selectUserData } from './RTK/userDataSlice';
 import AvatarIcon from './components/admin/AvatarIcon';
 import ButtonComponent from './components/MUI_comp/ButtonComponent';
 
@@ -18,20 +20,18 @@ const companyData = {
     secondary: '#fff',
   },
 };
-// TODO: get user data from store
-const userData = {
-  firstName: 'John',
-  lastName: 'Doe',
-  profileImg: '/images/profileImg.jpg',
-};
 
 const App = () => {
+  // TODO: get user data from store
+  const userData = useSelector(selectUserData);
+  const dispatch = useDispatch();
+  dispatch(
+    setUserData({ firstName: 'Isaac', lastName: 'Wu', profileImg: 'n/a' })
+  );
+  console.log(userData);
+
   // use Redux for loading state
-  // const isLoading = true;
   const isLoading = useSelector(selectLoading);
-  const loadingDispatch = useDispatch();
-  loadingDispatch(setLoading(true));
-  // console.log(isLoading);
 
   // use Redux for alert state
   const sampleAlert = {

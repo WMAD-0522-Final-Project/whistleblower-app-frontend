@@ -1,23 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { StoreState } from './store';
 
-const initialState = [
-  {
-    firstName: 'John',
-    lastName: 'Doe',
-    profileImg: '/images/profileImg.jpg',
-  },
-];
+const initialState = {
+  firstName: 'John',
+  lastName: 'Doe',
+  profileImg: '/images/profileImg.jpg',
+};
 
 const userDataSlice = createSlice({
   name: 'userData',
   initialState,
   reducers: {
-    create: (state, action) => {},
-    update: (state, action) => {},
-    remove: (state, action) => {},
+    setUserData: (state, action) => {
+      state = action.payload;
+    },
   },
 });
 
-export const { create, update, remove } = userDataSlice.actions;
+export const selectUserData = (state: StoreState) => state.userData;
+
+export const { setUserData } = userDataSlice.actions;
 
 export default userDataSlice.reducer;
