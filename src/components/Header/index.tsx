@@ -1,6 +1,10 @@
 import React from 'react';
-import { Avatar, Box, Button, IconButton, Typography } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
+import { Box, IconButton, Link as MuiLink, Typography } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
+import SettingsIcon from '@mui/icons-material/Settings';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../RTK/companySlice';
 import { APP_NAME } from '../../data/appData';
@@ -10,13 +14,28 @@ type Props = {};
 const Header = (props: Props) => {
   const { companyData } = useSelector(selectCompanyData);
 
+  const muiLinkStyles = {
+    padding: '5px',
+    position: 'absolute',
+    transition: 'scale 50ms ease-in-out',
+    '&:hover': {
+      scale: '1.2',
+    },
+  };
+  const iconButtonStyles = {
+    border: `4px solid ${companyData.themeColors.secondary}`,
+  };
+
+  const iconStyles = { color: '#fff', fontSize: '5vw' };
+
   return (
     <>
       <Typography
         component="h1"
         sx={{
           color: '#fff',
-          fontSize: '1.5rem',
+          fontSize: '1.3rem',
+          p: '4%',
         }}
       >
         {APP_NAME}
@@ -29,54 +48,78 @@ const Header = (props: Props) => {
           translate: '40% -40%',
         }}
       >
-        <IconButton
-          size="small"
+        <MuiLink
+          component={RouterLink}
+          to="/users"
           sx={{
-            border: `4px solid ${companyData.themeColors.secondary}`,
-            padding: '5px',
-            position: 'absolute',
-            left: '-30%',
-            top: '42%',
+            ...muiLinkStyles,
+            right: '110%',
+            top: '37%',
           }}
         >
-          <PersonIcon sx={{ color: '#fff', fontSize: '1.4rem' }} />
-        </IconButton>
-        <IconButton
-          size="small"
+          <IconButton
+            size="small"
+            sx={{
+              ...iconButtonStyles,
+            }}
+          >
+            <PersonIcon sx={{ ...iconStyles }} />
+          </IconButton>
+        </MuiLink>
+        <MuiLink
+          component={RouterLink}
+          to="/settings"
           sx={{
-            border: `4px solid ${companyData.themeColors.secondary}`,
-            padding: '5px',
-            position: 'absolute',
-            left: '-20%',
-            top: '73%',
+            ...muiLinkStyles,
+            right: '98%',
+            top: '71%',
           }}
         >
-          <PersonIcon sx={{ color: '#fff', fontSize: '1.4rem' }} />
-        </IconButton>
-        <IconButton
-          size="small"
+          <IconButton
+            size="small"
+            sx={{
+              ...iconButtonStyles,
+            }}
+          >
+            <SettingsIcon sx={{ ...iconStyles }} />
+          </IconButton>
+        </MuiLink>
+        <MuiLink
+          component={RouterLink}
+          to="/claims"
           sx={{
-            border: `4px solid ${companyData.themeColors.secondary}`,
-            padding: '5px',
-            position: 'absolute',
-            left: '3%',
-            top: '95%',
+            ...muiLinkStyles,
+            right: '72%',
+            top: '97%',
           }}
         >
-          <PersonIcon sx={{ color: '#fff', fontSize: '1.4rem' }} />
-        </IconButton>
-        <IconButton
-          size="small"
+          <IconButton
+            size="small"
+            sx={{
+              ...iconButtonStyles,
+            }}
+          >
+            <InventoryIcon sx={{ ...iconStyles }} />
+          </IconButton>
+        </MuiLink>
+        <MuiLink
+          component={RouterLink}
+          to="/logs"
           sx={{
-            border: `4px solid ${companyData.themeColors.secondary}`,
-            padding: '5px',
-            position: 'absolute',
-            left: '33%',
-            top: '104%',
+            ...muiLinkStyles,
+            right: '37%',
+            top: '108%',
           }}
         >
-          <PersonIcon sx={{ color: '#fff', fontSize: '1.4rem' }} />
-        </IconButton>
+          <IconButton
+            size="small"
+            sx={{
+              ...iconButtonStyles,
+            }}
+          >
+            <MenuBookIcon sx={{ ...iconStyles }} />
+          </IconButton>
+        </MuiLink>
         <Box
           sx={{
             backgroundColor: companyData.themeColors.secondary,
@@ -84,14 +127,14 @@ const Header = (props: Props) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            height: '160px',
-            width: '160px',
+            height: '30vw',
+            width: '30vw',
           }}
         >
           <Box
             component="img"
             src="/images/logo.png"
-            sx={{ translate: '-50% 50%', width: '44px' }}
+            sx={{ translate: '-55% 55%', width: '26%' }}
           />
         </Box>
       </Box>
