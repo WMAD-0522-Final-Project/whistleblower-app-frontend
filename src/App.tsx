@@ -11,6 +11,7 @@ import { selectLoading } from './RTK/loadingSlice';
 import { selectCompanyData } from './RTK/companySlice';
 import AvatarIcon from './components/admin/AvatarIcon';
 import ButtonComponent from './components/MUI_comp/ButtonComponent';
+import Header from './components/Header';
 
 // TODO: get company data from store
 const companyData = {
@@ -43,8 +44,11 @@ const App = () => {
       sx={{
         backgroundColor: companyData.themeColors.primary,
         minHeight: '100vh',
+        overflowX: 'hidden',
+        position: 'relative',
       }}
     >
+      <Header />
       <AvatarIcon />
       {/* {isLoading && <CircularProgress />} */}
       {/* {sampleAlert.message && (
