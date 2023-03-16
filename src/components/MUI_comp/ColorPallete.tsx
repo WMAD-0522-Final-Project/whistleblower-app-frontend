@@ -13,14 +13,12 @@ import ListCustom from './ListItem';
 
 import { styled } from '@mui/material/styles';
 
-
 export default function NestedList() {
   const [open, setOpen] = React.useState(true);
 
   const handleClick = () => {
     setOpen(!open);
   };
-
 
   return (
     <List
@@ -38,20 +36,19 @@ export default function NestedList() {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <ListCustom
-          bgColor='green'
-          bgColorHover='blue'
-          height={40}
-          iconColorLeft='white'
-          iconColorRight='black'
-          innerText='setColor'
-          onClick={()=>{console.log('clicked');
-          }}
-
+            bgColor="green"
+            bgColorHover="blue"
+            height={40}
+            iconColorLeft="white"
+            iconColorRight="black"
+            innerText="setColor"
+            onClick={() => {
+              console.log('clicked');
+            }}
           ></ListCustom>
-          <ListCustom></ListCustom> 
-      
+          <ListCustom></ListCustom>
+
           {/*We Can add as much Listem Custom as we want with any coulors */}
-          
         </List>
       </Collapse>
     </List>

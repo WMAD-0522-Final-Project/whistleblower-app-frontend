@@ -1,46 +1,46 @@
-.super{
-    width: 100vw;
-    display: flex;
-    justify-content: space-evenly;
+.super {
+  width: 100vw;
+  display: flex;
+  justify-content: space-evenly;
 }
-.container{
-    margin-top: 50px;
-    height: 600px;
-    width: 480px;
+.container {
+  margin-top: 50px;
+  height: 600px;
+  width: 480px;
 }
-.sub_1{
-    display: flex;
+.sub_1 {
+  display: flex;
 }
-.super{
-    display: flex;
+.super {
+  display: flex;
 }
 
-.background{
-    position: absolute;
-    z-index: -1;
-    height:  600px;
-    width: 480px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.background {
+  position: absolute;
+  z-index: -1;
+  height: 600px;
+  width: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.suple{
-    position: absolute;
-    height: 100%;
-    width: 20%;
+.suple {
+  position: absolute;
+  height: 100%;
+  width: 20%;
 }
-.window{
-    position: absolute;
+.window {
+  position: absolute;
 
-    width: 70%;
-    height: 70%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 70%;
+  height: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.window p{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+.window p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }

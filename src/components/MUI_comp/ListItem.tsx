@@ -15,7 +15,7 @@ interface CustomListItemButtonProps extends ListItemButtonProps {
 }
 
 const ListCustom = (props: CustomListItemButtonProps) => {
-  const { 
+  const {
     customProp,
     bgColor,
     bgColorHover,
@@ -24,31 +24,30 @@ const ListCustom = (props: CustomListItemButtonProps) => {
     iconColorLeft,
     innerText,
     innerTextColor,
-     ...rest } = props;
+    ...rest
+  } = props;
 
   const CustomListItemButton = styled(ListItemButton)(({ theme }) => ({
     backgroundColor: `${bgColor}`,
     cursor: 'pointer',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'start', 
+    justifyContent: 'start',
     height: `${height}px`,
     '&:hover': {
       backgroundColor: `${bgColorHover}`,
-      
     },
   }));
 
   const Container = styled('div')(({ theme }) => ({
-  
     marginRight: '15px',
     display: 'flex',
-    flexDirection: 'row', 
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center', 
-    boxShadow: 'rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px'
+    justifyContent: 'center',
+    boxShadow:
+      'rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px',
   }));
-
 
   const CustomDivRigth = styled('div')(({ theme }) => ({
     backgroundColor: `${iconColorRight}`,
@@ -56,31 +55,27 @@ const ListCustom = (props: CustomListItemButtonProps) => {
     padding: '10px',
     borderRadius: '2px 0  0 2px',
     width: '50%',
-
-
-
   }));
-  
+
   const CustomDivLeft = styled('div')(({ theme }) => ({
     backgroundColor: `${iconColorLeft}`,
     color: 'white',
     padding: '10px',
     borderRadius: '0 2px 2px 0 ',
     width: '50%',
-
   }));
   const InnerText = styled('p')(({ theme }) => ({
-    color: `${innerTextColor}`
+    color: `${innerTextColor}`,
   }));
 
   return (
     <CustomListItemButton {...rest}>
       <Container>
-      <CustomDivRigth></CustomDivRigth>
-       <CustomDivLeft></CustomDivLeft>
+        <CustomDivRigth></CustomDivRigth>
+        <CustomDivLeft></CustomDivLeft>
       </Container>
-       
-       <InnerText>{innerText}</InnerText>
+
+      <InnerText>{innerText}</InnerText>
       {/* add any custom content you want */}
       {props.children}
     </CustomListItemButton>
