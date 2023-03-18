@@ -1,3 +1,4 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {
   Box,
   Alert,
@@ -6,20 +7,14 @@ import {
   CssBaseline,
 } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
+import Header from './components/Header';
+import AdminHome from './pages/AdminHome';
 import { setLoading } from './RTK/loadingSlice';
 import { selectLoading } from './RTK/loadingSlice';
 import { selectCompanyData } from './RTK/companySlice';
 import AvatarIcon from './components/admin/AvatarIcon';
 import ButtonComponent from './components/MUI_comp/ButtonComponent';
-import Header from './components/Header';
 
-// TODO: get company data from store
-const companyData = {
-  themeColors: {
-    primary: '#f96a02',
-    secondary: '#fff',
-  },
-};
 // TODO: get user data from store
 const userData = {
   firstName: 'John',
@@ -50,6 +45,15 @@ const App = () => {
     >
       <Header />
       <AvatarIcon />
+      <Router>
+        <Routes>
+          {/* TODO: protect these routes */}
+          <Route path="admin">
+            <Route index element={<AdminHome />} />
+          </Route>
+        </Routes>
+      </Router>
+      {/* <AvatarIcon /> */}
       {/* {isLoading && <CircularProgress />} */}
       {/* {sampleAlert.message && (
         <Alert
