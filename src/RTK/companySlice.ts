@@ -9,6 +9,7 @@ const initialState = {
     themeColors: {
       primary: '#f96a02',
       secondary: '#fff',
+      tertiary: '#ffcb14',
     },
   },
 };
