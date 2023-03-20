@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   Box,
   Alert,
@@ -28,7 +29,9 @@ const App = () => {
   dispatch(
     setUserData({ firstName: 'Isaac', lastName: 'Wu', profileImg: 'n/a' })
   );
-  console.log(userData);
+  useEffect(() => {
+    console.log(userData);
+  }, []);
 
   // use Redux for loading state
   const isLoading = useSelector(selectLoading);
