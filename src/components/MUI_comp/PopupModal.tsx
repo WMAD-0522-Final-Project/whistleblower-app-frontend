@@ -21,9 +21,14 @@ const outerBoxStyle = {
 };
 
 const innerBoxStyle = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 200,
+  height: 200,
   border: '5px solid white',
   borderRadius: '25px',
-  padding: '40px 10px',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -35,9 +40,18 @@ const buttonStyle = {
   bgcolor: '#F96A02',
   color: 'white',
   borderRadius: '25px',
+  borderStyle: 'none',
+  margin: '0 30px',
+  boxShadow:
+    '0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
+  '&:hover': {
+    borderStyle: 'none',
+    bgcolor: '#eab676',
+  },
 };
 
 export default function PopupModal() {
+  // const [open, setOpen] = React.useState(false);
   const [open, setOpen] = React.useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
