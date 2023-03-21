@@ -20,10 +20,11 @@ export type ClaimCategory = string;
 export type ClaimLabel = string;
 
 export interface Chat {
+  id?: string;
   datetime: string;
   user: {
     id: string;
-    avatarUrl: string;
+    avatarUrl?: string;
   };
   content: string;
 }
