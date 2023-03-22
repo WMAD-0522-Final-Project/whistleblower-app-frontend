@@ -14,7 +14,7 @@ export default [
     ],
   },
   {
-    id: 'ertyuio',
+    id: 'asdfghjkiu',
     submissionDate: '2023/03/08',
     message: 'Boss forces me to say “konnichiwa”',
     labels: ['low priority', 'custom label 2'],
@@ -31,7 +31,7 @@ export default [
     ],
   },
   {
-    id: 'ertyuio',
+    id: 'mnbvcxzkjhg',
     submissionDate: '2023/03/17',
     message: 'Boss forces me to say “konnichiwaaaaa”',
     labels: ['low priority', 'custom label 2'],
