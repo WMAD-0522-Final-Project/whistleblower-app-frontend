@@ -24,6 +24,7 @@ const ClaimChat = ({ chatData }: Props) => {
 
   const handleSubmitClick: FormEventHandler = (e) => {
     e.preventDefault();
+    if (!content) return;
     // TODO: send request to API
     console.log('content', content);
     setMessageList((prev) => [
