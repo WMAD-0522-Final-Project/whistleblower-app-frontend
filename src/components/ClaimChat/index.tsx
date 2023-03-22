@@ -70,6 +70,13 @@ const ClaimChat = ({ chatData }: Props) => {
               sx={{
                 backgroundColor: isOwnItem ? '#0d99ff5c' : '#ff70005c',
                 borderRadius: '16px',
+                border: `2px solid ${
+                  isOwnItem
+                    ? companyData.themeColors.primary
+                    : companyData.themeColors.secondary !== '#fff'
+                    ? companyData.themeColors.secondary
+                    : '#ddd'
+                }`,
                 fontSize: '0.9rem',
                 order: isOwnItem ? 1 : 2,
                 p: '0.5rem 0.8rem',
