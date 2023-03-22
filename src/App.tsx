@@ -7,12 +7,16 @@ import {
   CssBaseline,
 } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
+import Header from './components/Header';
+import AdminHome from './pages/AdminHome';
 import { setLoading } from './RTK/loadingSlice';
 import { selectLoading } from './RTK/loadingSlice';
 import { selectCompanyData } from './RTK/companySlice';
 import AvatarIcon from './components/admin/AvatarIcon';
 import ButtonComponent from './components/MUI_comp/ButtonComponent';
+
 import AdminHome from './pages/AdminHome';
+
 
 // TODO: get user data from store
 const userData = {
@@ -38,8 +42,12 @@ const App = () => {
       sx={{
         backgroundColor: companyData.themeColors.primary,
         minHeight: '100vh',
+        overflowX: 'hidden',
+        position: 'relative',
       }}
     >
+      <Header />
+      <AvatarIcon />
       <Router>
         <Routes>
           {/* TODO: protect these routes */}
