@@ -5,7 +5,10 @@ import ClaimList from '../../components/admin/ClaimList';
 import { selectCompanyData } from '../../RTK/companySlice';
 import { Claim } from '../../types';
 import sampleClaims from '../../temp/sampleClaims';
-import SearchBox from '../../components/SearchBox';
+
+import ClaimChat from '../../components/ClaimChat';
+import sampleClaimDetail from '../../temp/sampleClaimDetail';
+
 
 type Props = {};
 
@@ -26,12 +29,11 @@ const AdminHome = (props: Props) => {
 
   return (
     // TODO: temporary styling until Mateus's task is done
-    <Box sx={{ height: '100vh' }}>
-      <SearchBox
-        onChange={(e) => setQuery(e.target.value)}
-        sx={{ width: '76%', minWidth: '200px' }}
-      />
-      <ClaimList claims={filteredClaims()} />
+
+    <Box sx={{ backgroundColor: '#fff', height: '100vh' }}>
+      {/* TODO: temporary claim data */}
+      <ClaimChat chatData={sampleClaimDetail.chats} />
+
     </Box>
   );
 };
