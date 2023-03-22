@@ -42,7 +42,7 @@ const ClaimChat = ({ chatData }: Props) => {
   };
 
   return (
-    <Box sx={{ p: '0.8rem' }}>
+      sx={{ p: '0.8rem', height: '75vh', overflowY: 'scroll' }}
       {messageList.map((item) => {
         const isOwnItem = item.user.id === user.id;
         return (
@@ -90,35 +90,44 @@ const ClaimChat = ({ chatData }: Props) => {
           </Box>
         );
       })}
-      <TextField
-        id="outlined-multiline-static"
-        label=""
-        multiline
-        rows={3}
-        placeholder="Enter message"
-        name="message"
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
+      <Box
         sx={{
-          width: '100%',
-          mt: '3rem',
-          border: `2px solid ${companyData.themeColors.primary}`,
-          borderRadius: '5px',
-          outline: 'none',
+          position: 'absolute',
+          width: '90%',
+          left: '50%',
+          bottom: '2%',
+          translate: '-50% 0',
         }}
-      />
-      <ButtonComponent
-        customColor={companyData.themeColors.primary}
-        sx={{
-          color: companyData.themeColors.secondary,
-          width: '100%',
-          mt: '1rem',
-        }}
-        type="submit"
-        onClick={handleSubmitClick}
       >
-        Submit
-      </ButtonComponent>
+        <TextField
+          id="outlined-multiline-static"
+          label=""
+          multiline
+          rows={3}
+          placeholder="Enter message"
+          name="message"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          sx={{
+            width: '100%',
+            border: `2px solid ${companyData.themeColors.primary}`,
+            borderRadius: '5px',
+            outline: 'none',
+          }}
+        />
+        <ButtonComponent
+          customColor={companyData.themeColors.primary}
+          sx={{
+            color: companyData.themeColors.secondary,
+            width: '100%',
+            mt: '1rem',
+          }}
+          type="submit"
+          onClick={handleSubmitClick}
+        >
+          Submit
+        </ButtonComponent>
+      </Box>
     </Box>
   );
 };
