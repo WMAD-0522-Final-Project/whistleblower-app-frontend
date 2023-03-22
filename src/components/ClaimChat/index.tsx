@@ -1,4 +1,9 @@
-import React, { FormEventHandler, useState } from 'react';
+import React, {
+  FormEventHandler,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { format } from 'date-fns';
 import { Avatar, Box, TextField, Typography } from '@mui/material';
@@ -15,6 +20,7 @@ const ClaimChat = ({ chatData }: Props) => {
   const { companyData } = useSelector(selectCompanyData);
   const [messageList, setMessageList] = useState(chatData);
   const [content, setContent] = useState('');
+  const scrollRef = useRef<HTMLElement>(null);
 
   // TODO: temporary data
   const user = {
@@ -26,7 +32,6 @@ const ClaimChat = ({ chatData }: Props) => {
     e.preventDefault();
     if (!content) return;
     // TODO: send request to API
-    console.log('content', content);
     setMessageList((prev) => [
       ...prev,
       {
@@ -42,8 +47,17 @@ const ClaimChat = ({ chatData }: Props) => {
     setContent('');
   };
 
+  useLayoutEffect(() => {
+    const scroll =
+      scrollRef.current!.scrollHeight - scrollRef.current!.clientHeight;
+    scrollRef.current!.scrollTo(0, scroll);
+  }, [messageList]);
+
   return (
+    <Box
       sx={{ p: '0.8rem', height: '75vh', overflowY: 'scroll' }}
+      ref={scrollRef}
+    >
       {messageList.map((item) => {
         const isOwnItem = item.user.id === user.id;
         return (
@@ -68,7 +82,6 @@ const ClaimChat = ({ chatData }: Props) => {
             />
             <Typography
               sx={{
-                backgroundColor: isOwnItem ? '#0d99ff5c' : '#ff70005c',
                 borderRadius: '16px',
                 border: `2px solid ${
                   isOwnItem
