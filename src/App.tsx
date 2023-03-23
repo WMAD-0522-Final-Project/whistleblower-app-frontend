@@ -4,6 +4,8 @@ import {
   AlertTitle,
   CircularProgress,
   CssBaseline,
+  Typography,
+  Button,
 } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { setLoading } from './RTK/loadingSlice';
@@ -11,6 +13,8 @@ import { selectLoading } from './RTK/loadingSlice';
 import { selectCompanyData } from './RTK/companySlice';
 import AvatarIcon from './components/admin/AvatarIcon';
 import ButtonComponent from './components/MUI_comp/ButtonComponent';
+import PopupModal from './components/MUI_comp/PopupModal';
+import ConfirmationModal from './components/ConfirmationModal';
 
 // TODO: get company data from store
 const companyData = {
@@ -38,6 +42,10 @@ const App = () => {
     type: 'success',
   };
 
+  const submitData = () => {
+    console.log('Confirmed!!!!!!!!!!!');
+  };
+
   return (
     <Box
       sx={{
@@ -46,6 +54,7 @@ const App = () => {
       }}
     >
       <AvatarIcon />
+      <ConfirmationModal onClickYes={submitData} />
       {/* {isLoading && <CircularProgress />} */}
       {/* {sampleAlert.message && (
         <Alert

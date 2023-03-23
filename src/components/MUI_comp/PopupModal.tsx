@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { bgcolor } from '@mui/system';
+import { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
 
 const outerBoxStyle = {
   position: 'absolute',
@@ -36,25 +37,17 @@ const innerBoxStyle = {
   gap: '15px',
 };
 
-const buttonStyle = {
-  bgcolor: '#F96A02',
-  color: 'white',
-  borderRadius: '25px',
-  borderStyle: 'none',
-  margin: '0 30px',
-  boxShadow:
-    '0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
-  '&:hover': {
-    borderStyle: 'none',
-    bgcolor: '#eab676',
-  },
-};
-
-export default function PopupModal() {
+interface Props {
+  children: Function;
+}
+export default function PopupModal({ children }: Props) {
   // const [open, setOpen] = useState(false);
   const [open, setOpen] = useState(true);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    console.log('modal closed');
+  };
 
   return (
     <div>
@@ -65,22 +58,7 @@ export default function PopupModal() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={outerBoxStyle}>
-          <Box sx={innerBoxStyle}>
-            <Typography
-              id="modal-modal-title"
-              variant="h6"
-              component="h2"
-              align="center"
-            >
-              Are you sure?
-            </Typography>
-            <Button variant="contained" sx={buttonStyle} onClick={}>
-              Yes
-            </Button>
-            <Button variant="outlined" sx={buttonStyle}>
-              No
-            </Button>
-          </Box>
+          <Box sx={innerBoxStyle}>{children(handleClose)}</Box>
         </Box>
       </Modal>
     </div>
