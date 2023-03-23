@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -7,7 +7,7 @@ import Modal from '@mui/material/Modal';
 import { bgcolor } from '@mui/system';
 
 const outerBoxStyle = {
-  position: 'absolute' as 'absolute',
+  position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
@@ -21,7 +21,7 @@ const outerBoxStyle = {
 };
 
 const innerBoxStyle = {
-  position: 'absolute' as 'absolute',
+  position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
@@ -51,8 +51,8 @@ const buttonStyle = {
 };
 
 export default function PopupModal() {
-  // const [open, setOpen] = React.useState(false);
-  const [open, setOpen] = React.useState(true);
+  // const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -74,7 +74,7 @@ export default function PopupModal() {
             >
               Are you sure?
             </Typography>
-            <Button variant="contained" sx={buttonStyle}>
+            <Button variant="contained" sx={buttonStyle} onClick={}>
               Yes
             </Button>
             <Button variant="outlined" sx={buttonStyle}>
