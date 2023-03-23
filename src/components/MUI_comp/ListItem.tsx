@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react'
 import { styled } from '@mui/material/styles';
 import { ListItemButton, ListItemButtonProps } from '@mui/material';
 
@@ -8,80 +8,68 @@ interface CustomListItemButtonProps extends ListItemButtonProps {
   bgColorHover?: string;
   height?: number;
   iconColorRight?: string;
+  iconColorCenter?: string;
   iconColorLeft?: string;
-  innerText?: string;
   innerTextColor?: string;
+  boxShadowColor?: boolean;
   customProp?: string;
+  
 }
 
+
+
 const ListCustom = (props: CustomListItemButtonProps) => {
+
+
+
   const { 
     customProp,
     bgColor,
     bgColorHover,
     height,
     iconColorRight,
+    iconColorCenter,
     iconColorLeft,
-    innerText,
     innerTextColor,
+    boxShadowColor,
      ...rest } = props;
 
   const CustomListItemButton = styled(ListItemButton)(({ theme }) => ({
-    backgroundColor: `${bgColor}`,
+    backgroundColor: `transparent`,
     cursor: 'pointer',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'start', 
-    height: `${height}px`,
-    '&:hover': {
-      backgroundColor: `${bgColorHover}`,
-      
-    },
-  }));
-
-  const Container = styled('div')(({ theme }) => ({
-  
-    marginRight: '15px',
-    display: 'flex',
-    flexDirection: 'row', 
-    alignItems: 'center',
     justifyContent: 'center', 
-    boxShadow: 'rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px'
+    height: `100%`,
+    boxShadow: " rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px"
   }));
 
-
-  const CustomDivRigth = styled('div')(({ theme }) => ({
-    backgroundColor: `${iconColorRight}`,
-    color: 'white',
-    padding: '10px',
-    borderRadius: '2px 0  0 2px',
-    width: '50%',
-
-
-
-  }));
   
   const CustomDivLeft = styled('div')(({ theme }) => ({
     backgroundColor: `${iconColorLeft}`,
     color: 'white',
     padding: '10px',
-    borderRadius: '0 2px 2px 0 ',
-    width: '50%',
+    borderRadius: '5px',
+    width: '10px',
+    boxShadow: 'rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px'
 
   }));
-  const InnerText = styled('p')(({ theme }) => ({
-    color: `${innerTextColor}`
+  const CustomDivCenter = styled('div')(({ theme }) => ({
+    backgroundColor: `${iconColorCenter}`,
+    color: 'white',
+    padding: '10px',
+    borderRadius: '5px',
+    width: '10px',
+    marginLeft: '3px',
+    marginRight: '3px',
+    boxShadow: 'rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px'
   }));
+
 
   return (
     <CustomListItemButton {...rest}>
-      <Container>
-      <CustomDivRigth></CustomDivRigth>
-       <CustomDivLeft></CustomDivLeft>
-      </Container>
-       
-       <InnerText>{innerText}</InnerText>
-      {/* add any custom content you want */}
+          <CustomDivLeft></CustomDivLeft>
+          <CustomDivCenter></CustomDivCenter>
       {props.children}
     </CustomListItemButton>
   );
