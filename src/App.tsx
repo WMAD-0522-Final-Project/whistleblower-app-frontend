@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {
   Box,
   Alert,
@@ -7,22 +8,21 @@ import {
   CssBaseline,
 } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
+import Header from './components/Header';
+import AdminHome from './pages/AdminHome';
 import { setLoading } from './RTK/loadingSlice';
 import { selectLoading } from './RTK/loadingSlice';
+import { selectCompanyData } from './RTK/companySlice';
 import { setUserData } from './RTK/userDataSlice';
 import { selectUserData } from './RTK/userDataSlice';
 import AvatarIcon from './components/admin/AvatarIcon';
 import ButtonComponent from './components/MUI_comp/ButtonComponent';
 
-// TODO: get company data from store
-const companyData = {
-  themeColors: {
-    primary: '#f96a02',
-    secondary: '#fff',
-  },
-};
-
 const App = () => {
+  const { isLoading } = useSelector(selectLoading);
+  const { companyData } = useSelector(selectCompanyData);
+  const loadingDispatch = useDispatch();
+  loadingDispatch(setLoading(true));
   // TODO: get user data from store
   const userData = useSelector(selectUserData);
   const dispatch = useDispatch();
@@ -34,7 +34,6 @@ const App = () => {
   }, []);
 
   // use Redux for loading state
-  const isLoading = useSelector(selectLoading);
 
   // use Redux for alert state
   const sampleAlert = {
@@ -47,9 +46,21 @@ const App = () => {
       sx={{
         backgroundColor: companyData.themeColors.primary,
         minHeight: '100vh',
+        overflowX: 'hidden',
+        position: 'relative',
       }}
     >
+      <Header />
       <AvatarIcon />
+      <Router>
+        <Routes>
+          {/* TODO: protect these routes */}
+          <Route path="admin">
+            <Route index element={<AdminHome />} />
+          </Route>
+        </Routes>
+      </Router>
+      {/* <AvatarIcon /> */}
       {/* {isLoading && <CircularProgress />} */}
       {/* {sampleAlert.message && (
         <Alert
