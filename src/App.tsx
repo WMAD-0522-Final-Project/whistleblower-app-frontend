@@ -26,12 +26,16 @@ const App = () => {
   // TODO: get user data from store
   const userData = useSelector(selectUserData);
   const dispatch = useDispatch();
-  dispatch(
-    setUserData({ firstName: 'Isaac', lastName: 'Wu', profileImg: 'n/a' })
-  );
+
+  useEffect(() => {
+    dispatch(
+      setUserData({ firstName: 'Isaac', lastName: 'Wu', profileImg: 'n/a' })
+    );
+  }, []);
+
   useEffect(() => {
     console.log(userData);
-  }, []);
+  }, [userData]);
 
   // use Redux for loading state
 
@@ -50,8 +54,8 @@ const App = () => {
         position: 'relative',
       }}
     >
-      <Header />
-      <AvatarIcon />
+      {/* <Header />
+      <AvatarIcon /> */}
       <Router>
         <Routes>
           {/* TODO: protect these routes */}

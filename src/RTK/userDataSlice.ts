@@ -2,9 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 import { StoreState } from './store';
 
 const initialState = {
-  firstName: 'John',
-  lastName: 'Doe',
-  profileImg: '/images/profileImg.jpg',
+  userData: {
+    firstName: 'John',
+    lastName: 'Doe',
+    profileImg: '/images/profileImg.jpg',
+  },
 };
 
 const userDataSlice = createSlice({
@@ -12,12 +14,12 @@ const userDataSlice = createSlice({
   initialState,
   reducers: {
     setUserData: (state, action) => {
-      state = action.payload;
+      state.userData = action.payload;
     },
   },
 });
 
-export const selectUserData = (state: StoreState) => state.userData;
+export const selectUserData = (state: StoreState) => state.user;
 
 export const { setUserData } = userDataSlice.actions;
 
