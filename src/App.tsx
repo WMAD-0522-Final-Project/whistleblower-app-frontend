@@ -5,6 +5,10 @@ import {
   CircularProgress,
   CssBaseline,
 } from '@mui/material';
+import {Routes, Route, BrowserRouter} from 'react-router-dom'
+
+import NavigationMenu from './components/NavigationMenu';
+import TestComponent from './components/MUI_comp/TestComponent';
 
 const App = () => {
   // use Redux for loading state
@@ -17,26 +21,16 @@ const App = () => {
   };
 
   return (
+    <>
     <Box>
+
       <CssBaseline />
-      {isLoading && <CircularProgress />}
-      {sampleAlert.message && (
-        <Alert
-          severity={sampleAlert.type}
-          sx={
-            {
-              // style here
-            }
-          }
-          onClose={() => {
-            // reset alert state here
-          }}
-        >
-          <AlertTitle>{sampleAlert.type}</AlertTitle>
-          {sampleAlert.message}
-        </Alert>
-      )}
+    
+        
     </Box>
+     <TestComponent/>
+    </>
+    
   );
 };
 
