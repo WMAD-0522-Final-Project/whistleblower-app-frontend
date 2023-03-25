@@ -9,10 +9,27 @@ import {
   createTheme,
 } from '@mui/material';
 import Login from './pages/Login';
+import { useSelector, useDispatch } from 'react-redux';
+import Header from './components/Header';
+import AdminHome from './pages/AdminHome';
+import { setLoading } from './RTK/loadingSlice';
+import { selectLoading } from './RTK/loadingSlice';
+import { selectCompanyData } from './RTK/companySlice';
+import AvatarIcon from './components/admin/AvatarIcon';
+import ButtonComponent from './components/MUI_comp/ButtonComponent';
+
+// TODO: get user data from store
+const userData = {
+  firstName: 'John',
+  lastName: 'Doe',
+  profileImg: '/images/profileImg.jpg',
+};
 
 const App = () => {
-  // use Redux for loading state
-  const isLoading = true;
+  const { isLoading } = useSelector(selectLoading);
+  const { companyData } = useSelector(selectCompanyData);
+  const loadingDispatch = useDispatch();
+  loadingDispatch(setLoading(true));
 
   // use Redux for alert state
   const sampleAlert = {
@@ -25,29 +42,26 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box>
-        <CssBaseline />
-        {/* {isLoading && <CircularProgress />}
-      {sampleAlert.message && (
-        <Alert
-          severity={sampleAlert.type}
-          sx={
-            {
-              // style here
-            }
-          }
-          onClose={() => {
-            // reset alert state here
-          }}
-        >
-          <AlertTitle>{sampleAlert.type}</AlertTitle>
-          {sampleAlert.message}
+      <CssBaseline />
+      {isLoading && <CircularProgress />}
 
-        </Alert>
-      )} */}
+      <Box
+        sx={{
+          backgroundColor: companyData.themeColors.primary,
+          minHeight: '100vh',
+          overflowX: 'hidden',
+          position: 'relative',
+        }}
+      >
+        <Header />
         <Router>
           <Routes>
             <Route path="/login" element={<Login />} />
+
+            {/* TODO: protect these routes */}
+            <Route path="admin">
+              <Route index element={<AdminHome />} />
+            </Route>
           </Routes>
         </Router>
       </Box>
