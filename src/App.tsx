@@ -6,6 +6,7 @@ import {
   CircularProgress,
   CssBaseline,
 } from '@mui/material';
+import TestComponent from './components/MUI_comp/TestComponent';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from './components/Header';
 import AdminHome from './pages/AdminHome';
@@ -56,6 +57,7 @@ const App = () => {
           </Route>
         </Routes>
       </Router>
+      <TestComponent />
       {/* <AvatarIcon /> */}
       {/* {isLoading && <CircularProgress />} */}
       {/* {sampleAlert.message && (
@@ -74,15 +76,6 @@ const App = () => {
           {sampleAlert.message}
         </Alert>
       )} */}
-
-      {/* <ButtonComponent
-        width="100px"
-        height="50px"
-        customColor="#f96a02"
-        variant="contained"
-      >
-        submit
-      </ButtonComponent> */}
     </Box>
   );
 };

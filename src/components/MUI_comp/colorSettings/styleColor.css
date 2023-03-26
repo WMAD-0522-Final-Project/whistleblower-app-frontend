@@ -1,0 +1,53 @@
+* {
+  margin: 0;
+}
+
+.super {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.window {
+  width: 500px;
+  height: 80%;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+
+.inputFields {
+  height: 70%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.inputFields .textInputs {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+}
+.inputFields .colorInputSelector {
+  margin-top: 15px;
+  width: 90%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.inputFields .colorPalletes {
+  margin-top: 10px;
+  height: 50%;
+  background-color: white;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+} /*# sourceMappingURL=styleColor.css.map */
