@@ -14,9 +14,7 @@ import { selectLoading } from './RTK/loadingSlice';
 import { selectCompanyData } from './RTK/companySlice';
 import AvatarIcon from './components/admin/AvatarIcon';
 import ButtonComponent from './components/MUI_comp/ButtonComponent';
-
-import AdminHome from './pages/AdminHome';
-
+import RoleToggles from './components/RoleToggles';
 
 // TODO: get user data from store
 const userData = {
