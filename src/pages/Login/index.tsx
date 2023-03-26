@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import CustomBox from '../../components/CustomBox/CustomBox';
 import InputLabel from '../../components/InputLabel';
@@ -7,6 +7,7 @@ import ButtonComponent from '../../components/MUI_comp/ButtonComponent';
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../RTK/companySlice';
 import { Link } from 'react-router-dom';
+import SectionTitle from '../../components/SectionTitle';
 
 type Props = {};
 
@@ -15,10 +16,8 @@ const Login = (props: Props) => {
   const { companyData } = useSelector(selectCompanyData);
 
   return (
-    <>
-      <Typography variant="h1" sx={{ fontSize: '1.5rem', textAlign: 'center' }}>
-        LOGIN
-      </Typography>
+    <Box component="main" sx={{ mt: '5rem' }}>
+      <SectionTitle title="LOGIN" />
       <CustomBox>
         <InputLabel
           label={'Email Address'}
@@ -55,7 +54,7 @@ const Login = (props: Props) => {
           </Link>
         </Typography>
       </CustomBox>
-    </>
+    </Box>
   );
 };
 

@@ -15,15 +15,6 @@ import AdminHome from './pages/AdminHome';
 import { setLoading } from './RTK/loadingSlice';
 import { selectLoading } from './RTK/loadingSlice';
 import { selectCompanyData } from './RTK/companySlice';
-import AvatarIcon from './components/admin/AvatarIcon';
-import ButtonComponent from './components/MUI_comp/ButtonComponent';
-
-// TODO: get user data from store
-const userData = {
-  firstName: 'John',
-  lastName: 'Doe',
-  profileImg: '/images/profileImg.jpg',
-};
 
 const App = () => {
   const { isLoading } = useSelector(selectLoading);
@@ -57,9 +48,9 @@ const App = () => {
           <Routes>
             <Route path="/login" element={<Login />} />
             {/* TODO: protect these routes */}
-            {/* <Route path="admin">
+            <Route path="admin">
               <Route index element={<AdminHome />} />
-            </Route> */}
+            </Route>
           </Routes>
         </Router>
       </Box>
