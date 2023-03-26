@@ -1,61 +1,60 @@
-
- *{
-     margin: 0;
-  }
- .super{
-     position: relative;
-     width: 100vw;
-     z-index: 0;
-     height: 100vh;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-  }
-  .window{
-    width: 400px;
-    height: 80%;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    flex-direction: column;
-  }
-  .setting_title{
-    font-size: 1.5em;
-    font-weight: bolder;
-  }
-  .inputFields{
-    height: 70%;
+* {
+  margin: 0;
+}
+.super {
+  position: relative;
+  width: 100vw;
+  z-index: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.window {
+  width: 400px;
+  height: 80%;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+.setting_title {
+  font-size: 1.5em;
+  font-weight: bolder;
+}
+.inputFields {
+  height: 70%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .textInputs {
     width: 100%;
+    height: 50%;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    .textInputs{
-        width: 100%;
-        height: 50%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        justify-content: space-between;
-    }
-    .colorInputSelector{
-      margin-top: 15px;
-      width: 90%;
-      display: flex;
-      justify-content: space-evenly;
-    }
-    .colorPalletes{
-        margin-top: 10px;
-        height: 50%;
-        background-color: white;
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: repeat(2, 1fr);
-    }
+    align-items: center;
+    justify-content: space-between;
   }
-.bg_decoration{
+  .colorInputSelector {
+    margin-top: 15px;
+    width: 90%;
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .colorPalletes {
+    margin-top: 10px;
+    height: 50%;
+    background-color: white;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+}
+.bg_decoration {
   position: absolute;
   z-index: -1;
   width: 40%;
@@ -66,5 +65,5 @@
   // background-image: radial-gradient(circle,  #FFCB14  20%, transparent 10%), radial-gradient(circle, #FFCB14, 20%, transparent 10%);
   background-size: 10px 10px;
   background-position: 0 0, 50px 50px;
-  border-radius: 100% 0% 0% 100% / 0% 79% 21% 100% ;
+  border-radius: 100% 0% 0% 100% / 0% 79% 21% 100%;
 }

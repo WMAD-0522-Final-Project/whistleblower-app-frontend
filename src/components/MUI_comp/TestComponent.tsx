@@ -39,9 +39,9 @@ const TestComponent = () => {
       {/*(We can style this more manually or by putting more
         props this is just for demo purposes if u want to try change the colors in the
         root component called "TextFieldCustom.tsx") */}
-        {/* <NestedList/> */} 
+      {/* <NestedList/> */}
       {/* <SettingColors /> */}
-        <Settings/>
+      <Settings />
     </div>
   );
 };

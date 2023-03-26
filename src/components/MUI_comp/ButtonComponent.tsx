@@ -20,7 +20,7 @@ const ButtonComponent = ({
 }: CustomButtonProps) => {
   const buttonStyles: SxProps = {
     boxShadow: 'none',
-    color: textColor ? textColor: 'auto',
+    color: textColor ? textColor : 'auto',
     backgroundColor: customColor,
     height: height ? height : 'auto',
     width: width ? width : 'auto',

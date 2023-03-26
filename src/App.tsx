@@ -5,7 +5,7 @@ import {
   CircularProgress,
   CssBaseline,
 } from '@mui/material';
-import {Routes, Route, BrowserRouter} from 'react-router-dom'
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
 import NavigationMenu from './components/NavigationMenu';
 import TestComponent from './components/MUI_comp/TestComponent';
@@ -22,15 +22,11 @@ const App = () => {
 
   return (
     <>
-    <Box>
-
-      <CssBaseline />
-    
-        
-    </Box>
-     <TestComponent/>
+      <Box>
+        <CssBaseline />
+      </Box>
+      <TestComponent />
     </>
-    
   );
 };
 

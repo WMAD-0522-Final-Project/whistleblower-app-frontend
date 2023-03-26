@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextField, TextFieldProps } from '@mui/material';
 import { SxProps } from '@mui/system';
-import {  } from '@mui/material/colors';
+import {} from '@mui/material/colors';
 
 interface CustomTextFieldProps extends Omit<TextFieldProps, 'label'> {
   label: string;
@@ -22,29 +22,27 @@ const TextFieldCustom = ({
   ...props
 }: CustomTextFieldProps) => {
   const textFieldStyle = {
-    width: `${width}`, 
- 
+    width: `${width}`,
+
     '& .MuiFilledInput-underline:after': {
-      borderBottomColor: `${mainColor}`,    // customize the underline color when the input field is filled
+      borderBottomColor: `${mainColor}`, // customize the underline color when the input field is filled
     },
     '&:focus-within .MuiFilledInput-underline:after': {
       borderBottomColor: `${mainColor}`, // customize the underline color when the input field is focused
     },
- 
+
     '& label.Mui-focused': {
       color: `${mainColor}`,
     },
-  
+
     '& .MuiOutlinedInput-root': {
       '& fieldset': {
         borderColor: 'black',
       },
-    
-  
     },
   };
   return (
-    <TextField 
+    <TextField
       margin="dense"
       label={label}
       id="mui-theme-provider-standard-input"
