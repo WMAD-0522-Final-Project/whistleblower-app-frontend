@@ -90,6 +90,7 @@ const Settings = () => {
             })}
           </div>
         </div>
+        {/* submit button */}
         <ButtonComponent
           onClick={() => {}}
           variant="contained"
@@ -98,8 +99,7 @@ const Settings = () => {
           height="2rem"
         >
           Submit
-        </ButtonComponent>{' '}
-        {/* submit button */}
+        </ButtonComponent>
       </div>
       <div
         className="bg_decoration"
