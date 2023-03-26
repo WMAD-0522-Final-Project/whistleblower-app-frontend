@@ -75,7 +75,7 @@ const App = () => {
             </Route>
           </Routes>
         </Router>
-        <TestComponent />
+        {/* <TestComponent /> */}
         {/* {isLoading && <CircularProgress />} */}
         {/* {sampleAlert.message && (
         <Alert
