@@ -11,7 +11,7 @@ const ClaimList = ({ claims }: Props) => {
   return (
     <Box component="ul">
       {claims.map((claim) => (
-        <ClaimListItem claim={claim} sx={{ mt: '0.8rem' }} />
+        <ClaimListItem claim={claim} sx={{ mt: '0.8rem' }} key={claim.id} />
       ))}
     </Box>
   );
