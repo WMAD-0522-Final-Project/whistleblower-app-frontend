@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {
   Box,
@@ -13,24 +14,31 @@ import AdminHome from './pages/AdminHome';
 import { setLoading } from './RTK/loadingSlice';
 import { selectLoading } from './RTK/loadingSlice';
 import { selectCompanyData } from './RTK/companySlice';
+import { setUserData } from './RTK/userDataSlice';
+import { selectUserData } from './RTK/userDataSlice';
 import AvatarIcon from './components/admin/AvatarIcon';
 import ButtonComponent from './components/MUI_comp/ButtonComponent';
-
-import AdminHome from './pages/AdminHome';
-
-
-// TODO: get user data from store
-const userData = {
-  firstName: 'John',
-  lastName: 'Doe',
-  profileImg: '/images/profileImg.jpg',
-};
 
 const App = () => {
   const { isLoading } = useSelector(selectLoading);
   const { companyData } = useSelector(selectCompanyData);
   const loadingDispatch = useDispatch();
   loadingDispatch(setLoading(true));
+  // TODO: get user data from store
+  const userData = useSelector(selectUserData);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(
+      setUserData({ firstName: 'Isaac', lastName: 'Wu', profileImg: 'n/a' })
+    );
+  }, []);
+
+  useEffect(() => {
+    console.log(userData);
+  }, [userData]);
+
+  // use Redux for loading state
 
   // use Redux for alert state
   const sampleAlert = {
@@ -47,8 +55,8 @@ const App = () => {
         position: 'relative',
       }}
     >
-      <Header />
-      <AvatarIcon />
+      {/* <Header />
+      <AvatarIcon /> */}
       <Router>
         <Routes>
           {/* TODO: protect these routes */}
