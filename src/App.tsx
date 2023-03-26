@@ -6,6 +6,8 @@ import {
   AlertTitle,
   CircularProgress,
   ThemeProvider,
+  Typography,
+  Button,
 } from '@mui/material';
 import theme from './theme';
 import Login from './pages/Login';
@@ -20,6 +22,8 @@ import { setUserData } from './RTK/userDataSlice';
 import { selectUserData } from './RTK/userDataSlice';
 import AvatarIcon from './components/admin/AvatarIcon';
 import ButtonComponent from './components/MUI_comp/ButtonComponent';
+import PopupModal from './components/MUI_comp/PopupModal';
+import ConfirmationModal from './components/ConfirmationModal';
 
 const App = () => {
   const { isLoading } = useSelector(selectLoading);
@@ -46,25 +50,12 @@ const App = () => {
     type: 'success',
   };
 
+  const submitData = () => {
+    console.log('Confirmed!!!!!!!!!!!');
+  };
+
   return (
     <ThemeProvider theme={theme}>
-      {/* {isLoading && <CircularProgress />} */}
-      {/* {sampleAlert.message && (
-        <Alert
-          severity={sampleAlert.type}
-          sx={
-            {
-              // style here
-            }
-          }
-          onClose={() => {
-            // reset alert state here
-          }}
-        >
-          <AlertTitle>{sampleAlert.type}</AlertTitle>
-          {sampleAlert.message}
-        </Alert>
-      )} */}
       <Box
         sx={{
           backgroundColor: companyData.themeColors.primary,
@@ -84,7 +75,24 @@ const App = () => {
             </Route>
           </Routes>
         </Router>
-        {/* <TestComponent /> */}
+        <TestComponent />
+        {/* {isLoading && <CircularProgress />} */}
+        {/* {sampleAlert.message && (
+        <Alert
+          severity={sampleAlert.type}
+          sx={
+            {
+              // style here
+            }
+          }
+          onClose={() => {
+            // reset alert state here
+          }}
+        >
+          <AlertTitle>{sampleAlert.type}</AlertTitle>
+          {sampleAlert.message}
+        </Alert>
+      )} */}
       </Box>
     </ThemeProvider>
   );
