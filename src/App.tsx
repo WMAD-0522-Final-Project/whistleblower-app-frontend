@@ -6,6 +6,8 @@ import {
   AlertTitle,
   CircularProgress,
   CssBaseline,
+  Typography,
+  Button,
 } from '@mui/material';
 import TestComponent from './components/MUI_comp/TestComponent';
 import { useSelector, useDispatch } from 'react-redux';
@@ -18,6 +20,8 @@ import { setUserData } from './RTK/userDataSlice';
 import { selectUserData } from './RTK/userDataSlice';
 import AvatarIcon from './components/admin/AvatarIcon';
 import ButtonComponent from './components/MUI_comp/ButtonComponent';
+import PopupModal from './components/MUI_comp/PopupModal';
+import ConfirmationModal from './components/ConfirmationModal';
 
 const App = () => {
   const { isLoading } = useSelector(selectLoading);
@@ -46,6 +50,10 @@ const App = () => {
     type: 'success',
   };
 
+  const submitData = () => {
+    console.log('Confirmed!!!!!!!!!!!');
+  };
+
   return (
     <Box
       sx={{
@@ -55,6 +63,7 @@ const App = () => {
         position: 'relative',
       }}
     >
+      <AvatarIcon />
       {/* <Header />
       <AvatarIcon /> */}
       <Router>
