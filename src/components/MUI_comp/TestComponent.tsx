@@ -1,10 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-
-import TextFieldCustom from './TextFieldCustom';
-import ButtonComponent from './ButtonComponent';
+import Settings from './Settings';
 
 const TestComponent = () => {
   const [name, setName] = useState('');
@@ -19,13 +14,13 @@ const TestComponent = () => {
 
   return (
     <div className="super">
-      <TextFieldCustom
+      {/* <TextFieldCustom
         label="Name"
         error={false} //If the error is true it will highlight the input field in red
         width="500px" //Set the Input field width
         mainColor="black" // ==> Border color of the input
         secondaryColor="white" // ==> color of the background
-        textColor="grey"
+        textColor="black"
         // (We can style this more manually or by putting more
         // props this is just for demo purposes if u want to try change the colors in the
         // root component called "TextFieldCustom.tsx")
@@ -44,6 +39,9 @@ const TestComponent = () => {
       {/*(We can style this more manually or by putting more
         props this is just for demo purposes if u want to try change the colors in the
         root component called "TextFieldCustom.tsx") */}
+      {/* <NestedList/> */}
+      {/* <SettingColors /> */}
+      <Settings />
     </div>
   );
 };
