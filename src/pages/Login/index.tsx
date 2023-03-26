@@ -49,7 +49,14 @@ const Login = (props: Props) => {
           sx={{ fontSize: '.8rem', textAlign: 'center', mt: '1.4rem' }}
         >
           Need help?
-          <Link to="/contact" style={{ color: 'inherit', fontWeight: '500' }}>
+          <Link
+            to="/contact"
+            style={{
+              color: 'inherit',
+              fontWeight: '500',
+              paddingLeft: '0.4em',
+            }}
+          >
             Contact admin team
           </Link>
         </Typography>

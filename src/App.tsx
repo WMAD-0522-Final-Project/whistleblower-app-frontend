@@ -8,6 +8,7 @@ import {
   ThemeProvider,
   createTheme,
 } from '@mui/material';
+import theme from './theme';
 import Login from './pages/Login';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from './components/Header';
@@ -27,9 +28,6 @@ const App = () => {
     message: 'test alert!',
     type: 'success',
   };
-
-  // Juan is making the theme here
-  const theme = createTheme({});
 
   return (
     <ThemeProvider theme={theme}>
