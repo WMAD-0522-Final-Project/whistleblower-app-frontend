@@ -43,8 +43,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {isLoading && <CircularProgress />}
-
+      {/* {isLoading && <CircularProgress />} */}
       <Box
         sx={{
           backgroundColor: companyData.themeColors.primary,
@@ -53,15 +52,14 @@ const App = () => {
           position: 'relative',
         }}
       >
-        <Header />
         <Router>
+          <Header />
           <Routes>
             <Route path="/login" element={<Login />} />
-
             {/* TODO: protect these routes */}
-            <Route path="admin">
+            {/* <Route path="admin">
               <Route index element={<AdminHome />} />
-            </Route>
+            </Route> */}
           </Routes>
         </Router>
       </Box>
