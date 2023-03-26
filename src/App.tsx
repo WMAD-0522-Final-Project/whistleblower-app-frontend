@@ -5,10 +5,12 @@ import {
   Alert,
   AlertTitle,
   CircularProgress,
-  CssBaseline,
+  ThemeProvider,
   Typography,
   Button,
 } from '@mui/material';
+import theme from './theme';
+import Login from './pages/Login';
 import TestComponent from './components/MUI_comp/TestComponent';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from './components/Header';
@@ -42,8 +44,6 @@ const App = () => {
     console.log(userData);
   }, [userData]);
 
-  // use Redux for loading state
-
   // use Redux for alert state
   const sampleAlert = {
     message: 'test alert!',
@@ -55,29 +55,29 @@ const App = () => {
   };
 
   return (
-    <Box
-      sx={{
-        backgroundColor: companyData.themeColors.primary,
-        minHeight: '100vh',
-        overflowX: 'hidden',
-        position: 'relative',
-      }}
-    >
-      <AvatarIcon />
-      {/* <Header />
-      <AvatarIcon /> */}
-      <Router>
-        <Routes>
-          {/* TODO: protect these routes */}
-          <Route path="admin">
-            <Route index element={<AdminHome />} />
-          </Route>
-        </Routes>
-      </Router>
-      <TestComponent />
-      {/* <AvatarIcon /> */}
-      {/* {isLoading && <CircularProgress />} */}
-      {/* {sampleAlert.message && (
+    <ThemeProvider theme={theme}>
+      <Box
+        sx={{
+          backgroundColor: companyData.themeColors.primary,
+          minHeight: '100vh',
+          overflowX: 'hidden',
+          position: 'relative',
+        }}
+      >
+        <Router>
+          <Header />
+          <AvatarIcon />
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            {/* TODO: protect these routes */}
+            <Route path="admin">
+              <Route index element={<AdminHome />} />
+            </Route>
+          </Routes>
+        </Router>
+        <TestComponent />
+        {/* {isLoading && <CircularProgress />} */}
+        {/* {sampleAlert.message && (
         <Alert
           severity={sampleAlert.type}
           sx={
@@ -93,7 +93,8 @@ const App = () => {
           {sampleAlert.message}
         </Alert>
       )} */}
-    </Box>
+      </Box>
+    </ThemeProvider>
   );
 };
 

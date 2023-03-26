@@ -10,6 +10,7 @@ interface CustomTextFieldProps extends Omit<TextFieldProps, 'label'> {
   mainColor: string;
   secondaryColor?: string;
   textColor?: string;
+  sx?: SxProps;
 }
 
 const TextFieldCustom = ({
@@ -19,6 +20,7 @@ const TextFieldCustom = ({
   mainColor,
   secondaryColor,
   textColor,
+  sx,
   ...props
 }: CustomTextFieldProps) => {
   const textFieldStyle = {
@@ -46,7 +48,7 @@ const TextFieldCustom = ({
       margin="dense"
       label={label}
       id="mui-theme-provider-standard-input"
-      sx={{ ...textFieldStyle }}
+      sx={{ ...textFieldStyle, ...sx }}
       variant="filled"
       {...props}
     />
