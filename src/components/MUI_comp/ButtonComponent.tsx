@@ -5,6 +5,7 @@ interface CustomButtonProps extends ButtonProps {
   width?: string;
   height?: string;
   customColor?: string;
+  textColor?: string;
   sx?: SxProps;
 }
 
@@ -13,10 +14,13 @@ const ButtonComponent = ({
   width,
   height,
   customColor,
+  textColor,
   sx,
   ...rest
 }: CustomButtonProps) => {
   const buttonStyles: SxProps = {
+    boxShadow: 'none',
+    color: textColor ? textColor : 'auto',
     backgroundColor: customColor,
     height: height ? height : 'auto',
     width: width ? width : 'auto',

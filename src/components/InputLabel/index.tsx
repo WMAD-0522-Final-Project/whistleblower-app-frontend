@@ -26,8 +26,11 @@ const InputLabel = ({ placeholder, label, topLabel, sx }: type) => {
         placeholder={placeholder}
         width={'100%'}
         mainColor={companyData.themeColors.primary}
-        secondaryColor={'#D9D9D9'}
-        sx={{ mt: '0.3rem' }}
+        sx={{
+          mt: '0.3rem',
+          backgroundColor: '#D9D9D9',
+          color: companyData.themeColors.secondary,
+        }}
       ></TextFieldCustom>
     </Box>
   );
