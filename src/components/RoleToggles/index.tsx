@@ -55,13 +55,13 @@ export default function RoleToggles({}: Props) {
   //   const { companyData } = useSelector(selectCompanyData);
   const handleSuperAdmin = () => {
     setSuperAdminToggle(!superAdminToggle);
-    if (superAdminToggle) {
-      //   setCheckedRole({
-      //     role1: false,
-      //     role2: false,
-      //     role3: false,
-      //     role4: false,
-      //   });
+    if (!superAdminToggle) {
+      setCheckedRole({
+        role1: false,
+        role2: false,
+        role3: false,
+        role4: false,
+      });
       setDisabledRole({
         role1: true,
         role2: true,
