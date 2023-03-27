@@ -7,14 +7,7 @@ import Frame from '../Frame.tsx/Frame';
 import Closebutton from '../../../SVG/Closebutton';
 import UserCard from '../UserCard';
 import LabalCard from '../LabelCard';
-
-const parent3boxStyle = {
-  width: '100%',
-  height: '100%',
-  color: 'white',
-  display: 'flex',
-  // backgroundColor: 'red',
-};
+import styles from './mainWindow.module.scss';
 
 function MainWindow() {
   const { companyData } = useSelector(selectCompanyData);
@@ -40,35 +33,57 @@ function MainWindow() {
           borderRadius: '20px',
           border: `${companyData.themeColors.primary} 3px solid`,
           overflow: 'scroll',
+          position: 'relative',
         }}
       >
-        <Grid container spacing={2} sx={{ width: '100%', height: '100%' }}>
+        <Grid
+          container
+          spacing={2}
+          justifyContent="space-around"
+          sx={{
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+          }}
+        >
           <Grid
             container
             item
-            spacing={5}
-            xs={18}
+            spacing={7}
+            xs={12}
             sm={6}
             direction="column"
             justifyContent="space-around"
-            sx={parent3boxStyle}
+            sx={{
+              width: '100%',
+              height: '100%',
+              color: 'white',
+              display: 'flex',
+              // backgroundColor: 'red',
+            }}
           >
             <Grid
               item
               xs={1}
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-              }}
+              sm={2}
+              sx={
+                {
+                  // display: 'flex',
+                  // alignItems: 'center',
+                }
+              }
             >
               <Box sx={claimNumberStyle}>claim number: 8080</Box>
             </Grid>
             <Grid
               item
               xs={5}
+              sm={5}
+              justifyContent="space-around"
               sx={{
                 display: 'flex',
-                justifyContent: 'center',
+                // justifyContent: 'center',
+                // alignItems: 'center',
                 // backgroundColor: 'red',
               }}
             >
@@ -76,9 +91,9 @@ function MainWindow() {
                 width={95}
                 height={100}
                 label={'claim detail'}
-                // text={
-                //   ';asldf;asldfkjs;dfl;asldkfj;alsk;dffffffffffffffffffffffffffffasldkfjas;dlfkaj;sdlkfj;asldkfj'
-                // }
+                text={
+                  ';asldf;asldfkjs;dfl;asldkfj;alsk;dfa;lsdkfjs;aldfkjfffffffffffffffffffffffffffasldkfjas;dlfkaj;sdlkfj;asldkfj'
+                }
               ></Frame>
             </Grid>
 
@@ -86,18 +101,13 @@ function MainWindow() {
               container
               item
               spacing={1}
-              xs={0.5}
+              xs={5}
               sm={5}
               justifyContent="space-around"
-              alignContent="center"
+              // alignContent="space-around"
               // sx={{ backgroundColor: 'red' }}
             >
-              <Grid
-                item
-                xs={11}
-                sm={5}
-                sx={{ width: '45%', height: '100%', overflow: 'hidden' }}
-              >
+              <Grid item xs={12} sm={5} sx={{ width: '45%', height: '100%' }}>
                 <Frame
                   width={100}
                   height={100}
@@ -121,10 +131,70 @@ function MainWindow() {
                       height={40}
                       url={'/images/profileImg.jpg'}
                     ></UserCard>,
+                    <UserCard
+                      name={'jumpei iwatani'}
+                      width={110}
+                      height={40}
+                      url={'/images/profileImg.jpg'}
+                    ></UserCard>,
+                    <UserCard
+                      name={'jumpei iwatani'}
+                      width={110}
+                      height={40}
+                      url={'/images/profileImg.jpg'}
+                    ></UserCard>,
+                    <UserCard
+                      name={'jumpei iwatani'}
+                      width={110}
+                      height={40}
+                      url={'/images/profileImg.jpg'}
+                    ></UserCard>,
+                    <UserCard
+                      name={'jumpei iwatani'}
+                      width={110}
+                      height={40}
+                      url={'/images/profileImg.jpg'}
+                    ></UserCard>,
+                    <UserCard
+                      name={'jumpei iwatani'}
+                      width={110}
+                      height={40}
+                      url={'/images/profileImg.jpg'}
+                    ></UserCard>,
+                    <UserCard
+                      name={'jumpei iwatani'}
+                      width={110}
+                      height={40}
+                      url={'/images/profileImg.jpg'}
+                    ></UserCard>,
+                    <UserCard
+                      name={'jumpei iwatani'}
+                      width={110}
+                      height={40}
+                      url={'/images/profileImg.jpg'}
+                    ></UserCard>,
+                    <UserCard
+                      name={'jumpei iwatani'}
+                      width={110}
+                      height={40}
+                      url={'/images/profileImg.jpg'}
+                    ></UserCard>,
+                    <UserCard
+                      name={'jumpei iwatani'}
+                      width={110}
+                      height={40}
+                      url={'/images/profileImg.jpg'}
+                    ></UserCard>,
+                    <UserCard
+                      name={'jumpei iwatani'}
+                      width={110}
+                      height={40}
+                      url={'/images/profileImg.jpg'}
+                    ></UserCard>,
                   ]}
                 ></Frame>
               </Grid>
-              <Grid item xs={11} sm={5} sx={{ width: '45%', height: '100%' }}>
+              <Grid item xs={12} sm={5} sx={{ width: '45%', height: '100%' }}>
                 <Frame
                   width={100}
                   height={100}
@@ -132,28 +202,63 @@ function MainWindow() {
                   component={[
                     <LabalCard
                       name={'ok deal'}
-                      width={120}
+                      width={110}
                       height={50}
                       url={'/images/profileImg.jpg'}
                       color={'blue'}
                     ></LabalCard>,
                     <LabalCard
                       name={'ok deal'}
-                      width={120}
+                      width={110}
                       height={50}
                       url={'/images/profileImg.jpg'}
                       color={'blue'}
                     ></LabalCard>,
                     <LabalCard
                       name={'ok deal'}
-                      width={120}
+                      width={110}
                       height={50}
                       url={'/images/profileImg.jpg'}
                       color={'blue'}
                     ></LabalCard>,
                     <LabalCard
                       name={'ok deal'}
-                      width={120}
+                      width={110}
+                      height={50}
+                      url={'/images/profileImg.jpg'}
+                      color={'red'}
+                    ></LabalCard>,
+                    <LabalCard
+                      name={'ok deal'}
+                      width={110}
+                      height={50}
+                      url={'/images/profileImg.jpg'}
+                      color={'red'}
+                    ></LabalCard>,
+                    <LabalCard
+                      name={'ok deal'}
+                      width={110}
+                      height={50}
+                      url={'/images/profileImg.jpg'}
+                      color={'red'}
+                    ></LabalCard>,
+                    <LabalCard
+                      name={'ok deal'}
+                      width={110}
+                      height={50}
+                      url={'/images/profileImg.jpg'}
+                      color={'red'}
+                    ></LabalCard>,
+                    <LabalCard
+                      name={'ok deal'}
+                      width={110}
+                      height={50}
+                      url={'/images/profileImg.jpg'}
+                      color={'red'}
+                    ></LabalCard>,
+                    <LabalCard
+                      name={'ok deal'}
+                      width={110}
                       height={50}
                       url={'/images/profileImg.jpg'}
                       color={'red'}
@@ -165,14 +270,15 @@ function MainWindow() {
           </Grid>
           <Grid
             item
-            xs={10.5}
-            sm={5}
+            className={styles.chat}
+            xs={12}
+            sm={6}
             sx={{
               marginTop: '6%',
               width: '100%',
               height: '90%',
               // backgroundColor: 'red',
-              marginLeft: '5%',
+              // marginLeft: '5%',
             }}
           >
             <Frame width={100} height={100} label={'chat'}></Frame>

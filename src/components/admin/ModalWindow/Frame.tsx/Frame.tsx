@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import { selectCompanyData } from '../../../../RTK/companySlice';
 import { useSelector } from 'react-redux';
+import styles from './Frame.module.scss';
 
 type Props = {
   width: number;
@@ -26,6 +27,7 @@ function Frame({ width, height, label, text, component }: Props) {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+
           //   overflow: 'scroll',
           //   backgroundColor: 'black',
         }}
@@ -46,8 +48,23 @@ function Frame({ width, height, label, text, component }: Props) {
         >
           {label}
         </Box>
-        {text && <p style={{ width: '50%', position: 'absolute' }}>{text}</p>}
+        {text && (
+          <div
+            style={{
+              width: '50%',
+              height: '100%',
+              position: 'relative',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <div style={{ position: 'absolute' }}>{text}</div>
+          </div>
+        )}
         <div
+          className={styles.contentBox}
           style={{
             position: 'relative',
             display: 'flex',
@@ -57,6 +74,9 @@ function Frame({ width, height, label, text, component }: Props) {
             width: '100%',
             height: '100%',
             overflow: 'scroll',
+            overflowX: 'hidden',
+            top: '-10%',
+            // border: 'solid 3px black',
             // backgroundColor: 'red',
           }}
         >
@@ -68,7 +88,9 @@ function Frame({ width, height, label, text, component }: Props) {
                     style={{
                       width: '70%',
                       height: '30%',
-                      border: 'solid 2px black',
+                      // border: 'solid 2px black',
+                      position: 'absolute',
+                      marginTop: `${50 * i}%`,
                     }}
                   >
                     {user}

@@ -52,7 +52,7 @@ function UserCard({ name, width, height, url }: Props) {
         </div>
 
         <Typography
-          fontSize={'0.9vw'}
+          fontSize={'1.5vh'}
           sx={{
             width: '90%',
             overflow: 'hidden',
