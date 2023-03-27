@@ -6,10 +6,15 @@ import { useSelector } from 'react-redux';
 import Frame from '../Frame.tsx/Frame';
 import Closebutton from '../../../SVG/Closebutton';
 import UserCard from '../UserCard';
+// import { MotionUserCard } from '../UserCard';
 import LabalCard from '../LabelCard';
 import styles from './mainWindow.module.scss';
+import { Claim } from '../../../../types';
+type Props = {
+  claim: Partial<Claim>;
+};
 
-function MainWindow() {
+function MainWindow({ claim }: Props) {
   const { companyData } = useSelector(selectCompanyData);
   const claimNumberStyle = {
     width: '200px',
@@ -161,36 +166,6 @@ function MainWindow() {
                       height={40}
                       url={'/images/profileImg.jpg'}
                     ></UserCard>,
-                    <UserCard
-                      name={'jumpei iwatani'}
-                      width={110}
-                      height={40}
-                      url={'/images/profileImg.jpg'}
-                    ></UserCard>,
-                    <UserCard
-                      name={'jumpei iwatani'}
-                      width={110}
-                      height={40}
-                      url={'/images/profileImg.jpg'}
-                    ></UserCard>,
-                    <UserCard
-                      name={'jumpei iwatani'}
-                      width={110}
-                      height={40}
-                      url={'/images/profileImg.jpg'}
-                    ></UserCard>,
-                    <UserCard
-                      name={'jumpei iwatani'}
-                      width={110}
-                      height={40}
-                      url={'/images/profileImg.jpg'}
-                    ></UserCard>,
-                    <UserCard
-                      name={'jumpei iwatani'}
-                      width={110}
-                      height={40}
-                      url={'/images/profileImg.jpg'}
-                    ></UserCard>,
                   ]}
                 ></Frame>
               </Grid>
@@ -274,7 +249,7 @@ function MainWindow() {
             xs={12}
             sm={6}
             sx={{
-              marginTop: '6%',
+              marginTop: '3%',
               width: '100%',
               height: '90%',
               // backgroundColor: 'red',

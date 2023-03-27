@@ -21,7 +21,7 @@ const AdminHome = (props: Props) => {
     setClaims(sampleClaims);
   }, []);
 
-  console.log(claims);
+  console.log(claims[0], 'this is claim');
 
   return (
     // TODO: temporary styling until Mateus's task is done
@@ -46,7 +46,7 @@ const AdminHome = (props: Props) => {
           height={10}
         ></UserCard>
         <LabalCard></LabalCard> */}
-        <MainWindow></MainWindow>
+        <MainWindow claim={claims[0]}></MainWindow>
       </div>
     </>
   );
