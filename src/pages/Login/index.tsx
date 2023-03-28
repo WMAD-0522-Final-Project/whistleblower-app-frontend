@@ -12,13 +12,12 @@ import SectionTitle from '../../components/SectionTitle';
 type Props = {};
 
 const Login = (props: Props) => {
-  const theme = useTheme();
   const { companyData } = useSelector(selectCompanyData);
 
   return (
-    <Box component="main" sx={{ mt: '5rem' }}>
+    <Box component="main" sx={{ m: '5rem auto' }}>
       <SectionTitle title="LOGIN" />
-      <CustomBox>
+      <CustomBox sx={{ padding: '3rem 0' }}>
         <InputLabel
           label={'Email Address'}
           topLabel={'Email'}
