@@ -68,7 +68,7 @@ function MainWindow({ claim }: Props) {
             }}
           >
             <Grid item xs={1} sm={2}>
-              <Box sx={claimNumberStyle}>claim id: </Box>
+              <Box sx={claimNumberStyle}>claim id: {claim.id}</Box>
             </Grid>
             <Grid
               item
