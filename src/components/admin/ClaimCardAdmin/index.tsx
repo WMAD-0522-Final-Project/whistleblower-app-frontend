@@ -9,7 +9,7 @@ type Props = {
   sx?: SxProps;
 };
 
-const ClaimListItem = ({ claim, sx }: Props) => {
+const ClaimCardAdmin = ({ claim, sx }: Props) => {
   const { companyData } = useSelector(selectCompanyData);
 
   const handleClaimClick = () => {
@@ -114,4 +114,4 @@ const ClaimListItem = ({ claim, sx }: Props) => {
   );
 };
 
-export default ClaimListItem;
+export default ClaimCardAdmin;
