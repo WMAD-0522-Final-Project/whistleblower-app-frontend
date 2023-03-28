@@ -11,6 +11,14 @@ export default [
         userId: 'asdfghjkl',
         avatarUrl: '/images/profileImg.jpg',
       },
+      {
+        userId: 'asdfghjkl',
+        avatarUrl: '/images/profileImg.jpg',
+      },
+      {
+        userId: 'asdfghjkl',
+        avatarUrl: '/images/profileImg.jpg',
+      },
     ],
   },
   {

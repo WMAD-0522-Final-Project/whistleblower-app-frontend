@@ -4,6 +4,7 @@ import { Component } from 'react';
 import { selectCompanyData } from '../../../../RTK/companySlice';
 import { useSelector } from 'react-redux';
 import styles from './Frame.module.scss';
+import { Claim } from '../../../../types';
 
 type Props = {
   width: number;
@@ -11,9 +12,11 @@ type Props = {
   label: string;
   text?: string;
   component?: JSX.Element[];
+  claim?: Partial<Claim>;
 };
-function Frame({ width, height, label, text, component }: Props) {
+function Frame({ width, height, label, text, component, claim }: Props) {
   const { companyData } = useSelector(selectCompanyData);
+  console.log(component, ';lk');
   return (
     <>
       <Box
@@ -48,21 +51,7 @@ function Frame({ width, height, label, text, component }: Props) {
         >
           {label}
         </Box>
-        {text && (
-          <div
-            style={{
-              width: '50%',
-              height: '100%',
-              position: 'relative',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <div style={{ position: 'absolute' }}>{text}</div>
-          </div>
-        )}
+
         <div
           className={styles.contentBox}
           style={{
@@ -80,6 +69,13 @@ function Frame({ width, height, label, text, component }: Props) {
             // backgroundColor: 'red',
           }}
         >
+          {claim && (
+            <div>
+              <div>{claim.submissionDate}</div>
+              <div>{claim.category}</div>
+              <div>{claim.message}</div>
+            </div>
+          )}
           {component &&
             component.map((user, i) => {
               return (

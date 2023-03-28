@@ -67,18 +67,8 @@ function MainWindow({ claim }: Props) {
               // backgroundColor: 'red',
             }}
           >
-            <Grid
-              item
-              xs={1}
-              sm={2}
-              sx={
-                {
-                  // display: 'flex',
-                  // alignItems: 'center',
-                }
-              }
-            >
-              <Box sx={claimNumberStyle}>claim number: 8080</Box>
+            <Grid item xs={1} sm={2}>
+              <Box sx={claimNumberStyle}>claim id: </Box>
             </Grid>
             <Grid
               item
@@ -87,18 +77,13 @@ function MainWindow({ claim }: Props) {
               justifyContent="space-around"
               sx={{
                 display: 'flex',
-                // justifyContent: 'center',
-                // alignItems: 'center',
-                // backgroundColor: 'red',
               }}
             >
               <Frame
                 width={95}
                 height={100}
                 label={'claim detail'}
-                text={
-                  ';asldf;asldfkjs;dfl;asldkfj;alsk;dfa;lsdkfjs;aldfkjfffffffffffffffffffffffffffasldkfjas;dlfkaj;sdlkfj;asldkfj'
-                }
+                claim={claim}
               ></Frame>
             </Grid>
 
@@ -117,56 +102,16 @@ function MainWindow({ claim }: Props) {
                   width={100}
                   height={100}
                   label={'people'}
-                  component={[
-                    <UserCard
-                      name={'jumpei iwatani'}
-                      width={110}
-                      height={40}
-                      url={'/images/profileImg.jpg'}
-                    ></UserCard>,
-                    <UserCard
-                      name={'jumpei iwatani'}
-                      width={110}
-                      height={40}
-                      url={'/images/profileImg.jpg'}
-                    ></UserCard>,
-                    <UserCard
-                      name={'jumpei iwatani'}
-                      width={110}
-                      height={40}
-                      url={'/images/profileImg.jpg'}
-                    ></UserCard>,
-                    <UserCard
-                      name={'jumpei iwatani'}
-                      width={110}
-                      height={40}
-                      url={'/images/profileImg.jpg'}
-                    ></UserCard>,
-                    <UserCard
-                      name={'jumpei iwatani'}
-                      width={110}
-                      height={40}
-                      url={'/images/profileImg.jpg'}
-                    ></UserCard>,
-                    <UserCard
-                      name={'jumpei iwatani'}
-                      width={110}
-                      height={40}
-                      url={'/images/profileImg.jpg'}
-                    ></UserCard>,
-                    <UserCard
-                      name={'jumpei iwatani'}
-                      width={110}
-                      height={40}
-                      url={'/images/profileImg.jpg'}
-                    ></UserCard>,
-                    <UserCard
-                      name={'jumpei iwatani'}
-                      width={110}
-                      height={40}
-                      url={'/images/profileImg.jpg'}
-                    ></UserCard>,
-                  ]}
+                  component={claim.members?.map((member, i) => {
+                    return (
+                      <UserCard
+                        name={member.userId}
+                        width={110}
+                        height={40}
+                        url={member.avatarUrl}
+                      ></UserCard>
+                    );
+                  })}
                 ></Frame>
               </Grid>
               <Grid item xs={12} sm={5} sx={{ width: '45%', height: '100%' }}>
@@ -174,71 +119,26 @@ function MainWindow({ claim }: Props) {
                   width={100}
                   height={100}
                   label={'labels'}
-                  component={[
-                    <LabalCard
-                      name={'ok deal'}
-                      width={110}
-                      height={50}
-                      url={'/images/profileImg.jpg'}
-                      color={'blue'}
-                    ></LabalCard>,
-                    <LabalCard
-                      name={'ok deal'}
-                      width={110}
-                      height={50}
-                      url={'/images/profileImg.jpg'}
-                      color={'blue'}
-                    ></LabalCard>,
-                    <LabalCard
-                      name={'ok deal'}
-                      width={110}
-                      height={50}
-                      url={'/images/profileImg.jpg'}
-                      color={'blue'}
-                    ></LabalCard>,
-                    <LabalCard
-                      name={'ok deal'}
-                      width={110}
-                      height={50}
-                      url={'/images/profileImg.jpg'}
-                      color={'red'}
-                    ></LabalCard>,
-                    <LabalCard
-                      name={'ok deal'}
-                      width={110}
-                      height={50}
-                      url={'/images/profileImg.jpg'}
-                      color={'red'}
-                    ></LabalCard>,
-                    <LabalCard
-                      name={'ok deal'}
-                      width={110}
-                      height={50}
-                      url={'/images/profileImg.jpg'}
-                      color={'red'}
-                    ></LabalCard>,
-                    <LabalCard
-                      name={'ok deal'}
-                      width={110}
-                      height={50}
-                      url={'/images/profileImg.jpg'}
-                      color={'red'}
-                    ></LabalCard>,
-                    <LabalCard
-                      name={'ok deal'}
-                      width={110}
-                      height={50}
-                      url={'/images/profileImg.jpg'}
-                      color={'red'}
-                    ></LabalCard>,
-                    <LabalCard
-                      name={'ok deal'}
-                      width={110}
-                      height={50}
-                      url={'/images/profileImg.jpg'}
-                      color={'red'}
-                    ></LabalCard>,
-                  ]}
+                  // component={[
+                  //   <LabalCard
+                  //     name={'ok deal'}
+                  //     width={110}
+                  //     height={50}
+                  //     url={'/images/profileImg.jpg'}
+                  //     color={'blue'}
+                  //   ></LabalCard>,
+                  // ]}
+                  component={claim.labels?.map((label, i) => {
+                    return (
+                      <LabalCard
+                        name={label}
+                        width={110}
+                        height={50}
+                        url={'/images/profileImg.jpg'}
+                        color={'blue'}
+                      ></LabalCard>
+                    );
+                  })}
                 ></Frame>
               </Grid>
             </Grid>

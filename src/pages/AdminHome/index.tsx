@@ -14,14 +14,15 @@ type Props = {};
 
 const AdminHome = (props: Props) => {
   const { companyData } = useSelector(selectCompanyData);
-  const [claims, setClaims] = useState<Partial<Claim>[]>([]);
+  const [claims, setClaims] = useState<Partial<Claim>[] | null>(null);
 
   useEffect(() => {
     // fetch claim data from API
     setClaims(sampleClaims);
   }, []);
 
-  console.log(claims[0], 'this is claim');
+  console.log(claims);
+  if (claims === null) console.log('true');
 
   return (
     // TODO: temporary styling until Mateus's task is done
@@ -46,7 +47,7 @@ const AdminHome = (props: Props) => {
           height={10}
         ></UserCard>
         <LabalCard></LabalCard> */}
-        <MainWindow claim={claims[0]}></MainWindow>
+        {claims && <MainWindow claim={claims[0]}></MainWindow>}
       </div>
     </>
   );
