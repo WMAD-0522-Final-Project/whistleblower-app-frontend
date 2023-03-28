@@ -9,7 +9,6 @@ import sampleClaims from '../../temp/sampleClaims';
 import ClaimChat from '../../components/ClaimChat';
 import sampleClaimDetail from '../../temp/sampleClaimDetail';
 
-
 type Props = {};
 
 const AdminHome = (props: Props) => {
@@ -33,7 +32,6 @@ const AdminHome = (props: Props) => {
     <Box sx={{ backgroundColor: '#fff', height: '100vh' }}>
       {/* TODO: temporary claim data */}
       <ClaimChat chatData={sampleClaimDetail.chats} />
-
     </Box>
   );
 };
