@@ -38,61 +38,63 @@ let innerBoxSx = {
 };
 
 export default function RoleToggles({}: Props) {
-  const [superAdminChecked, setSuperAdminChecked] = useState(false);
+  const [superAdminCheckedStat, setSuperAdminCheckedStat] = useState(false);
 
-  const [checkedRole, setCheckedRole] = useState({
+  const [roleCheckedStat, setCheckedRole] = useState({
     role1: false,
     role2: false,
     role3: false,
     role4: false,
   });
-  const [disabledRole, setDisabledRole] = useState({
+  const [disabledRoleStat, setDisabledRoleStat] = useState({
     role1: false,
     role2: false,
     role3: false,
     role4: false,
   });
+  const [checkedRoles, setCheckedRoles] = useState([]);
 
   useEffect(() => {
-    if (superAdminChecked) {
+    if (superAdminCheckedStat) {
       setCheckedRole({
         role1: false,
         role2: false,
         role3: false,
         role4: false,
       });
-      setDisabledRole({
+      setDisabledRoleStat({
         role1: true,
         role2: true,
         role3: true,
         role4: true,
       });
     } else {
-      setDisabledRole({
+      setDisabledRoleStat({
         role1: false,
         role2: false,
         role3: false,
         role4: false,
       });
     }
-  }, [superAdminChecked]);
+  }, [superAdminCheckedStat]);
 
   //   const { companyData } = useSelector(selectCompanyData);
-  const handleSuperAdmin = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSuperAdminChecked(e.target.checked);
+  const handleSuperAdminChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSuperAdminCheckedStat(e.target.checked);
   };
 
-  const handleRole1Checked = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCheckedRole({ ...checkedRole, role1: e.target.checked });
+  const handleRole1Change = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCheckedRole({ ...roleCheckedStat, role1: e.target.checked });
+    const index = checkedRoles.indexOf(e.target.value);
   };
-  const handleRole2Checked = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCheckedRole({ ...checkedRole, role2: e.target.checked });
+  const handleRole2Change = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCheckedRole({ ...roleCheckedStat, role2: e.target.checked });
   };
-  const handleRole3Checked = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCheckedRole({ ...checkedRole, role3: e.target.checked });
+  const handleRole3Change = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCheckedRole({ ...roleCheckedStat, role3: e.target.checked });
   };
-  const handleRole4Checked = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCheckedRole({ ...checkedRole, role4: e.target.checked });
+  const handleRole4Change = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCheckedRole({ ...roleCheckedStat, role4: e.target.checked });
   };
 
   return (
@@ -104,8 +106,8 @@ export default function RoleToggles({}: Props) {
               id="switch-super-admin"
               //   sx={{ color: companyData.themeColors.primary }}
               color="warning"
-              checked={superAdminChecked}
-              onChange={handleSuperAdmin}
+              checked={superAdminCheckedStat}
+              onChange={handleSuperAdminChange}
             />
           }
           label="SuperAdmin"
@@ -120,14 +122,14 @@ export default function RoleToggles({}: Props) {
                   id="switch-role1"
                   //   sx={{ color: companyData.themeColors.primary }}
                   color="warning"
-                  checked={checkedRole.role1}
-                  onChange={handleRole1Checked}
+                  value="role1"
+                  checked={roleCheckedStat.role1}
+                  onChange={handleRole1Change}
                 />
               }
               label="Role1"
-              value="role1"
               labelPlacement="start"
-              disabled={disabledRole.role1}
+              disabled={disabledRoleStat.role1}
             />
             <FormControlLabel
               control={
@@ -135,14 +137,14 @@ export default function RoleToggles({}: Props) {
                   id="switch-role2"
                   //   sx={{ color: companyData.themeColors.primary }}
                   color="warning"
-                  checked={checkedRole.role2}
-                  onChange={handleRole2Checked}
+                  checked={roleCheckedStat.role2}
+                  onChange={handleRole2Change}
                 />
               }
               label="Role2"
               value="role2"
               labelPlacement="start"
-              disabled={disabledRole.role2}
+              disabled={disabledRoleStat.role2}
             />
             <FormControlLabel
               control={
@@ -150,14 +152,14 @@ export default function RoleToggles({}: Props) {
                   id="switch-role3"
                   //   sx={{ color: companyData.themeColors.primary }}
                   color="warning"
-                  checked={checkedRole.role3}
-                  onChange={handleRole3Checked}
+                  checked={roleCheckedStat.role3}
+                  onChange={handleRole3Change}
                 />
               }
               label="Role3"
               value="role3"
               labelPlacement="start"
-              disabled={disabledRole.role3}
+              disabled={disabledRoleStat.role3}
             />
             <FormControlLabel
               control={
@@ -165,14 +167,14 @@ export default function RoleToggles({}: Props) {
                   id="switch-role4"
                   //   sx={{ color: companyData.themeColors.primary }}
                   color="warning"
-                  checked={checkedRole.role4}
-                  onChange={handleRole4Checked}
+                  checked={roleCheckedStat.role4}
+                  onChange={handleRole4Change}
                 />
               }
               label="Role4"
               value="role4"
               labelPlacement="start"
-              disabled={disabledRole.role4}
+              disabled={disabledRoleStat.role4}
             />
           </FormGroup>
         </Box>
