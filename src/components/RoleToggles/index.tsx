@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Box,
   Switch,
@@ -38,7 +38,8 @@ let innerBoxSx = {
 };
 
 export default function RoleToggles({}: Props) {
-  const [superAdminToggle, setSuperAdminToggle] = useState(false);
+  const [superAdminChecked, setSuperAdminChecked] = useState(false);
+
   const [checkedRole, setCheckedRole] = useState({
     role1: false,
     role2: false,
@@ -52,10 +53,8 @@ export default function RoleToggles({}: Props) {
     role4: false,
   });
 
-  //   const { companyData } = useSelector(selectCompanyData);
-  const handleSuperAdmin = () => {
-    setSuperAdminToggle(!superAdminToggle);
-    if (!superAdminToggle) {
+  useEffect(() => {
+    if (superAdminChecked) {
       setCheckedRole({
         role1: false,
         role2: false,
@@ -76,91 +75,108 @@ export default function RoleToggles({}: Props) {
         role4: false,
       });
     }
+  }, [superAdminChecked]);
+
+  //   const { companyData } = useSelector(selectCompanyData);
+  const handleSuperAdmin = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSuperAdminChecked(e.target.checked);
+  };
+
+  const handleRole1Checked = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCheckedRole({ ...checkedRole, role1: e.target.checked });
+  };
+  const handleRole2Checked = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCheckedRole({ ...checkedRole, role2: e.target.checked });
+  };
+  const handleRole3Checked = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCheckedRole({ ...checkedRole, role3: e.target.checked });
+  };
+  const handleRole4Checked = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCheckedRole({ ...checkedRole, role4: e.target.checked });
   };
 
   return (
     <>
-      <FormGroup>
-        <Paper elevation={2} sx={outerBoxSx}>
-          <FormControlLabel
-            control={
-              <Switch
-                id="super-admin-toggle"
-                //   sx={{ color: companyData.themeColors.primary }}
-                color="warning"
-                onChange={handleSuperAdmin}
-              />
-            }
-            label="SuperAdmin"
-            labelPlacement="start"
-            defaultChecked={false}
-            checked={superAdminToggle}
-          />
+      <Paper elevation={2} sx={outerBoxSx}>
+        <FormControlLabel
+          control={
+            <Switch
+              id="switch-super-admin"
+              //   sx={{ color: companyData.themeColors.primary }}
+              color="warning"
+              checked={superAdminChecked}
+              onChange={handleSuperAdmin}
+            />
+          }
+          label="SuperAdmin"
+          labelPlacement="start"
+        />
 
-          <Box sx={innerBoxSx}>
+        <Box sx={innerBoxSx}>
+          <FormGroup>
             <FormControlLabel
               control={
                 <Switch
-                  id="role1-toggle"
+                  id="switch-role1"
                   //   sx={{ color: companyData.themeColors.primary }}
                   color="warning"
-                  onChange={handleSuperAdmin}
+                  checked={checkedRole.role1}
+                  onChange={handleRole1Checked}
                 />
               }
               label="Role1"
+              value="role1"
               labelPlacement="start"
-              defaultChecked={false}
-              checked={checkedRole.role1}
               disabled={disabledRole.role1}
             />
             <FormControlLabel
               control={
                 <Switch
-                  id="role2-toggle"
+                  id="switch-role2"
                   //   sx={{ color: companyData.themeColors.primary }}
                   color="warning"
-                  onChange={handleSuperAdmin}
+                  checked={checkedRole.role2}
+                  onChange={handleRole2Checked}
                 />
               }
               label="Role2"
+              value="role2"
               labelPlacement="start"
-              defaultChecked={false}
-              checked={checkedRole.role2}
               disabled={disabledRole.role2}
             />
             <FormControlLabel
               control={
                 <Switch
-                  id="role3-toggle"
+                  id="switch-role3"
                   //   sx={{ color: companyData.themeColors.primary }}
                   color="warning"
-                  onChange={handleSuperAdmin}
+                  checked={checkedRole.role3}
+                  onChange={handleRole3Checked}
                 />
               }
               label="Role3"
+              value="role3"
               labelPlacement="start"
-              defaultChecked={false}
-              checked={checkedRole.role3}
               disabled={disabledRole.role3}
             />
             <FormControlLabel
               control={
                 <Switch
-                  id="role4-toggle"
+                  id="switch-role4"
                   //   sx={{ color: companyData.themeColors.primary }}
                   color="warning"
-                  onChange={handleSuperAdmin}
+                  checked={checkedRole.role4}
+                  onChange={handleRole4Checked}
                 />
               }
               label="Role4"
+              value="role4"
               labelPlacement="start"
-              defaultChecked={false}
-              checked={checkedRole.role4}
               disabled={disabledRole.role4}
             />
-          </Box>
-        </Paper>
-      </FormGroup>
+          </FormGroup>
+        </Box>
+      </Paper>
     </>
   );
 }
