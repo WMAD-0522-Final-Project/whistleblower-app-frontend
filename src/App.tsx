@@ -1,32 +1,48 @@
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {
   Box,
   Alert,
   AlertTitle,
   CircularProgress,
-  CssBaseline,
+  ThemeProvider,
+  Typography,
+  Button,
 } from '@mui/material';
+import theme from './theme';
+import Login from './pages/Login';
+import TestComponent from './components/MUI_comp/TestComponent';
 import { useSelector, useDispatch } from 'react-redux';
+import Header from './components/Header';
+import AdminHome from './pages/AdminHome';
 import { setLoading } from './RTK/loadingSlice';
 import { selectLoading } from './RTK/loadingSlice';
 import { selectCompanyData } from './RTK/companySlice';
+import { setUserData } from './RTK/userDataSlice';
+import { selectUserData } from './RTK/userDataSlice';
 import AvatarIcon from './components/admin/AvatarIcon';
 import ButtonComponent from './components/MUI_comp/ButtonComponent';
-import AdminHome from './pages/AdminHome';
-import NavigationMenu from './components/NavigationMenu';
-
-// TODO: get user data from store
-const userData = {
-  firstName: 'John',
-  lastName: 'Doe',
-  profileImg: '/images/profileImg.jpg',
-};
+import PopupModal from './components/MUI_comp/PopupModal';
+import ConfirmationModal from './components/ConfirmationModal';
 
 const App = () => {
   const { isLoading } = useSelector(selectLoading);
   const { companyData } = useSelector(selectCompanyData);
   const loadingDispatch = useDispatch();
   loadingDispatch(setLoading(true));
+  // TODO: get user data from store
+  const userData = useSelector(selectUserData);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(
+      setUserData({ firstName: 'Isaac', lastName: 'Wu', profileImg: 'n/a' })
+    );
+  }, []);
+
+  useEffect(() => {
+    console.log(userData);
+  }, [userData]);
 
   // use Redux for alert state
   const sampleAlert = {
@@ -34,24 +50,34 @@ const App = () => {
     type: 'success',
   };
 
+  const submitData = () => {
+    console.log('Confirmed!!!!!!!!!!!');
+  };
+
   return (
-    <Box
-      sx={{
-        backgroundColor: companyData.themeColors.primary,
-        minHeight: '100vh',
-      }}
-    >
-      <Router>
-        <Routes>
-          {/* TODO: protect these routes */}
-          <Route path="admin">
-            <Route index element={<AdminHome />} />
-          </Route>
-        </Routes>
-      </Router>
-      {/* <AvatarIcon /> */}
-      {/* {isLoading && <CircularProgress />} */}
-      {/* {sampleAlert.message && (
+    <ThemeProvider theme={theme}>
+      <Box
+        sx={{
+          backgroundColor: companyData.themeColors.primary,
+          minHeight: '100vh',
+          overflowX: 'hidden',
+          position: 'relative',
+        }}
+      >
+        <Router>
+          <Header />
+          <AvatarIcon />
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            {/* TODO: protect these routes */}
+            <Route path="admin">
+              <Route index element={<AdminHome />} />
+            </Route>
+          </Routes>
+        </Router>
+        {/* <TestComponent /> */}
+        {/* {isLoading && <CircularProgress />} */}
+        {/* {sampleAlert.message && (
         <Alert
           severity={sampleAlert.type}
           sx={
@@ -67,16 +93,8 @@ const App = () => {
           {sampleAlert.message}
         </Alert>
       )} */}
-
-      {/* <ButtonComponent
-        width="100px"
-        height="50px"
-        customColor="#f96a02"
-        variant="contained"
-      >
-        submit
-      </ButtonComponent> */}
-    </Box>
+      </Box>
+    </ThemeProvider>
   );
 };
 

@@ -9,46 +9,39 @@ import UserCard from '../../components/admin/ModalWindow/UserCard';
 import LabalCard from '../../components/admin/ModalWindow/LabelCard';
 import MainWindow from '../../components/admin/ModalWindow/mainWindow';
 
+import ClaimChat from '../../components/ClaimChat';
+import sampleClaimDetail from '../../temp/sampleClaimDetail';
+
+
 type Props = {};
 
 const AdminHome = (props: Props) => {
   const { companyData } = useSelector(selectCompanyData);
-  const [claims, setClaims] = useState<Partial<Claim>[] | null>(null);
+
+  const [query, setQuery] = useState('');
+  const [claims, setClaims] = useState<Partial<Claim>[]>([]);
+
 
   useEffect(() => {
     // fetch claim data from API
     setClaims(sampleClaims);
   }, []);
 
-  console.log(claims);
-  if (claims === null) console.log('true');
+
+  const filteredClaims = () =>
+    claims.filter((claim) =>
+      claim.message?.toLowerCase().includes(query.toLowerCase())
+    );
 
   return (
     // TODO: temporary styling until Mateus's task is done
-    <>
-      {/* <Box sx={{ backgroundColor: '#fff', height: '100vh' }}>
-        <ClaimList claims={claims} />
-      </Box> */}
-      <div
-        style={{
-          width: '100vw',
-          height: '100vh',
-          background: 'white',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        {/* <UserCard
-          url={'/images/profileImg.jpg'}
-          name={'jumpei iwatani'}
-          width={50}
-          height={10}
-        ></UserCard>
-        <LabalCard></LabalCard> */}
-        {claims && <MainWindow claim={claims[0]}></MainWindow>}
-      </div>
-    </>
+
+    <Box sx={{ backgroundColor: '#fff', height: '100vh' }}>
+      {/* TODO: temporary claim data */}
+      <ClaimChat chatData={sampleClaimDetail.chats} />
+
+    </Box>
+
   );
 };
 

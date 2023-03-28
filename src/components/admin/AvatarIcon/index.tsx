@@ -39,12 +39,13 @@ const AvatarIcon = (props: Props) => {
           border: `2px solid ${companyData.themeColors.secondary}`,
           borderRadius: '0 50% 50% 0',
           display: 'block',
-          width: '50px',
+          width: '30%',
         }}
       />
       <Typography
-        sx={{ marginLeft: '0.8rem', textTransform: 'capitalize' }}
+        sx={{ marginLeft: '4%', textTransform: 'capitalize' }}
         color={companyData.themeColors.secondary}
+        fontSize="0.9rem"
       >
         {userData.firstName} {userData.lastName}
       </Typography>

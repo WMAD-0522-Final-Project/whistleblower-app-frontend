@@ -119,6 +119,7 @@ const ClaimListItem = ({ claim, sx }: Props) => {
                 //   }px 0`,
                 // },
               }}
+              key={member.userId}
             />
           ))
         ))}
