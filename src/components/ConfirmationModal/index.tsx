@@ -1,10 +1,23 @@
 import React from 'react';
 import { Typography, Button } from '@mui/material';
-import PopupModal from '../MUI_comp/PopupModal';
+import useModal from '../MUI_comp/useModal';
 
 interface Props {
   onClickYes: () => void;
 }
+
+const outerBoxStyle = {
+  width: 250,
+  height: 250,
+  bgcolor: '#FFCB14',
+  boxShadow: 24,
+};
+
+const innerBoxStyle = {
+  width: 200,
+  height: 200,
+  border: '5px solid white',
+};
 
 const buttonStyle = {
   bgcolor: '#F96A02',
@@ -21,33 +34,27 @@ const buttonStyle = {
 };
 
 const ConfirmationModal = ({ onClickYes }: Props) => {
+  const { handleClose, Modal } = useModal();
+
   return (
-    <>
-      <PopupModal>
-        {(handleClose: Function) => (
-          <>
-            <Typography
-              id="modal-modal-title"
-              variant="h6"
-              component="h2"
-              align="center"
-            >
-              Are you sure?
-            </Typography>
-            <Button variant="contained" sx={buttonStyle} onClick={onClickYes}>
-              Yes
-            </Button>
-            <Button
-              variant="outlined"
-              sx={buttonStyle}
-              onClick={() => handleClose}
-            >
-              No
-            </Button>
-          </>
-        )}
-      </PopupModal>
-    </>
+    <Modal outerBoxStyle={outerBoxStyle} innerBoxStyle={innerBoxStyle}>
+      <>
+        <Typography
+          id="modal-modal-title"
+          variant="h6"
+          component="h2"
+          align="center"
+        >
+          Are you sure?
+        </Typography>
+        <Button variant="contained" sx={buttonStyle} onClick={onClickYes}>
+          Yes
+        </Button>
+        <Button variant="outlined" sx={buttonStyle} onClick={handleClose}>
+          No
+        </Button>
+      </>
+    </Modal>
   );
 };
 
