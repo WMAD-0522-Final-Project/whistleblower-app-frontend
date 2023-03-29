@@ -6,20 +6,24 @@ import sampleClaimCategories from '../../temp/sampleClaimCategories';
 
 interface Props {
   placeholder: string;
-  label: string;
   color: string;
+  name?: string;
+  onChange?: (e: SelectChangeEvent<string>) => void;
   sx?: SxProps;
 }
 
-const SelectBoxCustom = ({ placeholder, label, color, sx }: Props) => {
+const SelectBoxCustom = ({ placeholder, color, name, onChange, sx }: Props) => {
   const [value, setValue] = useState('');
 
-  const handleChange = (e: SelectChangeEvent) => {
+  const handleChange = (e: SelectChangeEvent<string>) => {
     setValue(e.target.value);
+    if (onChange) onChange(e);
   };
+
   return (
     <Select
       value={value}
+      name={name}
       displayEmpty
       variant="filled"
       disableUnderline

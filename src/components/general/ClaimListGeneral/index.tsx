@@ -16,10 +16,8 @@ const ClaimListGeneral = (props: Props) => {
 
   return (
     <Box
-      component="main"
       sx={{
-        m: '5rem auto',
-        maxWidth: '450px',
+        mt: '3rem',
       }}
     >
       <SectionTitle title="YOUR PAST CLAIMS" />

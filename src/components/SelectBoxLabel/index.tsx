@@ -1,13 +1,15 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, SelectChangeEvent, Typography } from '@mui/material';
 import { SxProps } from '@mui/material/styles';
 import SelectBoxCustom from '../MUI_comp/SelectBoxCustom';
 
 type type = {
   placeholder: string;
   label?: string;
+  name?: string;
   topLabel?: string;
   color: string;
+  onChange?: (event: SelectChangeEvent<string>) => void;
   sx?: SxProps;
   selectBoxSx?: SxProps;
 };
@@ -15,7 +17,9 @@ type type = {
 const SelectBoxLabel = ({
   placeholder,
   label,
+  name,
   color,
+  onChange,
   sx,
   selectBoxSx,
 }: type) => {
@@ -26,9 +30,10 @@ const SelectBoxLabel = ({
       </Typography>
       <SelectBoxCustom
         placeholder={placeholder}
-        label="Message"
+        name={name}
         color={color}
-        sx={{ ...selectBoxSx }}
+        onChange={onChange}
+        sx={{ mt: '0.3rem', ...selectBoxSx }}
       />
     </Box>
   );
