@@ -17,10 +17,17 @@ const ClaimForm = (props: Props) => {
 
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    // console.log(e.target.category.value);
-    // console.log(e.target.message.value);
-    // console.log(e.target.file.files[0]);
-    // console.log(e.target.isAnonymous.checked);
+    const { category, message, file, isAnonymous } =
+      e.target as HTMLFormElement;
+    if (!category.value || !message.value) {
+      // TODO: set alert
+      console.log('"Category" and "Message" fields are required.');
+      return;
+    }
+    // console.log('category', category.value);
+    // console.log('message', message.value);
+    // console.log('file', file.files[0]);
+    // console.log('isAnonymous', isAnonymous.checked);
   };
 
   return (
