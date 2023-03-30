@@ -1,19 +1,9 @@
 import { useEffect, useState } from 'react';
-import {
-  Box,
-  Switch,
-  Paper,
-  Grid,
-  Button,
-  FormGroup,
-  FormControlLabel,
-} from '@mui/material';
+import { Box, Switch, Paper, FormGroup, FormControlLabel } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../RTK/companySlice';
 
 type Props = {};
-
-// const roles = ['role1', 'role2', 'role3', 'role4'];
 
 const outerBoxSx = {
   backgroundColor: 'white',
@@ -37,31 +27,32 @@ let innerBoxSx = {
   alignItems: 'center',
 };
 
-export default function RoleToggles({}: Props) {
-  const [superAdminCheckedStat, setSuperAdminCheckedStat] = useState(false);
+const roles = {
+  superAdmin: 'superAdmin',
+  role1: 'role1',
+  role2: 'role2',
+  role3: 'role3',
+  role4: 'role4',
+};
 
-  const [roleCheckedStat, setCheckedRole] = useState({
-    role1: false,
-    role2: false,
-    role3: false,
-    role4: false,
-  });
+export default function RoleToggles({}: Props) {
+  const [checkedRoles, setCheckedRoles] = useState<string[]>([]);
+
   const [disabledRoleStat, setDisabledRoleStat] = useState({
     role1: false,
     role2: false,
     role3: false,
     role4: false,
   });
-  const [checkedRoles, setCheckedRoles] = useState([]);
 
   useEffect(() => {
-    if (superAdminCheckedStat) {
-      setCheckedRole({
-        role1: false,
-        role2: false,
-        role3: false,
-        role4: false,
-      });
+    console.log({ checkedRoles });
+
+    if (checkedRoles.length === Object.keys(roles).length - 1) {
+      setCheckedRoles([roles.superAdmin]);
+    }
+
+    if (checkedRoles.includes(roles.superAdmin)) {
       setDisabledRoleStat({
         role1: true,
         role2: true,
@@ -76,25 +67,16 @@ export default function RoleToggles({}: Props) {
         role4: false,
       });
     }
-  }, [superAdminCheckedStat]);
+  }, [checkedRoles]);
 
-  //   const { companyData } = useSelector(selectCompanyData);
-  const handleSuperAdminChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSuperAdminCheckedStat(e.target.checked);
-  };
-
-  const handleRole1Change = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCheckedRole({ ...roleCheckedStat, role1: e.target.checked });
-    const index = checkedRoles.indexOf(e.target.value);
-  };
-  const handleRole2Change = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCheckedRole({ ...roleCheckedStat, role2: e.target.checked });
-  };
-  const handleRole3Change = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCheckedRole({ ...roleCheckedStat, role3: e.target.checked });
-  };
-  const handleRole4Change = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCheckedRole({ ...roleCheckedStat, role4: e.target.checked });
+  const handleRoleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!checkedRoles.includes(e.target.value)) {
+      setCheckedRoles([...checkedRoles, e.target.value]);
+    } else {
+      setCheckedRoles(
+        checkedRoles.filter((checkedRole) => checkedRole !== e.target.value)
+      );
+    }
   };
 
   return (
@@ -106,8 +88,10 @@ export default function RoleToggles({}: Props) {
               id="switch-super-admin"
               //   sx={{ color: companyData.themeColors.primary }}
               color="warning"
-              checked={superAdminCheckedStat}
-              onChange={handleSuperAdminChange}
+              value={roles.superAdmin}
+              // checked={superAdminCheckedStat}
+              checked={checkedRoles.includes(roles.superAdmin)}
+              onChange={handleRoleChange}
             />
           }
           label="SuperAdmin"
@@ -122,9 +106,10 @@ export default function RoleToggles({}: Props) {
                   id="switch-role1"
                   //   sx={{ color: companyData.themeColors.primary }}
                   color="warning"
-                  value="role1"
-                  checked={roleCheckedStat.role1}
-                  onChange={handleRole1Change}
+                  value={roles.role1}
+                  // checked={roleCheckedStat.role1}
+                  checked={checkedRoles.includes(roles.role1)}
+                  onChange={handleRoleChange}
                 />
               }
               label="Role1"
@@ -137,12 +122,12 @@ export default function RoleToggles({}: Props) {
                   id="switch-role2"
                   //   sx={{ color: companyData.themeColors.primary }}
                   color="warning"
-                  checked={roleCheckedStat.role2}
-                  onChange={handleRole2Change}
+                  value={roles.role2}
+                  checked={checkedRoles.includes(roles.role2)}
+                  onChange={handleRoleChange}
                 />
               }
               label="Role2"
-              value="role2"
               labelPlacement="start"
               disabled={disabledRoleStat.role2}
             />
@@ -152,12 +137,12 @@ export default function RoleToggles({}: Props) {
                   id="switch-role3"
                   //   sx={{ color: companyData.themeColors.primary }}
                   color="warning"
-                  checked={roleCheckedStat.role3}
-                  onChange={handleRole3Change}
+                  value={roles.role3}
+                  checked={checkedRoles.includes(roles.role3)}
+                  onChange={handleRoleChange}
                 />
               }
               label="Role3"
-              value="role3"
               labelPlacement="start"
               disabled={disabledRoleStat.role3}
             />
@@ -167,12 +152,12 @@ export default function RoleToggles({}: Props) {
                   id="switch-role4"
                   //   sx={{ color: companyData.themeColors.primary }}
                   color="warning"
-                  checked={roleCheckedStat.role4}
-                  onChange={handleRole4Change}
+                  value={roles.role4}
+                  checked={checkedRoles.includes(roles.role4)}
+                  onChange={handleRoleChange}
                 />
               }
               label="Role4"
-              value="role4"
               labelPlacement="start"
               disabled={disabledRoleStat.role4}
             />
