@@ -36,52 +36,9 @@ const App = () => {
   };
 
   return (
-    <Box
-      sx={{
-        backgroundColor: companyData.themeColors.primary,
-        minHeight: '100vh',
-        overflowX: 'hidden',
-        position: 'relative',
-      }}
-    >
-      <Header />
-      <AvatarIcon />
-      <Router>
-        <Routes>
-          {/* TODO: protect these routes */}
-          <Route path="admin">
-            <Route index element={<AdminHome />} />
-          </Route>
-        </Routes>
-      </Router>
-      {/* <AvatarIcon /> */}
-      {/* {isLoading && <CircularProgress />} */}
-      {/* {sampleAlert.message && (
-        <Alert
-          severity={sampleAlert.type}
-          sx={
-            {
-              // style here
-            }
-          }
-          onClose={() => {
-            // reset alert state here
-          }}
-        >
-          <AlertTitle>{sampleAlert.type}</AlertTitle>
-          {sampleAlert.message}
-        </Alert>
-      )} */}
-
-      {/* <ButtonComponent
-        width="100px"
-        height="50px"
-        customColor="#f96a02"
-        variant="contained"
-      >
-        submit
-      </ButtonComponent> */}
-    </Box>
+    <>
+      <RoleToggles></RoleToggles>
+    </>
   );
 };
 

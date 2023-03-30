@@ -37,13 +37,27 @@ const roles = {
 
 export default function RoleToggles({}: Props) {
   const [checkedRoles, setCheckedRoles] = useState<string[]>([]);
-
   const [disabledRoleStat, setDisabledRoleStat] = useState({
     role1: false,
     role2: false,
     role3: false,
     role4: false,
   });
+
+  const { companyData } = useSelector(selectCompanyData);
+
+  const switchSx = {
+    '& .MuiSwitch-switchBase': {
+      '&.Mui-checked': {
+        '& + .MuiSwitch-track': {
+          backgroundColor: companyData.themeColors.primary,
+        },
+        '& .MuiSwitch-thumb': {
+          backgroundColor: companyData.themeColors.primary,
+        },
+      },
+    },
+  };
 
   useEffect(() => {
     console.log({ checkedRoles });
@@ -70,13 +84,18 @@ export default function RoleToggles({}: Props) {
   }, [checkedRoles]);
 
   const handleRoleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let newCheckedRoles: string[] = [...checkedRoles];
     if (!checkedRoles.includes(e.target.value)) {
-      setCheckedRoles([...checkedRoles, e.target.value]);
+      newCheckedRoles.push(e.target.value);
     } else {
-      setCheckedRoles(
-        checkedRoles.filter((checkedRole) => checkedRole !== e.target.value)
+      newCheckedRoles = newCheckedRoles.filter(
+        (checkedRole) => checkedRole !== e.target.value
       );
     }
+    if (newCheckedRoles.includes(roles.superAdmin)) {
+      newCheckedRoles = [roles.superAdmin];
+    }
+    setCheckedRoles(newCheckedRoles);
   };
 
   return (
@@ -86,12 +105,10 @@ export default function RoleToggles({}: Props) {
           control={
             <Switch
               id="switch-super-admin"
-              //   sx={{ color: companyData.themeColors.primary }}
-              color="warning"
               value={roles.superAdmin}
-              // checked={superAdminCheckedStat}
               checked={checkedRoles.includes(roles.superAdmin)}
               onChange={handleRoleChange}
+              sx={switchSx}
             />
           }
           label="SuperAdmin"
@@ -104,12 +121,10 @@ export default function RoleToggles({}: Props) {
               control={
                 <Switch
                   id="switch-role1"
-                  //   sx={{ color: companyData.themeColors.primary }}
-                  color="warning"
                   value={roles.role1}
-                  // checked={roleCheckedStat.role1}
                   checked={checkedRoles.includes(roles.role1)}
                   onChange={handleRoleChange}
+                  sx={switchSx}
                 />
               }
               label="Role1"
@@ -120,11 +135,10 @@ export default function RoleToggles({}: Props) {
               control={
                 <Switch
                   id="switch-role2"
-                  //   sx={{ color: companyData.themeColors.primary }}
-                  color="warning"
                   value={roles.role2}
                   checked={checkedRoles.includes(roles.role2)}
                   onChange={handleRoleChange}
+                  sx={switchSx}
                 />
               }
               label="Role2"
@@ -135,11 +149,10 @@ export default function RoleToggles({}: Props) {
               control={
                 <Switch
                   id="switch-role3"
-                  //   sx={{ color: companyData.themeColors.primary }}
-                  color="warning"
                   value={roles.role3}
                   checked={checkedRoles.includes(roles.role3)}
                   onChange={handleRoleChange}
+                  sx={switchSx}
                 />
               }
               label="Role3"
@@ -150,8 +163,7 @@ export default function RoleToggles({}: Props) {
               control={
                 <Switch
                   id="switch-role4"
-                  //   sx={{ color: companyData.themeColors.primary }}
-                  color="warning"
+                  sx={switchSx}
                   value={roles.role4}
                   checked={checkedRoles.includes(roles.role4)}
                   onChange={handleRoleChange}
