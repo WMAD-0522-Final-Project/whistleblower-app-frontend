@@ -1,5 +1,5 @@
-import React, { ChangeEventHandler, EventHandler } from 'react';
-import { Button } from '@mui/material';
+import React, { useState, ChangeEventHandler } from 'react';
+import { Button, Typography } from '@mui/material';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { SxProps } from '@mui/material';
 import { useSelector } from 'react-redux';
@@ -13,10 +13,11 @@ type Props = {
 
 const FileInput = ({ onChange, name, sx }: Props) => {
   const { companyData } = useSelector(selectCompanyData);
-  const [];
+  const [file, setFile] = useState<File | null>(null);
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    onChange();
+    setFile(e.target.files![0]);
+    if (onChange) onChange(e);
   };
 
   return (
@@ -41,7 +42,7 @@ const FileInput = ({ onChange, name, sx }: Props) => {
           type="file"
           name={name}
           style={{
-            opacity: '0.4',
+            opacity: '0',
             position: 'absolute',
             top: '0',
             left: '0',
@@ -51,7 +52,15 @@ const FileInput = ({ onChange, name, sx }: Props) => {
           onChange={handleChange}
         />
       </Button>
-      <p></p>
+      <Typography
+        sx={{
+          fontSize: '0.7rem',
+          mt: '0.2rem',
+          color: companyData.themeColors.primary,
+        }}
+      >
+        ({file ? file.name : 'No file selected'})
+      </Typography>
     </>
   );
 };
