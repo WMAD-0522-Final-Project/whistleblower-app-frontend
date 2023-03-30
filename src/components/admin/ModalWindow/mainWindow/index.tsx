@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import Frame from '../Frame.tsx/Frame';
 import Closebutton from '../../../SVG/Closebutton';
 import UserCard from '../UserCard';
+import { useClaimContext } from '../../../../custom/ClaimIdContext';
 // import { MotionUserCard } from '../UserCard';
 import LabalCard from '../LabelCard';
 import styles from './mainWindow.module.scss';
@@ -18,6 +19,7 @@ type Props = {
 
 function MainWindow({ claim }: Props) {
   const { companyData } = useSelector(selectCompanyData);
+  const { claimId, setClaimId } = useClaimContext();
   const claimNumberStyle = {
     width: '200px',
     height: '90%',
@@ -29,6 +31,9 @@ function MainWindow({ claim }: Props) {
     marginLeft: '3%',
 
     // backgroundColor: 'red',
+  };
+  const closeModalWindow = () => {
+    setClaimId('');
   };
   return (
     <>
@@ -149,7 +154,7 @@ function MainWindow({ claim }: Props) {
             item
             className={styles.chat}
             xs={12}
-            sm={6}
+            sm={5}
             sx={{
               marginTop: '3%',
               width: '100%',
@@ -165,9 +170,11 @@ function MainWindow({ claim }: Props) {
               component={[<ClaimChat chatData={sampleClaimDetail.chats} />]}
             ></Frame>
           </Grid>
-          {/* <Grid item xs={1} sm={1} sx={{ marginTop: '1%' }}>
-            <Closebutton></Closebutton>
-          </Grid> */}
+          <Grid item xs={1} sm={1} sx={{ marginTop: '1%' }}>
+            <div onClick={closeModalWindow}>
+              <Closebutton></Closebutton>
+            </div>
+          </Grid>
         </Grid>
       </Box>
     </>

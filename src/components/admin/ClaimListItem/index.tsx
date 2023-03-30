@@ -4,7 +4,10 @@ import { Claim } from '../../../types';
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../../RTK/companySlice';
 import ClaimYellowTable from '../../SVG/ClaimYellowTable';
-import { ClaimIdContext } from '../../../custom/ClaimIdContext';
+import {
+  ClaimIdContext,
+  useClaimContext,
+} from '../../../custom/ClaimIdContext';
 
 type Props = {
   claim: Partial<Claim>;
@@ -13,17 +16,17 @@ type Props = {
 
 const ClaimListItem = ({ claim, sx }: Props) => {
   const { companyData } = useSelector(selectCompanyData);
-  const { claimId, setClaims } = useContext(ClaimIdContext);
+  const { claimId, setClaimId } = useClaimContext();
   const handleClaimClick = () => {
     // open detail window using a state variable
     console.log(claim.id);
-    if (claim.id) setClaims(claim.id);
+    if (claim.id) setClaimId(claim.id);
   };
 
   return (
     <Box
       component="li"
-      onClick={handleClaimClick}
+      onClick={() => handleClaimClick()}
       sx={{
         backgroundColor: companyData.themeColors.primary,
         borderRadius: '2rem',

@@ -28,11 +28,18 @@ const AdminHome = (props: Props) => {
   const [isModalWindow, setIsModalWindow] = useState<boolean>(false);
 
   const [claimId, setClaimId] = useState<string>('');
-
+  const [modalClaim, setModalClaim] = useState<Partial<Claim>>();
   useEffect(() => {
     // fetch claim data from API
     setClaims(sampleClaims);
   }, []);
+
+  useEffect(() => {
+    if (claims) {
+      const modalClaim = claims.filter((element) => element.id === claimId)[0];
+      setModalClaim(modalClaim);
+    }
+  }, [claimId]);
 
   console.log(claimId, 'this is Id');
 
@@ -108,7 +115,7 @@ const AdminHome = (props: Props) => {
               marginTop: '-10%',
             }}
           >
-            {claims && <ModalWindow claim={claims[0]}></ModalWindow>}
+            {modalClaim && <ModalWindow claim={modalClaim}></ModalWindow>}
           </motion.div>
         </div>
       </ClaimIdContext.Provider>
