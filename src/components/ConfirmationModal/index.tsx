@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography, Button } from '@mui/material';
-import useModal from '../MUI_comp/useModal';
+import useModal from '../../hooks/useModal';
 
 interface Props {
   onClickYes: () => void;

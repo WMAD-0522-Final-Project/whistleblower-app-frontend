@@ -5,7 +5,7 @@ import { selectCompanyData } from '../../RTK/companySlice';
 import ClaimListGeneral from '../../components/general/ClaimListGeneral';
 import ClaimChat from '../../components/ClaimChat';
 import sampleClaimDetail from '../../temp/sampleClaimDetail';
-import useModal from '../../components/MUI_comp/useModal';
+import useModal from '../../hooks/useModal';
 import { Claim } from '../../types';
 
 type Props = {};
