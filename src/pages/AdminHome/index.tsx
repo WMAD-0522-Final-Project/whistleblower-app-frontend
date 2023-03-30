@@ -20,12 +20,10 @@ const AdminHome = (props: Props) => {
   const [query, setQuery] = useState('');
   const [claims, setClaims] = useState<Partial<Claim>[]>([]);
 
-
   useEffect(() => {
     // fetch claim data from API
     setClaims(sampleClaims);
   }, []);
-
 
   const filteredClaims = () =>
     claims.filter((claim) =>
@@ -39,7 +37,6 @@ const AdminHome = (props: Props) => {
       {/* TODO: temporary claim data */}
       <ClaimChat chatData={sampleClaimDetail.chats} />
     </Box>
-
   );
 };
 
