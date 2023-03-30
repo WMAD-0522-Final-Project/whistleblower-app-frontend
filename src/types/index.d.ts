@@ -14,7 +14,7 @@ export interface Claim {
   submissionDate: string;
   message: string;
   labels: ClaimLabel[];
-  category: ClaimCategory;
+  category: ClaimCategory | null;
   members: {
     userId: string;
     avatarUrl: string;

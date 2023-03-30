@@ -7,13 +7,11 @@ import sampleClaimsForGenUsers from '../../../temp/sampleClaimsForGenUsers';
 import theme from '../../../theme';
 import { ClaimGeneral } from '../../../types';
 
-type Props = {};
+type Props = {
+  onClaimClick: () => void;
+};
 
-const ClaimListGeneral = (props: Props) => {
-  const handleClaimCardClick = () => {
-    // open detail window
-  };
-
+const ClaimListGeneral = ({ onClaimClick }: Props) => {
   return (
     <Box
       component="main"
@@ -37,7 +35,7 @@ const ClaimListGeneral = (props: Props) => {
             <ClaimCardGeneral
               claim={claim as ClaimGeneral}
               sx={{ '& + &': { marginTop: '5%' } }}
-              onClick={handleClaimCardClick}
+              onClick={onClaimClick}
               key={claim.id}
             />
           ))}
