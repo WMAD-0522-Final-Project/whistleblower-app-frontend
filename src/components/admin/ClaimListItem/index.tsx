@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Badge, Box, SxProps, Typography } from '@mui/material';
 import { Claim } from '../../../types';
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../../RTK/companySlice';
-import Reactangle from '../../SVG/Rectangle';
+import ClaimYellowTable from '../../SVG/ClaimYellowTable';
+import { ClaimIdContext } from '../../../custom/ClaimIdContext';
 
 type Props = {
   claim: Partial<Claim>;
@@ -12,9 +13,11 @@ type Props = {
 
 const ClaimListItem = ({ claim, sx }: Props) => {
   const { companyData } = useSelector(selectCompanyData);
-
+  const { claimId, setClaims } = useContext(ClaimIdContext);
   const handleClaimClick = () => {
     // open detail window using a state variable
+    console.log(claim.id);
+    if (claim.id) setClaims(claim.id);
   };
 
   return (
@@ -33,14 +36,14 @@ const ClaimListItem = ({ claim, sx }: Props) => {
         minHeight: '66px',
         padding: '0.5rem 0.5rem 0.5rem 1rem',
         position: 'relative',
-        width: '80%',
-        height: '50%',
+        width: '90%',
+        height: '10%',
         ...sx,
       }}
     >
       <Box
         sx={{
-          width: '85%',
+          position: 'absolute',
         }}
       >
         <Typography fontSize="0.7rem">{claim.submissionDate}</Typography>
@@ -49,7 +52,7 @@ const ClaimListItem = ({ claim, sx }: Props) => {
           sx={{
             width: '90%',
             overflow: 'hidden',
-            pt: '0.2rem',
+            p: '0.2rem',
             whiteSpace: 'nowrap',
             textOverflow: 'ellipsis',
           }}
@@ -57,74 +60,18 @@ const ClaimListItem = ({ claim, sx }: Props) => {
           {claim.message}
         </Typography>
       </Box>
-      {claim.members?.length &&
-        // Show badge with number
-        (claim.members!.length > 3 ? (
-          <>
-            <Box
-              component="img"
-              src={claim.members[0].avatarUrl}
-              alt=""
-              sx={{
-                borderRadius: '50%',
-                display: 'block',
-                pl: '0.2rem',
-                width: '16%',
-                minWidth: '40px',
-                maxWidth: '46px',
-                height: '100%',
-                zIndex: '1',
-              }}
-            />
-            <Badge
-              badgeContent={`+${claim.members.length - 1}`}
-              color="error"
-              sx={{
-                mt: '5%',
-                position: 'absolute',
-                bottom: '15px',
-                right: '15px',
-              }}
-            />
-          </>
-        ) : (
-          // Show all avatars
-          claim.members.map((member, index) => (
-            <Box
-              component="img"
-              src={member.avatarUrl}
-              alt={`${index}`}
-              sx={{
-                borderRadius: '50%',
-                display: 'block',
-                pl: '0.2rem',
-                width: '16%',
-                minWidth: claim.members!.length === 1 ? '40px' : '35px',
-                maxWidth: claim.members!.length === 1 ? '46px' : '35px',
-                height: '100%',
-                position: 'relative',
-                zIndex: index + 1,
-                // translate:
-                //   claim.members!.length === 1 ? '0px' : `${40 - index * 40}px`,
 
-                left:
-                  claim.members!.length === 3
-                    ? `${55 - index * 25}px`
-                    : claim.members!.length === 2
-                    ? `${45 - index * 40}px`
-                    : `0px`,
-                // ':not(:last-of-type)': {
-                //   translate: `${
-                //     (12 * claim.members!.length) / (index + 1)
-                //   }px 0`,
-                // },
-              }}
-              key={member.userId}
-            />
-          ))
-        ))}
-
-      <Reactangle></Reactangle>
+      <div
+        style={{
+          position: 'absolute',
+          width: '100%',
+          height: '130%',
+          right: '-30%',
+          top: '5%',
+        }}
+      >
+        <ClaimYellowTable claim={claim}></ClaimYellowTable>
+      </div>
     </Box>
   );
 };

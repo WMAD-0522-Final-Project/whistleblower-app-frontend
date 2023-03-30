@@ -10,6 +10,8 @@ import UserCard from '../UserCard';
 import LabalCard from '../LabelCard';
 import styles from './mainWindow.module.scss';
 import { Claim } from '../../../../types';
+import ClaimChat from '../../../ClaimChat';
+import sampleClaimDetail from '../../../../temp/sampleClaimDetail';
 type Props = {
   claim: Partial<Claim>;
 };
@@ -156,7 +158,12 @@ function MainWindow({ claim }: Props) {
               // marginLeft: '5%',
             }}
           >
-            <Frame width={100} height={100} label={'chat'}></Frame>
+            <Frame
+              width={100}
+              height={100}
+              label={'chat'}
+              component={[<ClaimChat chatData={sampleClaimDetail.chats} />]}
+            ></Frame>
           </Grid>
           {/* <Grid item xs={1} sm={1} sx={{ marginTop: '1%' }}>
             <Closebutton></Closebutton>
