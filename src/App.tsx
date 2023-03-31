@@ -1,33 +1,45 @@
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {
   Box,
   Alert,
   AlertTitle,
   CircularProgress,
-  CssBaseline,
+  ThemeProvider,
+  Typography,
+  Button,
 } from '@mui/material';
+import theme from './theme';
+import Login from './pages/Login';
+import TestComponent from './components/MUI_comp/TestComponent';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from './components/Header';
+import GeneralHome from './pages/GeneralHome';
 import AdminHome from './pages/AdminHome';
 import { setLoading } from './RTK/loadingSlice';
 import { selectLoading } from './RTK/loadingSlice';
 import { selectCompanyData } from './RTK/companySlice';
+import { setUserData } from './RTK/userDataSlice';
+import { selectUserData } from './RTK/userDataSlice';
 import AvatarIcon from './components/admin/AvatarIcon';
 import ButtonComponent from './components/MUI_comp/ButtonComponent';
-import RoleToggles from './components/RoleToggles';
-
-// TODO: get user data from store
-const userData = {
-  firstName: 'John',
-  lastName: 'Doe',
-  profileImg: '/images/profileImg.jpg',
-};
 
 const App = () => {
   const { isLoading } = useSelector(selectLoading);
   const { companyData } = useSelector(selectCompanyData);
   const loadingDispatch = useDispatch();
   loadingDispatch(setLoading(true));
+  // TODO: get user data from store
+  const userData = useSelector(selectUserData);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setUserData({ firstName: 'Isaac', lastName: 'Wu', profileImg: 'n/a' });
+  }, []);
+
+  useEffect(() => {
+    console.log(userData);
+  }, [userData]);
 
   // use Redux for alert state
   const sampleAlert = {
@@ -35,10 +47,54 @@ const App = () => {
     type: 'success',
   };
 
+  const submitData = () => {
+    console.log('Confirmed!!!!!!!!!!!');
+  };
+
   return (
-    <>
-      <RoleToggles></RoleToggles>
-    </>
+    <ThemeProvider theme={theme}>
+      <Box
+        sx={{
+          backgroundColor: companyData.themeColors.primary,
+          minHeight: '100vh',
+          overflowX: 'hidden',
+          position: 'relative',
+        }}
+      >
+        <Router>
+          <Header />
+          <AvatarIcon />
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            {/* TODO: protect these routes */}
+            <Route path="general">
+              <Route index element={<GeneralHome />} />
+            </Route>
+            <Route path="admin">
+              <Route index element={<AdminHome />} />
+            </Route>
+          </Routes>
+        </Router>
+        {/* <TestComponent /> */}
+        {/* {isLoading && <CircularProgress />} */}
+        {/* {sampleAlert.message && (
+        <Alert
+          severity={sampleAlert.type}
+          sx={
+            {
+              // style here
+            }
+          }
+          onClose={() => {
+            // reset alert state here
+          }}
+        >
+          <AlertTitle>{sampleAlert.type}</AlertTitle>
+          {sampleAlert.message}
+        </Alert>
+      )} */}
+      </Box>
+    </ThemeProvider>
   );
 };
 

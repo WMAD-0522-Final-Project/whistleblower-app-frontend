@@ -3,13 +3,14 @@ import { Badge, Box, SxProps, Typography } from '@mui/material';
 import { Claim } from '../../../types';
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../../RTK/companySlice';
+import Reactangle from '../../SVG/Rectangle';
 
 type Props = {
   claim: Partial<Claim>;
   sx?: SxProps;
 };
 
-const ClaimListItem = ({ claim, sx }: Props) => {
+const ClaimCardAdmin = ({ claim, sx }: Props) => {
   const { companyData } = useSelector(selectCompanyData);
 
   const handleClaimClick = () => {
@@ -32,6 +33,8 @@ const ClaimListItem = ({ claim, sx }: Props) => {
         minHeight: '66px',
         padding: '0.5rem 0.5rem 0.5rem 1rem',
         position: 'relative',
+        width: '80%',
+        height: '50%',
         ...sx,
       }}
     >
@@ -70,6 +73,7 @@ const ClaimListItem = ({ claim, sx }: Props) => {
                 minWidth: '40px',
                 maxWidth: '46px',
                 height: '100%',
+                zIndex: '1',
               }}
             />
             <Badge
@@ -95,23 +99,34 @@ const ClaimListItem = ({ claim, sx }: Props) => {
                 display: 'block',
                 pl: '0.2rem',
                 width: '16%',
-                minWidth: claim.members!.length === 1 ? '40px' : '30px',
-                maxWidth: claim.members!.length === 1 ? '46px' : '38px',
+                minWidth: claim.members!.length === 1 ? '40px' : '35px',
+                maxWidth: claim.members!.length === 1 ? '46px' : '35px',
                 height: '100%',
                 position: 'relative',
-                zIndex: index,
-                ':not(:last-of-type)': {
-                  translate: `${
-                    (10 * claim.members!.length) / (index + 1)
-                  }px 0`,
-                },
+                zIndex: index + 1,
+                // translate:
+                //   claim.members!.length === 1 ? '0px' : `${40 - index * 40}px`,
+
+                left:
+                  claim.members!.length === 3
+                    ? `${55 - index * 25}px`
+                    : claim.members!.length === 2
+                    ? `${45 - index * 40}px`
+                    : `0px`,
+                // ':not(:last-of-type)': {
+                //   translate: `${
+                //     (12 * claim.members!.length) / (index + 1)
+                //   }px 0`,
+                // },
               }}
               key={member.userId}
             />
           ))
         ))}
+
+      <Reactangle></Reactangle>
     </Box>
   );
 };
 
-export default ClaimListItem;
+export default ClaimCardAdmin;
