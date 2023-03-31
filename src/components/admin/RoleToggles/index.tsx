@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Box, Switch, Paper, FormGroup, FormControlLabel } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { selectCompanyData } from '../../RTK/companySlice';
+import { selectCompanyData } from '../../../RTK/companySlice';
+
+import { roles } from '../../../data/RoleData';
 
 type Props = {};
 
@@ -25,14 +27,6 @@ let innerBoxSx = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-};
-
-const roles = {
-  superAdmin: 'superAdmin',
-  role1: 'role1',
-  role2: 'role2',
-  role3: 'role3',
-  role4: 'role4',
 };
 
 export default function RoleToggles({}: Props) {
