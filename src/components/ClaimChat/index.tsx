@@ -13,12 +13,12 @@ import { selectCompanyData } from '../../RTK/companySlice';
 import { Chat } from '../../types';
 
 type Props = {
-  chatData: Chat[];
+  chatData: Chat[] | undefined;
 };
 
 const ClaimChat = ({ chatData }: Props) => {
   const { companyData } = useSelector(selectCompanyData);
-  const [messageList, setMessageList] = useState(chatData);
+  const [messageList, setMessageList] = useState(chatData || []);
   const [content, setContent] = useState('');
   const scrollRef = useRef<HTMLElement>(null);
 
@@ -54,69 +54,75 @@ const ClaimChat = ({ chatData }: Props) => {
   }, [messageList]);
 
   return (
-    <Box
-      sx={{ p: '0.8rem', height: '75vh', overflowY: 'scroll' }}
-      ref={scrollRef}
-    >
-      {messageList.map((item) => {
-        const isOwnItem = item.user.id === user.id;
-        return (
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: isOwnItem ? 'flex-end' : 'flex-start',
-              mt: '1.4rem',
-              ml: isOwnItem ? 'auto' : '0',
-              maxWidth: '90%',
-            }}
-            key={item.id}
-          >
-            <Avatar
-              alt="User avatar"
-              src={isOwnItem ? user.avatarUrl : item.user.avatarUrl}
+    <Box sx={{ height: '100%', overflowY: 'scroll' }}>
+      <Box
+        ref={scrollRef}
+        sx={{
+          height: '70%',
+          overflowY: 'scroll',
+        }}
+      >
+        {messageList.map((item) => {
+          const isOwnItem = item.user.id === user.id;
+          return (
+            <Box
               sx={{
-                order: isOwnItem ? 2 : 1,
-                m: isOwnItem ? '0 0 0 0.5rem' : '0 0.5rem 0 0',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: isOwnItem ? 'flex-end' : 'flex-start',
+                mt: '1.4rem',
+                ml: isOwnItem ? 'auto' : '0',
+                maxWidth: '90%',
               }}
-            />
-            <Typography
-              sx={{
-                borderRadius: '16px',
-                border: `2px solid ${
-                  isOwnItem
-                    ? companyData.themeColors.primary
-                    : companyData.themeColors.secondary !== '#fff'
-                    ? companyData.themeColors.secondary
-                    : '#ddd'
-                }`,
-                fontSize: '0.9rem',
-                order: isOwnItem ? 1 : 2,
-                p: '0.5rem 0.8rem',
-              }}
+              key={item.id}
             >
-              {item.content}
-              <Typography
-                component={'span'}
+              <Avatar
+                alt="User avatar"
+                src={isOwnItem ? user.avatarUrl : item.user.avatarUrl}
                 sx={{
-                  fontSize: '0.6rem',
-                  color: '#535353',
-                  display: 'block',
-                  mt: '0.5rem',
+                  order: isOwnItem ? 2 : 1,
+                  m: isOwnItem ? '0 0 0 0.5rem' : '0 0.5rem 0 0',
+                }}
+              />
+              <Typography
+                sx={{
+                  borderRadius: '16px',
+                  border: `2px solid ${
+                    isOwnItem
+                      ? companyData.themeColors.primary
+                      : companyData.themeColors.secondary !== '#fff'
+                      ? companyData.themeColors.secondary
+                      : '#ddd'
+                  }`,
+                  fontSize: '0.9rem',
+                  order: isOwnItem ? 1 : 2,
+                  p: '0.5rem 0.8rem',
                 }}
               >
-                {item.datetime}
+                {item.content}
+                <Typography
+                  component={'span'}
+                  sx={{
+                    fontSize: '0.6rem',
+                    color: '#535353',
+                    display: 'block',
+                    mt: '0.5rem',
+                  }}
+                >
+                  {item.datetime}
+                </Typography>
               </Typography>
-            </Typography>
-          </Box>
-        );
-      })}
+            </Box>
+          );
+        })}
+      </Box>
       <Box
         sx={{
           position: 'absolute',
-          width: '90%',
+          width: '100%',
           left: '50%',
           bottom: '2%',
+          height: '25%',
           translate: '-50% 0',
         }}
       >
@@ -130,10 +136,11 @@ const ClaimChat = ({ chatData }: Props) => {
           value={content}
           onChange={(e) => setContent(e.target.value)}
           sx={{
-            width: '100%',
+            background: '#fff',
             border: `2px solid ${companyData.themeColors.primary}`,
             borderRadius: '5px',
             outline: 'none',
+            width: '100%',
           }}
         />
         <ButtonComponent

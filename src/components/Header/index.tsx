@@ -5,6 +5,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
+import theme from '../../theme';
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../RTK/companySlice';
 import { APP_NAME } from '../../data/appData';
@@ -26,7 +27,13 @@ const Header = (props: Props) => {
     border: `4px solid ${companyData.themeColors.secondary}`,
   };
 
-  const iconStyles = { color: '#fff', fontSize: '5vw' };
+  const iconStyles = {
+    color: '#fff',
+    fontSize: '5vw',
+    [theme.breakpoints.up('md')]: {
+      fontSize: '1.7rem',
+    },
+  };
 
   return (
     <>
@@ -36,6 +43,9 @@ const Header = (props: Props) => {
           color: '#fff',
           fontSize: '1.3rem',
           p: '4%',
+          [theme.breakpoints.up('md')]: {
+            p: '25px',
+          },
         }}
       >
         {APP_NAME}
@@ -129,6 +139,10 @@ const Header = (props: Props) => {
             justifyContent: 'center',
             height: '30vw',
             width: '30vw',
+            [theme.breakpoints.up('md')]: {
+              height: '162px',
+              width: '162px',
+            },
           }}
         >
           <Box

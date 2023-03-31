@@ -3,7 +3,7 @@ export default {
   submissionDate: '2022/12/02 15:48',
   message: 'Boss forces me to say “sayonara',
   labels: [],
-  category: [],
+  category: null,
   members: [
     {
       userId: '',

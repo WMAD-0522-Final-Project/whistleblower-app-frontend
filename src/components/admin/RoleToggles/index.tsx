@@ -3,7 +3,7 @@ import { Box, Switch, Paper, FormGroup, FormControlLabel } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../../RTK/companySlice';
 
-import { roles } from '../../../data/RoleData';
+import { roles } from '../../../data/roleData';
 
 const outerBoxSx = {
   backgroundColor: 'white',

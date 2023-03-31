@@ -1,13 +1,20 @@
-// add types & interfaces here!! (or in each component directory)
+import { ClaimStatus } from './enums';
 
 export type SampleType = string;
+
+export interface ClaimGeneral {
+  id: string;
+  submissionDate: string;
+  message: string;
+  status: ClaimStatus;
+}
 
 export interface Claim {
   id: string;
   submissionDate: string;
   message: string;
   labels: ClaimLabel[];
-  category: ClaimCategory;
+  category: ClaimCategory | null;
   members: {
     userId: string;
     avatarUrl: string;
