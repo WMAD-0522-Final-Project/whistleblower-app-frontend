@@ -33,14 +33,14 @@ function MainWindow({ claim }: Props) {
     // backgroundColor: 'red',
   };
   const closeModalWindow = () => {
-    setClaimId('');
+    setClaimId(null);
   };
   return (
     <>
       <Box
         sx={{
-          width: '90%',
-          height: '90%',
+          width: '100%',
+          height: '100%',
           backgroundColor: 'white',
           borderRadius: '20px',
           border: `${companyData.themeColors.primary} 3px solid`,

@@ -14,6 +14,7 @@ import Login from './pages/Login';
 import TestComponent from './components/MUI_comp/TestComponent';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from './components/Header';
+import GeneralHome from './pages/GeneralHome';
 import AdminHome from './pages/AdminHome';
 import { setLoading } from './RTK/loadingSlice';
 import { selectLoading } from './RTK/loadingSlice';
@@ -22,7 +23,6 @@ import { setUserData } from './RTK/userDataSlice';
 import { selectUserData } from './RTK/userDataSlice';
 import AvatarIcon from './components/admin/AvatarIcon';
 import ButtonComponent from './components/MUI_comp/ButtonComponent';
-import PopupModal from './components/MUI_comp/PopupModal';
 import ConfirmationModal from './components/ConfirmationModal';
 
 const App = () => {
@@ -35,9 +35,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(
-      setUserData({ firstName: 'Isaac', lastName: 'Wu', profileImg: 'n/a' })
-    );
+    setUserData({ firstName: 'Isaac', lastName: 'Wu', profileImg: 'n/a' });
   }, []);
 
   useEffect(() => {
@@ -70,6 +68,9 @@ const App = () => {
           <Routes>
             <Route path="/login" element={<Login />} />
             {/* TODO: protect these routes */}
+            <Route path="general">
+              <Route index element={<GeneralHome />} />
+            </Route>
             <Route path="admin">
               <Route index element={<AdminHome />} />
             </Route>

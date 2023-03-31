@@ -1,14 +1,14 @@
 import { Box } from '@mui/material';
+import useModal from '../../hooks/useModal';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import ClaimList from '../../components/admin/ClaimList';
+import ClaimListAdmin from '../../components/admin/ClaimListAdmin';
 import { selectCompanyData } from '../../RTK/companySlice';
 import { Claim } from '../../types';
 import sampleClaims from '../../temp/sampleClaims';
 import UserCard from '../../components/admin/ModalWindow/UserCard';
 import LabalCard from '../../components/admin/ModalWindow/LabelCard';
 import MainWindow from '../../components/admin/ModalWindow/mainWindow';
-import ModalWindow from '../../components/admin/ModalWindow/ModalWindow';
 import { ClaimIdContext } from '../../custom/ClaimIdContext';
 
 import ClaimChat from '../../components/ClaimChat';
@@ -17,27 +17,34 @@ import Frame from '../../components/admin/ModalWindow/Frame.tsx/Frame';
 import ClaimBox from '../../components/admin/ClaimBox';
 
 import { motion } from 'framer-motion';
+import ConfirmationModal from '../../components/ConfirmationModal';
+import CustomBox from '../../components/CustomBox/CustomBox';
 
 type Props = {};
 
 const AdminHome = (props: Props) => {
   const { companyData } = useSelector(selectCompanyData);
-
+  const { Modal, handleOpen, handleClose } = useModal();
   const [query, setQuery] = useState('');
   const [claims, setClaims] = useState<Partial<Claim>[] | null>(null);
   const [isModalWindow, setIsModalWindow] = useState<boolean>(false);
+  const [claimId, setClaimId] = useState<string | null>(null);
 
-  const [claimId, setClaimId] = useState<string>('');
   const [modalClaim, setModalClaim] = useState<Partial<Claim>>();
+  // const [claims, setClaims] = useState<Partial<Claim>[]>([]);
+
   useEffect(() => {
     // fetch claim data from API
     setClaims(sampleClaims);
   }, []);
 
   useEffect(() => {
-    if (claims) {
+    if (claims !== null) {
       const modalClaim = claims.filter((element) => element.id === claimId)[0];
       setModalClaim(modalClaim);
+      handleOpen();
+    } else {
+      handleClose();
     }
   }, [claimId]);
 
@@ -99,14 +106,14 @@ const AdminHome = (props: Props) => {
             </Box>
           </div>
 
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0 }}
             animate={
               claimId !== ''
                 ? { opacity: 1, zIndex: '50' }
                 : { opacity: 0, zIndex: '-50' }
             }
-            transition={{ duration: 1 }}
+            transition={{ duration: 0.3 }}
             style={{
               position: 'absolute',
               width: '100vw',
@@ -116,10 +123,17 @@ const AdminHome = (props: Props) => {
             }}
           >
             {modalClaim && <ModalWindow claim={modalClaim}></ModalWindow>}
-          </motion.div>
+          </motion.div> */}
+          <Modal innerBoxStyle={{ width: '100%', height: '100%' }}>
+            {modalClaim && <MainWindow claim={modalClaim}></MainWindow>}
+          </Modal>
         </div>
       </ClaimIdContext.Provider>
     </>
+    // <Box sx={{ backgroundColor: '#fff', height: '100vh' }}>
+    //   {/* TODO: temporary claim data */}
+    //   <ClaimChat chatData={sampleClaimDetail.chats} />
+    // </Box>
   );
 };
 

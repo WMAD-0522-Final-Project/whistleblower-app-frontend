@@ -64,7 +64,7 @@ function Frame({ width, height, label, text, component, claim }: Props) {
             alignItems: 'center',
             width: '100%',
             height: '100%',
-            overflow: 'scroll',
+            overflow: label !== 'chat' ? 'scroll' : 'initial',
             overflowX: 'hidden',
             top: '-10%',
             // border: 'solid 3px black',

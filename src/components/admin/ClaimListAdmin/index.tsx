@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import { Claim } from '../../../types';
-import ClaimListItem from '../ClaimListItem';
+import ClaimCardAdmin from '../ClaimCardAdmin';
 import {
   DragDropContext,
   Droppable,
@@ -15,7 +15,7 @@ type Props = {
   claims: Partial<Claim>[];
 };
 
-const ClaimList = ({ claims }: Props) => {
+const ClaimListAdmin = ({ claims }: Props) => {
   return (
     <DragDropContext onDragEnd={(result) => console.log(result)}>
       <Droppable droppableId={uuidv4()}>
@@ -36,10 +36,10 @@ const ClaimList = ({ claims }: Props) => {
                     {...provided.dragHandleProps}
                     {...provided.draggableProps}
                   >
-                    <ClaimListItem
+                    <ClaimCardAdmin
                       claim={claim}
                       sx={{ mt: '0.8rem' }}
-                      key={claim.id}
+                      // key={claim.id}
                     />
                   </div>
                 )}
@@ -49,7 +49,12 @@ const ClaimList = ({ claims }: Props) => {
         )}
       </Droppable>
     </DragDropContext>
+    // <Box component="ul">
+    //   {claims.map((claim) => (
+    //     <ClaimCardAdmin claim={claim} sx={{ mt: '0.8rem' }} key={claim.id} />
+    //   ))}
+    // </Box>
   );
 };
 
-export default ClaimList;
+export default ClaimListAdmin;

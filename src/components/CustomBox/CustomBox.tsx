@@ -1,17 +1,19 @@
 import React from 'react';
 import { Box } from '@mui/material';
+import { SxProps } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
 type Props = {
   children: React.ReactNode;
+  sx?: SxProps;
 };
 
-const CustomBox = ({ children }: Props) => {
+const CustomBox = ({ children, sx }: Props) => {
   const theme = useTheme();
 
   const styles = {
     backgroundColor: 'white',
-    padding: '3rem 0',
+    padding: '1.2rem 0',
     borderRadius: '10px',
     width: '90%',
     maxWidth: '600px',
@@ -23,13 +25,7 @@ const CustomBox = ({ children }: Props) => {
 
   return (
     // need styling here
-    <Box
-      sx={{
-        ...styles,
-      }}
-    >
-      {children}
-    </Box>
+    <Box sx={{ ...styles, ...sx }}>{children}</Box>
   );
 };
 

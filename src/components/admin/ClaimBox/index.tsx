@@ -3,8 +3,9 @@ import { Component } from 'react';
 import { Badge, Box, SxProps, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../../RTK/companySlice';
-import ClaimList from '../ClaimList';
+import ClaimListAdmin from '../ClaimListAdmin';
 import { Claim } from '../../../types';
+// import styles from './ClaimBox.module.scss';
 import styles from './ClaimBox.module.scss';
 
 type Props = {
@@ -14,6 +15,7 @@ type Props = {
   claims: Partial<Claim>[];
 };
 function ClaimBox({ width, height, label, claims }: Props) {
+  // const { companyData } = useSelector(selectCompanyData);
   const { companyData } = useSelector(selectCompanyData);
 
   return (
@@ -51,7 +53,7 @@ function ClaimBox({ width, height, label, claims }: Props) {
             overflow: 'scroll',
           }}
         >
-          <ClaimList claims={claims}></ClaimList>
+          <ClaimListAdmin claims={claims}></ClaimListAdmin>
         </div>
       </Box>
     </>
