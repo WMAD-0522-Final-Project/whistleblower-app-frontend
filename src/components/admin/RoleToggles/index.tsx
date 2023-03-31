@@ -5,8 +5,6 @@ import { selectCompanyData } from '../../../RTK/companySlice';
 
 import { roles } from '../../../data/RoleData';
 
-type Props = {};
-
 const outerBoxSx = {
   backgroundColor: 'white',
   borderRadius: '10px',
@@ -29,7 +27,7 @@ let innerBoxSx = {
   alignItems: 'center',
 };
 
-export default function RoleToggles({}: Props) {
+export default function RoleToggles() {
   const [checkedRoles, setCheckedRoles] = useState<string[]>([]);
   const [disabledRoleStat, setDisabledRoleStat] = useState({
     role1: false,
