@@ -23,7 +23,6 @@ import { setUserData } from './RTK/userDataSlice';
 import { selectUserData } from './RTK/userDataSlice';
 import AvatarIcon from './components/admin/AvatarIcon';
 import ButtonComponent from './components/MUI_comp/ButtonComponent';
-import ConfirmationModal from './components/ConfirmationModal';
 
 const App = () => {
   const { isLoading } = useSelector(selectLoading);
