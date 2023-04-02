@@ -109,6 +109,7 @@ function MainWindow({ claim }: Props) {
                         width={110}
                         height={40}
                         url={member.avatarUrl}
+                        edit={false}
                       ></UserCard>
                     );
                   })}

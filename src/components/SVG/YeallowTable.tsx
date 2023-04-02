@@ -69,7 +69,7 @@ function Yeallowtable({ width, height, url }: Props) {
           borderRadius: '50%',
           display: 'block',
           position: 'absolute',
-          width: '35%',
+          width: '25%',
           height: '70%',
           // top: '0',
           // minWidth: '40px',

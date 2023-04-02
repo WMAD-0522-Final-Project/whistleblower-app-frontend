@@ -11,6 +11,7 @@ import MainWindow from '../../components/admin/ModalWindow/mainWindow';
 
 import ClaimChat from '../../components/ClaimChat';
 import sampleClaimDetail from '../../temp/sampleClaimDetail';
+import UserList from '../../components/admin/UserList';
 
 type Props = {};
 
@@ -33,10 +34,9 @@ const AdminHome = (props: Props) => {
   return (
     // TODO: temporary styling until Mateus's task is done
 
-    <Box sx={{ backgroundColor: '#fff', height: '100vh' }}>
-      {/* TODO: temporary claim data */}
-      <ClaimChat chatData={sampleClaimDetail.chats} />
-    </Box>
+    <>
+      <UserList></UserList>
+    </>
   );
 };
 
