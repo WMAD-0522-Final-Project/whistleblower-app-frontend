@@ -2,7 +2,7 @@ import React from 'react';
 import { Box } from '@mui/material';
 import { Claim } from '../../../types';
 // import ClaimListItem from '../ClaimListItem';
-import ClaimListItem from '../ClaimListItem';
+import ClaimCardAdmin from '../ClaimCardAdmin';
 import {
   DragDropContext,
   Droppable,
@@ -37,7 +37,7 @@ const ClaimList = ({ claims }: Props) => {
                     {...provided.dragHandleProps}
                     {...provided.draggableProps}
                   >
-                    <ClaimListItem
+                    <ClaimCardAdmin
                       claim={claim}
                       sx={{ mt: '0.8rem' }}
                       key={claim.id}

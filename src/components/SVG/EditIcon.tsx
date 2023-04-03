@@ -1,6 +1,7 @@
+import { motion } from 'framer-motion';
 import * as React from 'react';
 import { Component } from 'react';
-function EditIcon() {
+const EditIcon = React.forwardRef((ref) => {
   return (
     <>
       <svg
@@ -17,6 +18,6 @@ function EditIcon() {
       </svg>
     </>
   );
-}
+});
 
-export default EditIcon;
+export default motion(EditIcon);
