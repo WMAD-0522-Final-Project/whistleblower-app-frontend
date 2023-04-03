@@ -5,6 +5,7 @@ import { selectCompanyData } from '../../../../RTK/companySlice';
 import { useSelector } from 'react-redux';
 import styles from './Frame.module.scss';
 import { Claim } from '../../../../types';
+import ClaimChat from '../../../ClaimChat';
 
 type Props = {
   width: number;
@@ -30,6 +31,7 @@ function Frame({ width, height, label, text, component, claim }: Props) {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          backgroundColor: companyData.themeColors.secondary,
 
           //   overflow: 'scroll',
           //   backgroundColor: 'black',
@@ -62,7 +64,7 @@ function Frame({ width, height, label, text, component, claim }: Props) {
             alignItems: 'center',
             width: '100%',
             height: '100%',
-            overflow: 'scroll',
+            overflow: label !== 'chat' ? 'scroll' : 'initial',
             overflowX: 'hidden',
             top: '-10%',
             // border: 'solid 3px black',
@@ -76,7 +78,28 @@ function Frame({ width, height, label, text, component, claim }: Props) {
               <div>{claim.message}</div>
             </div>
           )}
-          {component &&
+          {label !== 'chat'
+            ? component?.map((user, i) => {
+                return (
+                  <>
+                    <div
+                      style={{
+                        width: '70%',
+                        height: '30%',
+                        // border: 'solid 2px black',
+                        position: 'absolute',
+                        marginTop: `${50 * i}%`,
+                      }}
+                    >
+                      {user}
+                    </div>
+                  </>
+                );
+              })
+            : component?.map((user, i) => {
+                return <>{user}</>;
+              })}
+          {/* {component &&
             component.map((user, i) => {
               return (
                 <>
@@ -93,7 +116,7 @@ function Frame({ width, height, label, text, component, claim }: Props) {
                   </div>
                 </>
               );
-            })}
+            })} */}
         </div>
       </Box>
     </>

@@ -6,16 +6,20 @@ import { useSelector } from 'react-redux';
 import Frame from '../Frame.tsx/Frame';
 import Closebutton from '../../../SVG/Closebutton';
 import UserCard from '../UserCard';
+import { useClaimContext } from '../../../../custom/ClaimIdContext';
 // import { MotionUserCard } from '../UserCard';
 import LabalCard from '../LabelCard';
 import styles from './mainWindow.module.scss';
 import { Claim } from '../../../../types';
+import ClaimChat from '../../../ClaimChat';
+import sampleClaimDetail from '../../../../temp/sampleClaimDetail';
 type Props = {
   claim: Partial<Claim>;
 };
 
 function MainWindow({ claim }: Props) {
   const { companyData } = useSelector(selectCompanyData);
+  const { claimId, setClaimId } = useClaimContext();
   const claimNumberStyle = {
     width: '200px',
     height: '90%',
@@ -28,12 +32,15 @@ function MainWindow({ claim }: Props) {
 
     // backgroundColor: 'red',
   };
+  const closeModalWindow = () => {
+    setClaimId(null);
+  };
   return (
     <>
       <Box
         sx={{
-          width: '90%',
-          height: '90%',
+          width: '100%',
+          height: '100%',
           backgroundColor: 'white',
           borderRadius: '20px',
           border: `${companyData.themeColors.primary} 3px solid`,
@@ -148,7 +155,7 @@ function MainWindow({ claim }: Props) {
             item
             className={styles.chat}
             xs={12}
-            sm={6}
+            sm={5}
             sx={{
               marginTop: '3%',
               width: '100%',
@@ -157,11 +164,18 @@ function MainWindow({ claim }: Props) {
               // marginLeft: '5%',
             }}
           >
-            <Frame width={100} height={100} label={'chat'}></Frame>
+            <Frame
+              width={100}
+              height={100}
+              label={'chat'}
+              component={[<ClaimChat chatData={sampleClaimDetail.chats} />]}
+            ></Frame>
           </Grid>
-          {/* <Grid item xs={1} sm={1} sx={{ marginTop: '1%' }}>
-            <Closebutton></Closebutton>
-          </Grid> */}
+          <Grid item xs={1} sm={1} sx={{ marginTop: '1%' }}>
+            <div onClick={closeModalWindow}>
+              <Closebutton></Closebutton>
+            </div>
+          </Grid>
         </Grid>
       </Box>
     </>
