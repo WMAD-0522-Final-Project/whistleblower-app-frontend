@@ -16,6 +16,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Header from './components/Header';
 import GeneralHome from './pages/GeneralHome';
 import AdminHome from './pages/AdminHome';
+import ThemeEdit from './pages/ThemeEdit';
 import { setLoading } from './RTK/loadingSlice';
 import { selectLoading } from './RTK/loadingSlice';
 import { selectCompanyData } from './RTK/companySlice';
@@ -24,6 +25,7 @@ import { selectUserData } from './RTK/userDataSlice';
 import AvatarIcon from './components/admin/AvatarIcon';
 import ButtonComponent from './components/MUI_comp/ButtonComponent';
 import ConfirmationModal from './components/ConfirmationModal';
+import Settings from './components/MUI_comp/Settings';
 
 const App = () => {
   const { isLoading } = useSelector(selectLoading);
@@ -73,6 +75,9 @@ const App = () => {
             </Route>
             <Route path="admin">
               <Route index element={<AdminHome />} />
+            </Route>
+            <Route path="settings">
+              <Route index element={<ThemeEdit />} />
             </Route>
           </Routes>
         </Router>

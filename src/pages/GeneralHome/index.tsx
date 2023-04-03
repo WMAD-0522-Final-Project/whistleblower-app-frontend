@@ -24,6 +24,7 @@ const GeneralHome = (props: Props) => {
   };
 
   return (
+    
     <Box>
       <ClaimListGeneral onClaimClick={handleClaimClick} />
       <Modal outerBoxStyle={{ maxWidth: '600px' }}>
