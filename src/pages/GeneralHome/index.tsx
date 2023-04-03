@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Box, useMediaQuery, useTheme } from '@mui/material';
+import { Box, lighten, useMediaQuery, useTheme } from '@mui/material';
 import { selectCompanyData } from '../../RTK/companySlice';
 import ClaimListGeneral from '../../components/general/ClaimListGeneral';
 import ClaimForm from '../../components/general/ClaimForm';
@@ -15,6 +15,8 @@ type Props = {};
 
 const GeneralHome = (props: Props) => {
   const { companyData } = useSelector(selectCompanyData);
+  const theme = useTheme();
+  const isLg = useMediaQuery(theme.breakpoints.up('lg'));
   const { handleOpen, Modal } = useModal();
   const [currentClaim, setCurrentClaim] = useState<Claim | undefined>(
     undefined
@@ -30,21 +32,18 @@ const GeneralHome = (props: Props) => {
     // logout
   };
 
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up('lg'));
-
   return (
     <Box
       component="main"
       sx={{
         m: '5rem auto',
-        maxWidth: '600px',
+        maxWidth: '900px',
         [theme.breakpoints.up('lg')]: {
           m: '2rem auto',
         },
       }}
     >
-      {matches ? (
+      {isLg ? (
         <TabsCustom
           options={['Make Claim', 'Past Claims']}
           contents={[
@@ -52,9 +51,9 @@ const GeneralHome = (props: Props) => {
             <ClaimListGeneral onClaimClick={handleClaimClick} />,
           ]}
           sx={{
-            '& .MuiBox-root': {
-              mb: '2rem',
-            },
+            bgcolor: lighten(companyData.themeColors.primary, 0.28),
+            padding: '30px',
+            borderRadius: '20px',
           }}
         />
       ) : (
@@ -78,7 +77,7 @@ const GeneralHome = (props: Props) => {
           color: companyData.themeColors.primary,
           fontWeight: '600',
           m: '3rem auto 0',
-          maxWidth: '500px',
+          maxWidth: '200px',
           width: '90%',
         }}
       >

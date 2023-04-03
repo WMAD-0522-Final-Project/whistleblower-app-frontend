@@ -21,6 +21,9 @@ const CustomBox = ({ children, sx }: Props) => {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    [theme.breakpoints.up('lg')]: {
+      padding: '2.2rem 0',
+    },
   };
 
   return (

@@ -121,7 +121,7 @@ const ClaimChat = ({ chatData }: Props) => {
           position: 'absolute',
           width: '100%',
           left: '50%',
-          bottom: '2%',
+          bottom: '3%',
           height: '25%',
           translate: '-50% 0',
         }}
@@ -147,9 +147,12 @@ const ClaimChat = ({ chatData }: Props) => {
           customColor={companyData.themeColors.primary}
           sx={{
             color: companyData.themeColors.secondary,
+            display: 'block',
             width: '100%',
+            margin: '0 auto',
+            maxWidth: '400px',
             p: '0.6rem 0',
-            mt: '1rem',
+            mt: '1.4rem',
           }}
           type="submit"
           onClick={handleSubmitClick}

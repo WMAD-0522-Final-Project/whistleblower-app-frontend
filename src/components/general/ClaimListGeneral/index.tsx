@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, SxProps } from '@mui/material';
+import { Box, SxProps, useTheme } from '@mui/material';
 import CustomBox from '../../CustomBox/CustomBox';
 import SectionTitle from '../../SectionTitle';
 import ClaimCardGeneral from '../ClaimCardGeneral';
@@ -13,6 +13,8 @@ type Props = {
 };
 
 const ClaimListGeneral = ({ onClaimClick, sx }: Props) => {
+  const theme = useTheme();
+
   return (
     <Box
       sx={{
@@ -33,7 +35,15 @@ const ClaimListGeneral = ({ onClaimClick, sx }: Props) => {
           {sampleClaimsForGenUsers.map((claim) => (
             <ClaimCardGeneral
               claim={claim as ClaimGeneral}
-              sx={{ cursor: 'pointer', '& + &': { marginTop: '5%' } }}
+              sx={{
+                cursor: 'pointer',
+                '& + &': {
+                  marginTop: '5%',
+                  [theme.breakpoints.up('lg')]: {
+                    marginTop: '7%',
+                  },
+                },
+              }}
               onClick={onClaimClick}
               key={claim.id}
             />

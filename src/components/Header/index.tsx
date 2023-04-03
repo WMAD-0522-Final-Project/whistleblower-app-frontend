@@ -43,9 +43,10 @@ const Header = ({ hasMenu = false }: Props) => {
         component="h1"
         sx={{
           color: '#fff',
-          fontSize: '1.3rem',
+          fontSize: '1.6rem',
           p: '4%',
           [theme.breakpoints.up('md')]: {
+            fontSize: '2rem',
             p: '25px',
           },
         }}
