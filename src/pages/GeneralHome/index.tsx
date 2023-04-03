@@ -7,7 +7,6 @@ import ClaimForm from '../../components/general/ClaimForm';
 import ClaimChat from '../../components/ClaimChat';
 import sampleClaimDetail from '../../temp/sampleClaimDetail';
 import useModal from '../../hooks/useModal';
-import ButtonComponent from '../../components/MUI_comp/ButtonComponent';
 import { Claim } from '../../types';
 import TabsCustom from '../../components/MUI_comp/TabsCustom';
 
@@ -28,15 +27,11 @@ const GeneralHome = (props: Props) => {
     handleOpen();
   };
 
-  const logout = () => {
-    // logout
-  };
-
   return (
     <Box
       component="main"
       sx={{
-        m: '5rem auto',
+        m: '5rem auto 1rem',
         maxWidth: '900px',
         [theme.breakpoints.up('lg')]: {
           m: '2rem auto',
@@ -65,24 +60,6 @@ const GeneralHome = (props: Props) => {
           />
         </>
       )}
-      <ButtonComponent
-        customColor={companyData.themeColors.secondary}
-        type="submit"
-        onClick={logout}
-        sx={{
-          boxShadow: '2px 2px 2px 2px rgba(0,0,0,0.2)',
-          display: 'block',
-          mt: '1rem',
-          p: '0.8rem 0',
-          color: companyData.themeColors.primary,
-          fontWeight: '600',
-          m: '3rem auto 0',
-          maxWidth: '200px',
-          width: '90%',
-        }}
-      >
-        Logout
-      </ButtonComponent>
       <Modal outerBoxStyle={{ maxWidth: '600px' }}>
         <ClaimChat chatData={currentClaim?.chats} />
       </Modal>
