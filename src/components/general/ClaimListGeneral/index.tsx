@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '@mui/material';
+import { Box, SxProps } from '@mui/material';
 import CustomBox from '../../CustomBox/CustomBox';
 import SectionTitle from '../../SectionTitle';
 import ClaimCardGeneral from '../ClaimCardGeneral';
@@ -9,13 +9,14 @@ import { ClaimGeneral } from '../../../types';
 
 type Props = {
   onClaimClick: () => void;
+  sx?: SxProps;
 };
 
-const ClaimListGeneral = ({ onClaimClick }: Props) => {
+const ClaimListGeneral = ({ onClaimClick, sx }: Props) => {
   return (
     <Box
       sx={{
-        mt: '3rem',
+        ...sx,
       }}
     >
       <SectionTitle title="YOUR PAST CLAIMS" />
@@ -32,7 +33,7 @@ const ClaimListGeneral = ({ onClaimClick }: Props) => {
           {sampleClaimsForGenUsers.map((claim) => (
             <ClaimCardGeneral
               claim={claim as ClaimGeneral}
-              sx={{ '& + &': { marginTop: '5%' } }}
+              sx={{ cursor: 'pointer', '& + &': { marginTop: '5%' } }}
               onClick={onClaimClick}
               key={claim.id}
             />

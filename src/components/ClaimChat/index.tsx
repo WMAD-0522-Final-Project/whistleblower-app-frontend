@@ -148,6 +148,7 @@ const ClaimChat = ({ chatData }: Props) => {
           sx={{
             color: companyData.themeColors.secondary,
             width: '100%',
+            p: '0.6rem 0',
             mt: '1rem',
           }}
           type="submit"
