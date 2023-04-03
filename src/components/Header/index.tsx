@@ -10,9 +10,11 @@ import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../RTK/companySlice';
 import { APP_NAME } from '../../data/appData';
 
-type Props = {};
+type Props = {
+  hasMenu?: boolean;
+};
 
-const Header = (props: Props) => {
+const Header = ({ hasMenu = false }: Props) => {
   const { companyData } = useSelector(selectCompanyData);
 
   const muiLinkStyles = {
@@ -50,108 +52,110 @@ const Header = (props: Props) => {
       >
         {APP_NAME}
       </Typography>
-      <Box
-        sx={{
-          position: 'absolute',
-          right: 0,
-          top: 0,
-          translate: '40% -40%',
-        }}
-      >
-        <MuiLink
-          component={RouterLink}
-          to="/users"
-          sx={{
-            ...muiLinkStyles,
-            right: '110%',
-            top: '37%',
-          }}
-        >
-          <IconButton
-            size="small"
-            sx={{
-              ...iconButtonStyles,
-            }}
-          >
-            <PersonIcon sx={{ ...iconStyles }} />
-          </IconButton>
-        </MuiLink>
-        <MuiLink
-          component={RouterLink}
-          to="/settings"
-          sx={{
-            ...muiLinkStyles,
-            right: '98%',
-            top: '71%',
-          }}
-        >
-          <IconButton
-            size="small"
-            sx={{
-              ...iconButtonStyles,
-            }}
-          >
-            <SettingsIcon sx={{ ...iconStyles }} />
-          </IconButton>
-        </MuiLink>
-        <MuiLink
-          component={RouterLink}
-          to="/claims"
-          sx={{
-            ...muiLinkStyles,
-            right: '72%',
-            top: '97%',
-          }}
-        >
-          <IconButton
-            size="small"
-            sx={{
-              ...iconButtonStyles,
-            }}
-          >
-            <InventoryIcon sx={{ ...iconStyles }} />
-          </IconButton>
-        </MuiLink>
-        <MuiLink
-          component={RouterLink}
-          to="/logs"
-          sx={{
-            ...muiLinkStyles,
-            right: '37%',
-            top: '108%',
-          }}
-        >
-          <IconButton
-            size="small"
-            sx={{
-              ...iconButtonStyles,
-            }}
-          >
-            <MenuBookIcon sx={{ ...iconStyles }} />
-          </IconButton>
-        </MuiLink>
+      {hasMenu && (
         <Box
           sx={{
-            backgroundColor: companyData.themeColors.secondary,
-            borderRadius: '50%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '30vw',
-            width: '30vw',
-            [theme.breakpoints.up('md')]: {
-              height: '162px',
-              width: '162px',
-            },
+            position: 'absolute',
+            right: 0,
+            top: 0,
+            translate: '40% -40%',
           }}
         >
+          <MuiLink
+            component={RouterLink}
+            to="/users"
+            sx={{
+              ...muiLinkStyles,
+              right: '110%',
+              top: '37%',
+            }}
+          >
+            <IconButton
+              size="small"
+              sx={{
+                ...iconButtonStyles,
+              }}
+            >
+              <PersonIcon sx={{ ...iconStyles }} />
+            </IconButton>
+          </MuiLink>
+          <MuiLink
+            component={RouterLink}
+            to="/settings"
+            sx={{
+              ...muiLinkStyles,
+              right: '98%',
+              top: '71%',
+            }}
+          >
+            <IconButton
+              size="small"
+              sx={{
+                ...iconButtonStyles,
+              }}
+            >
+              <SettingsIcon sx={{ ...iconStyles }} />
+            </IconButton>
+          </MuiLink>
+          <MuiLink
+            component={RouterLink}
+            to="/claims"
+            sx={{
+              ...muiLinkStyles,
+              right: '72%',
+              top: '97%',
+            }}
+          >
+            <IconButton
+              size="small"
+              sx={{
+                ...iconButtonStyles,
+              }}
+            >
+              <InventoryIcon sx={{ ...iconStyles }} />
+            </IconButton>
+          </MuiLink>
+          <MuiLink
+            component={RouterLink}
+            to="/logs"
+            sx={{
+              ...muiLinkStyles,
+              right: '37%',
+              top: '108%',
+            }}
+          >
+            <IconButton
+              size="small"
+              sx={{
+                ...iconButtonStyles,
+              }}
+            >
+              <MenuBookIcon sx={{ ...iconStyles }} />
+            </IconButton>
+          </MuiLink>
           <Box
-            component="img"
-            src="/images/logo.png"
-            sx={{ translate: '-55% 55%', width: '26%' }}
-          />
+            sx={{
+              backgroundColor: companyData.themeColors.secondary,
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: '30vw',
+              width: '30vw',
+              [theme.breakpoints.up('md')]: {
+                height: '162px',
+                width: '162px',
+              },
+            }}
+          >
+            <Box
+              component="img"
+              src="/images/logo.png"
+              sx={{ translate: '-55% 55%', width: '26%' }}
+            />
+          </Box>
         </Box>
-      </Box>
+      )}
     </>
   );
 };
