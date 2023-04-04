@@ -19,6 +19,8 @@ import ClaimBox from '../../components/admin/ClaimBox';
 import { motion } from 'framer-motion';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import CustomBox from '../../components/CustomBox/CustomBox';
+import { DragDropContext, Draggable } from 'react-beautiful-dnd';
+import { StrictModeDroppable as Droppable } from '../../helpers/StrictModeDroppable';
 
 type Props = {};
 
@@ -55,58 +57,94 @@ const AdminHome = (props: Props) => {
   //     claim.message?.toLowerCase().includes(query.toLowerCase())
   //   );
 
+  const handleOnDragEnd = function (result) {
+    if (!result) return;
+    const newClaims = [...claims];
+  };
+
   return (
     // TODO: temporary styling until Mateus's task is done
     <>
-      <ClaimIdContext.Provider value={{ claimId, setClaimId }}>
-        <div style={{ position: 'relative' }}>
-          <div
-            style={{ position: 'absolute', width: '100vw', height: '100vh' }}
-          >
-            <Box
-              sx={{
-                height: '100vh',
-                marginTop: '-5%',
-                zIndex: '-1',
-              }}
-            >
-              {/* TODO: temporary claim data */}
-              {/* <ClaimChat chatData={sampleClaimDetail.chats} /> */}
-              {/* {claims && <MainWindow claim={claims[0]}></MainWindow>} */}
-              {claims && (
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+        <Droppable droppableId="admin-board">
+          {(provided) => {
+            <ClaimIdContext.Provider value={{ claimId, setClaimId }}>
+              <div style={{ position: 'relative' }}>
                 <div
                   style={{
-                    display: 'flex',
-                    justifyContent: 'space-around',
-                    alignItems: 'center',
-                    width: '100%',
-                    height: '100%',
+                    position: 'absolute',
+                    width: '100vw',
+                    height: '100vh',
                   }}
                 >
-                  <ClaimBox
-                    width={25}
-                    height={70}
-                    label={'new claim'}
-                    claims={claims}
-                  ></ClaimBox>
-                  <ClaimBox
-                    width={25}
-                    height={70}
-                    label={'on progress'}
-                    claims={claims}
-                  ></ClaimBox>
-                  <ClaimBox
-                    width={25}
-                    height={70}
-                    label={'done'}
-                    claims={claims}
-                  ></ClaimBox>
-                </div>
-              )}
-            </Box>
-          </div>
+                  <Box
+                    sx={{
+                      height: '100vh',
+                      marginTop: '-5%',
+                      zIndex: '-1',
+                    }}
+                  >
+                    {/* TODO: temporary claim data */}
+                    {/* <ClaimChat chatData={sampleClaimDetail.chats} /> */}
+                    {/* {claims && <MainWindow claim={claims[0]}></MainWindow>} */}
+                    {claims && (
+                      <div
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'space-around',
+                          alignItems: 'center',
+                          width: '100%',
+                          height: '100%',
+                        }}
+                        {...provided.droppableProps}
+                        ref={provided.innerRef}
+                      >
+                        {/* <ClaimBox
+                      width={25}
+                      height={70}
+                      label={'new claim'}
+                      claims={claims}
+                    ></ClaimBox>
+                    <ClaimBox
+                      width={25}
+                      height={70}
+                      label={'on progress'}
+                      claims={claims}
+                    ></ClaimBox>
+                    <ClaimBox
+                      width={25}
+                      height={70}
+                      label={'done'}
+                      claims={claims}
+                    ></ClaimBox> */}
 
-          {/* <motion.div
+                        <ClaimBox
+                          width={25}
+                          height={70}
+                          label={'new claim'}
+                          claims={claims}
+                          draggableId={'new-claim'}
+                        />
+                        <ClaimBox
+                          width={25}
+                          height={70}
+                          label={'on progress'}
+                          claims={claims}
+                          draggableId={'on-progress'}
+                        />
+                        <ClaimBox
+                          width={25}
+                          height={70}
+                          label={'done'}
+                          claims={claims}
+                          draggableId={'done'}
+                        />
+                      </div>
+                    )}
+                  </Box>
+                </div>
+
+                {/* <motion.div
             initial={{ opacity: 0 }}
             animate={
               claimId !== ''
@@ -124,11 +162,14 @@ const AdminHome = (props: Props) => {
           >
             {modalClaim && <ModalWindow claim={modalClaim}></ModalWindow>}
           </motion.div> */}
-          <Modal innerBoxStyle={{ width: '100%', height: '100%' }}>
-            {modalClaim && <MainWindow claim={modalClaim}></MainWindow>}
-          </Modal>
-        </div>
-      </ClaimIdContext.Provider>
+                <Modal innerBoxStyle={{ width: '100%', height: '100%' }}>
+                  {modalClaim && <MainWindow claim={modalClaim}></MainWindow>}
+                </Modal>
+              </div>
+            </ClaimIdContext.Provider>;
+          }}
+        </Droppable>
+      </DragDropContext>
     </>
     // <Box sx={{ backgroundColor: '#fff', height: '100vh' }}>
     //   {/* TODO: temporary claim data */}

@@ -8,18 +8,30 @@ import { Claim } from '../../../types';
 // import styles from './ClaimBox.module.scss';
 import styles from './ClaimBox.module.scss';
 
+import { StrictModeDroppable as Droppable } from '../../../helpers/StrictModeDroppable';
+import { Draggable } from 'react-beautiful-dnd';
+// type Props = {
+//   width: number;
+//   height: number;
+//   label: string;
+//   claims: Partial<Claim>[];
+// };
+
 type Props = {
   width: number;
   height: number;
   label: string;
   claims: Partial<Claim>[];
+  // draggableId: string;
 };
+// function ClaimBox({ width, height, label, claims }: Props) {
 function ClaimBox({ width, height, label, claims }: Props) {
   // const { companyData } = useSelector(selectCompanyData);
   const { companyData } = useSelector(selectCompanyData);
 
   return (
     <>
+      {/* <Draggable draggableId={`${draggableId}`}> */}
       <Box
         sx={{
           width: `${width}%`,
@@ -44,6 +56,7 @@ function ClaimBox({ width, height, label, claims }: Props) {
         >
           {label}
         </Box>
+
         <div
           className={styles.claimBox}
           style={{
@@ -55,7 +68,24 @@ function ClaimBox({ width, height, label, claims }: Props) {
         >
           <ClaimListAdmin claims={claims}></ClaimListAdmin>
         </div>
+
+        {/* {(provided) => (
+            <div
+              className={styles.claimBox}
+              style={{
+                width: '90%',
+                height: '80%',
+                // border: 'solid 3px black',
+                overflow: 'scroll',
+              }}
+              {...provided.draggableProps}
+              ref={provided.innerRef}
+            >
+              <ClaimListAdmin claims={claims}></ClaimListAdmin>
+            </div>
+          )} */}
       </Box>
+      {/* </Draggable> */}
     </>
   );
 }
