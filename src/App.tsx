@@ -23,6 +23,8 @@ import { setUserData } from './RTK/userDataSlice';
 import { selectUserData } from './RTK/userDataSlice';
 import AvatarIcon from './components/admin/AvatarIcon';
 import ButtonComponent from './components/MUI_comp/ButtonComponent';
+import AdminLayout from './components/admin/AdminLayout';
+import GeneralLayout from './components/general/GeneralLayout';
 
 const App = () => {
   const { isLoading } = useSelector(selectLoading);
@@ -62,16 +64,18 @@ const App = () => {
         }}
       >
         <Router>
-          <Header />
-          <AvatarIcon />
           <Routes>
             <Route path="/login" element={<Login />} />
             {/* TODO: protect these routes */}
             <Route path="general">
-              <Route index element={<GeneralHome />} />
+              <Route element={<GeneralLayout />}>
+                <Route index element={<GeneralHome />} />
+              </Route>
             </Route>
             <Route path="admin">
-              <Route index element={<AdminHome />} />
+              <Route element={<AdminLayout />}>
+                <Route index element={<AdminHome />} />
+              </Route>
             </Route>
           </Routes>
         </Router>
