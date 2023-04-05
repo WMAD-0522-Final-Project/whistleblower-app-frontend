@@ -2,6 +2,7 @@ import { Button, ButtonProps } from '@mui/material';
 import { SxProps } from '@mui/system';
 
 interface CustomButtonProps extends ButtonProps {
+  type?: 'button' | 'submit';
   width?: string;
   height?: string;
   customColor?: string;
@@ -11,6 +12,7 @@ interface CustomButtonProps extends ButtonProps {
 
 const ButtonComponent = ({
   children,
+  type,
   width,
   height,
   customColor,
@@ -31,7 +33,7 @@ const ButtonComponent = ({
   };
 
   return (
-    <Button sx={buttonStyles} {...rest}>
+    <Button sx={buttonStyles} {...rest} type={type}>
       {children}
     </Button>
   );
