@@ -33,7 +33,7 @@ const TabsCustom = ({ options, contents, sx }: Props) => {
           aria-label="basic tabs example"
           sx={{
             '& .MuiTabs-indicator': {
-              bgcolor: companyData.themeColors.tertiary,
+              bgcolor: companyData.themeColors.primary,
             },
           }}
         >
@@ -44,7 +44,9 @@ const TabsCustom = ({ options, contents, sx }: Props) => {
               sx={{
                 color: companyData.themeColors.secondary,
                 '&.Mui-selected': {
-                  color: companyData.themeColors.tertiary,
+                  bgcolor: '#fff',
+                  borderRadius: '5px',
+                  color: companyData.themeColors.primary,
                 },
               }}
               key={option}
