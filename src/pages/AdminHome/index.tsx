@@ -19,10 +19,15 @@ import ClaimBox from '../../components/admin/ClaimBox';
 import { motion } from 'framer-motion';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import CustomBox from '../../components/CustomBox/CustomBox';
-import { DragDropContext, Draggable } from 'react-beautiful-dnd';
-import { StrictModeDroppable as Droppable } from '../../helpers/StrictModeDroppable';
+import { DragDropContext } from 'react-beautiful-dnd';
 
 type Props = {};
+
+const columns = [
+  { id: 'newClaims', width: 25, height: 70, label: 'New Claims' },
+  { id: 'inProgress', width: 25, height: 70, label: 'In Progress' },
+  { id: 'done', width: 25, height: 70, label: 'Done' },
+];
 
 const AdminHome = (props: Props) => {
   const { companyData } = useSelector(selectCompanyData);
@@ -57,94 +62,61 @@ const AdminHome = (props: Props) => {
   //     claim.message?.toLowerCase().includes(query.toLowerCase())
   //   );
 
-  const handleOnDragEnd = function (result) {
+  const handleOnDragEnd = function (result: {}) {
+    console.log(result);
     if (!result) return;
-    const newClaims = [...claims];
+    const claimsCopy = [...claims];
   };
 
   return (
     // TODO: temporary styling until Mateus's task is done
     <>
       <DragDropContext onDragEnd={handleOnDragEnd}>
-        <Droppable droppableId="admin-board">
-          {(provided) => {
-            <ClaimIdContext.Provider value={{ claimId, setClaimId }}>
-              <div style={{ position: 'relative' }}>
-                <div
-                  style={{
-                    position: 'absolute',
-                    width: '100vw',
-                    height: '100vh',
-                  }}
-                >
-                  <Box
-                    sx={{
-                      height: '100vh',
-                      marginTop: '-5%',
-                      zIndex: '-1',
+        <ClaimIdContext.Provider value={{ claimId, setClaimId }}>
+          <div style={{ position: 'relative' }}>
+            <div
+              style={{
+                position: 'absolute',
+                width: '100vw',
+                height: '100vh',
+              }}
+            >
+              <Box
+                sx={{
+                  height: '100vh',
+                  marginTop: '-5%',
+                  zIndex: '-1',
+                }}
+              >
+                {/* TODO: temporary claim data */}
+                {/* <ClaimChat chatData={sampleClaimDetail.chats} /> */}
+                {/* {claims && <MainWindow claim={claims[0]}></MainWindow>} */}
+                {claims && (
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-around',
+                      alignItems: 'center',
+                      width: '100%',
+                      height: '100%',
                     }}
                   >
-                    {/* TODO: temporary claim data */}
-                    {/* <ClaimChat chatData={sampleClaimDetail.chats} /> */}
-                    {/* {claims && <MainWindow claim={claims[0]}></MainWindow>} */}
-                    {claims && (
-                      <div
-                        style={{
-                          display: 'flex',
-                          justifyContent: 'space-around',
-                          alignItems: 'center',
-                          width: '100%',
-                          height: '100%',
-                        }}
-                        {...provided.droppableProps}
-                        ref={provided.innerRef}
-                      >
-                        {/* <ClaimBox
-                      width={25}
-                      height={70}
-                      label={'new claim'}
-                      claims={claims}
-                    ></ClaimBox>
-                    <ClaimBox
-                      width={25}
-                      height={70}
-                      label={'on progress'}
-                      claims={claims}
-                    ></ClaimBox>
-                    <ClaimBox
-                      width={25}
-                      height={70}
-                      label={'done'}
-                      claims={claims}
-                    ></ClaimBox> */}
+                    {columns.map((column) => (
+                      <ClaimBox
+                        width={column.width}
+                        height={column.height}
+                        label={column.label}
+                        claims={claims.filter(
+                          (claim) => claim.status === column.id
+                        )}
+                      />
+                    ))}
+                  </div>
+                )}
+              </Box>
+            </div>
 
-                        <ClaimBox
-                          width={25}
-                          height={70}
-                          label={'new claim'}
-                          claims={claims}
-                          draggableId={'new-claim'}
-                        />
-                        <ClaimBox
-                          width={25}
-                          height={70}
-                          label={'on progress'}
-                          claims={claims}
-                          draggableId={'on-progress'}
-                        />
-                        <ClaimBox
-                          width={25}
-                          height={70}
-                          label={'done'}
-                          claims={claims}
-                          draggableId={'done'}
-                        />
-                      </div>
-                    )}
-                  </Box>
-                </div>
-
-                {/* <motion.div
+            {/* <motion.div
             initial={{ opacity: 0 }}
             animate={
               claimId !== ''
@@ -162,13 +134,12 @@ const AdminHome = (props: Props) => {
           >
             {modalClaim && <ModalWindow claim={modalClaim}></ModalWindow>}
           </motion.div> */}
-                <Modal innerBoxStyle={{ width: '100%', height: '100%' }}>
-                  {modalClaim && <MainWindow claim={modalClaim}></MainWindow>}
-                </Modal>
-              </div>
-            </ClaimIdContext.Provider>;
-          }}
-        </Droppable>
+            <Modal innerBoxStyle={{ width: '100%', height: '100%' }}>
+              {modalClaim && <MainWindow claim={modalClaim}></MainWindow>}
+            </Modal>
+          </div>
+        </ClaimIdContext.Provider>
+        ;
       </DragDropContext>
     </>
     // <Box sx={{ backgroundColor: '#fff', height: '100vh' }}>

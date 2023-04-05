@@ -20,6 +20,7 @@ export interface Claim {
     avatarUrl: string;
   }[];
   chats: Chat[];
+  status: string;
 }
 
 export type ClaimCategory = string;
