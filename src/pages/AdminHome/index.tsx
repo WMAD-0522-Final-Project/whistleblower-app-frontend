@@ -20,6 +20,8 @@ import ClaimBox from '../../components/admin/ClaimBox';
 import { motion } from 'framer-motion';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import CustomBox from '../../components/CustomBox/CustomBox';
+import YellowMashroom from '../../components/SVG/YellowMashroom';
+import { useLocation } from 'react-router-dom';
 
 type Props = {};
 
@@ -30,7 +32,6 @@ const AdminHome = (props: Props) => {
   const [claims, setClaims] = useState<Partial<Claim>[] | null>(null);
   const [isModalWindow, setIsModalWindow] = useState<boolean>(false);
   const [claimId, setClaimId] = useState<string | null>(null);
-
   const [modalClaim, setModalClaim] = useState<Partial<Claim>>();
   // const [claims, setClaims] = useState<Partial<Claim>[]>([]);
 
@@ -49,8 +50,6 @@ const AdminHome = (props: Props) => {
     }
   }, [claimId]);
 
-  console.log(claimId, 'this is Id');
-
   // const filteredClaims = () =>
   //   claims.filter((claim:Claim) =>
   //     claim.message?.toLowerCase().includes(query.toLowerCase())
@@ -60,7 +59,8 @@ const AdminHome = (props: Props) => {
     // TODO: temporary styling until Mateus's task is done
     <>
       <ClaimIdContext.Provider value={{ claimId, setClaimId }}>
-        <div style={{ position: 'relative' }}>
+        <UserList></UserList>
+        {/* <div style={{ position: 'relative' }}>
           <div
             style={{ position: 'absolute', width: '100vw', height: '100vh' }}
           >
@@ -72,9 +72,9 @@ const AdminHome = (props: Props) => {
               }}
             >
               {/* TODO: temporary claim data */}
-              {/* <ClaimChat chatData={sampleClaimDetail.chats} /> */}
-              {/* {claims && <MainWindow claim={claims[0]}></MainWindow>} */}
-              {claims && (
+        {/* <ClaimChat chatData={sampleClaimDetail.chats} /> */}
+        {/* {claims && <MainWindow claim={claims[0]}></MainWindow>} */}
+        {/* {claims && (
                 <div
                   style={{
                     display: 'flex',
@@ -105,12 +105,12 @@ const AdminHome = (props: Props) => {
                 </div>
               )}
             </Box>
-          </div>
+          </div> */}
 
-          {/* <>
+        {/* <>
       <UserList></UserList>
     </> */}
-          {/* <motion.div
+        {/* <motion.div
             initial={{ opacity: 0 }}
             animate={
               claimId !== ''
@@ -128,10 +128,10 @@ const AdminHome = (props: Props) => {
           >
             {modalClaim && <ModalWindow claim={modalClaim}></ModalWindow>}
           </motion.div> */}
-          <Modal innerBoxStyle={{ width: '100%', height: '100%' }}>
-            {modalClaim && <MainWindow claim={modalClaim}></MainWindow>}
-          </Modal>
-        </div>
+        {/* <Modal innerBoxStyle={{ width: '100%', height: '100%' }}>
+            {modalClaim && <MainWindow claim={modalClaim}></MainWindow>} */}
+        {/* </Modal> */}
+        {/* </div>  */}
       </ClaimIdContext.Provider>
     </>
     // <Box sx={{ backgroundColor: '#fff', height: '100vh' }}>

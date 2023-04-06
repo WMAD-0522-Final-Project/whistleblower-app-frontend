@@ -30,6 +30,7 @@ const GeneralHome = (props: Props) => {
       sx={{
         m: '5rem auto',
         maxWidth: '450px',
+        zIndex: '1',
       }}
     >
       <ClaimForm />

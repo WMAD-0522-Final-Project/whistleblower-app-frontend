@@ -1,5 +1,11 @@
 import { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useParams,
+} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import {
   Box,
   Alert,
@@ -23,16 +29,19 @@ import { setUserData } from './RTK/userDataSlice';
 import { selectUserData } from './RTK/userDataSlice';
 import AvatarIcon from './components/admin/AvatarIcon';
 import ButtonComponent from './components/MUI_comp/ButtonComponent';
+import YellowMashroom from './components/SVG/YellowMashroom';
 
 const App = () => {
   const { isLoading } = useSelector(selectLoading);
   const { companyData } = useSelector(selectCompanyData);
   const loadingDispatch = useDispatch();
   loadingDispatch(setLoading(true));
+
+  let location = useLocation();
+
   // TODO: get user data from store
   const userData = useSelector(selectUserData);
   const dispatch = useDispatch();
-
   useEffect(() => {
     setUserData({ firstName: 'Isaac', lastName: 'Wu', profileImg: 'n/a' });
   }, []);
@@ -51,6 +60,8 @@ const App = () => {
     console.log('Confirmed!!!!!!!!!!!');
   };
 
+  console.log(location.pathname, 'this is location ');
+
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -59,22 +70,35 @@ const App = () => {
           minHeight: '100vh',
           overflowX: 'hidden',
           position: 'relative',
+          overflow: 'hidden',
+          zIndex: '-2',
         }}
       >
-        <Router>
-          <Header />
-          <AvatarIcon />
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            {/* TODO: protect these routes */}
-            <Route path="general">
-              <Route index element={<GeneralHome />} />
-            </Route>
-            <Route path="admin">
-              <Route index element={<AdminHome />} />
-            </Route>
-          </Routes>
-        </Router>
+        <div style={{ position: 'absolute', zIndex: '-1' }}>
+          <YellowMashroom
+            animate={
+              location.pathname === '/admin'
+                ? { rotate: 100 }
+                : location.pathname === '/general'
+                ? { rotate: -100 }
+                : {}
+            }
+            transition={{ duration: 1 }}
+          ></YellowMashroom>
+        </div>
+
+        <Header />
+        <AvatarIcon />
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          {/* TODO: protect these routes */}
+          <Route path="general">
+            <Route index element={<GeneralHome />} />
+          </Route>
+          <Route path="admin">
+            <Route index element={<AdminHome />} />
+          </Route>
+        </Routes>
         {/* <TestComponent /> */}
         {/* {isLoading && <CircularProgress />} */}
         {/* {sampleAlert.message && (

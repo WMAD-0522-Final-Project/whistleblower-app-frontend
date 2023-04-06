@@ -36,7 +36,6 @@ const useModal = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
-    console.log('modal closed');
   };
 
   interface Modal {

@@ -1,7 +1,7 @@
 export const roles = {
-  superAdmin: 'superAdmin',
-  role1: 'role1',
-  role2: 'role2',
-  role3: 'role3',
-  role4: 'role4',
+  role: 'superAdmin',
+  permission1: 'systemAdministrator',
+  permission2: 'caseManagement',
+  permission3: 'reportViewer',
+  permission4: 'userManagement',
 };

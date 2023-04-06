@@ -2,13 +2,14 @@ import React from 'react';
 import { Box } from '@mui/material';
 import { SxProps } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import { motion } from 'framer-motion';
 
 type Props = {
   children: React.ReactNode;
   sx?: SxProps;
 };
 
-const CustomBox = ({ children, sx }: Props) => {
+const CustomBox = React.forwardRef(({ children, sx }: Props, ref) => {
   const theme = useTheme();
 
   const styles = {
@@ -21,12 +22,14 @@ const CustomBox = ({ children, sx }: Props) => {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    zIndex: '1',
+    ...sx,
   };
 
   return (
     // need styling here
-    <Box sx={{ ...styles, ...sx }}>{children}</Box>
+    <Box sx={styles}>{children}</Box>
   );
-};
+});
 
-export default CustomBox;
+export default motion(CustomBox);

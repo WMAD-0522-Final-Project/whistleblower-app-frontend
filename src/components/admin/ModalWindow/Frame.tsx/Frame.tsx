@@ -17,7 +17,6 @@ type Props = {
 };
 function Frame({ width, height, label, text, component, claim }: Props) {
   const { companyData } = useSelector(selectCompanyData);
-  console.log(component, ';lk');
   return (
     <>
       <Box
