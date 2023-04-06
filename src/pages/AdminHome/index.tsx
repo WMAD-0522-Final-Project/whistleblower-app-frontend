@@ -29,6 +29,12 @@ const columns = [
   { id: 'done', width: 25, height: 70, label: 'Done' },
 ];
 
+const removeFromColumn = (content: [], index: number) => {
+  const output = Array.from(content);
+  const [removed] = output.splice(index, 1);
+  return [removed, output];
+};
+
 const AdminHome = (props: Props) => {
   const { companyData } = useSelector(selectCompanyData);
   const { Modal, handleOpen, handleClose } = useModal();
@@ -63,13 +69,19 @@ const AdminHome = (props: Props) => {
   //   );
 
   const handleOnDragEnd = function (result: {
-    source: { droppableId: string };
+    source: { droppableId: string; index: number };
   }) {
     console.log(result);
     if (!result) return;
     const claimsCopy = [...claims];
 
-    const sourceColumn = result.source.droppableId;
+    const sourceColumn = claimsCopy.filter(
+      (claim) => claim.status === result.source.droppableId
+    );
+    const [removed, newContent] = removeFromColumn(
+      sourceColumn,
+      result.source.index
+    );
   };
 
   return (
