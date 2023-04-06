@@ -55,17 +55,21 @@ const AdminHome = (props: Props) => {
     }
   }, [claimId]);
 
-  console.log(claimId, 'this is Id');
+  // console.log(claimId, 'this is Id');
 
   // const filteredClaims = () =>
   //   claims.filter((claim:Claim) =>
   //     claim.message?.toLowerCase().includes(query.toLowerCase())
   //   );
 
-  const handleOnDragEnd = function (result: {}) {
+  const handleOnDragEnd = function (result: {
+    source: { droppableId: string };
+  }) {
     console.log(result);
     if (!result) return;
     const claimsCopy = [...claims];
+
+    const sourceColumn = result.source.droppableId;
   };
 
   return (
@@ -106,6 +110,7 @@ const AdminHome = (props: Props) => {
                         width={column.width}
                         height={column.height}
                         label={column.label}
+                        id={column.id}
                         claims={claims.filter(
                           (claim) => claim.status === column.id
                         )}

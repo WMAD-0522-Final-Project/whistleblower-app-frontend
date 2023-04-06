@@ -214,6 +214,28 @@
 export default [
   {
     id: 'lkjhgfdsa',
+    submissionDate: '2023/04/02',
+    message: 'The Curry rice in the cafeteria is terrible',
+    labels: ['high priority', 'custom label 2'],
+    category: 'category 1',
+    members: [
+      {
+        userId: 'asdfghjkl',
+        avatarUrl: '/images/profileImg.jpg',
+      },
+      {
+        userId: 'asdfghjkl',
+        avatarUrl: '/images/profileImg.jpg',
+      },
+      {
+        userId: 'asdfghjkl',
+        avatarUrl: '/images/profileImg.jpg',
+      },
+    ],
+    status: 'inProgress',
+  },
+  {
+    id: 'lkjhgfdsa',
     submissionDate: '2023/03/02',
     message: 'Boss forces me to say “sayonara”',
     labels: ['high priority', 'custom label 2'],

@@ -14,8 +14,9 @@ type Props = {
   height: number;
   label: string;
   claims: Partial<Claim>[];
+  id: string;
 };
-function ClaimBox({ width, height, label, claims }: Props) {
+function ClaimBox({ width, height, label, claims, id }: Props) {
   // const { companyData } = useSelector(selectCompanyData);
   const { companyData } = useSelector(selectCompanyData);
 
@@ -45,7 +46,7 @@ function ClaimBox({ width, height, label, claims }: Props) {
         >
           {label}
         </Box>
-        <Droppable droppableId={label}>
+        <Droppable droppableId={id}>
           {(provided) => (
             <div
               className={styles.claimBox}
