@@ -26,7 +26,6 @@ function ClaimBox({ width, height, label, claims }: Props) {
           height: `${height}%`,
           color: 'black',
           borderRadius: '20px',
-          posiition: 'relative',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-around',
@@ -50,7 +49,7 @@ function ClaimBox({ width, height, label, claims }: Props) {
             width: '90%',
             height: '80%',
             // border: 'solid 3px black',
-            overflow: 'scroll',
+            overflowY: 'scroll',
           }}
         >
           <ClaimListAdmin claims={claims}></ClaimListAdmin>

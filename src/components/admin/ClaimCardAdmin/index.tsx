@@ -2,12 +2,14 @@ import React, { useContext } from 'react';
 import { Badge, Box, SxProps, Typography } from '@mui/material';
 import { Claim } from '../../../types';
 import { useSelector } from 'react-redux';
+import stc from 'string-to-color';
 import { selectCompanyData } from '../../../RTK/companySlice';
 import ClaimYellowTable from '../../SVG/ClaimYellowTable';
 import {
   ClaimIdContext,
   useClaimContext,
 } from '../../../custom/ClaimIdContext';
+import ClaimLabel from '../../SVG/ClaimLabel';
 
 type Props = {
   claim: Partial<Claim>;
@@ -49,7 +51,46 @@ const ClaimCardAdmin = ({ claim, sx }: Props) => {
           position: 'absolute',
         }}
       >
-        <Typography fontSize="0.7rem">{claim.submissionDate}</Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <Typography fontSize="0.7rem">{claim.submissionDate}</Typography>
+          <Box
+            sx={{
+              background: companyData.themeColors.secondary,
+              boxShadow: '1px 1px 2px 1px inset rgba(0,0,0,0.3)',
+              borderRadius: '50px',
+              display: 'flex',
+              alignItems: 'center',
+              minHeight: '23px',
+              padding: '0.2rem',
+              overflowX: 'hidden',
+              ml: '5%',
+              width: '120px',
+            }}
+          >
+            {claim.labels?.slice(0, 5).map((label, index) => (
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  '& svg': {
+                    width: '24px',
+                  },
+                }}
+              >
+                {index <= 3 ? (
+                  <ClaimLabel color={stc(label)} />
+                ) : (
+                  <Typography sx={{ color: '#000' }}>...</Typography>
+                )}
+              </Box>
+            ))}
+          </Box>
+        </Box>
         <Typography
           fontSize="0.9rem"
           sx={{

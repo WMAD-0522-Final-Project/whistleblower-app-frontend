@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import { Badge, Box, SxProps, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
+import stc from 'string-to-color';
 import { selectCompanyData } from '../../../../RTK/companySlice';
 import Yeallowtable from '../../../SVG/YeallowTable';
 import { Claim } from '../../../../types';
@@ -69,7 +70,7 @@ function LabalCard({ name, width, height, url, color }: Props) {
             // backgroundColor: 'red',
           }}
         >
-          <ClaimLabel color={color}></ClaimLabel>
+          <ClaimLabel color={stc(name)}></ClaimLabel>
         </div>
       </Box>
     </>
