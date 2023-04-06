@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { Badge, Box, SxProps, Typography } from '@mui/material';
+import React from 'react';
+import { Box, SxProps, Typography } from '@mui/material';
 import { Claim } from '../../../types';
 import { useSelector } from 'react-redux';
 import stc from 'string-to-color';

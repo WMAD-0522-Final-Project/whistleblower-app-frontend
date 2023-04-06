@@ -1,13 +1,10 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { Badge, Box, SxProps, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { useSelector } from 'react-redux';
 import stc from 'string-to-color';
 import { selectCompanyData } from '../../../../RTK/companySlice';
-import Yeallowtable from '../../../SVG/YeallowTable';
-import { Claim } from '../../../../types';
-import Garbege from '../../../SVG/Garbege';
-import LabelSttingOrange from '../../../SVG/LabelSttingOrange';
+import LabelSettingOrange from '../../../SVG/LabelSettingOrange';
 import ClaimLabel from '../../../SVG/ClaimLabel';
 type Props = {
   name: string;
@@ -16,7 +13,7 @@ type Props = {
   url: string;
   color: string;
 };
-function LabalCard({ name, width, height, url, color }: Props) {
+function LabelCard({ name, width, height, url, color }: Props) {
   const { companyData } = useSelector(selectCompanyData);
   return (
     <>
@@ -54,11 +51,11 @@ function LabalCard({ name, width, height, url, color }: Props) {
             // backgroundColor: 'red',
           }}
         >
-          <LabelSttingOrange
+          <LabelSettingOrange
             width={width}
             height={height}
             name={name}
-          ></LabelSttingOrange>
+          ></LabelSettingOrange>
         </div>
         <div
           style={{
@@ -77,4 +74,4 @@ function LabalCard({ name, width, height, url, color }: Props) {
   );
 }
 
-export default LabalCard;
+export default LabelCard;

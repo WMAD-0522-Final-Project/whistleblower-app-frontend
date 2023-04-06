@@ -5,7 +5,7 @@ export default [
     id: 'lkjhgfdsa',
     submissionDate: '2023/03/02',
     message: 'Boss forces me to say “sayonara”',
-    labels: ['lorem', 'ipsum', 'lorem'],
+    labels: ['lorem', 'ipsum', 'consectetur'],
     category: 'category 1',
     members: [
       {
@@ -26,7 +26,7 @@ export default [
     id: 'asdfghjkiu',
     submissionDate: '2023/03/08',
     message: 'Boss forces me to say “konnichiwa”',
-    labels: ['lorem', 'ipsum', 'dolor', 'amet', 'lorem'],
+    labels: ['lorem', 'ipsum', 'dolor', 'amet', 'consectetur'],
     category: 'category 1',
     members: [
       {

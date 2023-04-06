@@ -7,7 +7,7 @@ import { selectCompanyData } from '../../RTK/companySlice';
 import { Claim } from '../../types';
 import sampleClaims from '../../temp/sampleClaims';
 import UserCard from '../../components/admin/ModalWindow/UserCard';
-import LabalCard from '../../components/admin/ModalWindow/LabelCard';
+import LabelCard from '../../components/admin/ModalWindow/LabelCard';
 import MainWindow from '../../components/admin/ModalWindow/mainWindow';
 import { ClaimIdContext } from '../../custom/ClaimIdContext';
 
