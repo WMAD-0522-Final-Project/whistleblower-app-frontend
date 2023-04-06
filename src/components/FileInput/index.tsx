@@ -25,10 +25,10 @@ const FileInput = ({ onChange, name, sx }: Props) => {
     <>
       <Button
         sx={{
-          backgroundColor: companyData.themeColors.tertiary,
+          backgroundColor: companyData.themeColors.secondary,
           borderRadius: '30px',
-          boxShadow: '1px 1px 1px 1px rgba(0,0,0,0.2)',
-          color: '#000',
+          boxShadow: 'rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px',
+          color: companyData.themeColors.primary,
           textAlign: 'center',
           padding: '2px 10px',
           fontSize: '0.7rem',
@@ -56,7 +56,7 @@ const FileInput = ({ onChange, name, sx }: Props) => {
         sx={{
           fontSize: '0.7rem',
           mt: '0.2rem',
-          color: companyData.themeColors.primary,
+          color: companyData.themeColors.secondary,
         }}
       >
         ({file ? file.name : 'No file selected'})
