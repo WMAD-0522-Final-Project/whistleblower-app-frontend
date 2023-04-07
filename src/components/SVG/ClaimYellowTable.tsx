@@ -3,20 +3,28 @@ import { Component } from 'react';
 import { Claim } from '../../types';
 import { Badge, Box, SxProps, Typography } from '@mui/material';
 
-type Props = { claim: Partial<Claim> };
-const ClaimYellowTable = ({ claim }: Props) => {
+type Props = { claim: Partial<Claim>; sx?: SxProps };
+const ClaimYellowTable = ({ claim, sx }: Props) => {
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        width: '100%',
-        height: '100%',
+        width: '100px',
+        height: '50px',
         position: 'relative',
+        ...sx,
       }}
     >
-      <div style={{ position: 'absolute' }}>
+      <div
+        style={{
+          position: 'absolute',
+          right: '-20px',
+          top: '-17px',
+          scale: '1',
+        }}
+      >
         <svg
           width={`160px`}
           height={`100px`}
@@ -68,89 +76,67 @@ const ClaimYellowTable = ({ claim }: Props) => {
             </filter>
           </defs>
         </svg>
+        <Box
+          sx={{
+            position: 'absolute',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: 'auto',
+            height: 'auto',
+            top: '25px',
+            right: '30px',
+            translate: '25%',
+          }}
+        >
+          {claim.members?.length &&
+            // Show badge with number
+            (claim.members!.length > 3 ? (
+              <>
+                <Box
+                  component="img"
+                  src={claim.members[0].avatarUrl}
+                  alt=""
+                  sx={{
+                    borderRadius: '50%',
+                    // display: 'block',
+                    // pl: '0.2rem',
+                    // margin: '-18%',
+                    width: '40px',
+                    height: '70%',
+                    zIndex: '1',
+                  }}
+                />
+                <Badge
+                  badgeContent={`+${claim.members.length - 1}`}
+                  color="error"
+                  sx={{
+                    bottom: '15px',
+                    right: '0',
+                  }}
+                />
+              </>
+            ) : (
+              // Show all avatars
+              claim.members.map((member, index) => (
+                <Box
+                  component="img"
+                  src={member.avatarUrl}
+                  alt={`${index}`}
+                  sx={{
+                    borderRadius: '50%',
+                    width: '40px',
+                    height: '70%',
+                    zIndex: index + 1,
+                    ml: '-15px',
+                  }}
+                  key={member.userId}
+                />
+              ))
+            ))}
+        </Box>
       </div>
-      <div
-        style={{
-          position: 'absolute',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '20%',
-          height: '80%',
-          // backgroundColor: 'orange',
-          top: '-2%',
-          right: '25%',
-        }}
-      >
-        {claim.members?.length &&
-          // Show badge with number
-          (claim.members!.length > 3 ? (
-            <>
-              <Box
-                component="img"
-                src={claim.members[0].avatarUrl}
-                alt=""
-                sx={{
-                  borderRadius: '50%',
-                  // display: 'block',
-                  // pl: '0.2rem',
-                  width: '85%',
-                  minWidth: '40px',
-                  maxWidth: '46px',
-                  height: '70%',
-                  zIndex: '1',
-                }}
-              />
-              <Badge
-                badgeContent={`+${claim.members.length - 1}`}
-                color="error"
-                sx={{
-                  mt: '5%',
-                  // position: 'absolute',
-                  bottom: '15px',
-                  right: '50px',
-                }}
-              />
-            </>
-          ) : (
-            // Show all avatars
-            claim.members.map((member, index) => (
-              <Box
-                component="img"
-                src={member.avatarUrl}
-                alt={`${index}`}
-                sx={{
-                  borderRadius: '50%',
-                  // display: 'block',
-                  // pl: '0.2rem',
-                  width: '40%',
-                  height: '60%',
-                  margin: '-18%',
-                  minWidth: claim.members!.length === 1 ? '40px' : '35px',
-                  maxWidth: claim.members!.length === 1 ? '46px' : '35px',
-                  // position: 'relative',
-                  zIndex: index + 1,
-                  // translate:
-                  //   claim.members!.length === 1 ? '0px' : `${40 - index * 40}px`,
-
-                  // left:
-                  //   claim.members!.length === 3
-                  //     ? `${55 - index * 25}px`
-                  //     : claim.members!.length === 2
-                  //     ? `${45 - index * 40}px`
-                  //     : `0px`,
-                  // ':not(:last-of-type)': {
-                  //   translate: `${
-                  //     (12 * claim.members!.length) / (index + 1)
-                  //   }px 0`,
-                  // },
-                }}
-                key={member.userId}
-              />
-            ))
-          ))}
-      </div>
-    </div>
+    </Box>
   );
 };
 

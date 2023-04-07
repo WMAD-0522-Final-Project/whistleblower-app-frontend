@@ -31,17 +31,17 @@ const ClaimListAdmin = ({ claims }: Props) => {
             {claims.map((claim, index) => (
               <Draggable key={claim.id} draggableId={'claim.id'} index={index}>
                 {(provided, snapshot) => (
-                  <div
+                  <li
                     ref={provided.innerRef}
                     {...provided.dragHandleProps}
                     {...provided.draggableProps}
                   >
                     <ClaimCardAdmin
                       claim={claim}
-                      sx={{ mt: '0.8rem' }}
+                      sx={{ m: '0.8rem auto 0' }}
                       // key={claim.id}
                     />
-                  </div>
+                  </li>
                 )}
               </Draggable>
             ))}

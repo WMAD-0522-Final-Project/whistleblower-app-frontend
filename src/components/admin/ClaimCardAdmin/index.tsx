@@ -27,7 +27,6 @@ const ClaimCardAdmin = ({ claim, sx }: Props) => {
 
   return (
     <Box
-      component="li"
       onClick={() => handleClaimClick()}
       sx={{
         backgroundColor: companyData.themeColors.primary,
@@ -41,16 +40,12 @@ const ClaimCardAdmin = ({ claim, sx }: Props) => {
         minHeight: '66px',
         padding: '0.5rem 0.5rem 0.5rem 1rem',
         position: 'relative',
-        width: '90%',
+        width: '95%',
         height: '10%',
         ...sx,
       }}
     >
-      <Box
-        sx={{
-          position: 'absolute',
-        }}
-      >
+      <Box sx={{ width: '75%' }}>
         <Box
           sx={{
             display: 'flex',
@@ -85,7 +80,9 @@ const ClaimCardAdmin = ({ claim, sx }: Props) => {
                 {index <= 3 ? (
                   <ClaimLabel color={stc(label)} />
                 ) : (
-                  <Typography sx={{ color: '#000' }}>...</Typography>
+                  <Typography sx={{ color: '#000', lineHeight: '1' }}>
+                    ...
+                  </Typography>
                 )}
               </Box>
             ))}
@@ -104,18 +101,7 @@ const ClaimCardAdmin = ({ claim, sx }: Props) => {
           {claim.message}
         </Typography>
       </Box>
-
-      <div
-        style={{
-          position: 'absolute',
-          width: '100%',
-          height: '130%',
-          right: '-30%',
-          top: '5%',
-        }}
-      >
-        <ClaimYellowTable claim={claim}></ClaimYellowTable>
-      </div>
+      <ClaimYellowTable claim={claim} sx={{ width: '25%' }}></ClaimYellowTable>
     </Box>
   );
 };
