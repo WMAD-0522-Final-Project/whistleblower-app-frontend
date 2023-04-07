@@ -254,7 +254,7 @@ export default [
         avatarUrl: '/images/profileImg.jpg',
       },
     ],
-    status: 'newClaims',
+    status: 'unHandled',
   },
   {
     id: 'asdfghjkiu',
@@ -320,7 +320,7 @@ export default [
         avatarUrl: '/images/profileImg.jpg',
       },
     ],
-    status: 'newClaims',
+    status: 'unHandled',
   },
   {
     id: 'lbbrgrgst',
@@ -346,7 +346,7 @@ export default [
         avatarUrl: '/images/profileImg.jpg',
       },
     ],
-    status: 'newClaims',
+    status: 'unHandled',
   },
   {
     id: 'lkj@apsofst',
@@ -372,7 +372,7 @@ export default [
         avatarUrl: '/images/profileImg.jpg',
       },
     ],
-    status: 'newClaims',
+    status: 'unHandled',
   },
   {
     id: 'aaosdifj',
@@ -423,7 +423,7 @@ export default [
         avatarUrl: '/images/profileImg.jpg',
       },
     ],
-    status: 'newClaims',
+    status: 'unHandled',
   },
   {
     id: 'bnshpoasd',

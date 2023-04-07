@@ -24,18 +24,18 @@ import { DragDropContext } from 'react-beautiful-dnd';
 type Props = {};
 
 const columns = [
-  { id: 'newClaims', width: 25, height: 70, label: 'New Claims' },
+  { id: 'unHandled', width: 25, height: 70, label: 'New Claims' },
   { id: 'inProgress', width: 25, height: 70, label: 'In Progress' },
   { id: 'done', width: 25, height: 70, label: 'Done' },
 ];
 
-const removeFrom = (column, index) => {
+const removeFrom = (column, index: number) => {
   const output = [...column];
   const [removedItem] = output.splice(index, 1);
   return [removedItem, output];
 };
 
-const addTo = (column, index, item) => {
+const addTo = (column, index: number, item) => {
   const output = [...column];
   output.splice(index, 0, item);
   return output;
