@@ -16,6 +16,7 @@ import Settings from '../../MUI_comp/Settings';
 import SectionTitle from '../../SectionTitle';
 import { motion } from 'framer-motion';
 import TextareaLabel from '../../TextareaLabel';
+import UserViewCard from '../UserViewCard';
 function UserList() {
   const [text, setText] = useState('');
 
@@ -55,7 +56,6 @@ function UserList() {
               height: '400px',
               overflow: 'scroll',
               marginTop: '6%',
-              // backgroundColor: 'red',
             }}
             className={styles.box}
           >
@@ -79,17 +79,18 @@ function UserList() {
                       marginTop: `${20 * i}%`,
                       display: 'flex',
                       justifyContent: 'center',
-                      alignItems: 'center',
+                      top: 10,
                     }}
                   >
-                    <UserCard
+                    <UserViewCard
+                      whileHover={{ x: 20 }}
                       name={`${user.firstName} ${user.lastName}`}
                       width={70}
                       height={50}
                       url={user.avatarUrl}
                       edit={true}
                       sx={{ marginBottom: '20px' }}
-                    ></UserCard>
+                    ></UserViewCard>
                   </div>
                 );
               })}
