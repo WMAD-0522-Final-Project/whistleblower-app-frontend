@@ -31,7 +31,7 @@ const columns = [
 
 const removeFrom = (column, index) => {
   const output = [...column];
-  const removedItem = output.splice(index, 1);
+  const [removedItem] = output.splice(index, 1);
   return [removedItem, output];
 };
 
@@ -77,36 +77,44 @@ const AdminHome = (props: Props) => {
   const handleOnDragEnd = function (result) {
     if (!result.destination) return;
     let claimsCopy = [...claims];
-    console.log(claimsCopy);
 
     const sourceColumn = claimsCopy.filter(
       (claim) => claim.status === result.source.droppableId
     );
-    console.log('Source Column:', sourceColumn);
+    // console.log('Source Column:', sourceColumn);
 
-    const destinationColumn = result.destination.droppableId;
-    console.log('Destination Column:', destinationColumn);
+    const destinationColumn = claimsCopy.filter(
+      (claim) => claim.status === result.destination.droppableId
+    );
+    // console.log('Destinaton Column:', destinationColumn);
 
-    const destinationIndex = result.destination.index;
-    console.log('Destination Index:', destinationIndex);
-
-    const destinationColumnName = result.destination.droppableId;
+    const theRestColumns = claimsCopy.filter(
+      (claim) =>
+        claim.status !== result.destination.droppableId &&
+        claim.status !== result.source.droppableId
+    );
+    // console.log('The rest:', theRestColumns);
 
     const [removedClaim, removedColumn] = removeFrom(
       sourceColumn,
       result.source.index
     );
-    removedClaim.status = destinationColumnName;
+    // console.log('Removed claim:', removedClaim);
+    // console.log('Source column after removal:', removedColumn);
 
-    claimsCopy = addTo(removedColumn, destinationIndex, removedClaim);
+    removedClaim.status = result.destination.droppableId;
+    console.log('Claim after:', removedClaim);
 
-    // claimsCopy = [
-    //   ...claimsCopy,
-    //   (draggingClaim['status'] = destinationColumnName),
-    // ];
-    // console.log(claimsCopy);
+    const newDestinationColumn = addTo(
+      destinationColumn,
+      result.destination.index,
+      removedClaim
+    );
+    // console.log('Destination column after adding:', newDestinationColumn);
 
-    // setClaims(claimsCopy);
+    claimsCopy = [...removedColumn, ...newDestinationColumn, ...theRestColumns];
+
+    setClaims(claimsCopy);
   };
 
   return (
