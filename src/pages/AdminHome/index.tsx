@@ -29,15 +29,15 @@ const columns = [
   { id: 'done', width: 25, height: 70, label: 'Done' },
 ];
 
-const removeFromColumn = (content: [], index: number) => {
-  const output = Array.from(content);
-  const [removed] = output.splice(index, 1);
-  return [removed, output];
+const removeFrom = (column, index) => {
+  const output = [...column];
+  const removedItem = output.splice(index, 1);
+  return [removedItem, output];
 };
 
-const addToColumn = (content: [], index: number, claim) => {
-  const output = Array.from(content);
-  output.splice(index, 0, claim);
+const addTo = (column, index, item) => {
+  const output = [...column];
+  output.splice(index, 0, item);
   return output;
 };
 
@@ -76,26 +76,37 @@ const AdminHome = (props: Props) => {
 
   const handleOnDragEnd = function (result) {
     if (!result.destination) return;
-    const claimsCopy = [...claims];
+    let claimsCopy = [...claims];
+    console.log(claimsCopy);
 
     const sourceColumn = claimsCopy.filter(
       (claim) => claim.status === result.source.droppableId
     );
+    console.log('Source Column:', sourceColumn);
 
-    const [removedItem, newSourceColumn] = removeFromColumn(
+    const destinationColumn = result.destination.droppableId;
+    console.log('Destination Column:', destinationColumn);
+
+    const destinationIndex = result.destination.index;
+    console.log('Destination Index:', destinationIndex);
+
+    const destinationColumnName = result.destination.droppableId;
+
+    const [removedClaim, removedColumn] = removeFrom(
       sourceColumn,
       result.source.index
     );
+    removedClaim.status = destinationColumnName;
 
-    claimsCopy[result.source.droppableId] = newSourceColumn;
-    const destinationColumn = claimsCopy[result.destination.droppableId];
-    claimsCopy[result.destination.droppableId] = addToColumn(
-      destinationColumn,
-      result.destination.index,
-      removedItem
-    );
+    claimsCopy = addTo(removedColumn, destinationIndex, removedClaim);
 
-    setClaims(claimsCopy);
+    // claimsCopy = [
+    //   ...claimsCopy,
+    //   (draggingClaim['status'] = destinationColumnName),
+    // ];
+    // console.log(claimsCopy);
+
+    // setClaims(claimsCopy);
   };
 
   return (
