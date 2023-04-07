@@ -29,11 +29,17 @@ const columns = [
   { id: 'done', width: 25, height: 70, label: 'Done' },
 ];
 
-const removeFromColumn = (content: [], index: number) => {
-  const output = Array.from(content);
-  const [removed] = output.splice(index, 1);
-  return [removed, output];
-};
+// const removeFromColumn = (content: [], index: number) => {
+//   const output = Array.from(content);
+//   const [removed] = output.splice(index, 1);
+//   return [removed, output];
+// };
+
+// const addToColumn = (content: [], index: number, claim) => {
+//   const output = Array.from(content);
+//   output.splice(index, 0, claim);
+//   return output;
+// };
 
 const AdminHome = (props: Props) => {
   const { companyData } = useSelector(selectCompanyData);
@@ -70,18 +76,17 @@ const AdminHome = (props: Props) => {
 
   const handleOnDragEnd = function (result: {
     source: { droppableId: string; index: number };
+    destination: { droppableId: string; index: number };
   }) {
     console.log(result);
-    if (!result) return;
+    if (!result.destination) return;
     const claimsCopy = [...claims];
 
     const sourceColumn = claimsCopy.filter(
       (claim) => claim.status === result.source.droppableId
     );
-    const [removed, newContent] = removeFromColumn(
-      sourceColumn,
-      result.source.index
-    );
+
+    setClaims(claimsCopy);
   };
 
   return (
@@ -123,6 +128,7 @@ const AdminHome = (props: Props) => {
                         height={column.height}
                         label={column.label}
                         id={column.id}
+                        key={column.id}
                         claims={claims.filter(
                           (claim) => claim.status === column.id
                         )}
