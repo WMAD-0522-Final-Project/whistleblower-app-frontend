@@ -81,44 +81,23 @@ const AdminHome = (props: Props) => {
     const sourceColumn = claimsCopy.filter(
       (claim) => claim.status === result.source.droppableId
     );
-    // console.log('Source Column:', sourceColumn);
 
     const destinationColumn = claimsCopy.filter(
       (claim) => claim.status === result.destination.droppableId
     );
-    // console.log('Destinaton Column:', destinationColumn);
-
-    // const theRestColumns = claimsCopy.filter(
-    //   (claim) =>
-    //     claim.status !== result.destination.droppableId &&
-    //     claim.status !== result.source.droppableId
-    // );
-    // console.log('The rest:', theRestColumns);
 
     const [removedClaim, removedColumn] = removeFrom(
       sourceColumn,
       result.source.index
     );
-    // console.log('Removed claim:', removedClaim);
-    // console.log('Source column after removal:', removedColumn);
 
     removedClaim.status = result.destination.droppableId;
-    // console.log('Claim after:', removedClaim);
 
     const newDestinationColumn = addTo(
       destinationColumn,
       result.destination.index,
       removedClaim
     );
-    // console.log('Destination column after adding:', newDestinationColumn);
-
-    // claimsCopy = [
-    //   ...new Set([
-    //     ...newDestinationColumn,
-    //     ...removedColumn,
-    //     ...theRestColumns,
-    //   ]),
-    // ];
 
     claimsCopy = [
       ...new Set([...claimsCopy, ...newDestinationColumn, ...removedColumn]),
