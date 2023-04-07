@@ -37,7 +37,6 @@ const ClaimForm = (props: Props) => {
             alignItems: 'center',
             width: '88%',
             flexDirection: 'column',
-            zIndex: '1',
           }}
         >
           <SelectBoxLabel

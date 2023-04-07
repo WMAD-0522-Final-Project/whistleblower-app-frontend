@@ -16,7 +16,6 @@ const ClaimListGeneral = ({ onClaimClick }: Props) => {
     <Box
       sx={{
         mt: '3rem',
-        zIndex: '1',
       }}
     >
       <SectionTitle title="YOUR PAST CLAIMS" />

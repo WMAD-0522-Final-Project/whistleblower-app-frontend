@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -30,6 +30,7 @@ import { selectUserData } from './RTK/userDataSlice';
 import AvatarIcon from './components/admin/AvatarIcon';
 import ButtonComponent from './components/MUI_comp/ButtonComponent';
 import YellowMashroom from './components/SVG/YellowMashroom';
+import { useAnimationControls } from 'framer-motion';
 
 const App = () => {
   const { isLoading } = useSelector(selectLoading);
@@ -38,6 +39,8 @@ const App = () => {
   loadingDispatch(setLoading(true));
 
   let location = useLocation();
+
+  const yellowControl = useAnimationControls();
 
   // TODO: get user data from store
   const userData = useSelector(selectUserData);
@@ -50,6 +53,10 @@ const App = () => {
     console.log(userData);
   }, [userData]);
 
+  useEffect(() => {
+    if (location.pathname === '/admin') yellowControl.start({ rotate: 100 });
+    if (location.pathname === '/general') yellowControl.start({ rotate: -100 });
+  }, [location]);
   // use Redux for alert state
   const sampleAlert = {
     message: 'test alert!',
@@ -71,18 +78,12 @@ const App = () => {
           overflowX: 'hidden',
           position: 'relative',
           overflow: 'hidden',
-          zIndex: '-2',
+          zIndex: '1',
         }}
       >
         <div style={{ position: 'absolute', zIndex: '-1' }}>
           <YellowMashroom
-            animate={
-              location.pathname === '/admin'
-                ? { rotate: 100 }
-                : location.pathname === '/general'
-                ? { rotate: -100 }
-                : {}
-            }
+            animate={yellowControl}
             transition={{ duration: 1 }}
           ></YellowMashroom>
         </div>

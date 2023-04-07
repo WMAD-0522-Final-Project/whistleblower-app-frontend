@@ -46,7 +46,6 @@ function LabalCard({ name, width, height, url, color }: Props) {
             position: 'absolute',
             top: '-30%',
             left: '-10%',
-            zIndex: '4',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',

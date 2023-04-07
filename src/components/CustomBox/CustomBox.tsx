@@ -22,7 +22,6 @@ const CustomBox = React.forwardRef(({ children, sx }: Props, ref) => {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    zIndex: '1',
     ...sx,
   };
 

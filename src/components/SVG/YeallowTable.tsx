@@ -74,7 +74,6 @@ function Yeallowtable({ width, height, url }: Props) {
           // top: '0',
           // minWidth: '40px',
           // maxWidth: '60px',
-          zIndex: '1',
           // backgroundColor: 'red',
         }}
       ></Box>

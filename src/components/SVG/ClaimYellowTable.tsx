@@ -98,7 +98,6 @@ const ClaimYellowTable = ({ claim }: Props) => {
                   minWidth: '40px',
                   maxWidth: '46px',
                   height: '70%',
-                  zIndex: '1',
                 }}
               />
               <Badge
