@@ -14,7 +14,8 @@ import { InputLabel } from '@mui/material';
 import ItemLabel from '../../ItemLabel';
 import Settings from '../../MUI_comp/Settings';
 import SectionTitle from '../../SectionTitle';
-
+import { motion } from 'framer-motion';
+import TextareaLabel from '../../TextareaLabel';
 function UserList() {
   const [text, setText] = useState('');
 
@@ -155,7 +156,7 @@ function UserList() {
                     {nowUser.firstName}
                   </h1>
                 </div>
-                <div
+                <motion.div
                   style={{
                     width: '100%',
                     display: 'flex',
@@ -181,11 +182,16 @@ function UserList() {
                       width: '50%',
                       display: 'flex',
                       justifyContent: 'center',
+
+                      // overflow: 'hidden',
                     }}
                   >
                     {nowUser.lastName}
+                    <TextareaLabel
+                      sx={{ width: '100%', height: '1px' }}
+                    ></TextareaLabel>
                   </h1>
-                </div>
+                </motion.div>
                 <div
                   style={{
                     width: '100%',
