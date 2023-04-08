@@ -8,13 +8,15 @@ import Yeallowtable from '../../SVG/YeallowTable';
 import { Claim } from '../../../types';
 import { motion } from 'framer-motion';
 import EditIcon from '../../SVG/EditIcon';
+import { adminUser } from '../../../types/index';
+import styles from './UserViewCard.module.scss';
 
 import {
   ClaimIdContext,
   useClaimContext,
 } from '../../../custom/ClaimIdContext';
 type Props = {
-  name: string;
+  user: Partial<adminUser>;
   width: number;
   height: number;
   url: string;
@@ -22,11 +24,11 @@ type Props = {
   sx?: SxProps;
 };
 const UserViewCard = React.forwardRef(
-  ({ name, width, height, url, edit, sx }: Props, ref) => {
+  ({ user, width, height, url, edit, sx }: Props, ref) => {
     const { companyData } = useSelector(selectCompanyData);
     const { claimId, setClaimId } = useClaimContext();
-    const edieHandle = () => {
-      if (name) setClaimId(name);
+    const editHandle = () => {
+      if (user.firstName) setClaimId(user.firstName);
     };
     return (
       <>
@@ -41,7 +43,7 @@ const UserViewCard = React.forwardRef(
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-between',
+            justifyContent: 'space-around',
             minHeight: '16px',
             padding: '0.5rem 0.5rem 0.5rem 1rem',
             position: 'relative',
@@ -54,72 +56,63 @@ const UserViewCard = React.forwardRef(
         >
           <div
             style={{
-              position: 'absolute',
-              width: '50%',
-              height: '120%',
-              // backgroundColor: 'red',
-              left: '-20%',
               display: 'flex',
-              justifyContent: 'center',
+              flexDirection: 'column',
+              justifyContent: 'space-around',
               alignItems: 'center',
+              height: '100%',
             }}
           >
-            <Yeallowtable
-              width={width}
-              height={height}
-              url={url}
-            ></Yeallowtable>
-          </div>
-
-          <Typography
-            fontSize={'1.5vh'}
-            sx={{
-              width: '90%',
-              overflow: 'hidden',
-              pt: '0.2rem',
-              whiteSpace: 'nowrap',
-              textOverflow: 'ellipsis',
-              display: 'flex',
-              justifyContent: 'center',
-              fontSize: '1rem',
-            }}
-          >
-            {name}
-          </Typography>
-          {edit && (
-            <Box
-              sx={{
-                background: companyData.themeColors.tertiary,
-                color: 'black',
-                padding: '1.5%',
-                borderRadius: '20px',
-                right: '0%',
-                fontSize: '0.7rem',
-                width: '50%',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              change passward
-            </Box>
-          )}
-
-          {edit && (
-            <div
-              style={{
-                width: '30%',
-                height: '100%',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                // backgroundColor: 'red',
-              }}
-              onClick={() => edieHandle()}
-            >
-              <EditIcon></EditIcon>
+            <div style={{ fontSize: '1.1rem' }}>
+              {user.firstName} {user.lastName}
             </div>
-          )}
+            <div style={{}}>
+              <div style={{ fontSize: '0.8rem' }}>email : {user.email}</div>
+              <div style={{ fontSize: '0.8rem' }}>department : accountance</div>
+            </div>
+          </div>
+          <div
+            className={styles.permmisions}
+            style={{
+              width: '30%',
+              height: '95%',
+              border: '2px solid white',
+              borderRadius: '20px',
+              overflow: 'scroll',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'space-around',
+              fontSize: '0.7rem',
+            }}
+          >
+            {user.permissions?.map((per, i) => {
+              return (
+                <>
+                  <div
+                    style={{
+                      backgroundColor: companyData.themeColors.tertiary,
+                      color: 'black',
+                      padding: '0.1rem',
+                      width: '80%',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      borderRadius: '10px',
+                      fontSize: '0.6rem',
+                    }}
+                  >
+                    {per.name}
+                  </div>
+                </>
+              );
+            })}
+          </div>
+          <div onClick={editHandle}>
+            <EditIcon
+              animate={claimId === user.firstName ? { rotate: 100 } : {}}
+              transition={{ duration: 1 }}
+            ></EditIcon>
+          </div>
         </Box>
       </>
     );

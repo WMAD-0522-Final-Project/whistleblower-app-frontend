@@ -84,9 +84,9 @@ function UserList() {
                   >
                     <UserViewCard
                       whileHover={{ x: 20 }}
-                      name={`${user.firstName} ${user.lastName}`}
-                      width={70}
-                      height={50}
+                      user={user}
+                      width={80}
+                      height={100}
                       url={user.avatarUrl}
                       edit={true}
                       sx={{ marginBottom: '20px' }}
