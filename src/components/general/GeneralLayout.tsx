@@ -1,15 +1,52 @@
 import React from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { Box, Typography } from '@mui/material';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import Header from '../Header';
 import ButtonComponent from '../MUI_comp/ButtonComponent';
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../RTK/companySlice';
+import localStorageHelper from '../../helpers/localStorageHelper';
+import axios, { AxiosResponse } from 'axios';
+import { UserRoleOption } from '../../types/enums';
 
 type Props = {};
 
+interface VerifyTokenResponseData {
+  message: string;
+  user: { [key: string]: any };
+}
+
 const GeneralLayout = (props: Props) => {
   const { companyData } = useSelector(selectCompanyData);
+  const navigator = useNavigate();
+
+  const verifyToken = (): Promise<AxiosResponse<VerifyTokenResponseData>> => {
+    const token = localStorageHelper('get', 'token');
+    if (!token?.data) navigator('/login');
+
+    return axios({
+      method: 'GET',
+      url: `${import.meta.env.VITE_BACKEND_URL}/api/auth/verify-token`,
+      headers: {
+        Authorization: `Bearer ${token!.data}`,
+      },
+    });
+  };
+
+  useQuery({
+    queryKey: ['token'],
+    queryFn: verifyToken,
+    staleTime: 1000 * 10 * 10,
+    onSuccess: ({ data }) => {
+      if (data.user.role !== UserRoleOption.GENERAL) {
+        navigator('/login');
+      }
+    },
+    onError: () => {
+      navigator('/login');
+    },
+  });
 
   const logout = () => {
     // logout

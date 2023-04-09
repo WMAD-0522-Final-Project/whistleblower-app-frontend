@@ -2,7 +2,7 @@ type LocalStorageHelper = (
   action: 'get' | 'set',
   key: string,
   value?: any
-) => {} | undefined;
+) => { data: any } | undefined;
 
 const localStorageHelper: LocalStorageHelper = (action, key, value) => {
   switch (action) {

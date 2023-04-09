@@ -18,7 +18,7 @@ type Props = {};
 interface LoginResponseData {
   message: string;
   token: string;
-  user: any;
+  user: { [key: string]: any };
 }
 
 const Login = (props: Props) => {
