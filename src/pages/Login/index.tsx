@@ -92,13 +92,16 @@ const Login = (props: Props) => {
             <InputLabel
               label={'Email Address'}
               topLabel={'Email'}
+              required
               name="email"
+              type="email"
               placeholder={'Enter your email address'}
               sx={{ maxWidth: '400px' }}
             />
             <InputLabel
               label={'Password'}
               topLabel={'Password'}
+              required
               name="password"
               placeholder={'Enter your password'}
               sx={{ mt: '1.2rem', maxWidth: '400px' }}

@@ -9,11 +9,21 @@ type type = {
   placeholder: string;
   label: string;
   topLabel: string;
+  type?: string;
   name?: string;
+  required?: boolean;
   sx?: SxProps;
 };
 
-const InputLabel = ({ placeholder, label, topLabel, name, sx }: type) => {
+const InputLabel = ({
+  placeholder,
+  label,
+  topLabel,
+  name,
+  type,
+  required,
+  sx,
+}: type) => {
   const { companyData } = useSelector(selectCompanyData);
   const theme = useTheme();
 
@@ -27,7 +37,9 @@ const InputLabel = ({ placeholder, label, topLabel, name, sx }: type) => {
         placeholder={placeholder}
         width={'100%'}
         mainColor={companyData.themeColors.primary}
+        type={type}
         name={name}
+        required={required}
         sx={{
           mt: '0.3rem',
           backgroundColor: '#D9D9D9',
