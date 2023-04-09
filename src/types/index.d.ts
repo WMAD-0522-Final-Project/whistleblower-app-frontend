@@ -1,6 +1,12 @@
+import { AxiosResponse, AxiosError } from 'axios';
 import { ClaimStatus } from './enums';
 
-export type SampleType = string;
+export interface AxiosCustomErrorData {
+  type: string;
+  message: string;
+}
+
+export interface AxiosCustomError extends AxiosError<AxiosCustomErrorData> {}
 
 export interface ClaimGeneral {
   id: string;
