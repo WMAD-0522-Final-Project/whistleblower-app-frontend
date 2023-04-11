@@ -1,17 +1,12 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { Box } from '@mui/material';
 import CustomBox from '../../components/CustomBox/CustomBox';
 import InputLabel from '../../components/InputLabel';
 import ButtonComponent from '../../components/MUI_comp/ButtonComponent';
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../RTK/companySlice';
-import { Link } from 'react-router-dom';
 import SectionTitle from '../../components/SectionTitle';
-import CheckboxLabel from '../../components/CheckboxLabel';
-import SearchBox from '../../components/SearchBox';
 import SelectBoxLabel from '../../components/SelectBoxLabel';
-import { orange } from '@mui/material/colors';
 
 type Props = {};
 
