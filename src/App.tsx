@@ -16,6 +16,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Header from './components/Header';
 import GeneralHome from './pages/GeneralHome';
 import AdminHome from './pages/AdminHome';
+import Contact from './pages/Contact';
 import { setLoading } from './RTK/loadingSlice';
 import { selectLoading } from './RTK/loadingSlice';
 import { selectCompanyData } from './RTK/companySlice';
@@ -66,6 +67,7 @@ const App = () => {
         <Router>
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/contact" element={<Contact />} />
             {/* TODO: protect these routes */}
             <Route path="general">
               <Route element={<GeneralLayout />}>
