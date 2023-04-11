@@ -50,10 +50,12 @@ const UserViewCard = React.forwardRef(
             width: `${width}%`,
             height: `${height}px`,
             ...sx,
-            // marginTop: '100px',
           }}
-          // style={{ backgroundColor: 'white' }}
         >
+          <div style={{ top: '30px', left: '10px', position: 'absolute' }}>
+            <Yeallowtable url={url}></Yeallowtable>
+          </div>
+          <div></div>
           <div
             style={{
               display: 'flex',
@@ -118,7 +120,4 @@ const UserViewCard = React.forwardRef(
     );
   }
 );
-// export const MotionUserCard = motion(UserCard);
-
-// export default motion(UserCard);
 export default motion(UserViewCard);

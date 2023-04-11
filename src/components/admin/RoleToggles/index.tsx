@@ -61,11 +61,12 @@ export default function RoleToggles({ permmisions, role }: Props) {
   };
 
   useEffect(() => {
+    setCheckedPermissions(null);
+    setUserRole(null);
     if (permmisions && role) {
       setCheckedPermissions(permmisions);
       setUserRole(role);
     }
-    console.log(permmisions, role, 'oreno');
   }, [permmisions && role]);
 
   useEffect(() => {
@@ -73,22 +74,21 @@ export default function RoleToggles({ permmisions, role }: Props) {
       // if (checkedPermissions.length === Object.keys(roles).length - 1) {
       //   setCheckedPermissions([roles.]);
       // }
-
-      if (checkedPermissions.includes('superAdmin')) {
-        setDisabledPermissionsStat({
-          permission1: true,
-          permission2: true,
-          permission3: true,
-          permission4: true,
-        });
-      } else {
-        setDisabledPermissionsStat({
-          permission1: false,
-          permission2: false,
-          permission3: false,
-          permission4: false,
-        });
-      }
+      // if (checkedPermissions.includes('superAdmin')) {
+      //   setDisabledPermissionsStat({
+      //     permission1: true,
+      //     permission2: true,
+      //     permission3: true,
+      //     permission4: true,
+      //   });
+      // } else {
+      //   setDisabledPermissionsStat({
+      //     permission1: false,
+      //     permission2: false,
+      //     permission3: false,
+      //     permission4: false,
+      //   });
+      // }
     }
   }, [checkedPermissions]);
   const roleSwitch = (e: React.ChangeEvent<HTMLInputElement>) => {};
@@ -96,14 +96,15 @@ export default function RoleToggles({ permmisions, role }: Props) {
   const handleRoleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (checkedPermissions) {
       let newcheckedPermissions: string[] = [...checkedPermissions];
-      if (e.target)
-        if (!checkedPermissions.includes(e.target.value)) {
-          newcheckedPermissions.push(e.target.value);
-        } else {
-          newcheckedPermissions = newcheckedPermissions.filter(
-            (checkedRole) => checkedRole !== e.target.value
-          );
-        }
+
+      if (!checkedPermissions.includes(e.target.value)) {
+        newcheckedPermissions.push(e.target.value);
+      } else {
+        newcheckedPermissions = newcheckedPermissions.filter(
+          (checkedRole) => checkedRole !== e.target.value
+        );
+        console.log(newcheckedPermissions, 'new check');
+      }
       // if (newcheckedPermissions.includes(roles)) {
       //   newcheckedPermissions = [roles.];
       // }

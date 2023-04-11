@@ -147,17 +147,16 @@ function UserList() {
                       sx={{ fontSize: '1rem' }}
                     ></ItemLabel>
                   </h1>
-                  <h1
+                  <input
                     style={{
-                      width: '50%',
+                      width: '35%',
                       display: 'flex',
                       justifyContent: 'center',
                     }}
-                  >
-                    {nowUser.firstName}
-                  </h1>
+                    value={nowUser.firstName}
+                  ></input>
                 </div>
-                <motion.div
+                <div
                   style={{
                     width: '100%',
                     display: 'flex',
@@ -178,21 +177,15 @@ function UserList() {
                       sx={{ fontSize: '1rem' }}
                     ></ItemLabel>
                   </h1>
-                  <h1
+                  <input
                     style={{
-                      width: '50%',
+                      width: '35%',
                       display: 'flex',
                       justifyContent: 'center',
-
-                      // overflow: 'hidden',
                     }}
-                  >
-                    {nowUser.lastName}
-                    <TextareaLabel
-                      sx={{ width: '100%', height: '1px' }}
-                    ></TextareaLabel>
-                  </h1>
-                </motion.div>
+                    value={nowUser.lastName}
+                  ></input>
+                </div>
                 <div
                   style={{
                     width: '100%',
@@ -214,15 +207,14 @@ function UserList() {
                       sx={{ fontSize: '1rem' }}
                     ></ItemLabel>
                   </h1>
-                  <h1
+                  <input
                     style={{
-                      width: '50%',
+                      width: '35%',
                       display: 'flex',
                       justifyContent: 'center',
                     }}
-                  >
-                    {nowUser.email}
-                  </h1>
+                    value={nowUser.email}
+                  ></input>
                 </div>
                 <div
                   style={{
@@ -262,34 +254,6 @@ function UserList() {
                     ></RoleToggles>
                   </div>
                 </div>
-                {/* <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-around',
-                    alignItems: 'center',
-                  }}
-                >
-                  <h1>name</h1>
-                  <h1>email</h1>
-                  <h1>password</h1>
-                  <h1>permittions</h1>
-                </div>
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-around',
-                    alignItems: 'center',
-                  }}
-                >
-                  <h1>
-                    {nowUser.firstName} {nowUser.lastName}
-                  </h1>
-                  <h1>{nowUser.email}</h1>
-                  <h1>{nowUser.password}</h1>
-                  <RoleToggles></RoleToggles>
-                </div> */}
               </div>
               <div
                 style={{
@@ -300,7 +264,7 @@ function UserList() {
                   height: '10%',
                 }}
               >
-                {/* <button>submit</button> */}
+                <button>submit</button>
               </div>
             </div>
           </CustomBox>
