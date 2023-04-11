@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { Badge, Box, SxProps, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../../RTK/companySlice';
 import ClaimListAdmin from '../ClaimListAdmin';
 import { Claim } from '../../../types';
-// import styles from './ClaimBox.module.scss';
 import styles from './ClaimBox.module.scss';
 
 type Props = {
@@ -15,7 +14,6 @@ type Props = {
   claims: Partial<Claim>[];
 };
 function ClaimBox({ width, height, label, claims }: Props) {
-  // const { companyData } = useSelector(selectCompanyData);
   const { companyData } = useSelector(selectCompanyData);
 
   return (
@@ -26,7 +24,6 @@ function ClaimBox({ width, height, label, claims }: Props) {
           height: `${height}%`,
           color: 'black',
           borderRadius: '20px',
-          posiition: 'relative',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-around',
@@ -49,8 +46,7 @@ function ClaimBox({ width, height, label, claims }: Props) {
           style={{
             width: '90%',
             height: '80%',
-            // border: 'solid 3px black',
-            overflow: 'scroll',
+            overflowY: 'scroll',
           }}
         >
           <ClaimListAdmin claims={claims}></ClaimListAdmin>

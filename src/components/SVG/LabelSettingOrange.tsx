@@ -7,7 +7,7 @@ type Props = {
   height: number;
   name: string;
 };
-function LabelSttingOrange({ width, height, name }: Props) {
+function LabelSettingOrange({ width, height, name }: Props) {
   return (
     <>
       <svg
@@ -109,4 +109,4 @@ function LabelSttingOrange({ width, height, name }: Props) {
   );
 }
 
-export default LabelSttingOrange;
+export default LabelSettingOrange;

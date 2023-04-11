@@ -7,7 +7,7 @@ import { selectCompanyData } from '../../RTK/companySlice';
 import { Claim } from '../../types';
 import sampleClaims from '../../temp/sampleClaims';
 import UserCard from '../../components/admin/ModalWindow/UserCard';
-import LabalCard from '../../components/admin/ModalWindow/LabelCard';
+import LabelCard from '../../components/admin/ModalWindow/LabelCard';
 import MainWindow from '../../components/admin/ModalWindow/mainWindow';
 import { ClaimIdContext } from '../../custom/ClaimIdContext';
 
@@ -84,19 +84,19 @@ const AdminHome = (props: Props) => {
                   }}
                 >
                   <ClaimBox
-                    width={25}
+                    width={30}
                     height={70}
                     label={'new claim'}
                     claims={claims}
                   ></ClaimBox>
                   <ClaimBox
-                    width={25}
+                    width={30}
                     height={70}
                     label={'on progress'}
                     claims={claims}
                   ></ClaimBox>
                   <ClaimBox
-                    width={25}
+                    width={30}
                     height={70}
                     label={'done'}
                     claims={claims}
