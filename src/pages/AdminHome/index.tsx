@@ -19,8 +19,27 @@ import ClaimBox from '../../components/admin/ClaimBox';
 import { motion } from 'framer-motion';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import CustomBox from '../../components/CustomBox/CustomBox';
+import { DragDropContext } from 'react-beautiful-dnd';
 
 type Props = {};
+
+const columns = [
+  { id: 'unHandled', width: 25, height: 70, label: 'New Claims' },
+  { id: 'inProgress', width: 25, height: 70, label: 'In Progress' },
+  { id: 'done', width: 25, height: 70, label: 'Done' },
+];
+
+const removeFrom = (column, index: number) => {
+  const output = [...column];
+  const [removedItem] = output.splice(index, 1);
+  return [removedItem, output];
+};
+
+const addTo = (column, index: number, item) => {
+  const output = [...column];
+  output.splice(index, 0, item);
+  return output;
+};
 
 const AdminHome = (props: Props) => {
   const { companyData } = useSelector(selectCompanyData);
@@ -48,65 +67,99 @@ const AdminHome = (props: Props) => {
     }
   }, [claimId]);
 
-  console.log(claimId, 'this is Id');
+  // console.log(claimId, 'this is Id');
 
   // const filteredClaims = () =>
   //   claims.filter((claim:Claim) =>
   //     claim.message?.toLowerCase().includes(query.toLowerCase())
   //   );
 
+  const handleOnDragEnd = function (result) {
+    if (!result.destination) return;
+    let claimsCopy = [...claims];
+
+    const sourceColumn = claimsCopy.filter(
+      (claim) => claim.status === result.source.droppableId
+    );
+
+    const destinationColumn = claimsCopy.filter(
+      (claim) => claim.status === result.destination.droppableId
+    );
+
+    const [removedClaim, removedColumn] = removeFrom(
+      sourceColumn,
+      result.source.index
+    );
+
+    removedClaim.status = result.destination.droppableId;
+
+    const newDestinationColumn = addTo(
+      destinationColumn,
+      result.destination.index,
+      removedClaim
+    );
+
+    claimsCopy = [
+      ...new Set([...claimsCopy, ...newDestinationColumn, ...removedColumn]),
+    ];
+
+    console.log('claimsCopy:', claimsCopy);
+
+    setClaims(claimsCopy);
+  };
+
   return (
     // TODO: temporary styling until Mateus's task is done
     <>
-      <ClaimIdContext.Provider value={{ claimId, setClaimId }}>
-        <div style={{ position: 'relative' }}>
-          <div
-            style={{ position: 'absolute', width: '100vw', height: '100vh' }}
-          >
-            <Box
-              sx={{
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+        <ClaimIdContext.Provider value={{ claimId, setClaimId }}>
+          <div style={{ position: 'relative' }}>
+            <div
+              style={{
+                position: 'absolute',
+                width: '100vw',
                 height: '100vh',
-                marginTop: '-5%',
-                zIndex: '-1',
               }}
             >
-              {/* TODO: temporary claim data */}
-              {/* <ClaimChat chatData={sampleClaimDetail.chats} /> */}
-              {/* {claims && <MainWindow claim={claims[0]}></MainWindow>} */}
-              {claims && (
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-around',
-                    alignItems: 'center',
-                    width: '100%',
-                    height: '100%',
-                  }}
-                >
-                  <ClaimBox
-                    width={30}
-                    height={70}
-                    label={'new claim'}
-                    claims={claims}
-                  ></ClaimBox>
-                  <ClaimBox
-                    width={30}
-                    height={70}
-                    label={'on progress'}
-                    claims={claims}
-                  ></ClaimBox>
-                  <ClaimBox
-                    width={30}
-                    height={70}
-                    label={'done'}
-                    claims={claims}
-                  ></ClaimBox>
-                </div>
-              )}
-            </Box>
-          </div>
 
-          {/* <motion.div
+              <Box
+                sx={{
+                  height: '100vh',
+                  marginTop: '-5%',
+                  zIndex: '-1',
+                }}
+              >
+                {/* TODO: temporary claim data */}
+                {/* <ClaimChat chatData={sampleClaimDetail.chats} /> */}
+                {/* {claims && <MainWindow claim={claims[0]}></MainWindow>} */}
+                {claims && (
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-around',
+                      alignItems: 'center',
+                      width: '100%',
+                      height: '100%',
+                    }}
+                  >
+                    {columns.map((column) => (
+                      <ClaimBox
+                        width={column.width}
+                        height={column.height}
+                        label={column.label}
+                        id={column.id}
+                        key={column.id}
+                        claims={claims.filter(
+                          (claim) => claim.status === column.id
+                        )}
+                      />
+                    ))}
+                  </div>
+                )}
+              </Box>
+            </div>
+
+            {/* <motion.div
             initial={{ opacity: 0 }}
             animate={
               claimId !== ''
@@ -124,11 +177,13 @@ const AdminHome = (props: Props) => {
           >
             {modalClaim && <ModalWindow claim={modalClaim}></ModalWindow>}
           </motion.div> */}
-          <Modal innerBoxStyle={{ width: '100%', height: '100%' }}>
-            {modalClaim && <MainWindow claim={modalClaim}></MainWindow>}
-          </Modal>
-        </div>
-      </ClaimIdContext.Provider>
+            <Modal innerBoxStyle={{ width: '100%', height: '100%' }}>
+              {modalClaim && <MainWindow claim={modalClaim}></MainWindow>}
+            </Modal>
+          </div>
+        </ClaimIdContext.Provider>
+        ;
+      </DragDropContext>
     </>
     // <Box sx={{ backgroundColor: '#fff', height: '100vh' }}>
     //   {/* TODO: temporary claim data */}

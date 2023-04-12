@@ -17,6 +17,7 @@ const ClaimYellowTable = ({ claim, sx }: Props) => {
         ...sx,
       }}
     >
+
       <div
         style={{
           position: 'absolute',
