@@ -73,7 +73,7 @@ const ClaimCardAdmin = ({ claim, sx }: Props) => {
           top: '5%',
         }}
       >
-        <ClaimYellowTable claim={claim}></ClaimYellowTable>
+        <ClaimYellowTable claim={claim}></ClaimYellowTable>s
       </div>
     </Box>
   );
