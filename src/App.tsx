@@ -11,12 +11,13 @@ import {
   Button,
 } from '@mui/material';
 import theme from './theme';
-import Login from './pages/Login';
 import TestComponent from './components/MUI_comp/TestComponent';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from './components/Header';
+import Login from './pages/Login';
 import GeneralHome from './pages/GeneralHome';
 import AdminHome from './pages/AdminHome';
+import Contact from './pages/Contact';
 import ThemeEdit from './pages/ThemeEdit';
 import { setLoading } from './RTK/loadingSlice';
 import { selectLoading } from './RTK/loadingSlice';
@@ -70,6 +71,7 @@ const App = () => {
         <Router>
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/contact" element={<Contact />} />
             {/* TODO: protect these routes */}
             <Route path="general">
               <Route element={<GeneralLayout />}>
