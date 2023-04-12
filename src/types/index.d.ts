@@ -28,6 +28,11 @@ export interface Claim {
   chats: Chat[];
 }
 
+export interface ClaimLabel {
+  _id: string;
+  name: string;
+}
+
 export type ClaimCategory = string;
 
 export type ClaimLabel = string;

@@ -17,7 +17,7 @@ type Props = {
 };
 function Frame({ width, height, label, text, component, claim }: Props) {
   const { companyData } = useSelector(selectCompanyData);
-  console.log(component, ';lk');
+  // console.log(component, ';lk');
   return (
     <>
       <Box
@@ -84,11 +84,11 @@ function Frame({ width, height, label, text, component, claim }: Props) {
                   <>
                     <div
                       style={{
-                        width: '70%',
+                        width: '75%',
                         height: '30%',
                         // border: 'solid 2px black',
                         position: 'absolute',
-                        marginTop: `${50 * i}%`,
+                        top: `${30 * i}%`,
                       }}
                     >
                       {user}

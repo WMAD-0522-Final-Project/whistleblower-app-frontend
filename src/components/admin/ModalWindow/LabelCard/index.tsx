@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { Box } from '@mui/material';
+import { Box, SxProps } from '@mui/material';
 import { useSelector } from 'react-redux';
 import stc from 'string-to-color';
 import { selectCompanyData } from '../../../../RTK/companySlice';
@@ -12,13 +12,13 @@ type Props = {
   height: number;
   url: string;
   color: string;
+  sx?: SxProps;
 };
-function LabelCard({ name, width, height, url, color }: Props) {
+function LabelCard({ name, width, height, url, color, sx }: Props) {
   const { companyData } = useSelector(selectCompanyData);
   return (
     <>
       <Box
-        component="li"
         sx={{
           backgroundColor: companyData.themeColors.secondary,
           borderRadius: '2rem',
@@ -35,6 +35,7 @@ function LabelCard({ name, width, height, url, color }: Props) {
           height: `${height}px`,
           // marginTop: '100px',
           // marginLeft: '200px', //delete later
+          ...sx,
         }}
       >
         <div
