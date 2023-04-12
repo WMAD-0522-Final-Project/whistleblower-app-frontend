@@ -1,6 +1,6 @@
 import React, { MouseEventHandler } from 'react';
 import { useSelector } from 'react-redux';
-import { Box, SxProps, Typography } from '@mui/material';
+import { Box, SxProps, Typography, useTheme } from '@mui/material';
 import { selectCompanyData } from '../../../RTK/companySlice';
 import ItemLabel from '../../ItemLabel';
 import { ClaimGeneral } from '../../../types';
@@ -14,6 +14,7 @@ type Props = {
 
 const ClaimCardGeneral = ({ claim, onClick, sx }: Props) => {
   const { companyData } = useSelector(selectCompanyData);
+  const theme = useTheme();
 
   return (
     <Box
@@ -24,6 +25,9 @@ const ClaimCardGeneral = ({ claim, onClick, sx }: Props) => {
         borderRadius: '5px',
         padding: '3% 4% 4% 4%',
         width: '100%',
+        [theme.breakpoints.up('lg')]: {
+          padding: '3% 5% 4% 5%',
+        },
         ...sx,
       }}
     >
@@ -40,6 +44,11 @@ const ClaimCardGeneral = ({ claim, onClick, sx }: Props) => {
               ? companyData.themeColors.secondary
               : companyData.themeColors.primary
           }
+          sx={{
+            [theme.breakpoints.up('lg')]: {
+              fontSize: '0.8rem',
+            },
+          }}
         />
         <Typography component="span" fontSize="0.7rem">
           Submitted on: {claim.submissionDate}

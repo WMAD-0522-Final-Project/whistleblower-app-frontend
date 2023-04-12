@@ -8,7 +8,7 @@ import Closebutton from '../../../SVG/Closebutton';
 import UserCard from '../UserCard';
 import { useClaimContext } from '../../../../custom/ClaimIdContext';
 // import { MotionUserCard } from '../UserCard';
-import LabalCard from '../LabelCard';
+import LabelCard from '../LabelCard';
 import styles from './mainWindow.module.scss';
 import { Claim } from '../../../../types';
 import ClaimChat from '../../../ClaimChat';
@@ -127,23 +127,23 @@ function MainWindow({ claim }: Props) {
                   height={100}
                   label={'labels'}
                   // component={[
-                  //   <LabalCard
+                  //   <LabelCard
                   //     name={'ok deal'}
                   //     width={110}
                   //     height={50}
                   //     url={'/images/profileImg.jpg'}
                   //     color={'blue'}
-                  //   ></LabalCard>,
+                  //   ></LabelCard>,
                   // ]}
                   component={claim.labels?.map((label, i) => {
                     return (
-                      <LabalCard
+                      <LabelCard
                         name={label}
                         width={110}
                         height={50}
                         url={'/images/profileImg.jpg'}
                         color={'blue'}
-                      ></LabalCard>
+                      ></LabelCard>
                     );
                   })}
                 ></Frame>

@@ -10,12 +10,14 @@ import {
   Button,
 } from '@mui/material';
 import theme from './theme';
-import Login from './pages/Login';
 import TestComponent from './components/MUI_comp/TestComponent';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from './components/Header';
+import Login from './pages/Login';
 import GeneralHome from './pages/GeneralHome';
 import AdminHome from './pages/AdminHome';
+import Contact from './pages/Contact';
+import ThemeEdit from './pages/ThemeEdit';
 import { setLoading } from './RTK/loadingSlice';
 import { selectLoading } from './RTK/loadingSlice';
 import { selectCompanyData } from './RTK/companySlice';
@@ -23,6 +25,10 @@ import { setUserData } from './RTK/userDataSlice';
 import { selectUserData } from './RTK/userDataSlice';
 import AvatarIcon from './components/admin/AvatarIcon';
 import ButtonComponent from './components/MUI_comp/ButtonComponent';
+import ConfirmationModal from './components/ConfirmationModal';
+import Settings from './components/MUI_comp/Settings';
+import AdminLayout from './components/admin/AdminLayout';
+import GeneralLayout from './components/general/GeneralLayout';
 
 const App = () => {
   const { isLoading } = useSelector(selectLoading);
@@ -62,16 +68,22 @@ const App = () => {
         }}
       >
         <Router>
-          <Header />
-          <AvatarIcon />
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/contact" element={<Contact />} />
             {/* TODO: protect these routes */}
             <Route path="general">
-              <Route index element={<GeneralHome />} />
+              <Route element={<GeneralLayout />}>
+                <Route index element={<GeneralHome />} />
+              </Route>
             </Route>
             <Route path="admin">
-              <Route index element={<AdminHome />} />
+              <Route element={<AdminLayout />}>
+                <Route index element={<AdminHome />} />
+              </Route>
+            </Route>
+            <Route path="settings">
+              <Route index element={<ThemeEdit />} />
             </Route>
           </Routes>
         </Router>

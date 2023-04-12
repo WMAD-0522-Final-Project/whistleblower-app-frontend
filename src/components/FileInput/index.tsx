@@ -1,5 +1,5 @@
 import React, { useState, ChangeEventHandler } from 'react';
-import { Button, Typography } from '@mui/material';
+import { Button, Typography, useTheme } from '@mui/material';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { SxProps } from '@mui/material';
 import { useSelector } from 'react-redux';
@@ -13,6 +13,7 @@ type Props = {
 
 const FileInput = ({ onChange, name, sx }: Props) => {
   const { companyData } = useSelector(selectCompanyData);
+  const theme = useTheme();
   const [file, setFile] = useState<File | null>(null);
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -29,6 +30,7 @@ const FileInput = ({ onChange, name, sx }: Props) => {
           borderRadius: '30px',
           boxShadow: '1px 1px 1px 1px rgba(0,0,0,0.2)',
           color: '#000',
+          cursor: 'pointer',
           textAlign: 'center',
           padding: '2px 10px',
           fontSize: '0.7rem',
@@ -42,6 +44,8 @@ const FileInput = ({ onChange, name, sx }: Props) => {
           type="file"
           name={name}
           style={{
+            cursor: 'pointer',
+            fontSize: '0',
             opacity: '0',
             position: 'absolute',
             top: '0',
@@ -57,6 +61,9 @@ const FileInput = ({ onChange, name, sx }: Props) => {
           fontSize: '0.7rem',
           mt: '0.2rem',
           color: companyData.themeColors.primary,
+          [theme.breakpoints.up('lg')]: {
+            fontSize: '0.8rem',
+          },
         }}
       >
         ({file ? file.name : 'No file selected'})

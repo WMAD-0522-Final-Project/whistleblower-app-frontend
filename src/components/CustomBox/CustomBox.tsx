@@ -21,11 +21,14 @@ const CustomBox = ({ children, sx }: Props) => {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    [theme.breakpoints.up('lg')]: {
+      padding: '2.2rem 0',
+    },
   };
 
   return (
     // need styling here
-    <Box sx={{ ...styles, ...sx }}>{children}</Box>
+    <Box sx={{ ...styles, ...sx } as SxProps}>{children}</Box>
   );
 };
 

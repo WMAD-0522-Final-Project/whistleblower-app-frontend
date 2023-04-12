@@ -11,6 +11,7 @@ type Props = {
 
 const ClaimListAdmin = ({ claims }: Props) => {
   return (
+
     <Box
       component="ul"
       // sx={{
@@ -37,6 +38,7 @@ const ClaimListAdmin = ({ claims }: Props) => {
         </Draggable>
       ))}
     </Box>
+
     // <Box component="ul">
     //   {claims.map((claim) => (
     //     <ClaimCardAdmin claim={claim} sx={{ mt: '0.8rem' }} key={claim.id} />

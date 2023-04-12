@@ -1,5 +1,5 @@
 import React, { FormEventHandler } from 'react';
-import { Box } from '@mui/material';
+import { Box, useTheme } from '@mui/material';
 import CustomBox from '../../CustomBox/CustomBox';
 import SectionTitle from '../../SectionTitle';
 import TextareaLabel from '../../TextareaLabel';
@@ -14,6 +14,7 @@ type Props = {};
 
 const ClaimForm = (props: Props) => {
   const { companyData } = useSelector(selectCompanyData);
+  const theme = useTheme();
 
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
@@ -66,7 +67,15 @@ const ClaimForm = (props: Props) => {
               width: '100%',
             }}
           />
-          <FileInput name="file" sx={{ mt: '1rem' }} />
+          <FileInput
+            name="file"
+            sx={{
+              mt: '1rem',
+              [theme.breakpoints.up('lg')]: {
+                fontSize: '0.8rem',
+              },
+            }}
+          />
           <CheckboxLabel
             label="send anonymously"
             name="isAnonymous"
@@ -80,10 +89,11 @@ const ClaimForm = (props: Props) => {
             customColor={companyData.themeColors.primary}
             type="submit"
             sx={{
-              mt: '1rem',
+              mt: '1.4rem',
               p: '0.8rem 0',
               color: companyData.themeColors.secondary,
               fontWeight: '600',
+              maxWidth: '300px',
               width: '100%',
             }}
           >

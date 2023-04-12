@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { Badge, Box, SxProps, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../../RTK/companySlice';
 import ClaimListAdmin from '../ClaimListAdmin';
 import { Claim } from '../../../types';
-// import styles from './ClaimBox.module.scss';
 import styles from './ClaimBox.module.scss';
 
 import { StrictModeDroppable as Droppable } from '../../../helpers/StrictModeDroppable';
@@ -16,8 +15,9 @@ type Props = {
   claims: Partial<Claim>[];
   id: string;
 };
+
 function ClaimBox({ width, height, label, claims, id }: Props) {
-  // const { companyData } = useSelector(selectCompanyData);
+
   const { companyData } = useSelector(selectCompanyData);
 
   return (
@@ -28,7 +28,6 @@ function ClaimBox({ width, height, label, claims, id }: Props) {
           height: `${height}%`,
           color: 'black',
           borderRadius: '20px',
-          posiition: 'relative',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-around',
@@ -46,6 +45,7 @@ function ClaimBox({ width, height, label, claims, id }: Props) {
         >
           {label}
         </Box>
+
         <Droppable droppableId={id}>
           {(provided) => (
             <div
@@ -64,6 +64,7 @@ function ClaimBox({ width, height, label, claims, id }: Props) {
             </div>
           )}
         </Droppable>
+
       </Box>
     </>
   );
