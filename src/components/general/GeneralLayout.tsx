@@ -48,9 +48,9 @@ const GeneralLayout = (props: Props) => {
   //   },
   // });
 
-  // const logout = () => {
-  //   // logout
-  // };
+  const logout = () => {
+    // logout
+  };
 
   return (
     <Box
@@ -65,7 +65,7 @@ const GeneralLayout = (props: Props) => {
       <ButtonComponent
         customColor={companyData.themeColors.secondary}
         type="submit"
-        onClick={logout}
+        // onClick={logout}
         sx={{
           boxShadow: '2px 2px 2px 2px rgba(0,0,0,0.2)',
           display: 'block',
