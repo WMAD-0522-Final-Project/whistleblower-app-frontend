@@ -16,32 +16,32 @@ interface VerifyTokenResponseData {
 const AdminLayout = (props: Props) => {
   const navigator = useNavigate();
 
-  const verifyToken = (): Promise<AxiosResponse<VerifyTokenResponseData>> => {
-    const token = localStorageHelper('get', 'token');
-    if (!token?.data) navigator('/login');
+  // const verifyToken = (): Promise<AxiosResponse<VerifyTokenResponseData>> => {
+  //   const token = localStorageHelper('get', 'token');
+  //   if (!token?.data) navigator('/login');
 
-    return axios({
-      method: 'GET',
-      url: `${import.meta.env.VITE_BACKEND_URL}/api/auth/verify-token`,
-      headers: {
-        Authorization: `Bearer ${token!.data}`,
-      },
-    });
-  };
+  //   return axios({
+  //     method: 'GET',
+  //     url: `${import.meta.env.VITE_BACKEND_URL}/api/auth/verify-token`,
+  //     headers: {
+  //       Authorization: `Bearer ${token!.data}`,
+  //     },
+  //   });
+  // };
 
-  useQuery({
-    queryKey: ['token'],
-    queryFn: verifyToken,
-    staleTime: 1000 * 10,
-    onSuccess: ({ data }) => {
-      if (data.user.role !== UserRoleOption.ADMIN) {
-        navigator('/login');
-      }
-    },
-    onError: () => {
-      navigator('/login');
-    },
-  });
+  // useQuery({
+  //   queryKey: ['token'],
+  //   queryFn: verifyToken,
+  //   staleTime: 1000 * 10,
+  //   onSuccess: ({ data }) => {
+  //     if (data.user.role !== UserRoleOption.ADMIN) {
+  //       navigator('/login');
+  //     }
+  //   },
+  //   onError: () => {
+  //     navigator('/login');
+  //   },
+  // });
 
   return (
     <>
