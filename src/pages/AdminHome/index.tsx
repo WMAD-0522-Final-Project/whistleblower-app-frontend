@@ -13,7 +13,6 @@ import { ClaimIdContext } from '../../custom/ClaimIdContext';
 
 import ClaimChat from '../../components/ClaimChat';
 import sampleClaimDetail from '../../temp/sampleClaimDetail';
-import UserList from '../../components/admin/UserList';
 import Frame from '../../components/admin/ModalWindow/Frame.tsx/Frame';
 import ClaimBox from '../../components/admin/ClaimBox';
 
@@ -22,6 +21,8 @@ import ConfirmationModal from '../../components/ConfirmationModal';
 import CustomBox from '../../components/CustomBox/CustomBox';
 import YellowMashroom from '../../components/SVG/YellowMashroom';
 import { useLocation } from 'react-router-dom';
+import AdminUserView from '../AdminUserView';
+import GeneralUserView from '../GeneralUserView';
 
 type Props = {};
 
@@ -59,7 +60,8 @@ const AdminHome = (props: Props) => {
     // TODO: temporary styling until Mateus's task is done
     <>
       <ClaimIdContext.Provider value={{ claimId, setClaimId }}>
-        <UserList></UserList>
+        <GeneralUserView></GeneralUserView>
+        {/* <AdminUserView></AdminUserView> */}
         {/* <div style={{ position: 'relative' }}>
           <div
             style={{ position: 'absolute', width: '100vw', height: '100vh' }}

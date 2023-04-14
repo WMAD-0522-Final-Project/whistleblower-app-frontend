@@ -1,25 +1,20 @@
 import * as React from 'react';
 import { Component, useState, useEffect } from 'react';
-import CustomBox from '../../CustomBox/CustomBox';
-import SearchBox from '../../SearchBox';
+import CustomBox from '../../components/CustomBox/CustomBox';
+import SearchBox from '../../components/SearchBox';
 import { useSelector } from 'react-redux';
-import { selectCompanyData } from '../../../RTK/companySlice';
-import sampleUserDatas from '../../../temp/sampleUserDatas';
-import UserCard from '../ModalWindow/UserCard';
-import styles from './UserList.module.scss';
-import { useClaimContext } from '../../../custom/ClaimIdContext';
-import { Claim, adminUser } from '../../../types';
-import RoleToggles from '../RoleToggles';
-import { InputLabel, NativeSelect } from '@mui/material';
-import ItemLabel from '../../ItemLabel';
-import Settings from '../../MUI_comp/Settings';
-import SectionTitle from '../../SectionTitle';
-import { motion } from 'framer-motion';
-import TextareaLabel from '../../TextareaLabel';
-import UserViewCard from '../UserViewCard';
-import SelectBoxLabel from '../../SelectBoxLabel';
+import { selectCompanyData } from '../../RTK/companySlice';
+import sampleUserDatas from '../../temp/sampleUserDatas';
+import { useClaimContext } from '../../custom/ClaimIdContext';
+import { adminUser } from '../../types';
+import RoleToggles from '../../components/admin/RoleToggles';
+import { NativeSelect } from '@mui/material';
+import ItemLabel from '../../components/ItemLabel';
+import AdminUserViewCard from '../../components/admin/AdminUserViewCard';
+import styles from './GeneralUserView.module.scss';
+import GeneralUserViewCard from '../../components/admin/GeneralUserViewCard';
 
-function UserList() {
+function GeneralUserView() {
   const [text, setText] = useState('');
 
   const { companyData } = useSelector(selectCompanyData);
@@ -85,21 +80,21 @@ function UserList() {
                       position: 'absolute',
                       width: '100%',
                       height: '30%',
-                      marginTop: `${20 * i}%`,
+                      marginTop: `${13 * i}%`,
                       display: 'flex',
                       justifyContent: 'center',
                       top: 10,
                     }}
                   >
-                    <UserViewCard
+                    <GeneralUserViewCard
                       whileHover={{ x: 20 }}
                       user={user}
                       width={80}
-                      height={100}
+                      height={60}
                       url={user.avatarUrl}
                       edit={true}
                       sx={{ marginBottom: '20px' }}
-                    ></UserViewCard>
+                    ></GeneralUserViewCard>
                   </div>
                 );
               })}
@@ -131,7 +126,7 @@ function UserList() {
                   flexDirection: 'column',
                   justifyContent: 'space-around',
                   width: '100%',
-                  height: '90%',
+                  height: '70%',
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -302,21 +297,6 @@ function UserList() {
                       marginRight: '10%',
                     }}
                   >
-                    {/* <SelectBoxLabel
-                      placeholder={
-                        nowUser.department?.name ? nowUser.department.name : ''
-                      }
-                      label=""
-                      name=""
-                      color={companyData.themeColors.primary}
-                      selectBoxSx={{
-                        width: '150%',
-                        marginLeft: '-25%',
-                        '& .MuiSelect-select': {
-                          padding: '1rem',
-                        },
-                      }}
-                    ></SelectBoxLabel> */}
                     <NativeSelect
                       defaultValue={nowUser.department?.name}
                       sx={{ width: '100%', border: 'solid 2px black' }}
@@ -338,64 +318,6 @@ function UserList() {
                         );
                       })}
                     </NativeSelect>
-                  </div>
-                </div>
-                <div
-                  style={{
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'space-around',
-                    marginLeft: '25px',
-                  }}
-                >
-                  <h1
-                    style={{
-                      width: '50%',
-                      height: '100%',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      marginRight: '5%',
-                      marginLeft: '1%',
-                    }}
-                  >
-                    <ItemLabel
-                      bgColor={companyData.themeColors.primary}
-                      textColor={companyData.themeColors.secondary}
-                      text="permissions"
-                      sx={{
-                        fontSize: '1rem',
-                        width: '60%',
-                        height: '18%',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}
-                    ></ItemLabel>
-                  </h1>
-                  <div
-                    style={{
-                      width: '50%',
-                      height: '100%',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      marginRight: '10%',
-                    }}
-                  >
-                    <RoleToggles
-                      permmisions={nowUser.permissions?.map((e) => e.name)}
-                      permissionsResult={
-                        (result) =>
-                          setNowUser((pre) => ({
-                            ...pre,
-                            permissions: result.map((perm) => {
-                              return { _id: ';lkj', name: perm };
-                            }),
-                          }))
-                        // console.log(result, ';lkj')
-                      }
-                    ></RoleToggles>
                   </div>
                 </div>
               </div>
@@ -429,4 +351,4 @@ function UserList() {
   );
 }
 
-export default UserList;
+export default GeneralUserView;

@@ -9,8 +9,7 @@ import { Claim } from '../../../types';
 import { motion } from 'framer-motion';
 import EditIcon from '../../SVG/EditIcon';
 import { adminUser } from '../../../types/index';
-import styles from './UserViewCard.module.scss';
-
+import styles from './GeneralUserViewCard.module.scss';
 import {
   ClaimIdContext,
   useClaimContext,
@@ -23,7 +22,7 @@ type Props = {
   edit: boolean;
   sx?: SxProps;
 };
-const UserViewCard = React.forwardRef(
+const GeneralUserViewCard = React.forwardRef(
   ({ user, width, height, url, edit, sx }: Props, ref) => {
     const { companyData } = useSelector(selectCompanyData);
     const { claimId, setClaimId } = useClaimContext();
@@ -56,60 +55,12 @@ const UserViewCard = React.forwardRef(
             <Yeallowtable url={url}></Yeallowtable>
           </div>
           <div></div>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-around',
-              alignItems: 'center',
-              height: '100%',
-            }}
-          >
-            <div style={{ fontSize: '1.1rem' }}>
-              {user.firstName} {user.lastName}
-            </div>
-            <div style={{}}>
-              <div style={{ fontSize: '0.8rem' }}>email : {user.email}</div>
-              <div style={{ fontSize: '0.8rem' }}>
-                department : {user.department?.name}
-              </div>
-            </div>
+          <div>
+            {user.firstName} {user.lastName}
           </div>
-          <div
-            className={styles.permmisions}
-            style={{
-              width: '30%',
-              height: '95%',
-              border: '2px solid white',
-              borderRadius: '20px',
-              overflow: 'scroll',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'space-around',
-              fontSize: '0.7rem',
-            }}
-          >
-            {user.permissions?.map((per, i) => {
-              return (
-                <>
-                  <div
-                    style={{
-                      backgroundColor: companyData.themeColors.tertiary,
-                      color: 'black',
-                      padding: '0.1rem',
-                      width: '80%',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      borderRadius: '10px',
-                      fontSize: '0.6rem',
-                    }}
-                  >
-                    {per.name}
-                  </div>
-                </>
-              );
-            })}
+          <div style={{ fontSize: '0.9rem' }}>
+            <div>email : {user.email}</div>
+            <div>department : {user.department?.name}</div>
           </div>
           <div onClick={editHandle}>
             <EditIcon
@@ -122,4 +73,4 @@ const UserViewCard = React.forwardRef(
     );
   }
 );
-export default motion(UserViewCard);
+export default motion(GeneralUserViewCard);
