@@ -59,82 +59,9 @@ const AdminHome = (props: Props) => {
   return (
     // TODO: temporary styling until Mateus's task is done
     <>
-      <ClaimIdContext.Provider value={{ claimId, setClaimId }}>
-        {/* <GeneralUserView></GeneralUserView> */}
-        {/* <AdminUserView></AdminUserView> */}
-        {/* <div style={{ position: 'relative' }}>
-          <div
-            style={{ position: 'absolute', width: '100vw', height: '100vh' }}
-          >
-            <Box
-              sx={{
-                height: '100vh',
-                marginTop: '-5%',
-                zIndex: '-1',
-              }}
-            >
-              {/* TODO: temporary claim data */}
-        {/* <ClaimChat chatData={sampleClaimDetail.chats} /> */}
-        {/* {claims && <MainWindow claim={claims[0]}></MainWindow>} */}
-        {/* {claims && (
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-around',
-                    alignItems: 'center',
-                    width: '100%',
-                    height: '100%',
-                  }}
-                >
-                  <ClaimBox
-                    width={25}
-                    height={70}
-                    label={'new claim'}
-                    claims={claims}
-                  ></ClaimBox>
-                  <ClaimBox
-                    width={25}
-                    height={70}
-                    label={'on progress'}
-                    claims={claims}
-                  ></ClaimBox>
-                  <ClaimBox
-                    width={25}
-                    height={70}
-                    label={'done'}
-                    claims={claims}
-                  ></ClaimBox>
-                </div>
-              )}
-            </Box>
-          </div> */}
-
-        {/* <>
-      <UserList></UserList>
-    </> */}
-        {/* <motion.div
-            initial={{ opacity: 0 }}
-            animate={
-              claimId !== ''
-                ? { opacity: 1, zIndex: '50' }
-                : { opacity: 0, zIndex: '-50' }
-            }
-            transition={{ duration: 0.3 }}
-            style={{
-              position: 'absolute',
-              width: '100vw',
-              height: '100vh',
-              // top: '-21vh',
-              marginTop: '-10%',
-            }}
-          >
-            {modalClaim && <ModalWindow claim={modalClaim}></ModalWindow>}
-          </motion.div> */}
-        {/* <Modal innerBoxStyle={{ width: '100%', height: '100%' }}>
-            {modalClaim && <MainWindow claim={modalClaim}></MainWindow>} */}
-        {/* </Modal> */}
-        {/* </div>  */}
-      </ClaimIdContext.Provider>
+      <ClaimIdContext.Provider
+        value={{ claimId, setClaimId }}
+      ></ClaimIdContext.Provider>
     </>
     // <Box sx={{ backgroundColor: '#fff', height: '100vh' }}>
     //   {/* TODO: temporary claim data */}

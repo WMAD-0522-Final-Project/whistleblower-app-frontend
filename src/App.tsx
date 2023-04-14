@@ -31,10 +31,17 @@ import AvatarIcon from './components/admin/AvatarIcon';
 import ButtonComponent from './components/MUI_comp/ButtonComponent';
 import YellowMashroom from './components/SVG/YellowMashroom';
 import { useAnimationControls } from 'framer-motion';
+import AdminUserView from './pages/AdminUserView';
+import GeneralUserView from './pages/GeneralUserView';
+import { Claim } from './types';
+import { ClaimIdContext } from './custom/ClaimIdContext';
+import AdminSetting from './pages/AdminSetting';
 
 const App = () => {
   const { isLoading } = useSelector(selectLoading);
   const { companyData } = useSelector(selectCompanyData);
+  const [claimId, setClaimId] = useState<string | null>(null);
+
   const loadingDispatch = useDispatch();
   loadingDispatch(setLoading(true));
 
@@ -70,40 +77,44 @@ const App = () => {
   console.log(location.pathname, 'this is location ');
 
   return (
-    <ThemeProvider theme={theme}>
-      <Box
-        sx={{
-          backgroundColor: companyData.themeColors.primary,
-          minHeight: '100vh',
-          overflowX: 'hidden',
-          position: 'relative',
-          overflow: 'hidden',
-          zIndex: '1',
-        }}
-      >
-        <div style={{ position: 'absolute', zIndex: '-1' }}>
-          <YellowMashroom
-            animate={yellowControl}
-            transition={{ duration: 1 }}
-          ></YellowMashroom>
-        </div>
+    <ClaimIdContext.Provider value={{ claimId, setClaimId }}>
+      <ThemeProvider theme={theme}>
+        <Box
+          sx={{
+            backgroundColor: companyData.themeColors.primary,
+            minHeight: '100vh',
+            overflowX: 'hidden',
+            position: 'relative',
+            overflow: 'hidden',
+            zIndex: '1',
+          }}
+        >
+          <div style={{ position: 'absolute', zIndex: '-1' }}>
+            <YellowMashroom
+              animate={yellowControl}
+              transition={{ duration: 1 }}
+            ></YellowMashroom>
+          </div>
 
-        <Header />
-        <AvatarIcon />
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          {/* TODO: protect these routes */}
-          <Route path="general">
-            <Route index element={<GeneralHome />} />
-          </Route>
-          <Route path="admin">
-            <Route index element={<AdminHome />} />
-          </Route>
-        </Routes>
-        {/* <TestComponent /> */}
-        {/* {isLoading && <CircularProgress />} */}
-        {/* {sampleAlert.message && (
-        <Alert
+          <Header />
+          <AvatarIcon />
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            {/* TODO: protect these routes */}
+            <Route path="general">
+              <Route index element={<GeneralHome />} />
+            </Route>
+            <Route path="admin">
+              <Route path="home" element={<AdminHome />} />
+              <Route path="adminUserView" element={<AdminUserView />} />
+              <Route path="generalUserView" element={<GeneralUserView />} />
+              <Route path="setting" element={<AdminSetting />} />
+            </Route>
+          </Routes>
+          {/* <TestComponent /> */}
+          {/* {isLoading && <CircularProgress />} */}
+          {/* {sampleAlert.message && (
+          <Alert
           severity={sampleAlert.type}
           sx={
             {
@@ -116,10 +127,11 @@ const App = () => {
         >
           <AlertTitle>{sampleAlert.type}</AlertTitle>
           {sampleAlert.message}
-        </Alert>
+          </Alert>
       )} */}
-      </Box>
-    </ThemeProvider>
+        </Box>
+      </ThemeProvider>
+    </ClaimIdContext.Provider>
   );
 };
 
