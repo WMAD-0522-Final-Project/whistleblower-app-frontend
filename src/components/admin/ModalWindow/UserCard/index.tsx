@@ -63,11 +63,7 @@ const UserCard = React.forwardRef(
               alignItems: 'center',
             }}
           >
-            <Yeallowtable
-              width={width}
-              height={height}
-              url={url}
-            ></Yeallowtable>
+            <Yeallowtable url={url}></Yeallowtable>
           </div>
 
           <Typography

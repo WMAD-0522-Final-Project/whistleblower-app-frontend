@@ -70,7 +70,9 @@ const UserViewCard = React.forwardRef(
             </div>
             <div style={{}}>
               <div style={{ fontSize: '0.8rem' }}>email : {user.email}</div>
-              <div style={{ fontSize: '0.8rem' }}>department : accountance</div>
+              <div style={{ fontSize: '0.8rem' }}>
+                department : {user.department?.name}
+              </div>
             </div>
           </div>
           <div
@@ -111,8 +113,8 @@ const UserViewCard = React.forwardRef(
           </div>
           <div onClick={editHandle}>
             <EditIcon
-              animate={claimId === user.firstName ? { rotate: 100 } : {}}
-              transition={{ duration: 1 }}
+              animate={claimId === user.firstName ? { rotate: 90 } : {}}
+              transition={{ duration: 0.5 }}
             ></EditIcon>
           </div>
         </Box>

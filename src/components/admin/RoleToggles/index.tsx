@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import { Box, Switch, Paper, FormGroup, FormControlLabel } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../../RTK/companySlice';
+import styles from './RoleToggles.module.scss';
 
-import { roles } from '../../../data/RoleData';
-
+// import { permissionNames } from '../../../data/RoleData';
+import { permissionNames } from '../../../data/RoleData';
 const outerBoxSx = {
   backgroundColor: 'white',
   borderRadius: '10px',
@@ -28,25 +29,49 @@ let innerBoxSx = {
   alignItems: 'center',
 };
 
-type Props = {
-  permmisions: string[] | undefined;
-  role: string | undefined;
+type PermissionType = {
+  name: string;
+  is: boolean;
 };
 
-export default function RoleToggles({ permmisions, role }: Props) {
-  const [checkedPermissions, setCheckedPermissions] = useState<
-    string[] | null
-  >();
-  const [userRole, setUserRole] = useState<string | null>(null);
-  const [disabledPermissionsStat, setDisabledPermissionsStat] = useState({
-    permission1: false,
-    permission2: false,
-    permission3: false,
-    permission4: false,
-  });
-
+type Props = {
+  permmisions: string[] | undefined;
+  permissionsResult: (result: string[]) => void;
+};
+export default function RoleToggles({ permmisions, permissionsResult }: Props) {
   const { companyData } = useSelector(selectCompanyData);
+  const [checkedPermissions, setCheckedPermissions] = useState<
+    PermissionType[]
+  >(
+    permissionNames.map((perm, i) => {
+      return { name: perm, is: false };
+    })
+  );
 
+  useEffect(() => {
+    setCheckedPermissions(
+      checkedPermissions.map((perm, i) => {
+        if (permmisions?.includes(perm.name)) {
+          perm.is = true;
+        } else {
+          perm.is = false;
+        }
+        return perm;
+      })
+    );
+  }, [permmisions]);
+  const handle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCheckedPermissions(
+      checkedPermissions.map((perm, i) => {
+        if (perm.name === e.target.name) {
+          perm.is = e.target.checked;
+        }
+        return perm;
+      })
+    );
+    const permString = checkedPermissions.filter((perm) => perm.is === true);
+    permissionsResult(permString.map((perm) => perm.name));
+  };
   const switchSx = {
     '& .MuiSwitch-switchBase': {
       '&.Mui-checked': {
@@ -59,136 +84,36 @@ export default function RoleToggles({ permmisions, role }: Props) {
       },
     },
   };
-
-  useEffect(() => {
-    setCheckedPermissions(null);
-    setUserRole(null);
-    if (permmisions && role) {
-      setCheckedPermissions(permmisions);
-      setUserRole(role);
-    }
-  }, [permmisions && role]);
-
-  useEffect(() => {
-    if (checkedPermissions) {
-      // if (checkedPermissions.length === Object.keys(roles).length - 1) {
-      //   setCheckedPermissions([roles.]);
-      // }
-      // if (checkedPermissions.includes('superAdmin')) {
-      //   setDisabledPermissionsStat({
-      //     permission1: true,
-      //     permission2: true,
-      //     permission3: true,
-      //     permission4: true,
-      //   });
-      // } else {
-      //   setDisabledPermissionsStat({
-      //     permission1: false,
-      //     permission2: false,
-      //     permission3: false,
-      //     permission4: false,
-      //   });
-      // }
-    }
-  }, [checkedPermissions]);
-  const roleSwitch = (e: React.ChangeEvent<HTMLInputElement>) => {};
-
-  const handleRoleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (checkedPermissions) {
-      let newcheckedPermissions: string[] = [...checkedPermissions];
-
-      if (!checkedPermissions.includes(e.target.value)) {
-        newcheckedPermissions.push(e.target.value);
-      } else {
-        newcheckedPermissions = newcheckedPermissions.filter(
-          (checkedRole) => checkedRole !== e.target.value
-        );
-        console.log(newcheckedPermissions, 'new check');
-      }
-      // if (newcheckedPermissions.includes(roles)) {
-      //   newcheckedPermissions = [roles.];
-      // }
-      setCheckedPermissions(newcheckedPermissions);
-    }
-  };
-
   return (
     <>
-      <Paper elevation={2} sx={outerBoxSx}>
-        <FormControlLabel
-          control={
-            <Switch
-              id="switch-super-admin"
-              checked={userRole?.includes(roles.role)}
-              onChange={roleSwitch}
-              sx={switchSx}
-            />
-          }
-          label={roles.role}
-          labelPlacement="start"
-        />
-
-        <Box sx={innerBoxSx}>
-          <FormGroup>
-            <FormControlLabel
-              control={
-                <Switch
-                  id="switch-role1"
-                  value={roles.permission1}
-                  checked={checkedPermissions?.includes(roles.permission1)}
-                  onChange={handleRoleChange}
-                  sx={switchSx}
-                />
-              }
-              label={roles.permission1}
-              labelPlacement="start"
-              disabled={disabledPermissionsStat.permission1}
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  id="switch-role2"
-                  value={roles.permission2}
-                  checked={checkedPermissions?.includes(roles.permission2)}
-                  onChange={handleRoleChange}
-                  sx={switchSx}
-                />
-              }
-              label={roles.permission2}
-              labelPlacement="start"
-              disabled={disabledPermissionsStat.permission2}
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  id="switch-role3"
-                  value={roles.permission3}
-                  checked={checkedPermissions?.includes(roles.permission3)}
-                  onChange={handleRoleChange}
-                  sx={switchSx}
-                />
-              }
-              label={roles.permission3}
-              labelPlacement="start"
-              disabled={disabledPermissionsStat.permission3}
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  id="switch-role4"
-                  sx={switchSx}
-                  value={roles.permission4}
-                  checked={checkedPermissions?.includes(roles.permission4)}
-                  onChange={handleRoleChange}
-                />
-              }
-              label={roles.permission4}
-              labelPlacement="start"
-              disabled={disabledPermissionsStat.permission4}
-            />
-          </FormGroup>
-        </Box>
-      </Paper>
+      <div
+        className={styles.toggleBox}
+        style={{
+          height: '70%',
+          overflow: 'scroll',
+          border: `black 2px solid`,
+          borderRadius: '10px',
+          padding: '10px',
+        }}
+      >
+        {checkedPermissions.map((permission, i) => {
+          return (
+            <>
+              <FormControlLabel
+                label={permission.name}
+                control={
+                  <Switch
+                    name={permission.name}
+                    checked={permission.is}
+                    onChange={handle}
+                    sx={switchSx}
+                  ></Switch>
+                }
+              ></FormControlLabel>
+            </>
+          );
+        })}
+      </div>
     </>
   );
 }

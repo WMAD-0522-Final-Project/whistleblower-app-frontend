@@ -40,6 +40,11 @@ export type permission = {
   name: string;
 };
 
+export type department = {
+  _id: string;
+  name: string;
+};
+
 export type adminUser = {
   email: string;
   password: string;
@@ -48,4 +53,5 @@ export type adminUser = {
   avatarUrl: string;
   permissions: permission[];
   role: string;
+  department: department;
 };

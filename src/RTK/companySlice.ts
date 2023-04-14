@@ -11,6 +11,17 @@ const initialState = {
       secondary: '#fff',
       tertiary: '#ffcb14',
     },
+    departments: [
+      {
+        _id: '642deea549cc00dadcf2af63',
+        name: 'department2',
+      },
+      {
+        _id: '642df1a7dfcc84e1ea98c865',
+        name: 'department1',
+        __v: 0,
+      },
+    ],
   },
 };
 

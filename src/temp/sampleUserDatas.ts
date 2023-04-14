@@ -20,6 +20,11 @@ export default [
       },
     ],
     role: 'admin',
+    department: {
+      _id: '642df1a7dfcc84e1ea98c865',
+      name: 'department1',
+      __v: 0,
+    },
   },
   {
     email: 'test4@gmail.com',
@@ -34,6 +39,11 @@ export default [
       },
     ],
     role: 'admin',
+    department: {
+      _id: '642df1a7dfcc84e1ea98c865',
+      name: 'department1',
+      __v: 0,
+    },
   },
   {
     email: 'test5@gmail.com',
@@ -64,7 +74,12 @@ export default [
         name: 'reportViewer',
       },
     ],
-    role: 'superAdmin',
+    role: 'admin',
+    department: {
+      _id: '642df1a7dfcc84e1ea98c865',
+      name: 'department1',
+      __v: 0,
+    },
   },
   {
     email: 'test7@gmail.com',
@@ -83,6 +98,11 @@ export default [
       },
     ],
     role: 'admin',
+    department: {
+      _id: '642df1a7dfcc84e1ea98c865',
+      name: 'department1',
+      __v: 0,
+    },
   },
   {
     email: 'test8@gmail.com',
@@ -97,6 +117,11 @@ export default [
       },
     ],
     role: 'admin',
+    department: {
+      _id: '642df1a7dfcc84e1ea98c865',
+      name: 'department1',
+      __v: 0,
+    },
   },
   {
     email: 'test8@gmail.com',
@@ -111,6 +136,11 @@ export default [
       },
     ],
     role: 'admin',
+    department: {
+      _id: '642df1a7dfcc84e1ea98c865',
+      name: 'department1',
+      __v: 0,
+    },
   },
   {
     email: 'test8@gmail.com',
@@ -125,6 +155,11 @@ export default [
       },
     ],
     role: 'admin',
+    department: {
+      _id: '642df1a7dfcc84e1ea98c865',
+      name: 'department1',
+      __v: 0,
+    },
   },
   {
     email: 'test8@gmail.com',
@@ -139,6 +174,11 @@ export default [
       },
     ],
     role: 'admin',
+    department: {
+      _id: '642df1a7dfcc84e1ea98c865',
+      name: 'department1',
+      __v: 0,
+    },
   },
   {
     email: 'test8@gmail.com',
@@ -153,6 +193,11 @@ export default [
       },
     ],
     role: 'admin',
+    department: {
+      _id: '642df1a7dfcc84e1ea98c865',
+      name: 'department1',
+      __v: 0,
+    },
   },
   {
     email: 'test8@gmail.com',
@@ -167,6 +212,11 @@ export default [
       },
     ],
     role: 'admin',
+    department: {
+      _id: '642df1a7dfcc84e1ea98c865',
+      name: 'department1',
+      __v: 0,
+    },
   },
   {
     email: 'test8@gmail.com',
@@ -181,6 +231,11 @@ export default [
       },
     ],
     role: 'admin',
+    department: {
+      _id: '642df1a7dfcc84e1ea98c865',
+      name: 'department1',
+      __v: 0,
+    },
   },
   {
     email: 'test8@gmail.com',
@@ -195,6 +250,11 @@ export default [
       },
     ],
     role: 'admin',
+    department: {
+      _id: '642df1a7dfcc84e1ea98c865',
+      name: 'department1',
+      __v: 0,
+    },
   },
   {
     email: 'test8@gmail.com',
@@ -209,6 +269,11 @@ export default [
       },
     ],
     role: 'admin',
+    department: {
+      _id: '642df1a7dfcc84e1ea98c865',
+      name: 'department1',
+      __v: 0,
+    },
   },
   // {
   //   email: 'test8@gmail.com',
