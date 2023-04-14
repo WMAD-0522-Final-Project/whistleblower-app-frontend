@@ -14,6 +14,7 @@ import {
   ClaimIdContext,
   useClaimContext,
 } from '../../../custom/ClaimIdContext';
+import YellowTablePassword from '../../SVG/YellowTablePassword';
 type Props = {
   user: Partial<adminUser>;
   width: number;
@@ -54,6 +55,11 @@ const GeneralUserViewCard = React.forwardRef(
           <div style={{ top: '30px', left: '10px', position: 'absolute' }}>
             <Yeallowtable url={url}></Yeallowtable>
           </div>
+          <div
+            style={{ position: 'absolute', right: '-12px', bottom: '-10px' }}
+          >
+            <YellowTablePassword></YellowTablePassword>
+          </div>
           <div></div>
           <div>
             {user.firstName} {user.lastName}
@@ -62,7 +68,15 @@ const GeneralUserViewCard = React.forwardRef(
             <div>email : {user.email}</div>
             <div>department : {user.department?.name}</div>
           </div>
-          <div onClick={editHandle}>
+          <div
+            onClick={editHandle}
+            style={{
+              width: '8%',
+              height: '90%',
+              position: 'relative',
+              right: '3%',
+            }}
+          >
             <EditIcon
               animate={claimId === user.firstName ? { rotate: 90 } : {}}
               transition={{ duration: 0.5 }}

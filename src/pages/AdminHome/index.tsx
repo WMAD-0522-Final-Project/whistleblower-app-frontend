@@ -60,7 +60,7 @@ const AdminHome = (props: Props) => {
     // TODO: temporary styling until Mateus's task is done
     <>
       <ClaimIdContext.Provider value={{ claimId, setClaimId }}>
-        <GeneralUserView></GeneralUserView>
+        {/* <GeneralUserView></GeneralUserView> */}
         {/* <AdminUserView></AdminUserView> */}
         {/* <div style={{ position: 'relative' }}>
           <div
