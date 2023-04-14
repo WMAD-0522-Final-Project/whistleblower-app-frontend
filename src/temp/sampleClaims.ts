@@ -1,9 +1,10 @@
 // data for claim list
+
 export default [
   {
     id: 'lkjhgfdsa',
-    submissionDate: '2023/03/02',
-    message: 'Boss forces me to say “sayonara”',
+    submissionDate: '2023/04/02',
+    message: 'The Curry rice in the cafeteria is terrible',
     labels: ['high priority', 'custom label 2'],
     category: 'category 1',
     members: [
@@ -12,20 +13,43 @@ export default [
         avatarUrl: '/images/profileImg.jpg',
       },
       {
-        userId: 'asdfghjkl',
+        userId: 'asdfghjkl2',
         avatarUrl: '/images/profileImg.jpg',
       },
       {
-        userId: 'asdfghjkl',
+        userId: 'asdfghjkl3',
         avatarUrl: '/images/profileImg.jpg',
       },
     ],
+    status: 'inProgress',
+  },
+  {
+    id: 'lkjhgfdsa1',
+    submissionDate: '2023/03/02',
+    message: 'Boss forces me to say “sayonara”',
+    labels: ['lorem', 'ipsum', 'consectetur'],
+    category: 'category 1',
+    members: [
+      {
+        userId: 'asdfghjkl2',
+        avatarUrl: '/images/profileImg.jpg',
+      },
+      {
+        userId: 'asdfghjkl3',
+        avatarUrl: '/images/profileImg.jpg',
+      },
+      {
+        userId: 'asdfghjkl4',
+        avatarUrl: '/images/profileImg.jpg',
+      },
+    ],
+    status: 'unHandled',
   },
   {
     id: 'asdfghjkiu',
     submissionDate: '2023/03/08',
     message: 'Boss forces me to say “konnichiwa”',
-    labels: ['low priority', 'custom label 2'],
+    labels: ['lorem', 'ipsum', 'dolor', 'amet', 'consectetur'],
     category: 'category 1',
     members: [
       {
@@ -37,12 +61,13 @@ export default [
         avatarUrl: '/images/profileImg.jpg',
       },
     ],
+    status: 'inProgress',
   },
   {
     id: 'mnbvcxzkjhg',
     submissionDate: '2023/03/17',
     message: 'Boss forces me to say “konnichiwaaaaa”',
-    labels: ['low priority', 'custom label 2'],
+    labels: ['ipsum', 'dolor'],
     category: 'category 1',
     members: [
       {
@@ -50,20 +75,21 @@ export default [
         avatarUrl: '/images/profileImg.jpg',
       },
       {
-        userId: 'mnbvcxz',
+        userId: 'mnbvcxz4',
         avatarUrl: '/images/profileImg.jpg',
       },
       {
-        userId: 'mnbvcxz',
+        userId: 'mnbvcxz5',
         avatarUrl: '/images/profileImg.jpg',
       },
     ],
+    status: 'done',
   },
   {
     id: 'lkjhgfdsast',
     submissionDate: '2023/03/21',
     message: 'Boss forces me to say “konnichiwaaaaa”',
-    labels: ['low priority', 'custom label 2'],
+    labels: ['ipsum'],
     category: 'category 1',
     members: [
       {
@@ -71,24 +97,25 @@ export default [
         avatarUrl: '/images/profileImg.jpg',
       },
       {
-        userId: 'mnbvcxz',
+        userId: 'mnbvcxz2',
         avatarUrl: '/images/profileImg.jpg',
       },
       {
-        userId: 'mnbvcxz',
+        userId: 'mnbvcxz3',
         avatarUrl: '/images/profileImg.jpg',
       },
       {
-        userId: 'mnbvcxz',
+        userId: 'mnbvcxz4',
         avatarUrl: '/images/profileImg.jpg',
       },
     ],
+    status: 'unHandled',
   },
   {
     id: 'lbbrgrgst',
     submissionDate: '2023/03/21',
     message: 'Boss forces me to say “konnichiwaaaaa”',
-    labels: ['low priority', 'custom label 2'],
+    labels: [],
     category: 'category 1',
     members: [
       {
@@ -96,24 +123,25 @@ export default [
         avatarUrl: '/images/profileImg.jpg',
       },
       {
-        userId: 'mnbvcxz',
+        userId: 'mnbvcxz2',
         avatarUrl: '/images/profileImg.jpg',
       },
       {
-        userId: 'mnbvcxz',
+        userId: 'mnbvcxz3',
         avatarUrl: '/images/profileImg.jpg',
       },
       {
-        userId: 'mnbvcxz',
+        userId: 'mnbvcxz4',
         avatarUrl: '/images/profileImg.jpg',
       },
     ],
+    status: 'unHandled',
   },
   {
     id: 'lkj@apsofst',
     submissionDate: '2023/03/21',
     message: 'Boss forces me to say “konnichiwaaaaa”',
-    labels: ['low priority', 'custom label 2'],
+    labels: ['amet'],
     category: 'category 1',
     members: [
       {
@@ -121,24 +149,25 @@ export default [
         avatarUrl: '/images/profileImg.jpg',
       },
       {
-        userId: 'mnbvcxz',
+        userId: 'mnbvcxz7',
         avatarUrl: '/images/profileImg.jpg',
       },
       {
-        userId: 'mnbvcxz',
+        userId: 'mnbvcxz8',
         avatarUrl: '/images/profileImg.jpg',
       },
       {
-        userId: 'mnbvcxz',
+        userId: 'mnbvcxz9',
         avatarUrl: '/images/profileImg.jpg',
       },
     ],
+    status: 'unHandled',
   },
   {
     id: 'aaosdifj',
     submissionDate: '2023/03/21',
     message: 'Boss forces me to say “konnichiwaaaaa”',
-    labels: ['low priority', 'custom label 2'],
+    labels: ['lorem', 'ipsum'],
     category: 'category 1',
     members: [
       {
@@ -154,7 +183,7 @@ export default [
         avatarUrl: '/images/profileImg.jpg',
       },
       {
-        userId: 'mnbvcxz',
+        userId: 'mnbvcxz1',
         avatarUrl: '/images/profileImg.jpg',
       },
     ],
@@ -163,7 +192,7 @@ export default [
     id: 'nenenene',
     submissionDate: '2023/03/21',
     message: 'Boss forces me to say “konnichiwaaaaa”',
-    labels: ['low priority', 'custom label 2'],
+    labels: ['amet'],
     category: 'category 1',
     members: [
       {
@@ -179,16 +208,17 @@ export default [
         avatarUrl: '/images/profileImg.jpg',
       },
       {
-        userId: 'mnbvcxz',
+        userId: 'mnbvcxz1',
         avatarUrl: '/images/profileImg.jpg',
       },
     ],
+    status: 'unHandled',
   },
   {
     id: 'bnshpoasd',
     submissionDate: '2023/03/21',
     message: 'Boss forces me to say “konnichiwaaaaa”',
-    labels: ['low priority', 'custom label 2'],
+    labels: ['dolor', 'amet'],
     category: 'category 1',
     members: [
       {
@@ -196,17 +226,18 @@ export default [
         avatarUrl: '/images/profileImg.jpg',
       },
       {
-        userId: 'mnbvcxz',
+        userId: 'mnbvcxz3',
         avatarUrl: '/images/profileImg.jpg',
       },
       {
-        userId: 'mnbvcxz',
+        userId: 'mnbvcxz4',
         avatarUrl: '/images/profileImg.jpg',
       },
       {
-        userId: 'mnbvcxz',
+        userId: 'mnbvcxz5',
         avatarUrl: '/images/profileImg.jpg',
       },
     ],
+    status: 'done',
   },
 ];

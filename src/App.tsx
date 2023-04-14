@@ -6,6 +6,7 @@ import {
   useParams,
 } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import {
   Box,
   Alert,
@@ -16,12 +17,14 @@ import {
   Button,
 } from '@mui/material';
 import theme from './theme';
-import Login from './pages/Login';
 import TestComponent from './components/MUI_comp/TestComponent';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from './components/Header';
+import Login from './pages/Login';
 import GeneralHome from './pages/GeneralHome';
 import AdminHome from './pages/AdminHome';
+import Contact from './pages/Contact';
+import ThemeEdit from './pages/ThemeEdit';
 import { setLoading } from './RTK/loadingSlice';
 import { selectLoading } from './RTK/loadingSlice';
 import { selectCompanyData } from './RTK/companySlice';
@@ -36,6 +39,10 @@ import GeneralUserView from './pages/GeneralUserView';
 import { Claim } from './types';
 import { ClaimIdContext } from './custom/ClaimIdContext';
 import AdminSetting from './pages/AdminSetting';
+import ConfirmationModal from './components/ConfirmationModal';
+import Settings from './components/MUI_comp/Settings';
+import AdminLayout from './components/admin/AdminLayout';
+import GeneralLayout from './components/general/GeneralLayout';
 
 const App = () => {
   const { isLoading } = useSelector(selectLoading);
@@ -98,17 +105,22 @@ const App = () => {
 
           <Header />
           <AvatarIcon />
+
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/contact" element={<Contact />} />
             {/* TODO: protect these routes */}
             <Route path="general">
-              <Route index element={<GeneralHome />} />
+              <Route element={<GeneralLayout />}>
+                <Route index element={<GeneralHome />} />
+              </Route>
             </Route>
             <Route path="admin">
               <Route path="home" element={<AdminHome />} />
               <Route path="adminUserView" element={<AdminUserView />} />
               <Route path="generalUserView" element={<GeneralUserView />} />
-              <Route path="setting" element={<AdminSetting />} />
+
+              <Route path="setting" element={<ThemeEdit />} />
             </Route>
           </Routes>
           {/* <TestComponent /> */}

@@ -22,12 +22,22 @@ const CustomBox = React.forwardRef(({ children, sx }: Props, ref) => {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+<<<<<<< HEAD
     ...sx,
+=======
+    [theme.breakpoints.up('lg')]: {
+      padding: '2.2rem 0',
+    },
+>>>>>>> dev
   };
 
   return (
     // need styling here
+<<<<<<< HEAD
     <Box sx={styles}>{children}</Box>
+=======
+    <Box sx={{ ...styles, ...sx } as SxProps}>{children}</Box>
+>>>>>>> dev
   );
 });
 

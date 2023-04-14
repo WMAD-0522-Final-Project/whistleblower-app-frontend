@@ -3,3 +3,8 @@ export enum ClaimStatus {
   InProcess = 'In Process',
   Done = 'Done',
 }
+
+export enum UserRoleOption {
+  GENERAL = 'general',
+  ADMIN = 'admin',
+}

@@ -25,7 +25,6 @@ function Frame({ width, height, label, text, component, claim }: Props) {
           height: `${height}%`,
           color: 'black',
           border: `${companyData.themeColors.primary} solid 5px`,
-          borderRadius: '20px',
           posiition: 'relative',
           display: 'flex',
           flexDirection: 'column',
@@ -36,7 +35,8 @@ function Frame({ width, height, label, text, component, claim }: Props) {
           //   backgroundColor: 'black',
         }}
       >
-        <Box
+        <p>{label}</p>
+        {/* <Box
           sx={{
             fontSize: '1.5rem',
             width: `${label.length + 40}%`,
@@ -51,7 +51,7 @@ function Frame({ width, height, label, text, component, claim }: Props) {
           }}
         >
           {label}
-        </Box>
+        </Box> */}
 
         <div
           className={styles.contentBox}
@@ -63,7 +63,7 @@ function Frame({ width, height, label, text, component, claim }: Props) {
             alignItems: 'center',
             width: '100%',
             height: '100%',
-            overflow: label !== 'chat' ? 'scroll' : 'initial',
+            overflow:  'chat' ? 'scroll' : 'initial',
             overflowX: 'hidden',
             top: '-10%',
             // border: 'solid 3px black',

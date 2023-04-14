@@ -3,21 +3,24 @@
 }
 .super {
   position: relative;
-  width: 100vw;
   z-index: 0;
-  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 90vh;
 }
 .window {
   width: 400px;
-  height: 80%;
+  height: 550px;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   flex-direction: column;
+  @media (max-width: 391px) {
+    border-radius: 0px;
+
+  }
 }
 .setting_title {
   font-size: 1.5em;

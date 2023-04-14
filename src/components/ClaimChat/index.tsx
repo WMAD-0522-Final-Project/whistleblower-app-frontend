@@ -11,6 +11,7 @@ import ButtonComponent from '../MUI_comp/ButtonComponent';
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../RTK/companySlice';
 import { Chat } from '../../types';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 type Props = {
   chatData: Chat[] | undefined;
@@ -22,6 +23,11 @@ const ClaimChat = ({ chatData }: Props) => {
   const [content, setContent] = useState('');
   const scrollRef = useRef<HTMLElement>(null);
 
+  const msgStyle = {
+    borderRadius: '30px',
+    fontSize: '0.9rem',
+    p: '0.5rem 2rem',
+  }
   // TODO: temporary data
   const user = {
     id: 'poiuytresdfgh',
@@ -54,11 +60,11 @@ const ClaimChat = ({ chatData }: Props) => {
   }, [messageList]);
 
   return (
-    <Box sx={{ height: '100%', overflowY: 'scroll' }}>
+    <Box sx={{ height: '100%', overflowY: 'hidden', width: '100%'}}>
       <Box
         ref={scrollRef}
         sx={{
-          height: '70%',
+          height: '80%',
           overflowY: 'scroll',
         }}
       >
@@ -84,20 +90,19 @@ const ClaimChat = ({ chatData }: Props) => {
                   m: isOwnItem ? '0 0 0 0.5rem' : '0 0.5rem 0 0',
                 }}
               />
-              <Typography
-                sx={{
-                  borderRadius: '16px',
-                  border: `2px solid ${
-                    isOwnItem
-                      ? companyData.themeColors.primary
-                      : companyData.themeColors.secondary !== '#fff'
-                      ? companyData.themeColors.secondary
-                      : '#ddd'
-                  }`,
-                  fontSize: '0.9rem',
-                  order: isOwnItem ? 1 : 2,
-                  p: '0.5rem 0.8rem',
-                }}
+              <Typography      
+                sx={     
+                  isOwnItem ? { 
+                    ...msgStyle,
+                    border: `2px solid ${companyData.themeColors.primary}`,
+                    order: isOwnItem ? 1 : 2,
+                    }
+                  :
+                  {
+                    ...msgStyle,
+                    border: `2px solid ${'#ddd'}`,
+                    order: isOwnItem ? 1 : 2,
+                  }}
               >
                 {item.content}
                 <Typography
@@ -116,47 +121,47 @@ const ClaimChat = ({ chatData }: Props) => {
           );
         })}
       </Box>
-      <Box
-        sx={{
-          position: 'absolute',
-          width: '100%',
-          left: '50%',
-          bottom: '2%',
-          height: '25%',
-          translate: '-50% 0',
-        }}
-      >
-        <TextField
+
+      <div style={{width: '100%',
+      height: '5rem',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: '2rem'
+      }}>
+
+      <TextField
           id="outlined-multiline-static"
           label=""
           multiline
-          rows={3}
+          maxRows={2}
           placeholder="Enter message"
           name="message"
           value={content}
           onChange={(e) => setContent(e.target.value)}
           sx={{
-            background: '#fff',
-            border: `2px solid ${companyData.themeColors.primary}`,
-            borderRadius: '5px',
-            outline: 'none',
-            width: '100%',
+            width: '80%',
+            '& .MuiOutlinedInput-root': {
+              '&:hover fieldset': {
+                borderColor: `${companyData.themeColors.primary}`,
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: `${companyData.themeColors.primary}`,
+                borderWidth: 2,
+              },
+            },
           }}
         />
-        <ButtonComponent
-          customColor={companyData.themeColors.primary}
-          sx={{
-            color: companyData.themeColors.secondary,
-            width: '100%',
-            mt: '1rem',
-          }}
+        <button style={{  backgroundColor: `${companyData.themeColors.primary}`,
+        color: `${companyData.themeColors.secondary}`,
+        }}
           type="submit"
           onClick={handleSubmitClick}
-        >
-          Submit
-        </ButtonComponent>
+          >
+          <ArrowForwardIosIcon />
+        </button>
+      </div>
       </Box>
-    </Box>
   );
 };
 
