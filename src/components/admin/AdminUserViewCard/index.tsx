@@ -56,9 +56,7 @@ const AdminUserViewCard = React.forwardRef(
           <div style={{ top: '30px', left: '10px', position: 'absolute' }}>
             <Yeallowtable url={url}></Yeallowtable>
           </div>
-          <div style={{ position: 'absolute', right: '5px', bottom: '0px' }}>
-            <YellowTablePassword></YellowTablePassword>
-          </div>
+
           <div></div>
           <div
             style={{
@@ -118,11 +116,12 @@ const AdminUserViewCard = React.forwardRef(
           <div
             onClick={editHandle}
             style={{
-              bottom: '10px',
-              right: '15px',
+              bottom: '0px',
+              right: '7px',
               position: 'relative',
-              width: '10%',
-              height: '60%',
+              width: '12%',
+              height: '70%',
+              // backgroundColor: 'red',
             }}
           >
             <EditIcon

@@ -41,9 +41,10 @@ function AdminUserView() {
         style={{
           display: 'flex',
           marginTop: '1%',
+          width: '100vw',
         }}
       >
-        <CustomBox sx={{ height: '90%', width: '100%' }}>
+        <CustomBox sx={{ height: '90%', width: '40%' }}>
           <SearchBox
             onChange={(e) => setText(e.target.value)}
             sx={{ width: 300, height: 50 }}
@@ -104,7 +105,7 @@ function AdminUserView() {
           <CustomBox
             // animate={claimId !== '' ? { display: 'inline-block' } : {}}
             sx={{
-              width: '100%',
+              width: '40%',
               height: '90%',
               fontSize: '1rem',
             }}

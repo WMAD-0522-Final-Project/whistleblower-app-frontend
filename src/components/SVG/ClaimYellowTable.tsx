@@ -17,7 +17,6 @@ const ClaimYellowTable = ({ claim, sx }: Props) => {
         ...sx,
       }}
     >
-
       <div
         style={{
           position: 'absolute',
@@ -27,36 +26,6 @@ const ClaimYellowTable = ({ claim, sx }: Props) => {
         }}
       >
         {claim.members?.length &&
-<<<<<<< HEAD
-          // Show badge with number
-          (claim.members!.length > 3 ? (
-            <>
-              <Box
-                component="img"
-                src={claim.members[0].avatarUrl}
-                alt=""
-                sx={{
-                  borderRadius: '50%',
-                  // display: 'block',
-                  // pl: '0.2rem',
-                  width: '85%',
-                  minWidth: '40px',
-                  maxWidth: '46px',
-                  height: '70%',
-                }}
-              />
-              <Badge
-                badgeContent={`+${claim.members.length - 1}`}
-                color="error"
-                sx={{
-                  mt: '5%',
-                  // position: 'absolute',
-                  bottom: '15px',
-                  right: '50px',
-                }}
-              />
-            </>
-=======
           (claim.members!.length > 3 || claim.members!.length === 0 ? (
             <svg
               width={`160px`}
@@ -161,7 +130,6 @@ const ClaimYellowTable = ({ claim, sx }: Props) => {
                 </filter>
               </defs>
             </svg>
->>>>>>> dev
           ) : (
             claim.members!.length > 1 && (
               <svg

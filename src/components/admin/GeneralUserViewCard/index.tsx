@@ -55,11 +55,11 @@ const GeneralUserViewCard = React.forwardRef(
           <div style={{ top: '30px', left: '10px', position: 'absolute' }}>
             <Yeallowtable url={url}></Yeallowtable>
           </div>
-          <div
+          {/* <div
             style={{ position: 'absolute', right: '-12px', bottom: '-10px' }}
           >
             <YellowTablePassword></YellowTablePassword>
-          </div>
+          </div> */}
           <div></div>
           <div>
             {user.firstName} {user.lastName}

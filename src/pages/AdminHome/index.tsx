@@ -33,13 +33,13 @@ const columns = [
   { id: 'done', width: 25, height: 70, label: 'Done' },
 ];
 
-const removeFrom = (column, index: number) => {
+const removeFrom = (column: any[], index: number) => {
   const output = [...column];
   const [removedItem] = output.splice(index, 1);
   return [removedItem, output];
 };
 
-const addTo = (column, index: number, item) => {
+const addTo = (column: any[], index: number, item: any) => {
   const output = [...column];
   output.splice(index, 0, item);
   return output;
@@ -60,15 +60,15 @@ const AdminHome = (props: Props) => {
     setClaims(sampleClaims);
   }, []);
 
-  useEffect(() => {
-    if (claims !== null) {
-      const modalClaim = claims.filter((element) => element.id === claimId)[0];
-      setModalClaim(modalClaim);
-      handleOpen();
-    } else {
-      handleClose();
-    }
-  }, [claimId]);
+  // useEffect(() => {
+  //   if (claims !== null) {
+  //     const modalClaim = claims.filter((element) => element.id === claimId)[0];
+  //     setModalClaim(modalClaim);
+  //     handleOpen();
+  //   } else {
+  //     handleClose();
+  //   }
+  // }, [claimId]);
 
   console.log(claimId, 'this is Id');
 
@@ -77,7 +77,10 @@ const AdminHome = (props: Props) => {
   //     claim.message?.toLowerCase().includes(query.toLowerCase())
   //   );
 
-  const handleOnDragEnd = function (result) {
+  const handleOnDragEnd = function (result: {
+    destination: { droppableId: any; index: number };
+    source: { droppableId: any; index: number };
+  }) {
     if (!result.destination) return;
     let claimsCopy = [...claims];
 
@@ -114,55 +117,55 @@ const AdminHome = (props: Props) => {
   return (
     // TODO: temporary styling until Mateus's task is done
     <>
-      <ClaimIdContext.Provider value={{ claimId, setClaimId }}>
-        <div style={{ position: 'relative' }}>
-          <div
-            style={{ position: 'absolute', width: '100vw', height: '100vh' }}
+      <div style={{ position: 'relative' }}>
+        <div style={{ position: 'absolute', width: '100vw', height: '100vh' }}>
+          <Box
+            sx={{
+              height: '100vh',
+              marginTop: '-5%',
+              zIndex: '-1',
+            }}
           >
-            <Box
-              sx={{
-                height: '100vh',
-                marginTop: '-5%',
-                zIndex: '-1',
-              }}
-            >
-              {/* TODO: temporary claim data */}
-              {/* <ClaimChat chatData={sampleClaimDetail.chats} /> */}
-              {/* {claims && <MainWindow claim={claims[0]}></MainWindow>} */}
-              {claims && (
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-around',
-                    alignItems: 'center',
-                    width: '100%',
-                    height: '100%',
-                  }}
-                >
-                  <ClaimBox
-                    width={25}
-                    height={70}
-                    label={'new claim'}
-                    claims={claims}
-                  ></ClaimBox>
-                  <ClaimBox
-                    width={25}
-                    height={70}
-                    label={'on progress'}
-                    claims={claims}
-                  ></ClaimBox>
-                  <ClaimBox
-                    width={25}
-                    height={70}
-                    label={'done'}
-                    claims={claims}
-                  ></ClaimBox>
-                </div>
-              )}
-            </Box>
-          </div>
+            {/* TODO: temporary claim data */}
+            {/* <ClaimChat chatData={sampleClaimDetail.chats} /> */}
+            {/* {claims && <MainWindow claim={claims[0]}></MainWindow>} */}
+            {claims && (
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-around',
+                  alignItems: 'center',
+                  width: '100%',
+                  height: '100%',
+                }}
+              >
+                <ClaimBox
+                  width={25}
+                  height={70}
+                  label={'new claim'}
+                  claims={claims}
+                  id={'!;lkj'}
+                ></ClaimBox>
+                <ClaimBox
+                  width={25}
+                  height={70}
+                  label={'on progress'}
+                  claims={claims}
+                  id={'asdfsd'}
+                ></ClaimBox>
+                <ClaimBox
+                  width={25}
+                  height={70}
+                  label={'done'}
+                  claims={claims}
+                  id={'weefef'}
+                ></ClaimBox>
+              </div>
+            )}
+          </Box>
+        </div>
 
-          {/* <motion.div
+        {/* <motion.div
             initial={{ opacity: 0 }}
             animate={
               claimId !== ''
@@ -180,11 +183,10 @@ const AdminHome = (props: Props) => {
           >
             {modalClaim && <ModalWindow claim={modalClaim}></ModalWindow>}
           </motion.div> */}
-          <Modal innerBoxStyle={{ width: '100%', height: '100%' }}>
-            {modalClaim && <MainWindow claim={modalClaim}></MainWindow>}
-          </Modal>
-        </div>
-      </ClaimIdContext.Provider>
+        <Modal innerBoxStyle={{ width: '100%', height: '100%' }}>
+          {modalClaim && <MainWindow claim={modalClaim}></MainWindow>}
+        </Modal>
+      </div>
     </>
     // <Box sx={{ backgroundColor: '#fff', height: '100vh' }}>
     //   {/* TODO: temporary claim data */}

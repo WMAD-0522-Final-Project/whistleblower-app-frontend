@@ -43,6 +43,7 @@ import ConfirmationModal from './components/ConfirmationModal';
 import Settings from './components/MUI_comp/Settings';
 import AdminLayout from './components/admin/AdminLayout';
 import GeneralLayout from './components/general/GeneralLayout';
+import CompanySetting from './pages/CompanySetting';
 
 const App = () => {
   const { isLoading } = useSelector(selectLoading);
@@ -120,7 +121,7 @@ const App = () => {
               <Route path="adminUserView" element={<AdminUserView />} />
               <Route path="generalUserView" element={<GeneralUserView />} />
 
-              <Route path="setting" element={<ThemeEdit />} />
+              <Route path="setting" element={<CompanySetting />} />
             </Route>
           </Routes>
           {/* <TestComponent /> */}
