@@ -51,7 +51,7 @@ const AdminHome = (props: Props) => {
 
   const [modalClaim, setModalClaim] = useState<Partial<Claim>>();
   // const [claims, setClaims] = useState<Partial<Claim>[]>([]);
-  const matches = useMediaQuery((theme) => theme.breakpoints.up('sm'));
+  const matches = useMediaQuery((theme) => theme.breakpoints.up('lg'));
   useEffect(() => {
     console.log(matches, 'metS');
   }, [matches]);
