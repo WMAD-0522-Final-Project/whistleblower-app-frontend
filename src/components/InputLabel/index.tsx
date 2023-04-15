@@ -11,8 +11,14 @@ type type = {
   topLabel: string;
   type?: string;
   name?: string;
+  value?: string;
   required?: boolean;
   sx?: SxProps;
+  onChange?: (
+    e?:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => void;
 };
 
 const InputLabel = ({
@@ -21,8 +27,10 @@ const InputLabel = ({
   topLabel,
   name,
   type,
+  value,
   required,
   sx,
+  onChange,
 }: type) => {
   const { companyData } = useSelector(selectCompanyData);
   const theme = useTheme();
@@ -39,6 +47,7 @@ const InputLabel = ({
         mainColor={companyData.themeColors.primary}
         type={type}
         name={name}
+        value={value}
         required={required}
         sx={{
           mt: '0.3rem',

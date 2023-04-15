@@ -41,6 +41,7 @@ import Settings from './components/MUI_comp/Settings';
 import AdminLayout from './components/admin/AdminLayout';
 import GeneralLayout from './components/general/GeneralLayout';
 import CompanySetting from './pages/CompanySetting';
+import AvatarIcon from './components/admin/AvatarIcon';
 
 const App = () => {
   const { isLoading } = useSelector(selectLoading);
@@ -102,7 +103,7 @@ const App = () => {
           </div>
 
           <Header />
-          <AvatarIcon />
+          {/* <AvatarIcon /> */}
 
           <Routes>
             <Route path="/login" element={<Login />} />
