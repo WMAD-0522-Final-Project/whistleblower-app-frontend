@@ -1,5 +1,11 @@
-import { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useParams,
+} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import {
   Box,
@@ -24,18 +30,33 @@ import { selectLoading } from './RTK/loadingSlice';
 import { selectCompanyData } from './RTK/companySlice';
 import { setUserData } from './RTK/userDataSlice';
 import { selectUserData } from './RTK/userDataSlice';
+import YellowMashroom from './components/SVG/YellowMashroom';
+import { useAnimationControls } from 'framer-motion';
+import AdminUserView from './pages/AdminUserView';
+import GeneralUserView from './pages/GeneralUserView';
+import { Claim } from './types';
+import { ClaimIdContext } from './custom/ClaimIdContext';
+import AdminSetting from './pages/AdminSetting';
+import Settings from './components/MUI_comp/Settings';
 import AdminLayout from './components/admin/AdminLayout';
 import GeneralLayout from './components/general/GeneralLayout';
+import CompanySetting from './pages/CompanySetting';
 
 const App = () => {
   const { isLoading } = useSelector(selectLoading);
   const { companyData } = useSelector(selectCompanyData);
+  const [claimId, setClaimId] = useState<string | null>(null);
+
   const loadingDispatch = useDispatch();
   loadingDispatch(setLoading(true));
+
+  let location = useLocation();
+
+  const yellowControl = useAnimationControls();
+
   // TODO: get user data from store
   const userData = useSelector(selectUserData);
   const dispatch = useDispatch();
-
   useEffect(() => {
     setUserData({ firstName: 'Isaac', lastName: 'Wu', profileImg: 'n/a' });
   }, []);
@@ -44,6 +65,10 @@ const App = () => {
     console.log(userData);
   }, [userData]);
 
+  useEffect(() => {
+    if (location.pathname === '/admin') yellowControl.start({ rotate: 100 });
+    if (location.pathname === '/general') yellowControl.start({ rotate: -100 });
+  }, [location]);
   // use Redux for alert state
   const sampleAlert = {
     message: 'test alert!',
@@ -54,17 +79,31 @@ const App = () => {
     console.log('Confirmed!!!!!!!!!!!');
   };
 
+  console.log(location.pathname, 'this is location ');
+
   return (
-    <ThemeProvider theme={theme}>
-      <Box
-        sx={{
-          backgroundColor: companyData.themeColors.primary,
-          minHeight: '100vh',
-          overflowX: 'hidden',
-          position: 'relative',
-        }}
-      >
-        <Router>
+    <ClaimIdContext.Provider value={{ claimId, setClaimId }}>
+      <ThemeProvider theme={theme}>
+        <Box
+          sx={{
+            backgroundColor: companyData.themeColors.primary,
+            minHeight: '100vh',
+            overflowX: 'hidden',
+            position: 'relative',
+            overflow: 'hidden',
+            zIndex: '1',
+          }}
+        >
+          <div style={{ position: 'absolute', zIndex: '-1' }}>
+            <YellowMashroom
+              animate={yellowControl}
+              transition={{ duration: 1 }}
+            ></YellowMashroom>
+          </div>
+
+          <Header />
+          <AvatarIcon />
+
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/contact" element={<Contact />} />
@@ -75,19 +114,17 @@ const App = () => {
               </Route>
             </Route>
             <Route path="admin">
-              <Route element={<AdminLayout />}>
-                <Route index element={<AdminHome />} />
-              </Route>
-            </Route>
-            <Route path="settings">
-              <Route index element={<ThemeEdit />} />
+              <Route path="home" element={<AdminHome />} />
+              <Route path="adminUserView" element={<AdminUserView />} />
+              <Route path="generalUserView" element={<GeneralUserView />} />
+
+              <Route path="setting" element={<CompanySetting />} />
             </Route>
           </Routes>
-        </Router>
-        {/* <TestComponent /> */}
-        {/* {isLoading && <CircularProgress />} */}
-        {/* {sampleAlert.message && (
-        <Alert
+          {/* <TestComponent /> */}
+          {/* {isLoading && <CircularProgress />} */}
+          {/* {sampleAlert.message && (
+          <Alert
           severity={sampleAlert.type}
           sx={
             {
@@ -100,10 +137,11 @@ const App = () => {
         >
           <AlertTitle>{sampleAlert.type}</AlertTitle>
           {sampleAlert.message}
-        </Alert>
+          </Alert>
       )} */}
-      </Box>
-    </ThemeProvider>
+        </Box>
+      </ThemeProvider>
+    </ClaimIdContext.Provider>
   );
 };
 

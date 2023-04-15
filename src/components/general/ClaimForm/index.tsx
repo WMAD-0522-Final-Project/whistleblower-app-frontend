@@ -22,13 +22,8 @@ const ClaimForm = (props: Props) => {
       e.target as HTMLFormElement;
     if (!category.value || !message.value) {
       // TODO: set alert
-      console.log('"Category" and "Message" fields are required.');
       return;
     }
-    // console.log('category', category.value);
-    // console.log('message', message.value);
-    // console.log('file', file.files[0]);
-    // console.log('isAnonymous', isAnonymous.checked);
   };
 
   return (

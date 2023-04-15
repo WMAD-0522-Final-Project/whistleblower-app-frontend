@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import store from './RTK/store';
 import './styles/base/index.scss';
 import { CssBaseline } from '@mui/material';
+import { BrowserRouter } from 'react-router-dom';
 
 const queryClient = new QueryClient();
 
@@ -14,7 +15,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
         <CssBaseline />
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </Provider>
     </QueryClientProvider>
   </React.StrictMode>
