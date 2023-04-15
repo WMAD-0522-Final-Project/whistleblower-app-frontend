@@ -9,6 +9,7 @@ import './colorSettings/styleColor.scss';
 import ListCustom from './ListItem';
 import ColorInputs from './colorSettings/ColorInput';
 import { useSelector } from 'react-redux';
+import FileInput from '../FileInput';
 
 const Settings = () => {
   const dispatch = useDispatch();
@@ -29,10 +30,10 @@ const Settings = () => {
     { mainColor: '#8F857D', secondaryColor: '#F7F0F5' },
   ]);
   return (
-    <div className="super">
+    <div className="super" style={{width: '100%'}}>
       <div className="window" style={{ backgroundColor: '#FFFFFF' }}>
-        <p style={{ color: `${colors.mainColor}` }} className="setting_title">
-          Settings
+        <p style={{ color: companyData.themeColors.primary }} className="setting_title">
+          Theme Settings
         </p>
         <div className="inputFields">
           <div className="textInputs">
@@ -40,7 +41,7 @@ const Settings = () => {
               label="Name"
               error={false}
               width="80%"
-              mainColor={colors.secondaryColor}
+              mainColor={companyData.themeColors.secondary}
               textColor="black"
               required
             />
@@ -48,7 +49,7 @@ const Settings = () => {
               label="Name"
               error={false}
               width="80%"
-              mainColor={colors.secondaryColor}
+              mainColor={companyData.themeColors.secondary}
               textColor="black"
               required
             />
@@ -56,7 +57,7 @@ const Settings = () => {
               label="Name"
               error={false}
               width="80%"
-              mainColor={colors.secondaryColor}
+              mainColor={companyData.themeColors.secondary}
               textColor="black"
               required
             />
@@ -107,15 +108,9 @@ const Settings = () => {
           </div>
         </div>
         {/* submit button */}
-        <ButtonComponent
-          onClick={() => {}}
-          variant="contained"
-          customColor={colors.secondaryColor}
-          width="20rem"
-          height="2rem"
-        >
-          Submit
-        </ButtonComponent>
+
+        <FileInput name="file" sx={{ mt: '1rem' }} />
+
       </div>
       {/* <div
         className="bg_decoration"
