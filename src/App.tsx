@@ -41,6 +41,7 @@ import Settings from './components/MUI_comp/Settings';
 import AdminLayout from './components/admin/AdminLayout';
 import GeneralLayout from './components/general/GeneralLayout';
 import CompanySetting from './pages/CompanySetting';
+import AvatarIcon from './components/admin/AvatarIcon';
 
 const App = () => {
   const { isLoading } = useSelector(selectLoading);
@@ -118,7 +119,7 @@ const App = () => {
               <Route path="adminUserView" element={<AdminUserView />} />
               <Route path="generalUserView" element={<GeneralUserView />} />
 
-              <Route path="setting" element={<CompanySetting />} />
+              <Route path="setting" element={<Settings />} />
             </Route>
           </Routes>
           {/* <TestComponent /> */}

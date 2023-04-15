@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import ButtonComponent from './ButtonComponent';
 import TextFieldCustom from './TextFieldCustom';
-import { selectCompanyData } from '../../RTK/companySlice'
-import { setCompanyData  } from '../../RTK/companySlice';
+import { selectCompanyData } from '../../RTK/companySlice';
+import { setCompanyData } from '../../RTK/companySlice';
 import { useDispatch } from 'react-redux';
 
 import './colorSettings/styleColor.scss';
@@ -30,10 +30,13 @@ const Settings = () => {
     { mainColor: '#8F857D', secondaryColor: '#F7F0F5' },
   ]);
   return (
-    <div className="super" style={{width: '100%'}}>
+    <div className="super" style={{ width: '100%' }}>
       <div className="window" style={{ backgroundColor: '#FFFFFF' }}>
-        <p style={{ color: companyData.themeColors.primary }} className="setting_title">
-          Theme Settings
+        <p
+          style={{ color: companyData.themeColors.primary }}
+          className="setting_title"
+        >
+          Company Settings
         </p>
         <div className="inputFields">
           <div className="textInputs">
@@ -69,16 +72,24 @@ const Settings = () => {
               value={companyData.themeColors.primary}
               onChange={(e: string) => {
                 console.log(companyData);
-                dispatch(setCompanyData({...companyData,
-                themeColors: {...companyData.themeColors, primary: e}}));
+                dispatch(
+                  setCompanyData({
+                    ...companyData,
+                    themeColors: { ...companyData.themeColors, primary: e },
+                  })
+                );
                 setColors({ ...colors, mainColor: e });
               }}
             />
             <ColorInputs
               value={companyData.themeColors.secondary}
               onChange={(e: string) => {
-                dispatch(setCompanyData({...companyData,
-                themeColors: {...companyData.themeColors, secondary: e}}));
+                dispatch(
+                  setCompanyData({
+                    ...companyData,
+                    themeColors: { ...companyData.themeColors, secondary: e },
+                  })
+                );
                 setColors({ ...colors, secondaryColor: e });
               }}
             />
@@ -93,10 +104,16 @@ const Settings = () => {
                   iconColorLeft={item.mainColor}
                   iconColorCenter={item.secondaryColor}
                   onClick={() => {
-                    dispatch(setCompanyData({...companyData,
-                      themeColors: {...companyData.themeColors,
-                      primary: item.mainColor, 
-                      secondary: item.secondaryColor}}));
+                    dispatch(
+                      setCompanyData({
+                        ...companyData,
+                        themeColors: {
+                          ...companyData.themeColors,
+                          primary: item.mainColor,
+                          secondary: item.secondaryColor,
+                        },
+                      })
+                    );
                     setColors({
                       mainColor: item.mainColor,
                       secondaryColor: item.secondaryColor,
@@ -110,7 +127,6 @@ const Settings = () => {
         {/* submit button */}
 
         <FileInput name="file" sx={{ mt: '1rem' }} />
-
       </div>
       {/* <div
         className="bg_decoration"
