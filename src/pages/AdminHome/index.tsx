@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, useMediaQuery } from '@mui/material';
 import useModal from '../../hooks/useModal';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -20,10 +20,6 @@ import { motion } from 'framer-motion';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import CustomBox from '../../components/CustomBox/CustomBox';
 import { DragDropContext } from 'react-beautiful-dnd';
-import YellowMashroom from '../../components/SVG/YellowMashroom';
-import { useLocation } from 'react-router-dom';
-import AdminUserView from '../AdminUserView';
-import GeneralUserView from '../GeneralUserView';
 
 type Props = {};
 
@@ -33,13 +29,13 @@ const columns = [
   { id: 'done', width: 25, height: 70, label: 'Done' },
 ];
 
-const removeFrom = (column: any[], index: number) => {
+const removeFrom = (column, index: number) => {
   const output = [...column];
   const [removedItem] = output.splice(index, 1);
   return [removedItem, output];
 };
 
-const addTo = (column: any[], index: number, item: any) => {
+const addTo = (column, index: number, item) => {
   const output = [...column];
   output.splice(index, 0, item);
   return output;
@@ -52,35 +48,36 @@ const AdminHome = (props: Props) => {
   const [claims, setClaims] = useState<Partial<Claim>[] | null>(null);
   const [isModalWindow, setIsModalWindow] = useState<boolean>(false);
   const [claimId, setClaimId] = useState<string | null>(null);
+
   const [modalClaim, setModalClaim] = useState<Partial<Claim>>();
   // const [claims, setClaims] = useState<Partial<Claim>[]>([]);
-
+  const matches = useMediaQuery((theme) => theme.breakpoints.up('sm'));
+  useEffect(() => {
+    console.log(matches, 'metS');
+  }, [matches]);
   useEffect(() => {
     // fetch claim data from API
     setClaims(sampleClaims);
   }, []);
 
-  // useEffect(() => {
-  //   if (claims !== null) {
-  //     const modalClaim = claims.filter((element) => element.id === claimId)[0];
-  //     setModalClaim(modalClaim);
-  //     handleOpen();
-  //   } else {
-  //     handleClose();
-  //   }
-  // }, [claimId]);
+  useEffect(() => {
+    if (claims !== null) {
+      const modalClaim = claims.filter((element) => element.id === claimId)[0];
+      setModalClaim(modalClaim);
+      handleOpen();
+    } else {
+      handleClose();
+    }
+  }, [claimId]);
 
-  console.log(claimId, 'this is Id');
+  // console.log(claimId, 'this is Id');
 
   // const filteredClaims = () =>
   //   claims.filter((claim:Claim) =>
   //     claim.message?.toLowerCase().includes(query.toLowerCase())
   //   );
 
-  const handleOnDragEnd = function (result: {
-    destination: { droppableId: any; index: number };
-    source: { droppableId: any; index: number };
-  }) {
+  const handleOnDragEnd = function (result) {
     if (!result.destination) return;
     let claimsCopy = [...claims];
 
@@ -117,55 +114,53 @@ const AdminHome = (props: Props) => {
   return (
     // TODO: temporary styling until Mateus's task is done
     <>
-      <div style={{ position: 'relative' }}>
-        <div style={{ position: 'absolute', width: '100vw', height: '100vh' }}>
-          <Box
-            sx={{
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+        <div style={{ position: 'relative' }}>
+          <div
+            style={{
+              position: 'absolute',
+              width: '100vw',
               height: '100vh',
-              marginTop: '-5%',
-              zIndex: '-1',
             }}
           >
-            {/* TODO: temporary claim data */}
-            {/* <ClaimChat chatData={sampleClaimDetail.chats} /> */}
-            {/* {claims && <MainWindow claim={claims[0]}></MainWindow>} */}
-            {claims && (
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-around',
-                  alignItems: 'center',
-                  width: '100%',
-                  height: '100%',
-                }}
-              >
-                <ClaimBox
-                  width={25}
-                  height={70}
-                  label={'new claim'}
-                  claims={claims}
-                  id={'!;lkj'}
-                ></ClaimBox>
-                <ClaimBox
-                  width={25}
-                  height={70}
-                  label={'on progress'}
-                  claims={claims}
-                  id={'asdfsd'}
-                ></ClaimBox>
-                <ClaimBox
-                  width={25}
-                  height={70}
-                  label={'done'}
-                  claims={claims}
-                  id={'weefef'}
-                ></ClaimBox>
-              </div>
-            )}
-          </Box>
-        </div>
+            <Box
+              sx={{
+                height: '100vh',
+                marginTop: '-5%',
+                zIndex: '-1',
+              }}
+            >
+              {/* TODO: temporary claim data */}
+              {/* <ClaimChat chatData={sampleClaimDetail.chats} /> */}
+              {/* {claims && <MainWindow claim={claims[0]}></MainWindow>} */}
+              {claims && (
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-around',
+                    alignItems: 'center',
+                    width: '100%',
+                    height: '100%',
+                  }}
+                >
+                  {columns.map((column) => (
+                    <ClaimBox
+                      width={column.width}
+                      height={column.height}
+                      label={column.label}
+                      id={column.id}
+                      key={column.id}
+                      claims={claims.filter(
+                        (claim) => claim.status === column.id
+                      )}
+                    />
+                  ))}
+                </div>
+              )}
+            </Box>
+          </div>
 
-        {/* <motion.div
+          {/* <motion.div
             initial={{ opacity: 0 }}
             animate={
               claimId !== ''
@@ -183,10 +178,11 @@ const AdminHome = (props: Props) => {
           >
             {modalClaim && <ModalWindow claim={modalClaim}></ModalWindow>}
           </motion.div> */}
-        <Modal innerBoxStyle={{ width: '100%', height: '100%' }}>
-          {modalClaim && <MainWindow claim={modalClaim}></MainWindow>}
-        </Modal>
-      </div>
+          <Modal innerBoxStyle={{ width: '100%', height: '100%' }}>
+            {modalClaim && <MainWindow claim={modalClaim}></MainWindow>}
+          </Modal>
+        </div>
+      </DragDropContext>
     </>
     // <Box sx={{ backgroundColor: '#fff', height: '100vh' }}>
     //   {/* TODO: temporary claim data */}
@@ -196,3 +192,8 @@ const AdminHome = (props: Props) => {
 };
 
 export default AdminHome;
+function json2mq(arg0: {
+  minWidth: number;
+}): string | ((theme: unknown) => string) {
+  throw new Error('Function not implemented.');
+}
