@@ -236,7 +236,8 @@ const AdminHome = (props: Props) => {
             {modalClaim && <ModalWindow claim={modalClaim}></ModalWindow>}
           </motion.div> */}
           <Modal innerBoxStyle={{ width: '100%', height: '100%' }}>
-            {modalClaim && <MainWindow claim={modalClaim}></MainWindow>}
+            {/* {modalClaim && <MainWindow claim={modalClaim}></MainWindow>} */}
+            <MainWindow claim={claims[0]}></MainWindow>
           </Modal>
         </div>
       </DragDropContext>

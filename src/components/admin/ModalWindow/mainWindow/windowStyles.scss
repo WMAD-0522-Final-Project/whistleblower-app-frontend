@@ -1,250 +1,244 @@
 $medium-screen: 800px;
 $fontSize: 1rem;
-
 .super {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    padding: 20px;
-    height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 20px;
+  height: 100%;
+
+  @media (max-width: $medium-screen) {
+    flex-direction: column-reverse;
+    overflow-y: scroll;
+  }
+
+  .side {
+    width: 45%;
 
     @media (max-width: $medium-screen) {
-        flex-direction: column-reverse;
-        overflow-y: scroll;
+      width: 100%;
     }
+  }
 
-    .side {
-        width: 45%;
+  .left {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 
-        @media (max-width: $medium-screen) {
-            width: 100%;
-        }
+    @media (max-width: $medium-screen) {
+      display: none;
+      justify-content: center;
+      height: 20%;
     }
+  }
 
-    .left {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
+  .chat_c {
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    position: relative;
+    height: 100%;
 
-        @media (max-width: $medium-screen) {
-            display: none;
-            justify-content: center;
-            height: 20%;
-        }
+    .more_info {
+      top: 2%;
+      left: 2%;
+      position: absolute;
+      z-index: 1;
+      height: 70%;
+      width: 70%;
+      display: none;
 
-    }
+      @media (max-width: $medium-screen) {
+        display: block;
+      }
 
-    .chat_c {
-        display: grid;
-        place-items: center;
-        overflow: hidden;
-        position: relative;
-        height: 100%;
-
-        .more_info {
-            top: 2%;
-            left: 2%;
-            position: absolute;
-            z-index: 1;
-            height: 70%;
-            width: 70%;
-            display: none;
-
-            @media (max-width: $medium-screen) {
-                display: block;
-            }
-
-            .mobile_extras {
-                border-radius: 10px;
-                height: 500px;
-                background-color: white;
-                box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-                width: 100%;
-                display: flex;
-                align-items: left;
-                justify-content: center;
-                flex-direction: column;
-                padding: 20px;
-
-                .labels {
-                    background-color: #c9c9c94f;
-                    display: flex;
-                    flex-direction: column;
-                    height: 40%;
-                    margin-top: 10px;
-                    border-radius: 5px;
-
-                    .claim_labels {
-                        display: flex;
-                        height: 20%;
-                        width: 90%;
-                        justify-content: space-around;
-                        align-items: center;
-
-                        .circle {
-                            width: 20px;
-                            height: 20px;
-                            border-radius: 10px;
-                            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-                        }
-
-                        .high {
-                            background-color: rgb(252, 60, 60);
-                        }
-
-                        .low {
-                            background-color: rgb(249, 209, 76);
-
-                        }
-
-                    }
-                }
-            }
-
-            button {
-                margin: 0;
-                position: absolute;
-                height: 10%;
-                width: 10%;
-                border-radius: 30px;
-                top: -2%;
-            }
-        }
-
-        .chat {
-            position: absolute;
-            height: 100%;
-            overflow: hidden;
-        }
-
-    }
-
-    .claim_id {
-        .title {
-            font-weight: bolder;
-            font-size: 1.2rem;
-        }
-    }
-
-    .claim_description {
-        background-color: #c9c9c94f;
-        border-radius: 5px;
-        padding: 10px;
-        height: 200px;
-        width: 100%;
-        overflow-y: auto;
-        @media (max-width: $medium-screen) {
-            height: 150px;
-        }
-        .desc {
-            height: 80%;
-            width: 100%;
-            display: flex;
-            padding: 10px;
-        }
-    }
-
-    .extras {
-        display: flex;
-        .side_extra {
-            width: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        @media (max-width: $medium-screen) {
-            display: none;
-
-        }
-    }
-
-    button {
-        border: none;
-        display: grid;
-        place-items: center;
+      .mobile_extras {
         border-radius: 10px;
-        padding: 5px;
-        height: 70%;
-        width: 3.5rem;
-        margin-left: 10px;
+        height: 500px;
+        background-color: white;
+        box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+          rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+        width: 100%;
+        display: flex;
+        align-items: left;
+        justify-content: center;
+        flex-direction: column;
+        padding: 20px;
+
+        .labels {
+          background-color: #c9c9c94f;
+          display: flex;
+          flex-direction: column;
+          height: 40%;
+          margin-top: 10px;
+          border-radius: 5px;
+
+          .claim_labels {
+            display: flex;
+            height: 20%;
+            width: 90%;
+            justify-content: space-around;
+            align-items: center;
+
+            .circle {
+              width: 20px;
+              height: 20px;
+              border-radius: 10px;
+              box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+                rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+            }
+
+            .high {
+              background-color: rgb(252, 60, 60);
+            }
+
+            .low {
+              background-color: rgb(249, 209, 76);
+            }
+          }
+        }
+      }
+
+      button {
+        margin: 0;
+        position: absolute;
+        height: 10%;
+        width: 10%;
+        border-radius: 30px;
+        top: -2%;
+      }
     }
+
+    .chat {
+      position: absolute;
+      height: 100%;
+      overflow: hidden;
+    }
+  }
+
+  .claim_id {
+    .title {
+      font-weight: bolder;
+      font-size: 1.2rem;
+    }
+  }
+
+  .claim_description {
+    background-color: #c9c9c94f;
+    border-radius: 5px;
+    padding: 10px;
+    height: 200px;
+    width: 100%;
+    overflow-y: auto;
+    @media (max-width: $medium-screen) {
+      height: 150px;
+    }
+    .desc {
+      height: 80%;
+      width: 100%;
+      display: flex;
+      padding: 10px;
+    }
+  }
+
+  .extras {
+    display: flex;
+    .side_extra {
+      width: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @media (max-width: $medium-screen) {
+      display: none;
+    }
+  }
+
+  button {
+    border: none;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    padding: 5px;
+    height: 70%;
+    width: 3.5rem;
+    margin-left: 10px;
+  }
 }
 
 .extra {
-    width: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  .titles_extras {
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+    @media (max-width: $medium-screen) {
+      font-size: 1rem;
+    }
+  }
+
+  // .claim_labels {
+  //     display: flex;
+  //     height: 20%;
+  //     width: 90%;
+  //     justify-content: space-around;
+  //     align-items: center;
+
+  //     .circle {
+  //         width: 20px;
+  //         height: 20px;
+  //         border-radius: 10px;
+  //         box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  //     }
+
+  //     .high {
+  //         background-color: rgb(252, 60, 60);
+  //     }
+
+  //     .low {
+  //         background-color: rgb(249, 209, 76);
+
+  //     }
+
+  // }
+  .members {
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-    .titles_extras {
-        font-size: 1.25rem;
-        margin-bottom: 20px;
-        @media (max-width: $medium-screen) {
-            font-size: 1rem;
-        }
+    justify-content: center;
+    width: 100%;
+    height: 90%;
+    .cards {
+      width: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
     }
-
-    
-
-    // .claim_labels {
-    //     display: flex;
-    //     height: 20%;
-    //     width: 90%;
-    //     justify-content: space-around;
-    //     align-items: center;
-
-    //     .circle {
-    //         width: 20px;
-    //         height: 20px;
-    //         border-radius: 10px;
-    //         box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-    //     }
-
-    //     .high {
-    //         background-color: rgb(252, 60, 60);
-    //     }
-
-    //     .low {
-    //         background-color: rgb(249, 209, 76);
-
-    //     }
-
-    // }
-    .members{
-                overflow-y: auto;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                width: 100%;
-                height: 90%;
-                .cards{
-                    width: 50%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    margin-top: 10px;
-                }
-            }
+  }
 }
 ::-webkit-scrollbar {
-    width: 5px;
-    /* width of the scrollbar */
+  width: 5px;
+  /* width of the scrollbar */
 }
 
 ::-webkit-scrollbar-track {
-    background-color: #d6d6d6a0;
-    border-radius: 6px;
-    /* color of the track (the area behind the scrollbar) */
+  background-color: #d6d6d6a0;
+  border-radius: 6px;
+  /* color of the track (the area behind the scrollbar) */
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: rgb(180, 180, 180);
-    /* color of the thumb (the draggable handle) */
-    border-radius: 6px;
-    /* rounded corners of the thumb */
-    border: 3px solid transparent;
-    /* border around the thumb */
+  background-color: rgb(180, 180, 180);
+  /* color of the thumb (the draggable handle) */
+  border-radius: 6px;
+  /* rounded corners of the thumb */
+  border: 3px solid transparent;
+  /* border around the thumb */
 }
