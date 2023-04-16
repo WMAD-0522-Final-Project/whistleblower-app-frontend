@@ -36,14 +36,6 @@ const App = () => {
   const userData = useSelector(selectUserData);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    setUserData({ firstName: 'Isaac', lastName: 'Wu', profileImg: 'n/a' });
-  }, []);
-
-  useEffect(() => {
-    console.log(userData);
-  }, [userData]);
-
   // use Redux for alert state
   const sampleAlert = {
     message: 'test alert!',
