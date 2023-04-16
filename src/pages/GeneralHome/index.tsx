@@ -89,7 +89,9 @@ const GeneralHome = (props: Props) => {
         </>
       )}
       <Modal outerBoxStyle={{ maxWidth: '600px' }}>
-        <ClaimChat chatData={data?.messages} />
+        {currentClaimId && (
+          <ClaimChat claimId={currentClaimId} chatData={data?.messages} />
+        )}
       </Modal>
     </Box>
   );

@@ -62,13 +62,17 @@ export type ClaimCategory = string;
 export type ClaimLabel = string;
 
 export interface Chat {
-  id?: string;
-  datetime: string;
+  _id?: string;
+  claimId: string;
+  message: string;
+  createdAt: number;
+  createdAt: number;
   user: {
-    id: string;
-    avatarUrl?: string;
+    _id: string;
+    firstName: string;
+    lastName: string;
+    profileImg?: string;
   };
-  content: string;
 }
 
 export interface InChargeAdmin {
