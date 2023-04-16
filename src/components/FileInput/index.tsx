@@ -9,9 +9,10 @@ type Props = {
   onChange?: ChangeEventHandler<HTMLInputElement>;
   name?: string;
   sx?: SxProps;
+  text: string;
 };
 
-const FileInput = ({ onChange, name, sx }: Props) => {
+const FileInput = ({ onChange, name, sx, text }: Props) => {
   const { companyData } = useSelector(selectCompanyData);
   const theme = useTheme();
   const [file, setFile] = useState<File | null>(null);
@@ -42,7 +43,7 @@ const FileInput = ({ onChange, name, sx }: Props) => {
         }}
       >
         <AttachFileIcon sx={{ fontSize: '1rem' }} />
-        Attach File
+        {text}
         <input
           type="file"
           name={name}
