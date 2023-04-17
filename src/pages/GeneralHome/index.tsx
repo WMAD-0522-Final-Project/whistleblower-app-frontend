@@ -38,14 +38,17 @@ const GeneralHome = (props: Props) => {
     return res.data;
   };
 
-  const { data, refetch } = useQuery({
+  const {
+    data,
+    refetch,
+    isFetching: isMessagesFetching,
+  } = useQuery({
     queryFn: getMessagesData,
     queryKey: ['claim'],
     enabled: false,
   });
 
   const handleClaimClick = (claimId: string) => {
-    // fetch chat data
     setCurrentClaimId(claimId);
     handleOpen();
   };
@@ -88,11 +91,14 @@ const GeneralHome = (props: Props) => {
           />
         </>
       )}
-      <Modal outerBoxStyle={{ maxWidth: '600px' }}>
-        {currentClaimId && (
+      {currentClaimId && !isMessagesFetching && (
+        <Modal
+          outerBoxStyle={{ maxWidth: '600px' }}
+          onClose={() => setCurrentClaimId(null)}
+        >
           <ClaimChat claimId={currentClaimId} chatData={data?.messages} />
-        )}
-      </Modal>
+        </Modal>
+      )}
     </Box>
   );
 };

@@ -1,6 +1,6 @@
 import React, { FormEventHandler, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
-import { Box, useTheme } from '@mui/material';
+import { AlertColor, Box, useTheme } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import CustomBox from '../../CustomBox/CustomBox';
 import SectionTitle from '../../SectionTitle';
@@ -34,7 +34,7 @@ const ClaimForm = (props: Props) => {
   const { companyData } = useSelector(selectCompanyData);
   const theme = useTheme();
   const [alert, setAlert] = useState({
-    type: '' as 'success' | 'error' | 'info' | 'warning',
+    type: '' as AlertColor,
     message: '',
   });
 
@@ -120,11 +120,7 @@ const ClaimForm = (props: Props) => {
 
   return (
     <Box>
-      {alert.message ? (
-        <AlertCustom text={alert.message} type={alert.type} />
-      ) : (
-        ''
-      )}
+      {alert.message && <AlertCustom text={alert.message} type={alert.type} />}
       <SectionTitle title="MAKE CLAIM" />
       <CustomBox>
         <Box
