@@ -10,37 +10,34 @@ type Props = {
   name: string;
   width: number;
   height: number;
-  url: string;
-  color: string;
 };
-function LabelCard({ name, width, height, url, color }: Props) {
+function LabelCard({ name, width, height }: Props) {
   const { companyData } = useSelector(selectCompanyData);
   return (
     <>
       <Box
         component="li"
-        sx={{     
+        sx={{
           color: companyData.themeColors.primary,
           display: 'flex',
+          position: 'relative',
           width: `${width}%`,
           height: `${height}px`,
+          border: `solid 3px ${companyData.themeColors.primary}`,
+          borderRadius: '20px',
         }}
       >
         <div
           style={{
             position: 'absolute',
             top: '-30%',
-            left: '-10%',
+            left: '-20%',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
           }}
         >
-          <LabelSettingOrange
-            width={width}
-            height={height}
-            name={name}
-          ></LabelSettingOrange>
+          <LabelSettingOrange name={name}></LabelSettingOrange>
         </div>
         <div
           style={{

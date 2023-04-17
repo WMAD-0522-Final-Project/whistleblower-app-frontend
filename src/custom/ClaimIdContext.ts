@@ -1,11 +1,12 @@
 import { createContext, useContext } from 'react';
+import { ContextType } from '../types';
 type ClaimIdContextType = {
-  claimId: string | null;
-  setClaimId: (c: string | null) => void;
+  context: ContextType | null;
+  setContext: (c: ContextType | null) => void;
 };
 export const ClaimIdContext = createContext<ClaimIdContextType>({
-  claimId: null,
-  setClaimId: () => {},
+  context: null,
+  setContext: () => {},
 });
 
 export const useClaimContext = () => useContext(ClaimIdContext);

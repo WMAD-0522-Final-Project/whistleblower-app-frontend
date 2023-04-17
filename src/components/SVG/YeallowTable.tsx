@@ -81,7 +81,7 @@ function Yeallowtable({ url }: Props) {
             // position: 'absolute',
             width: '50px',
             height: '50px',
-            top: '-30px',
+            top: '0px',
             // left: '0%',
             // backgroundColor: 'red',
             // justifyContent: 'center',

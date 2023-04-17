@@ -42,11 +42,12 @@ import AdminLayout from './components/admin/AdminLayout';
 import GeneralLayout from './components/general/GeneralLayout';
 import CompanySetting from './pages/CompanySetting';
 import AvatarIcon from './components/admin/AvatarIcon';
+import { ContextType } from './types';
 
 const App = () => {
   const { isLoading } = useSelector(selectLoading);
   const { companyData } = useSelector(selectCompanyData);
-  const [claimId, setClaimId] = useState<string | null>(null);
+  const [context, setContext] = useState<ContextType | null>(null);
 
   const loadingDispatch = useDispatch();
   loadingDispatch(setLoading(true));
@@ -83,7 +84,7 @@ const App = () => {
   console.log(location.pathname, 'this is location ');
 
   return (
-    <ClaimIdContext.Provider value={{ claimId, setClaimId }}>
+    <ClaimIdContext.Provider value={{ context, setContext }}>
       <ThemeProvider theme={theme}>
         <Box
           sx={{

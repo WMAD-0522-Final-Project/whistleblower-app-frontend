@@ -187,6 +187,7 @@ function MainWindow({ claim }: Props) {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-around',
+            alignItems: 'center',
             width: '50%',
             height: '100%',
           }}
@@ -201,35 +202,76 @@ function MainWindow({ claim }: Props) {
             style={{
               display: 'flex',
               justifyContent: 'space-around',
+              width: '90%',
+              height: '35%',
             }}
           >
-            <div>
+            <div
+              style={{
+                width: '50%',
+                height: '100%',
+                overflow: 'scroll',
+                display: 'flex',
+                flexDirection: 'column',
+                alignContent: 'center',
+                paddingTop: '3%',
+                paddingLeft: '5%',
+              }}
+            >
               {claim.members?.map((member, i) => {
                 return (
                   <>
-                    <UserCard
-                      name={member.userId}
-                      width={100}
-                      height={40}
-                      url={member.avatarUrl}
-                      edit={false}
-                    ></UserCard>
+                    <div
+                      style={{
+                        marginBottom: '20px',
+                        display: 'flex',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <UserCard
+                        name={member.userId}
+                        width={80}
+                        height={40}
+                        url={member.avatarUrl}
+                        edit={false}
+                      ></UserCard>
+                    </div>
                   </>
                 );
               })}
             </div>
-            <div>
-              {/* {claim.labels?.map((label, i) => {
+            <div
+              style={{
+                width: '35%',
+                height: '100%',
+                overflow: 'scroll',
+                display: 'flex',
+                flexDirection: 'column',
+                alignContent: 'center',
+                paddingTop: '4%',
+              }}
+            >
+              {claim.labels?.map((label, i) => {
                 return (
                   <>
-                    <LabelCard
-                      name={label[0]}
-                      width={100}
-                      height={90}
-                    ></LabelCard>
+                    <div
+                      style={{
+                        marginBottom: '20px',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        paddingLeft: '12%',
+                        paddingRight: '3%',
+                      }}
+                    >
+                      <LabelCard
+                        name={label[0]}
+                        width={100}
+                        height={40}
+                      ></LabelCard>
+                    </div>
                   </>
                 );
-              })} */}
+              })}
             </div>
           </div>
         </div>
