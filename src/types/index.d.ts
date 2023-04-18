@@ -15,6 +15,23 @@ export interface ClaimGeneral {
   status: ClaimStatus;
 }
 
+export interface User {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  profileImg: string;
+}
+
+export interface ClaimCardDataGeneral {
+  _id: string;
+  title: string;
+  body: string;
+  status: ClaimStatus;
+  hasNewComment: boolean;
+  inChargeAdmins: InChargeAdmin[];
+  createdAt: string;
+}
+
 export interface Claim {
   id: string;
   submissionDate: string;
@@ -29,18 +46,40 @@ export interface Claim {
   status: string;
 }
 
+export interface ClaimMessageData {
+  _id: string;
+  claimId: string;
+  message: string;
+  createdAt: Date;
+  updatedAt: Date;
+  user: User[];
+}
+
+export type ClaimStatusRes = 'unHandled' | 'inProcess' | 'done' | 'archived';
+
 export type ClaimCategory = string;
 
 export type ClaimLabel = string;
 
 export interface Chat {
-  id?: string;
-  datetime: string;
+  _id?: string;
+  claimId: string;
+  message: string;
+  createdAt: number;
+  createdAt: number;
   user: {
-    id: string;
-    avatarUrl?: string;
+    _id: string;
+    firstName: string;
+    lastName: string;
+    profileImg?: string;
   };
-  content: string;
+}
+
+export interface InChargeAdmin {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  profileImg: string;
 }
 export type permission = {
   _id: string;

@@ -1,9 +1,9 @@
 import React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Alert, Box, SxProps } from '@mui/material';
+import { Alert, AlertColor, Box, SxProps } from '@mui/material';
 
 type Props = {
-  type: 'success' | 'info' | 'warning' | 'error';
+  type: AlertColor;
   text: string;
   sx?: SxProps;
 };
@@ -19,6 +19,7 @@ const AlertCustom = ({ type, text, sx }: Props) => {
           translate: '-50% 0',
           width: '90%',
           maxWidth: '500px',
+          zIndex: '50',
           ...sx,
         }}
       >

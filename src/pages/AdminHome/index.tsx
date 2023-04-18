@@ -45,32 +45,11 @@ const AdminHome = (props: Props) => {
   const { companyData } = useSelector(selectCompanyData);
   const { Modal, handleOpen, handleClose } = useModal();
   const [query, setQuery] = useState('');
-  const [claims, setClaims] = useState<Partial<Claim>[] | null>();
+  const [claims, setClaims] = useState<Partial<Claim>[] | null>(null);
   const [isModalWindow, setIsModalWindow] = useState<boolean>(false);
   const [claimId, setClaimId] = useState<string | null>(null);
 
-  const [modalClaim, setModalClaim] = useState<Partial<Claim>>({
-    id: 'lkjhgfdsa',
-    submissionDate: '2023/04/02',
-    message: 'The Curry rice in the cafeteria is terrible',
-    labels: ['high priority', 'custom label 2'],
-    category: 'category 1',
-    members: [
-      {
-        userId: 'asdfghjkl',
-        avatarUrl: '/images/profileImg.jpg',
-      },
-      {
-        userId: 'asdfghjkl2',
-        avatarUrl: '/images/profileImg.jpg',
-      },
-      {
-        userId: 'asdfghjkl3',
-        avatarUrl: '/images/profileImg.jpg',
-      },
-    ],
-    status: 'inProgress',
-  });
+  const [modalClaim, setModalClaim] = useState<Partial<Claim>>(null);
   // const [claims, setClaims] = useState<Partial<Claim>[]>([]);
   const matches = useMediaQuery((theme) => theme.breakpoints.up('sm'));
   useEffect(() => {
@@ -81,20 +60,20 @@ const AdminHome = (props: Props) => {
     setClaims(sampleClaims);
   }, []);
 
-  // useEffect(() => {
-  //   if (claims !== null) {
-  //     const modalClaim = claims.filter((element) => element.id === claimId)[0];
-  //     setModalClaim(modalClaim);
-  //     handleOpen();
-  //   } else {
-  //     handleClose();
-  //   }
-  // }, [claimId]);
+  useEffect(() => {
+    if (claims !== null) {
+      const modalClaim = claims.filter((element) => element.id === claimId)[0];
+      setModalClaim(modalClaim);
+      handleOpen();
+    } else {
+      handleClose();
+    }
+  }, [claimId]);
 
   // console.log(claimId, 'this is Id');
 
   // const filteredClaims = () =>
-  //   claims.filter((claim:Claim) =>
+  //   claims.filter((claim: Claim) =>
   //     claim.message?.toLowerCase().includes(query.toLowerCase())
   //   );
 

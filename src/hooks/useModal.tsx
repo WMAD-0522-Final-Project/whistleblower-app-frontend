@@ -46,11 +46,20 @@ const useModal = () => {
     children: ReactNode;
     outerBoxStyle?: SxProps;
     innerBoxStyle?: SxProps;
+    onClose?: Function;
   }
-  const Modal = ({ children, outerBoxStyle, innerBoxStyle }: Modal) => (
+  const Modal = ({
+    children,
+    outerBoxStyle,
+    innerBoxStyle,
+    onClose,
+  }: Modal) => (
     <MuiModal
       open={open}
-      onClose={handleClose}
+      onClose={() => {
+        setOpen(false);
+        onClose && onClose();
+      }}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >

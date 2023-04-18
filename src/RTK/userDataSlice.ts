@@ -3,9 +3,14 @@ import { StoreState } from './store';
 
 const initialState = {
   userData: {
-    firstName: 'John',
-    lastName: 'Doe',
-    profileImg: '/images/profileImg.jpg',
+    _id: '',
+    companyId: '',
+    firstName: '',
+    lastName: '',
+    role: '',
+    email: '',
+    profileImg: '',
+    permissions: [],
   },
 };
 

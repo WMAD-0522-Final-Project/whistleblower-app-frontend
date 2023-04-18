@@ -1,13 +1,14 @@
 import React from 'react';
+import axios, { AxiosResponse } from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import { Box, Typography } from '@mui/material';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import Header from '../Header';
 import ButtonComponent from '../MUI_comp/ButtonComponent';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectCompanyData } from '../../RTK/companySlice';
+import { setUserData } from '../../RTK/userDataSlice';
 import localStorageHelper from '../../helpers/localStorageHelper';
-import axios, { AxiosResponse } from 'axios';
 import { UserRoleOption } from '../../types/enums';
 
 type Props = {};
@@ -20,33 +21,46 @@ interface VerifyTokenResponseData {
 const GeneralLayout = (props: Props) => {
   const { companyData } = useSelector(selectCompanyData);
   const navigator = useNavigate();
+  const dispatch = useDispatch();
 
-  // const verifyToken = (): Promise<AxiosResponse<VerifyTokenResponseData>> => {
-  //   const token = localStorageHelper('get', 'token');
-  //   if (!token?.data) navigator('/login');
+  const verifyToken = (): Promise<AxiosResponse<VerifyTokenResponseData>> => {
+    const token = localStorageHelper('get', 'token');
+    if (!token?.data) navigator('/login');
 
-  //   return axios({
-  //     method: 'GET',
-  //     url: `${import.meta.env.VITE_BACKEND_URL}/api/auth/verify-token`,
-  //     headers: {
-  //       Authorization: `Bearer ${token!.data}`,
-  //     },
-  //   });
-  // };
+    return axios({
+      method: 'GET',
+      url: `${import.meta.env.VITE_BACKEND_URL}/api/auth/verify-token`,
+      headers: {
+        Authorization: `Bearer ${token!.data}`,
+      },
+    });
+  };
 
-  // useQuery({
-  //   queryKey: ['token'],
-  //   queryFn: verifyToken,
-  //   staleTime: 1000 * 10 * 10,
-  //   onSuccess: ({ data }) => {
-  //     if (data.user.role !== UserRoleOption.GENERAL) {
-  //       navigator('/login');
-  //     }
-  //   },
-  //   onError: () => {
-  //     navigator('/login');
-  //   },
-  // });
+  useQuery({
+    queryKey: ['token'],
+    queryFn: verifyToken,
+    staleTime: 1000 * 10 * 10,
+    onSuccess: ({ data }) => {
+      if (data.user.role !== UserRoleOption.GENERAL) {
+        navigator('/login');
+      }
+      dispatch(
+        setUserData({
+          _id: data.user._id,
+          companyId: data.user.companyId,
+          firstName: data.user.firstName,
+          lastName: data.user.lastName,
+          role: data.user.role,
+          email: data.user.email,
+          profileImg: data.user.profileImg,
+          permissions: data.user.permissions,
+        })
+      );
+    },
+    onError: () => {
+      navigator('/login');
+    },
+  });
 
   const logout = () => {
     // logout

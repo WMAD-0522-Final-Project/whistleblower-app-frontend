@@ -114,7 +114,7 @@ function MainWindow({ claim }: Props) {
             Description
           </h1>
           <p style={{ color: companyData.themeColors.primary }}>
-            ID: {claim.id}
+            ID: {claim._id}
           </p>
         </div>
         <div className="claim_description">
@@ -321,7 +321,7 @@ function MainWindow({ claim }: Props) {
                 Description
               </h1>
               <p style={{ color: companyData.themeColors.primary }}>
-                ID: {claim.id}
+                ID: {claim._id}
               </p>
             </div>
             <div className="claim_description">
