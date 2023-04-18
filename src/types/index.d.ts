@@ -81,3 +81,23 @@ export interface InChargeAdmin {
   lastName: string;
   profileImg: string;
 }
+export type permission = {
+  _id: string;
+  name: string;
+};
+
+export type department = {
+  _id: string;
+  name: string;
+};
+
+export type adminUser = {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  avatarUrl: string;
+  permissions: permission[];
+  role: string;
+  department: department;
+};

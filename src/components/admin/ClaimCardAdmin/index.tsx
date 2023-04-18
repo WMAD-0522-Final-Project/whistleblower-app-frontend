@@ -21,7 +21,6 @@ const ClaimCardAdmin = ({ claim, sx }: Props) => {
   const { claimId, setClaimId } = useClaimContext();
   const handleClaimClick = () => {
     // open detail window using a state variable
-    console.log(claim.id);
     if (claim.id) setClaimId(claim.id);
   };
 

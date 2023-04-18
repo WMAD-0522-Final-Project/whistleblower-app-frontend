@@ -6,11 +6,8 @@ const TestComponent = () => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
-    console.log(name);
   };
-  const handleClick = () => {
-    console.log('Button clicked!');
-  };
+  const handleClick = () => {};
 
   return (
     <div className="super">

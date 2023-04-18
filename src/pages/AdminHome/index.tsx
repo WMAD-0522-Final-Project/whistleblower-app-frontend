@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, useMediaQuery } from '@mui/material';
 import useModal from '../../hooks/useModal';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -51,7 +51,10 @@ const AdminHome = (props: Props) => {
 
   const [modalClaim, setModalClaim] = useState<Partial<Claim>>();
   // const [claims, setClaims] = useState<Partial<Claim>[]>([]);
-
+  const matches = useMediaQuery((theme) => theme.breakpoints.up('sm'));
+  useEffect(() => {
+    console.log(matches, 'metS');
+  }, [matches]);
   useEffect(() => {
     // fetch claim data from API
     setClaims(sampleClaims);
@@ -112,54 +115,52 @@ const AdminHome = (props: Props) => {
     // TODO: temporary styling until Mateus's task is done
     <>
       <DragDropContext onDragEnd={handleOnDragEnd}>
-        <ClaimIdContext.Provider value={{ claimId, setClaimId }}>
-          <div style={{ position: 'relative' }}>
-            <div
-              style={{
-                position: 'absolute',
-                width: '100vw',
+        <div style={{ position: 'relative' }}>
+          <div
+            style={{
+              position: 'absolute',
+              width: '100vw',
+              height: '100vh',
+            }}
+          >
+            <Box
+              sx={{
                 height: '100vh',
+                marginTop: '-5%',
+                zIndex: '-1',
               }}
             >
+              {/* TODO: temporary claim data */}
+              {/* <ClaimChat chatData={sampleClaimDetail.chats} /> */}
+              {/* {claims && <MainWindow claim={claims[0]}></MainWindow>} */}
+              {claims && (
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-around',
+                    alignItems: 'center',
+                    width: '100%',
+                    height: '100%',
+                  }}
+                >
+                  {columns.map((column) => (
+                    <ClaimBox
+                      width={column.width}
+                      height={column.height}
+                      label={column.label}
+                      id={column.id}
+                      key={column.id}
+                      claims={claims.filter(
+                        (claim) => claim.status === column.id
+                      )}
+                    />
+                  ))}
+                </div>
+              )}
+            </Box>
+          </div>
 
-              <Box
-                sx={{
-                  height: '100vh',
-                  marginTop: '-5%',
-                  zIndex: '-1',
-                }}
-              >
-                {/* TODO: temporary claim data */}
-                {/* <ClaimChat chatData={sampleClaimDetail.chats} /> */}
-                {/* {claims && <MainWindow claim={claims[0]}></MainWindow>} */}
-                {claims && (
-                  <div
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'space-around',
-                      alignItems: 'center',
-                      width: '100%',
-                      height: '100%',
-                    }}
-                  >
-                    {columns.map((column) => (
-                      <ClaimBox
-                        width={column.width}
-                        height={column.height}
-                        label={column.label}
-                        id={column.id}
-                        key={column.id}
-                        claims={claims.filter(
-                          (claim) => claim.status === column.id
-                        )}
-                      />
-                    ))}
-                  </div>
-                )}
-              </Box>
-            </div>
-
-            {/* <motion.div
+          {/* <motion.div
             initial={{ opacity: 0 }}
             animate={
               claimId !== ''
@@ -177,12 +178,10 @@ const AdminHome = (props: Props) => {
           >
             {modalClaim && <ModalWindow claim={modalClaim}></ModalWindow>}
           </motion.div> */}
-            <Modal innerBoxStyle={{ width: '100%', height: '100%' }}>
-              {modalClaim && <MainWindow claim={modalClaim}></MainWindow>}
-            </Modal>
-          </div>
-        </ClaimIdContext.Provider>
-        ;
+          <Modal innerBoxStyle={{ width: '100%', height: '100%' }}>
+            {modalClaim && <MainWindow claim={modalClaim}></MainWindow>}
+          </Modal>
+        </div>
       </DragDropContext>
     </>
     // <Box sx={{ backgroundColor: '#fff', height: '100vh' }}>
@@ -193,3 +192,8 @@ const AdminHome = (props: Props) => {
 };
 
 export default AdminHome;
+function json2mq(arg0: {
+  minWidth: number;
+}): string | ((theme: unknown) => string) {
+  throw new Error('Function not implemented.');
+}
