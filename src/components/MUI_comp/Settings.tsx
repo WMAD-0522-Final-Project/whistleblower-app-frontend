@@ -30,13 +30,13 @@ const Settings = () => {
     { mainColor: '#8F857D', secondaryColor: '#F7F0F5' },
   ]);
   return (
-    <div className="super" style={{ width: '100%' }}>
+    <div className="companySettings super" style={{ width: '100%' }}>
       <div className="window" style={{ backgroundColor: '#FFFFFF' }}>
         <p
           style={{ color: companyData.themeColors.primary }}
           className="setting_title"
         >
-          Theme Settings
+          Company Settings
         </p>
         <div className="inputFields">
           {/* <NestedList /> */}
@@ -98,6 +98,8 @@ const Settings = () => {
           </div>
         </div>
         {/* submit button */}
+
+        <FileInput name="file" sx={{ mt: '1rem' }} />
       </div>
       {/* <div
         className="bg_decoration"

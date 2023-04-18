@@ -9,6 +9,7 @@ import SelectBoxLabel from '../../SelectBoxLabel';
 import FileInput from '../../FileInput';
 import CheckboxLabel from '../../CheckboxLabel';
 import ButtonComponent from '../../MUI_comp/ButtonComponent';
+import sampleClaimCategories from '../../../temp/sampleClaimCategories';
 
 type Props = {};
 
@@ -44,6 +45,7 @@ const ClaimForm = (props: Props) => {
             placeholder="Choose category"
             label="Category"
             name="category"
+            options={sampleClaimCategories}
             color={companyData.themeColors.primary}
             selectBoxSx={{
               '& .MuiSelect-select': {

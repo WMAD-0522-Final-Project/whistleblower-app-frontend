@@ -1,9 +1,9 @@
-import { Box, Typography } from '@mui/material';
+import { Box, SxProps, Typography } from '@mui/material';
 import * as React from 'react';
-import { Component } from 'react';
 import Garbege from './Garbege';
 type Props = {
   name: string;
+  sx?: SxProps;
 };
 function LabelSettingOrange({ name }: Props) {
   return (

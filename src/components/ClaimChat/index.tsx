@@ -27,7 +27,7 @@ const ClaimChat = ({ chatData }: Props) => {
     borderRadius: '30px',
     fontSize: '0.9rem',
     p: '0.5rem 2rem',
-  }
+  };
   // TODO: temporary data
   const user = {
     id: 'poiuytresdfgh',
@@ -60,12 +60,12 @@ const ClaimChat = ({ chatData }: Props) => {
   }, [messageList]);
 
   return (
-    <Box sx={{ height: '100%', overflowY: 'hidden', width: '100%'}}>
+    <Box sx={{ height: '100%', overflowY: 'hidden', width: '100%' }}>
       <Box
         ref={scrollRef}
         sx={{
           height: '80%',
-          overflowY: 'scroll',
+          overflowY: 'auto',
         }}
       >
         {messageList.map((item) => {
@@ -90,19 +90,20 @@ const ClaimChat = ({ chatData }: Props) => {
                   m: isOwnItem ? '0 0 0 0.5rem' : '0 0.5rem 0 0',
                 }}
               />
-              <Typography      
-                sx={     
-                  isOwnItem ? { 
-                    ...msgStyle,
-                    border: `2px solid ${companyData.themeColors.primary}`,
-                    order: isOwnItem ? 1 : 2,
-                    }
-                  :
-                  {
-                    ...msgStyle,
-                    border: `2px solid ${'#ddd'}`,
-                    order: isOwnItem ? 1 : 2,
-                  }}
+              <Typography
+                sx={
+                  isOwnItem
+                    ? {
+                        ...msgStyle,
+                        border: `2px solid ${companyData.themeColors.primary}`,
+                        order: isOwnItem ? 1 : 2,
+                      }
+                    : {
+                        ...msgStyle,
+                        border: `2px solid ${'#ddd'}`,
+                        order: isOwnItem ? 1 : 2,
+                      }
+                }
               >
                 {item.content}
                 <Typography
@@ -122,15 +123,17 @@ const ClaimChat = ({ chatData }: Props) => {
         })}
       </Box>
 
-      <div style={{width: '100%',
-      height: '5rem',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginTop: '2rem'
-      }}>
-
-      <TextField
+      <div
+        style={{
+          width: '100%',
+          height: '5rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginTop: '2rem',
+        }}
+      >
+        <TextField
           id="outlined-multiline-static"
           label=""
           multiline
@@ -152,16 +155,18 @@ const ClaimChat = ({ chatData }: Props) => {
             },
           }}
         />
-        <button style={{  backgroundColor: `${companyData.themeColors.primary}`,
-        color: `${companyData.themeColors.secondary}`,
-        }}
+        <button
+          style={{
+            backgroundColor: `${companyData.themeColors.primary}`,
+            color: `${companyData.themeColors.secondary}`,
+          }}
           type="submit"
           onClick={handleSubmitClick}
-          >
+        >
           <ArrowForwardIosIcon />
         </button>
       </div>
-      </Box>
+    </Box>
   );
 };
 

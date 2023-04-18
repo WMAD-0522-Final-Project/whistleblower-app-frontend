@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { Box } from '@mui/material';
+import { Box, SxProps } from '@mui/material';
 import { useSelector } from 'react-redux';
 import stc from 'string-to-color';
 import { selectCompanyData } from '../../../../RTK/companySlice';
@@ -10,8 +10,11 @@ type Props = {
   name: string;
   width: number;
   height: number;
+  url: string;
+  color: string;
+  sx?: SxProps;
 };
-function LabelCard({ name, width, height }: Props) {
+function LabelCard({ name, width, height, url, color, sx }: Props) {
   const { companyData } = useSelector(selectCompanyData);
   return (
     <>
@@ -23,28 +26,34 @@ function LabelCard({ name, width, height }: Props) {
           position: 'relative',
           width: `${width}%`,
           height: `${height}px`,
-          border: `solid 3px ${companyData.themeColors.primary}`,
-          borderRadius: '20px',
+          position: 'relative',
+          ...sx,
         }}
       >
         <div
           style={{
-            position: 'absolute',
+            // position: 'absolute',
             top: '-30%',
             left: '-20%',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            width: '100%',
           }}
         >
           <LabelSettingOrange name={name}></LabelSettingOrange>
         </div>
         <div
           style={{
-            width: '30%',
-            height: '100%',
+            backgroundColor: '#fff',
+            borderRadius: '16px',
+            width: '16%',
+            // height: '100%',
             position: 'absolute',
-            right: '0%',
+            // right: '0%',
+            right: '26px',
+            top: '40%',
+            translate: '0 -50%',
           }}
         >
           <ClaimLabel color={stc(name)}></ClaimLabel>

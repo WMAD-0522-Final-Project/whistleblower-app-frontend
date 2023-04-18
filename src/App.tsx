@@ -42,6 +42,7 @@ import AdminLayout from './components/admin/AdminLayout';
 import GeneralLayout from './components/general/GeneralLayout';
 import CompanySetting from './pages/CompanySetting';
 import AvatarIcon from './components/admin/AvatarIcon';
+
 import { ContextType } from './types';
 
 const App = () => {
@@ -123,7 +124,7 @@ const App = () => {
               <Route path="adminUserView" element={<AdminUserView />} />
               <Route path="generalUserView" element={<GeneralUserView />} />
 
-              <Route path="setting" element={<CompanySetting />} />
+              <Route path="setting" element={<Settings />} />
             </Route>
           </Routes>
           {/* <TestComponent /> */}
