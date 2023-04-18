@@ -30,7 +30,7 @@ const Settings = () => {
     { mainColor: '#8F857D', secondaryColor: '#F7F0F5' },
   ]);
   return (
-    <div className="super" style={{ width: '100%' }}>
+    <div className="companySettings super" style={{ width: '100%' }}>
       <div className="window" style={{ backgroundColor: '#FFFFFF' }}>
         <p
           style={{ color: companyData.themeColors.primary }}
