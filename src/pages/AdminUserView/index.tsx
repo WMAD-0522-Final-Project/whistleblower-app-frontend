@@ -5,7 +5,7 @@ import SearchBox from '../../components/SearchBox';
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../RTK/companySlice';
 import sampleUserDatas from '../../temp/sampleUserDatas';
-import { useClaimContext } from '../../custom/ClaimIdContext';
+import { useAllContext } from '../../custom/ClaimIdContext';
 import { adminUser } from '../../types';
 import RoleToggles from '../../components/admin/RoleToggles';
 import { NativeSelect } from '@mui/material';
@@ -17,17 +17,17 @@ function AdminUserView() {
   const [text, setText] = useState('');
 
   const { companyData } = useSelector(selectCompanyData);
-  const { claimId, setClaimId } = useClaimContext();
+  const { context, setContext } = useAllContext();
   const [nowUser, setNowUser] = useState<Partial<adminUser> | null>(null);
-  useEffect(() => {
-    if (claimId !== '') {
-      const firstName = claimId?.split(' ')[0];
-      const user = sampleUserDatas.filter(
-        (user) => user.firstName === firstName
-      )[0];
-      setNowUser(user);
-    }
-  }, [claimId]);
+  // useEffect(() => {
+  //   if (claimId !== '') {
+  //     const firstName = claimId?.split(' ')[0];
+  //     const user = sampleUserDatas.filter(
+  //       (user) => user.firstName === firstName
+  //     )[0];
+  //     setNowUser(user);
+  //   }
+  // }, [claimId]);
   useEffect(() => {
     console.log(nowUser?.department, ';lkj');
   }, [nowUser?.department]);

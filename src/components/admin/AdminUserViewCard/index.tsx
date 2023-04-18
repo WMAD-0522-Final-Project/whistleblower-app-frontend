@@ -11,10 +11,7 @@ import EditIcon from '../../SVG/EditIcon';
 import { adminUser } from '../../../types/index';
 import styles from './AdminUserViewCard.module.scss';
 
-import {
-  ClaimIdContext,
-  useClaimContext,
-} from '../../../custom/ClaimIdContext';
+import { useAllContext } from '../../../custom/ClaimIdContext';
 import YellowTablePassword from '../../SVG/YellowTablePassword';
 type Props = {
   user: Partial<adminUser>;
@@ -27,10 +24,8 @@ type Props = {
 const AdminUserViewCard = React.forwardRef(
   ({ user, width, height, url, edit, sx }: Props, ref) => {
     const { companyData } = useSelector(selectCompanyData);
-    const { claimId, setClaimId } = useClaimContext();
-    const editHandle = () => {
-      if (user.firstName) setClaimId(user.firstName);
-    };
+    const { context, setContext } = useAllContext();
+    const editHandle = () => {};
     return (
       <>
         <Box
@@ -125,7 +120,7 @@ const AdminUserViewCard = React.forwardRef(
             }}
           >
             <EditIcon
-              animate={claimId === user.firstName ? { rotate: 90 } : {}}
+              // animate={ === user.firstName ? { rotate: 90 } : {}}
               transition={{ duration: 0.5 }}
             ></EditIcon>
           </div>

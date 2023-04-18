@@ -1,14 +1,11 @@
-import React from 'react';
+import React, { ContextType } from 'react';
 import { Box, SxProps, Typography } from '@mui/material';
 import { Claim } from '../../../types';
 import { useSelector } from 'react-redux';
 import stc from 'string-to-color';
 import { selectCompanyData } from '../../../RTK/companySlice';
 import ClaimYellowTable from '../../SVG/ClaimYellowTable';
-import {
-  ClaimIdContext,
-  useClaimContext,
-} from '../../../custom/ClaimIdContext';
+import { useAllContext } from '../../../custom/ClaimIdContext';
 import ClaimLabel from '../../SVG/ClaimLabel';
 
 type Props = {
@@ -18,10 +15,14 @@ type Props = {
 
 const ClaimCardAdmin = ({ claim, sx }: Props) => {
   const { companyData } = useSelector(selectCompanyData);
-  const { claimId, setClaimId } = useClaimContext();
+  const { context, setContext } = useAllContext();
   const handleClaimClick = () => {
     // open detail window using a state variable
-    if (claim.id) setClaimId(claim.id);
+    if (claim.id)
+      setContext((context) => ({
+        ...context,
+        claimsId: claim.id,
+      }));
   };
 
   return (

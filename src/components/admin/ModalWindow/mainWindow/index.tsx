@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Frame from '../Frame.tsx/Frame';
 import Closebutton from '../../../SVG/Closebutton';
 import UserCard from '../UserCard';
-import { useClaimContext } from '../../../../custom/ClaimIdContext';
+import { useAllContext } from '../../../../custom/ClaimIdContext';
 // import { MotionUserCard } from '../UserCard';
 import LabelCard from '../LabelCard';
 import styles from './mainWindow.module.scss';
@@ -25,10 +25,10 @@ function MainWindow({ claim }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
   const { companyData } = useSelector(selectCompanyData);
-  const { claimId, setClaimId } = useClaimContext();
+  const { context, setContext } = useAllContext();
 
   const closeModalWindow = () => {
-    setClaimId(null);
+    // setClaimId(null);
   };
   console.log('claim:', claim);
 

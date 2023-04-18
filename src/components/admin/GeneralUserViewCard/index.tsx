@@ -10,10 +10,7 @@ import { motion } from 'framer-motion';
 import EditIcon from '../../SVG/EditIcon';
 import { adminUser } from '../../../types/index';
 import styles from './GeneralUserViewCard.module.scss';
-import {
-  ClaimIdContext,
-  useClaimContext,
-} from '../../../custom/ClaimIdContext';
+import { useAllContext } from '../../../custom/ClaimIdContext';
 import YellowTablePassword from '../../SVG/YellowTablePassword';
 type Props = {
   user: Partial<adminUser>;
@@ -26,9 +23,9 @@ type Props = {
 const GeneralUserViewCard = React.forwardRef(
   ({ user, width, height, url, edit, sx }: Props, ref) => {
     const { companyData } = useSelector(selectCompanyData);
-    const { claimId, setClaimId } = useClaimContext();
+    const { context, setContext } = useAllContext();
     const editHandle = () => {
-      if (user.firstName) setClaimId(user.firstName);
+      // if (user.firstName) setClaimId(user.firstName);
     };
     return (
       <>

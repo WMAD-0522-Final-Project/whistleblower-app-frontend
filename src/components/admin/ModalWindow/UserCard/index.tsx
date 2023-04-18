@@ -7,10 +7,7 @@ import Yeallowtable from '../../../SVG/YeallowTable';
 import { Claim } from '../../../../types';
 import { motion } from 'framer-motion';
 import EditIcon from '../../../SVG/EditIcon';
-import {
-  ClaimIdContext,
-  useClaimContext,
-} from '../../../../custom/ClaimIdContext';
+import { useAllContext } from '../../../../custom/ClaimIdContext';
 
 type Props = {
   name: string;
@@ -23,9 +20,9 @@ type Props = {
 const UserCard = React.forwardRef(
   ({ name, width, height, url, edit, sx }: Props, ref) => {
     const { companyData } = useSelector(selectCompanyData);
-    const { claimId, setClaimId } = useClaimContext();
+    const { context, setContext } = useAllContext();
     const edieHandle = () => {
-      if (name) setClaimId(name);
+      // if (name) setClaimId(name);
     };
     return (
       <>

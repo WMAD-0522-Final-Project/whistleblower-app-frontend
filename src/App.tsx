@@ -35,7 +35,7 @@ import { useAnimationControls } from 'framer-motion';
 import AdminUserView from './pages/AdminUserView';
 import GeneralUserView from './pages/GeneralUserView';
 import { Claim } from './types';
-import { ClaimIdContext } from './custom/ClaimIdContext';
+import { CreateContext } from './custom/ClaimIdContext';
 import AdminSetting from './pages/AdminSetting';
 import Settings from './components/MUI_comp/Settings';
 import AdminLayout from './components/admin/AdminLayout';
@@ -47,7 +47,10 @@ import { ContextType } from './types';
 const App = () => {
   const { isLoading } = useSelector(selectLoading);
   const { companyData } = useSelector(selectCompanyData);
-  const [context, setContext] = useState<ContextType | null>(null);
+  const [context, setContext] = useState<ContextType>({
+    claimsId: '',
+    userId: '',
+  });
 
   const loadingDispatch = useDispatch();
   loadingDispatch(setLoading(true));
@@ -84,7 +87,7 @@ const App = () => {
   console.log(location.pathname, 'this is location ');
 
   return (
-    <ClaimIdContext.Provider value={{ context, setContext }}>
+    <CreateContext.Provider value={{ context, setContext }}>
       <ThemeProvider theme={theme}>
         <Box
           sx={{
@@ -143,7 +146,7 @@ const App = () => {
       )} */}
         </Box>
       </ThemeProvider>
-    </ClaimIdContext.Provider>
+    </CreateContext.Provider>
   );
 };
 
