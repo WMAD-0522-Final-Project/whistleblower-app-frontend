@@ -119,7 +119,7 @@ const App = () => {
               <Route path="adminUserView" element={<AdminUserView />} />
               <Route path="generalUserView" element={<GeneralUserView />} />
 
-              <Route path="setting" element={<CompanySetting />} />
+              <Route path="setting" element={<Settings />} />
             </Route>
           </Routes>
           {/* <TestComponent /> */}
