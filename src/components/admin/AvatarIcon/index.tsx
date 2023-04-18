@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
+import CustomAvatar from '../../CustomAvatar';
 
 type Props = {};
 
@@ -18,6 +19,10 @@ const AvatarIcon = (props: Props) => {
     profileImg: '/images/profileImg.jpg',
   };
 
+  const editProfileImg = () => {
+    return <CustomAvatar></CustomAvatar>;
+  };
+
   return (
     <Box
       sx={{
@@ -29,7 +34,9 @@ const AvatarIcon = (props: Props) => {
         maxWidth: '200px',
         minWidth: '150px',
         width: '50%',
+        cursor: 'pointer',
       }}
+      onClick={editProfileImg}
     >
       <Box
         component="img"

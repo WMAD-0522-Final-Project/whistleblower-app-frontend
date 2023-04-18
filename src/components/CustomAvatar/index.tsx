@@ -39,7 +39,6 @@ const CustomAvatar = ({ onClickYes }: Props) => {
 
   return (
     <Modal outerBoxStyle={outerBoxStyle} innerBoxStyle={innerBoxStyle}>
-      <Box></Box>
       <FileInput name="avatar" text="Uploade Avatar Image" />
       <Button variant="contained" sx={buttonStyle} onClick={onClickYes}>
         Apply
