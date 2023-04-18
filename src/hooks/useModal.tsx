@@ -3,7 +3,7 @@ import { useState, ReactNode, CSSProperties } from 'react';
 import { Box, Modal as MuiModal, SxProps, useTheme } from '@mui/material';
 
 const useModal = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const theme = useTheme();
   const handleOpen = () => setOpen(true);
   const handleClose = () => {

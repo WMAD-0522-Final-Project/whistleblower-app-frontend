@@ -2,8 +2,8 @@
 
 export default [
   {
-    id: 'lkjhgfdsa',
-    submissionDate: '2023/04/02',
+    _id: 'lkjhgfdsa',
+    createdAt: '2023/04/02',
     message: 'The Curry rice in the cafeteria is terrible',
     labels: ['high priority', 'custom label 2'],
     category: 'category 1',
@@ -24,8 +24,8 @@ export default [
     status: 'inProgress',
   },
   {
-    id: 'lkjhgfdsa1',
-    submissionDate: '2023/03/02',
+    _id: 'lkjhgfdsa1',
+    createdAt: '2023/03/02',
     message: 'Boss forces me to say “sayonara”',
     labels: ['lorem', 'ipsum', 'consectetur'],
     category: 'category 1',
@@ -46,8 +46,8 @@ export default [
     status: 'unHandled',
   },
   {
-    id: 'asdfghjkiu',
-    submissionDate: '2023/03/08',
+    _id: 'asdfghjkiu',
+    createdAt: '2023/03/08',
     message: 'Boss forces me to say “konnichiwa”',
     labels: ['lorem', 'ipsum', 'dolor', 'amet', 'consectetur'],
     category: 'category 1',
@@ -64,8 +64,8 @@ export default [
     status: 'inProgress',
   },
   {
-    id: 'mnbvcxzkjhg',
-    submissionDate: '2023/03/17',
+    _id: 'mnbvcxzkjhg',
+    createdAt: '2023/03/17',
     message: 'Boss forces me to say “konnichiwaaaaa”',
     labels: ['ipsum', 'dolor'],
     category: 'category 1',
@@ -86,8 +86,8 @@ export default [
     status: 'done',
   },
   {
-    id: 'lkjhgfdsast',
-    submissionDate: '2023/03/21',
+    _id: 'lkjhgfdsast',
+    createdAt: '2023/03/21',
     message: 'Boss forces me to say “konnichiwaaaaa”',
     labels: ['ipsum'],
     category: 'category 1',
@@ -112,8 +112,8 @@ export default [
     status: 'unHandled',
   },
   {
-    id: 'lbbrgrgst',
-    submissionDate: '2023/03/21',
+    _id: 'lbbrgrgst',
+    createdAt: '2023/03/21',
     message: 'Boss forces me to say “konnichiwaaaaa”',
     labels: [],
     category: 'category 1',
@@ -138,8 +138,8 @@ export default [
     status: 'unHandled',
   },
   {
-    id: 'lkj@apsofst',
-    submissionDate: '2023/03/21',
+    _id: 'lkj@apsofst',
+    createdAt: '2023/03/21',
     message: 'Boss forces me to say “konnichiwaaaaa”',
     labels: ['amet'],
     category: 'category 1',
@@ -164,8 +164,8 @@ export default [
     status: 'unHandled',
   },
   {
-    id: 'aaosdifj',
-    submissionDate: '2023/03/21',
+    _id: 'aaosdifj',
+    createdAt: '2023/03/21',
     message: 'Boss forces me to say “konnichiwaaaaa”',
     labels: ['lorem', 'ipsum'],
     category: 'category 1',
@@ -189,8 +189,8 @@ export default [
     ],
   },
   {
-    id: 'nenenene',
-    submissionDate: '2023/03/21',
+    _id: 'nenenene',
+    createdAt: '2023/03/21',
     message: 'Boss forces me to say “konnichiwaaaaa”',
     labels: ['amet'],
     category: 'category 1',
@@ -215,8 +215,8 @@ export default [
     status: 'unHandled',
   },
   {
-    id: 'bnshpoasd',
-    submissionDate: '2023/03/21',
+    _id: 'bnshpoasd',
+    createdAt: '2023/03/21',
     message: 'Boss forces me to say “konnichiwaaaaa”',
     labels: ['dolor', 'amet'],
     category: 'category 1',

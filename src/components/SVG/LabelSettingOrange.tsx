@@ -1,21 +1,22 @@
-import { Box, Typography } from '@mui/material';
+import { Box, SxProps, Typography } from '@mui/material';
 import * as React from 'react';
-import { Component } from 'react';
 import Garbege from './Garbege';
 type Props = {
-  width: number;
-  height: number;
   name: string;
+  sx?: SxProps;
 };
-function LabelSettingOrange({ width, height, name }: Props) {
+function LabelSettingOrange({ name, sx }: Props) {
   return (
     <>
-      <svg
-        width="100%"
-        height="100%"
+      <Box
+        component="svg"
         viewBox="0 0 174 45"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        width="100%"
+        sx={{
+          ...sx,
+        }}
       >
         <g filter="url(#filter0_d_770_16762)">
           <path
@@ -65,7 +66,7 @@ function LabelSettingOrange({ width, height, name }: Props) {
             />
           </filter>
         </defs>
-      </svg>
+      </Box>
 
       {/* <div
         style={{
@@ -84,7 +85,7 @@ function LabelSettingOrange({ width, height, name }: Props) {
           borderRadius: '50%',
           display: 'block',
           position: 'absolute',
-          width: '35%',
+          width: '55%',
           height: '70%',
           zIndex: '5',
           color: 'white',
