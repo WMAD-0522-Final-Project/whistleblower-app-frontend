@@ -302,7 +302,7 @@ function MainWindow({ claim }: Props) {
             textColor="white"
             className="mobileMenuToggler"
             onClick={() => {
-              setIsOpen(!isOpen);
+              setIsOpen((prev) => !prev);
             }}
           >
             <AddIcon />
