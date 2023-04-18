@@ -9,7 +9,6 @@ import { useLocation } from 'react-router-dom';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Box, ThemeProvider } from '@mui/material';
 import theme from './theme';
-import TestComponent from './components/MUI_comp/TestComponent';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from './components/Header';
 import Login from './pages/Login';
@@ -90,9 +89,6 @@ const App = () => {
             ></YellowMashroom>
           </div>
 
-          <Header />
-          <AvatarIcon />
-
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/contact" element={<Contact />} />
@@ -103,11 +99,12 @@ const App = () => {
               </Route>
             </Route>
             <Route path="admin">
-              <Route path="home" element={<AdminHome />} />
-              <Route path="adminUserView" element={<AdminUserView />} />
-              <Route path="generalUserView" element={<GeneralUserView />} />
-
-              <Route path="setting" element={<Settings />} />
+              <Route element={<AdminLayout />}>
+                <Route path="home" element={<AdminHome />} />
+                <Route path="adminUserView" element={<AdminUserView />} />
+                <Route path="generalUserView" element={<GeneralUserView />} />
+                <Route path="settings" element={<Settings />} />
+              </Route>
             </Route>
           </Routes>
         </Box>
