@@ -9,6 +9,7 @@ type type = {
   name?: string;
   topLabel?: string;
   color: string;
+  options: any[];
   onChange?: (event: SelectChangeEvent<string>) => void;
   sx?: SxProps;
   selectBoxSx?: SxProps;
@@ -20,6 +21,7 @@ const SelectBoxLabel = ({
   name,
   color,
   onChange,
+  options,
   sx,
   selectBoxSx,
 }: type) => {
@@ -33,6 +35,7 @@ const SelectBoxLabel = ({
         name={name}
         color={color}
         onChange={onChange}
+        options={options}
         sx={{ mt: '0.3rem', ...selectBoxSx }}
       />
     </Box>
