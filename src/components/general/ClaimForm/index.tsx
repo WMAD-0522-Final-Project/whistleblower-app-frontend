@@ -14,6 +14,7 @@ import ButtonComponent from '../../MUI_comp/ButtonComponent';
 import InputLabel from '../../InputLabel';
 import localStorageHelper from '../../../helpers/localStorageHelper';
 import AlertCustom from '../../MUI_comp/AlertCustom';
+import sampleClaimCategories from '../../../temp/sampleClaimCategories';
 import { AxiosCustomError } from '../../../types';
 
 type Props = {};
@@ -147,6 +148,7 @@ const ClaimForm = (props: Props) => {
             placeholder="Choose category"
             label="Category"
             name="category"
+            options={sampleClaimCategories}
             color={companyData.themeColors.primary}
             selectBoxSx={{
               '& .MuiSelect-select': {

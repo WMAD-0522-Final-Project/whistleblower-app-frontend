@@ -109,7 +109,7 @@ const ClaimChat = ({ claimId, chatData }: Props) => {
         ref={scrollRef}
         sx={{
           height: '80%',
-          overflowY: 'scroll',
+          overflowY: 'auto',
         }}
       >
         {messageList.length ? (
