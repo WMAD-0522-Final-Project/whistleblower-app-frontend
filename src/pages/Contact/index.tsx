@@ -11,6 +11,7 @@ import SelectBoxLabel from '../../components/SelectBoxLabel';
 import { useMutation } from '@tanstack/react-query';
 import { AxiosCustomError } from '../../types';
 import AlertCustom from '../../components/MUI_comp/AlertCustom';
+import sampleClaimCategories from '../../temp/sampleClaimCategories';
 
 type Props = {};
 
@@ -93,6 +94,7 @@ const Contact = (props: Props) => {
           label={'What is the issue?'}
           topLabel={'Issue'}
           placeholder={'Choose your issue'}
+          options={sampleClaimCategories}
           name="category"
           sx={{ mt: '1.2rem', maxWidth: '400px', width: '100%' }}
           color={companyData.themeColors.primary}
