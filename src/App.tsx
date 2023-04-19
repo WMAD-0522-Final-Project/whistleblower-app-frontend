@@ -102,8 +102,8 @@ const App = () => {
             ></YellowMashroom>
           </div>
 
-          <Header />
-          <AvatarIcon />
+          {/* <Header /> */}
+          {/* <AvatarIcon /> */}
 
           <Routes>
             <Route path="/login" element={<Login />} />
@@ -115,11 +115,12 @@ const App = () => {
               </Route>
             </Route>
             <Route path="admin">
-              <Route path="home" element={<AdminHome />} />
-              <Route path="adminUserView" element={<AdminUserView />} />
-              <Route path="generalUserView" element={<GeneralUserView />} />
-
-              <Route path="setting" element={<Settings />} />
+              <Route element={<AdminLayout />}>
+                <Route path="home" element={<AdminHome />} />
+                <Route path="adminUserView" element={<AdminUserView />} />
+                <Route path="generalUserView" element={<GeneralUserView />} />
+                <Route path="setting" element={<Settings />} />
+              </Route>
             </Route>
           </Routes>
           {/* <TestComponent /> */}

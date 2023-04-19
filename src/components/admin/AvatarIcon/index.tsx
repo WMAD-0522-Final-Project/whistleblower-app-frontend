@@ -1,10 +1,13 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import CustomAvatar from '../../CustomAvatar';
+import useModal from '../../../hooks/useModal';
 
-type Props = {};
+type Props = {
+  onClick: () => void;
+};
 
-const AvatarIcon = (props: Props) => {
+const AvatarIcon = ({ onClick }: Props) => {
   // TODO: get company data from store
   const companyData = {
     themeColors: {
@@ -19,10 +22,6 @@ const AvatarIcon = (props: Props) => {
     profileImg: '/images/profileImg.jpg',
   };
 
-  const editProfileImg = () => {
-    return <CustomAvatar></CustomAvatar>;
-  };
-
   return (
     <Box
       sx={{
@@ -34,9 +33,10 @@ const AvatarIcon = (props: Props) => {
         maxWidth: '200px',
         minWidth: '150px',
         width: '50%',
+
         cursor: 'pointer',
       }}
-      onClick={editProfileImg}
+      onClick={() => console.log('iwatani')}
     >
       <Box
         component="img"

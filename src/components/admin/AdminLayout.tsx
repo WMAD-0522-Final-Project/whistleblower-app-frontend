@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import AvatarIcon from './AvatarIcon';
@@ -6,6 +6,8 @@ import Header from '../Header';
 import axios, { AxiosResponse } from 'axios';
 import localStorageHelper from '../../helpers/localStorageHelper';
 import { UserRoleOption } from '../../types/enums';
+import useModal from '../../hooks/useModal';
+import CustomAvatar from '../CustomAvatar';
 
 type Props = {};
 interface VerifyTokenResponseData {
@@ -15,6 +17,7 @@ interface VerifyTokenResponseData {
 
 const AdminLayout = (props: Props) => {
   const navigator = useNavigate();
+  const { Modal, handleOpen, handleClose } = useModal();
 
   // const verifyToken = (): Promise<AxiosResponse<VerifyTokenResponseData>> => {
   //   const token = localStorageHelper('get', 'token');
@@ -46,7 +49,10 @@ const AdminLayout = (props: Props) => {
   return (
     <>
       <Header hasMenu={true} />
-      <AvatarIcon />
+      <AvatarIcon onClick={handleOpen} />
+      <Modal>
+        <CustomAvatar handleClose={handleClose} />
+      </Modal>
       <Outlet />
     </>
   );
