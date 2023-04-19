@@ -47,7 +47,6 @@ function MainWindow({ claim }: Props) {
   const closeModalWindow = () => {
     setClaimId(null);
   };
-  console.log('claim:', claim);
 
   useEffect(() => {
     console.log('claim', claim);
@@ -150,42 +149,38 @@ function MainWindow({ claim }: Props) {
             >
               Labels
             </p>
-
             {activeClaim &&
-              activeClaim.labels?.map((label, i) => {
-                return i < activeClaim.labels?.length! - 1 ? (
-                  <LabelCard
-                    name={label}
-                    width={100}
-                    height={50}
-                    url={'/images/profileImg.jpg'}
-                    color={'blue'}
-                    sx={{
-                      mt: '1rem',
-                    }}
-                  ></LabelCard>
-                ) : (
-                  labelData && (
-                    <SelectBoxCustom
-                      placeholder="Choose label"
-                      // all labels company have
-                      options={labelData.data.labels}
-                      name="labels"
-                      color="orange"
-                      onChange={selectLabel}
-                      menuItemSx={{ fontSize: '0.8rem' }}
-                      sx={{
-                        borderRadius: '10px',
-                        mt: '2rem',
-                        fontSize: '0.8rem',
-                        '& .MuiSelect-select': {
-                          pt: '0.4rem',
-                        },
-                      }}
-                    />
-                  )
-                );
-              })}
+              activeClaim.labels?.map((label, i) => (
+                <LabelCard
+                  name={label}
+                  width={100}
+                  height={50}
+                  url={'/images/profileImg.jpg'}
+                  color={'blue'}
+                  sx={{
+                    mt: '1rem',
+                  }}
+                ></LabelCard>
+              ))}
+            {labelData && (
+              <SelectBoxCustom
+                placeholder="Choose label"
+                // all labels company have
+                options={labelData.data.labels}
+                name="labels"
+                color="orange"
+                onChange={selectLabel}
+                menuItemSx={{ fontSize: '0.8rem' }}
+                sx={{
+                  borderRadius: '10px',
+                  mt: '2rem',
+                  fontSize: '0.8rem',
+                  '& .MuiSelect-select': {
+                    pt: '0.4rem',
+                  },
+                }}
+              />
+            )}
             <Box
               component="button"
               onClick={() => setShowLabelForm(true)}
@@ -344,42 +339,39 @@ function MainWindow({ claim }: Props) {
               >
                 Labels
               </p>
-
               {activeClaim &&
-                activeClaim.labels?.map((label, i) => {
-                  return i < activeClaim.labels?.length! - 1 ? (
-                    <LabelCard
-                      name={label}
-                      width={100}
-                      height={50}
-                      url={'/images/profileImg.jpg'}
-                      color={'blue'}
-                      sx={{
-                        mt: '1rem',
-                      }}
-                    ></LabelCard>
-                  ) : (
-                    labelData && (
-                      <SelectBoxCustom
-                        placeholder="Choose label"
-                        // all labels company have
-                        options={labelData.data.labels}
-                        name="labels"
-                        color="orange"
-                        onChange={selectLabel}
-                        menuItemSx={{ fontSize: '0.8rem' }}
-                        sx={{
-                          borderRadius: '10px',
-                          mt: '2rem',
-                          fontSize: '0.8rem',
-                          '& .MuiSelect-select': {
-                            pt: '0.4rem',
-                          },
-                        }}
-                      />
-                    )
-                  );
-                })}
+                activeClaim.labels?.map((label, i) => (
+                  <LabelCard
+                    name={label}
+                    width={100}
+                    height={50}
+                    url={'/images/profileImg.jpg'}
+                    color={'blue'}
+                    sx={{
+                      mt: '1rem',
+                    }}
+                  ></LabelCard>
+                ))}
+              {labelData && (
+                <SelectBoxCustom
+                  placeholder="Choose label"
+                  // all labels company have
+                  options={labelData.data.labels}
+                  name="labels"
+                  color="orange"
+                  onChange={selectLabel}
+                  menuItemSx={{ fontSize: '0.8rem' }}
+                  sx={{
+                    borderRadius: '10px',
+                    mt: '2rem',
+                    fontSize: '0.8rem',
+                    '& .MuiSelect-select': {
+                      pt: '0.4rem',
+                    },
+                  }}
+                />
+              )}
+
               <Box
                 component="button"
                 onClick={() => setShowLabelForm(true)}
