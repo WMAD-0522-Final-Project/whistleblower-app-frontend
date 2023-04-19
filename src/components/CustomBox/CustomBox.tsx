@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { ElementType } from 'react';
 import { Box } from '@mui/material';
 import { SxProps } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { motion } from 'framer-motion';
 
-type Props = {
+interface Props {
   children: React.ReactNode;
   sx?: SxProps;
-};
+  [key: string]: any;
+}
 
-const CustomBox = React.forwardRef(({ children, sx }: Props, ref) => {
+const CustomBox = React.forwardRef(({ children, sx, ...props }: Props, ref) => {
   const theme = useTheme();
 
   const styles = {
@@ -29,7 +30,9 @@ const CustomBox = React.forwardRef(({ children, sx }: Props, ref) => {
 
   return (
     // need styling here
-    <Box sx={{ ...styles, ...sx } as SxProps}>{children}</Box>
+    <Box sx={{ ...styles, ...sx } as SxProps} {...props}>
+      {children}
+    </Box>
   );
 });
 
