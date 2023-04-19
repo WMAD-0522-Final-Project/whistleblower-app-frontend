@@ -35,7 +35,6 @@ import { useAnimationControls } from 'framer-motion';
 import AdminUserView from './pages/AdminUserView';
 import GeneralUserView from './pages/GeneralUserView';
 import { Claim } from './types';
-import { CreateContext } from './custom/ClaimIdContext';
 import AdminSetting from './pages/AdminSetting';
 import Settings from './components/MUI_comp/Settings';
 import AdminLayout from './components/admin/AdminLayout';
@@ -44,15 +43,11 @@ import CompanySetting from './pages/CompanySetting';
 import AvatarIcon from './components/admin/AvatarIcon';
 
 import { ContextType } from './types';
-
+import { useAllContext } from './context/ClaimIdContext';
 const App = () => {
   const { isLoading } = useSelector(selectLoading);
   const { companyData } = useSelector(selectCompanyData);
-  const [context, setContext] = useState<ContextType>({
-    claimsId: '',
-    userId: '',
-  });
-
+  const { context, setContext } = useAllContext();
   const loadingDispatch = useDispatch();
   loadingDispatch(setLoading(true));
 
@@ -72,9 +67,16 @@ const App = () => {
   }, [userData]);
 
   useEffect(() => {
-    if (location.pathname === '/admin') yellowControl.start({ rotate: 100 });
-    if (location.pathname === '/general') yellowControl.start({ rotate: -100 });
+    // if (location.pathname === '/admin') yellowControl.start({ rotate: 100 });
+    // if (location.pathname === '/general') yellowControl.start({ rotate: -100 });
+    setContext((context) => ({
+      ...context,
+      yellowRotate: context.yellowRotate + 70,
+    }));
+    yellowControl.start({ rotate: context.yellowRotate });
+    console.log(context.yellowRotate, 'yellowrotate');
   }, [location]);
+
   // use Redux for alert state
   const sampleAlert = {
     message: 'test alert!',
@@ -86,51 +88,51 @@ const App = () => {
   };
 
   return (
-    <CreateContext.Provider value={{ context, setContext }}>
-      <ThemeProvider theme={theme}>
-        <Box
-          sx={{
-            backgroundColor: companyData.themeColors.primary,
-            minHeight: '100vh',
-            overflowX: 'hidden',
-            position: 'relative',
-            overflow: 'hidden',
-            zIndex: '1',
-          }}
-        >
-          <div style={{ position: 'absolute', zIndex: '-1' }}>
-            <YellowMashroom
-              animate={yellowControl}
-              transition={{ duration: 1 }}
-            ></YellowMashroom>
-          </div>
+    <ThemeProvider theme={theme}>
+      <Box
+        sx={{
+          backgroundColor: companyData.themeColors.primary,
+          minHeight: '100vh',
+          overflowX: 'hidden',
+          position: 'relative',
+          overflow: 'hidden',
+          zIndex: '1',
+        }}
+      >
+        <div style={{ position: 'absolute', zIndex: '-1' }}>
+          <YellowMashroom
+            animate={yellowControl}
+            transition={{ duration: 1 }}
+          ></YellowMashroom>
+        </div>
 
-          <Header />
-          {/* <AvatarIcon /> */}
+        {/* <Header /> */}
+        {/* <AvatarIcon /> */}
 
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/contact" element={<Contact />} />
-            {/* TODO: protect these routes */}
-            <Route path="general">
-              <Route element={<GeneralLayout />}>
-                <Route index element={<GeneralHome />} />
-              </Route>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/contact" element={<Contact />} />
+          {/* TODO: protect these routes */}
+          <Route path="general">
+            <Route element={<GeneralLayout />}>
+              <Route index element={<GeneralHome />} />
             </Route>
-            <Route path="admin">
-              <Route path="home" element={<AdminHome />} />
+          </Route>
+          <Route path="admin">
+            <Route element={<AdminLayout />}>
+              <Route path="" element={<AdminHome />} />
               <Route path="adminUserView" element={<AdminUserView />} />
               <Route path="generalUserView" element={<GeneralUserView />} />
-
-              <Route path="setting" element={<Settings />} />
             </Route>
-          </Routes>
-          {/* <TestComponent /> */}
-          {/* {isLoading && <CircularProgress />} */}
-          {/* {sampleAlert.message && (
-          <Alert
-          severity={sampleAlert.type}
-          sx={
+            <Route path="setting" element={<Settings />} />
+          </Route>
+        </Routes>
+        {/* <TestComponent /> */}
+        {/* {isLoading && <CircularProgress />} */}
+        {/* {sampleAlert.message && (
+            <Alert
+            severity={sampleAlert.type}
+            sx={
             {
               // style here
             }
@@ -138,14 +140,13 @@ const App = () => {
           onClose={() => {
             // reset alert state here
           }}
-        >
+          >
           <AlertTitle>{sampleAlert.type}</AlertTitle>
           {sampleAlert.message}
           </Alert>
-      )} */}
-        </Box>
-      </ThemeProvider>
-    </CreateContext.Provider>
+        )} */}
+      </Box>
+    </ThemeProvider>
   );
 };
 

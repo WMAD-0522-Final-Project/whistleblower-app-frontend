@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import stc from 'string-to-color';
 import { selectCompanyData } from '../../../RTK/companySlice';
 import ClaimYellowTable from '../../SVG/ClaimYellowTable';
-import { useAllContext } from '../../../custom/ClaimIdContext';
+import { useAllContext } from '../../../context/ClaimIdContext';
 import ClaimLabel from '../../SVG/ClaimLabel';
 
 type Props = {

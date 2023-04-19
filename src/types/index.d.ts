@@ -67,4 +67,5 @@ export type adminUser = {
 export type ContextType = {
   claimsId: string;
   userId: string;
+  yellowRotate: number;
 };

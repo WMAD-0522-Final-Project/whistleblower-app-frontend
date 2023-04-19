@@ -5,6 +5,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
+import HomeIcon from '@mui/icons-material/Home';
 import theme from '../../theme';
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../RTK/companySlice';
@@ -64,11 +65,29 @@ const Header = ({ hasMenu = false }: Props) => {
         >
           <MuiLink
             component={RouterLink}
-            to="/users"
+            to="/admin"
             sx={{
               ...muiLinkStyles,
               right: '110%',
               top: '37%',
+            }}
+          >
+            <IconButton
+              size="small"
+              sx={{
+                ...iconButtonStyles,
+              }}
+            >
+              <HomeIcon sx={{ ...iconStyles }} />
+            </IconButton>
+          </MuiLink>
+          <MuiLink
+            component={RouterLink}
+            to="/admin/adminUserView"
+            sx={{
+              ...muiLinkStyles,
+              right: '98%',
+              top: '71%',
             }}
           >
             <IconButton
@@ -82,25 +101,7 @@ const Header = ({ hasMenu = false }: Props) => {
           </MuiLink>
           <MuiLink
             component={RouterLink}
-            to="/settings"
-            sx={{
-              ...muiLinkStyles,
-              right: '98%',
-              top: '71%',
-            }}
-          >
-            <IconButton
-              size="small"
-              sx={{
-                ...iconButtonStyles,
-              }}
-            >
-              <SettingsIcon sx={{ ...iconStyles }} />
-            </IconButton>
-          </MuiLink>
-          <MuiLink
-            component={RouterLink}
-            to="/claims"
+            to="/admin/generalUserView"
             sx={{
               ...muiLinkStyles,
               right: '72%',
@@ -118,7 +119,7 @@ const Header = ({ hasMenu = false }: Props) => {
           </MuiLink>
           <MuiLink
             component={RouterLink}
-            to="/logs"
+            to="/admin/generalUserView"
             sx={{
               ...muiLinkStyles,
               right: '37%',
@@ -131,7 +132,7 @@ const Header = ({ hasMenu = false }: Props) => {
                 ...iconButtonStyles,
               }}
             >
-              <MenuBookIcon sx={{ ...iconStyles }} />
+              <SettingsIcon sx={{ ...iconStyles }} />
             </IconButton>
           </MuiLink>
           <Box

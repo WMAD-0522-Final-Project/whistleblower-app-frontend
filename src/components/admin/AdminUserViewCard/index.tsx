@@ -11,7 +11,7 @@ import EditIcon from '../../SVG/EditIcon';
 import { adminUser } from '../../../types/index';
 import styles from './AdminUserViewCard.module.scss';
 
-import { useAllContext } from '../../../custom/ClaimIdContext';
+import { useAllContext } from '../../../context/ClaimIdContext';
 import YellowTablePassword from '../../SVG/YellowTablePassword';
 type Props = {
   user: Partial<adminUser>;

@@ -9,8 +9,8 @@ import sampleClaims from '../../temp/sampleClaims';
 import UserCard from '../../components/admin/ModalWindow/UserCard';
 import LabelCard from '../../components/admin/ModalWindow/LabelCard';
 import MainWindow from '../../components/admin/ModalWindow/mainWindow';
-import { useAllContext } from '../../custom/ClaimIdContext';
-
+// import { useAllContext } from '../../custom/ClaimIdContext';
+import { useAllContext } from '../../context/ClaimIdContext';
 import ClaimChat from '../../components/ClaimChat';
 import sampleClaimDetail from '../../temp/sampleClaimDetail';
 import Frame from '../../components/admin/ModalWindow/Frame.tsx/Frame';
@@ -46,7 +46,7 @@ const AdminHome = (props: Props) => {
   const inProgress = 'inProgress';
   const done = 'done';
   const [expandState, setExpandState] = useState(newClaim);
-  const [modalClaim, setModalClaim] = useState<Partial<Claim>>();
+  const [modalClaim, setModalClaim] = useState<Partial<Claim> | null>(null);
   const [mobileHeight, setModileHeight] = useState({
     newClaim: 6,
     inProgress: 6,
@@ -70,7 +70,7 @@ const AdminHome = (props: Props) => {
     } else {
       handleClose();
     }
-  }, [context.claimsId]);
+  }, [context.claimsId !== '']);
 
   // const filteredClaims = () =>
   //   claims.filter((claim: Claim) =>
@@ -214,9 +214,14 @@ const AdminHome = (props: Props) => {
             </Box>
           </div>
 
-          <Modal innerBoxStyle={{ width: '100%', height: '100%' }}>
-            {modalClaim && <MainWindow claim={modalClaim}></MainWindow>}
-          </Modal>
+          {modalClaim && (
+            <Modal
+              outerBoxStyle={{ maxWidth: '1200px' }}
+              innerBoxStyle={{ width: '100%', height: '100%' }}
+            >
+              <MainWindow claim={modalClaim}></MainWindow>
+            </Modal>
+          )}
         </div>
       </DragDropContext>
     </>

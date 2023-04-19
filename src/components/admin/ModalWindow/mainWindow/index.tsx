@@ -6,7 +6,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import Frame from '../Frame.tsx/Frame';
 import Closebutton from '../../../SVG/Closebutton';
 import UserCard from '../UserCard';
-import { useAllContext } from '../../../../custom/ClaimIdContext';
+import { useAllContext } from '../../../../context/ClaimIdContext';
 // import { MotionUserCard } from '../UserCard';
 import LabelCard from '../LabelCard';
 import styles from './mainWindow.module.scss';
@@ -52,6 +52,10 @@ function MainWindow({ claim }: Props) {
     setActiveClaim(claim);
   }, []);
 
+  useEffect(() => {
+    console.log(activeClaim?.labels, 'this is label');
+  }, [activeClaim]);
+
   const selectLabel = (e) => {
     const name = labelData?.data.labels.find(
       (label: ClaimLabel) => label._id === e.target.value
@@ -79,6 +83,10 @@ function MainWindow({ claim }: Props) {
     queryKey: ['labels'],
     queryFn: getLabelList,
   });
+
+  useEffect(() => {
+    console.log(labelData, 'labeldata');
+  }, [labelData]);
 
   const addNewLabel = (): Promise<AxiosResponse<NewLabelResponseData>> => {
     return axios({

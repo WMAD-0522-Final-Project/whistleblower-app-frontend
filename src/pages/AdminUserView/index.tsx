@@ -5,7 +5,7 @@ import SearchBox from '../../components/SearchBox';
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../RTK/companySlice';
 import sampleUserDatas from '../../temp/sampleUserDatas';
-import { useAllContext } from '../../custom/ClaimIdContext';
+import { useAllContext } from '../../context/ClaimIdContext';
 import { adminUser } from '../../types';
 import RoleToggles from '../../components/admin/RoleToggles';
 import { NativeSelect } from '@mui/material';

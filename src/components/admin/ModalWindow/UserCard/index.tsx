@@ -7,7 +7,7 @@ import Yeallowtable from '../../../SVG/YeallowTable';
 import { Claim } from '../../../../types';
 import { motion } from 'framer-motion';
 import EditIcon from '../../../SVG/EditIcon';
-import { useAllContext } from '../../../../custom/ClaimIdContext';
+import { useAllContext } from '../../../../context/ClaimIdContext';
 
 type Props = {
   name: string;
