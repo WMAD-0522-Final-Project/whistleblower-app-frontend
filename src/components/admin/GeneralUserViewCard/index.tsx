@@ -25,7 +25,11 @@ const GeneralUserViewCard = React.forwardRef(
     const { companyData } = useSelector(selectCompanyData);
     const { context, setContext } = useAllContext();
     const editHandle = () => {
-      // if (user.firstName) setClaimId(user.firstName);
+      if (user)
+        setContext((context) => ({
+          ...context,
+          userId: user._id,
+        }));
     };
     return (
       <>
@@ -75,7 +79,7 @@ const GeneralUserViewCard = React.forwardRef(
             }}
           >
             <EditIcon
-              animate={claimId === user.firstName ? { rotate: 90 } : {}}
+              animate={context.userId === user._id ? { rotate: 90 } : {}}
               transition={{ duration: 0.5 }}
             ></EditIcon>
           </div>

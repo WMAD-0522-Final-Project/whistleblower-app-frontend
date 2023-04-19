@@ -62,7 +62,7 @@ const AdminHome = (props: Props) => {
 
   useEffect(() => {
     if (claims !== null) {
-      const modalClaim = claims.filter(
+      const modalClaim = claims?.filter(
         (element) => element.id === context.claimsId
       )[0];
       setModalClaim(modalClaim);

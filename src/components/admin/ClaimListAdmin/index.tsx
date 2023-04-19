@@ -11,7 +11,6 @@ type Props = {
 
 const ClaimListAdmin = ({ claims }: Props) => {
   return (
-
     <Box
       component="ul"
       // sx={{
@@ -29,6 +28,7 @@ const ClaimListAdmin = ({ claims }: Props) => {
               {...provided.draggableProps}
             >
               <ClaimCardAdmin
+                whileHover={{ x: 100 }}
                 claim={claim}
                 sx={{ mt: '0.8rem' }}
                 key={claim.id}

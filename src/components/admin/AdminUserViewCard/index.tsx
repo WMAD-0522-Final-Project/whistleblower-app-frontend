@@ -25,7 +25,13 @@ const AdminUserViewCard = React.forwardRef(
   ({ user, width, height, url, edit, sx }: Props, ref) => {
     const { companyData } = useSelector(selectCompanyData);
     const { context, setContext } = useAllContext();
-    const editHandle = () => {};
+    const editHandle = () => {
+      if (user)
+        setContext((context) => ({
+          ...context,
+          userId: user._id,
+        }));
+    };
     return (
       <>
         <Box
@@ -120,7 +126,7 @@ const AdminUserViewCard = React.forwardRef(
             }}
           >
             <EditIcon
-              // animate={ === user.firstName ? { rotate: 90 } : {}}
+              animate={context.userId === user._id ? { rotate: 90 } : {}}
               transition={{ duration: 0.5 }}
             ></EditIcon>
           </div>

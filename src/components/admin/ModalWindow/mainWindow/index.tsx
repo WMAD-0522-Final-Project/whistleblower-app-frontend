@@ -10,7 +10,7 @@ import { useAllContext } from '../../../../custom/ClaimIdContext';
 // import { MotionUserCard } from '../UserCard';
 import LabelCard from '../LabelCard';
 import styles from './mainWindow.module.scss';
-import { Claim } from '../../../../types';
+import { Claim, ClaimLabel } from '../../../../types';
 import ClaimChat from '../../../ClaimChat';
 import sampleClaimDetail from '../../../../temp/sampleClaimDetail';
 import './windowStyles.scss';
@@ -40,18 +40,15 @@ function MainWindow({ claim }: Props) {
   const { companyData } = useSelector(selectCompanyData);
   const { context, setContext } = useAllContext();
   const queryClient = useQueryClient();
-  const [activeClaim, setActiveClaim] = useState<Claim>(null);
+  const [activeClaim, setActiveClaim] = useState<Claim | null>(null);
   const [showLabelForm, setShowLabelForm] = useState(false);
   const [newLabelName, setNewLabelName] = useState('');
 
   const closeModalWindow = () => {
-    // setClaimId(null);
+    setContext({ userId: '', claimsId: '' });
   };
-  console.log('claim:', claim);
 
   useEffect(() => {
-    console.log('claim', claim);
-
     setActiveClaim(claim);
   }, []);
 
@@ -104,27 +101,32 @@ function MainWindow({ claim }: Props) {
   });
 
   return (
-    <>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-around',
-          width: '100%',
-          height: '100%',
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-around',
-            alignItems: 'center',
-            width: '50%',
-            height: '100%',
-          }}
-        >
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            Discription ID : {claim.id}
+    <div className="super">
+      <div className="side left">
+        <div className="claim_id">
+          <h1
+            style={{ color: companyData.themeColors.primary }}
+            className="title"
+          >
+            Description
+          </h1>
+          <p style={{ color: companyData.themeColors.primary }}>
+            ID: {claim.id}
+          </p>
+        </div>
+        <div className="claim_description">
+          <div className="desc">
+            {claim.message}
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, earum
+            animi! Ab illo, autem praesentium modi eius dicta ut ea culpa
+            recusandae commodi deleniti fugit tempore corrupti. In, ipsum optio!
+            Lorem ipsum dolor sit consectetur adipisicing elit. Aut nisi
+            possimus incidunt commodi dignissimos animi eaque ullam quos placeat
+            veritatis alias inventore unde asperiores aperiam, fugit corporis
+            reprehenderit error laboriosam. Lorem ipsum dolor sit consectetur
+            adipisicing elit. Aut nisi possimus incidunt commodi dignissimos
+            animi eaque ullam quos placeat veritatis alias inventore unde
+            asperiores aperiam, fugit corporis reprehenderit error laboriosam.
           </div>
         </div>
         <Box className="extras">
@@ -261,29 +263,20 @@ function MainWindow({ claim }: Props) {
             <p
               className="titles_extras"
               style={{
-                width: '50%',
-                height: '100%',
-                overflow: 'scroll',
-                display: 'flex',
-                flexDirection: 'column',
-                alignContent: 'center',
-                paddingTop: '3%',
-                paddingLeft: '5%',
+                color: companyData.themeColors.primary,
+                fontWeight: 'bolder',
               }}
             >
+              Members
+            </p>
+            <div className="members">
               {claim.members?.map((member, i) => {
                 return (
                   <>
-                    <div
-                      style={{
-                        marginBottom: '20px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                      }}
-                    >
+                    <div className="cards">
                       <UserCard
                         name={member.userId}
-                        width={80}
+                        width={100}
                         height={40}
                         url={member.avatarUrl}
                         edit={false}
@@ -292,7 +285,7 @@ function MainWindow({ claim }: Props) {
                   </>
                 );
               })}
-            </p>
+            </div>
           </Box>
         </Box>
       </div>
@@ -488,7 +481,7 @@ function MainWindow({ claim }: Props) {
           <ClaimChat chatData={sampleClaimDetail.chats} />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

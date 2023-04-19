@@ -85,8 +85,6 @@ const App = () => {
     console.log('Confirmed!!!!!!!!!!!');
   };
 
-  console.log(location.pathname, 'this is location ');
-
   return (
     <CreateContext.Provider value={{ context, setContext }}>
       <ThemeProvider theme={theme}>

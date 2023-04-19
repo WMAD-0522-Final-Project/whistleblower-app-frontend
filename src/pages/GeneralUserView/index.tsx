@@ -20,15 +20,14 @@ function GeneralUserView() {
   const { companyData } = useSelector(selectCompanyData);
   const { context, setContext } = useAllContext();
   const [nowUser, setNowUser] = useState<Partial<adminUser> | null>(null);
-  // useEffect(() => {
-  //   if (claimId !== '') {
-  //     const firstName = claimId?.split(' ')[0];
-  //     const user = sampleUserDatas.filter(
-  //       (user) => user.firstName === firstName
-  //     )[0];
-  //     setNowUser(user);
-  //   }
-  // }, [claimId]);
+  useEffect(() => {
+    if (context.userId !== '') {
+      const user = sampleUserDatas.filter(
+        (user) => user._id === context.userId
+      )[0];
+      setNowUser(user);
+    }
+  }, [context.userId]);
   useEffect(() => {
     console.log(nowUser?.department, ';lkj');
   }, [nowUser?.department]);

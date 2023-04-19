@@ -23,7 +23,6 @@ function LabelCard({ name, width, height, url, color, sx }: Props) {
         sx={{
           color: companyData.themeColors.primary,
           display: 'flex',
-          position: 'relative',
           width: `${width}%`,
           height: `${height}px`,
           position: 'relative',
@@ -34,7 +33,7 @@ function LabelCard({ name, width, height, url, color, sx }: Props) {
           style={{
             // position: 'absolute',
             top: '-30%',
-            left: '-20%',
+            left: '-10%',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
