@@ -10,12 +10,12 @@ const ColorInput = styled.input`
   background-color: transparent;
   border: none;
   cursor: pointer;
-
+  
   &::-webkit-color-swatch {
-    border-radius: 15px;
+
+    width: 100%;
     border: none;
-    box-shadow: rgba(240, 238, 238, 0.48) 0px 1px 3px 0px,
-      rgba(240, 238, 238, 0.48) 0px 0px 0px 1px;
+
   }
   &::-moz-color-swatch {
     border-radius: 15px;

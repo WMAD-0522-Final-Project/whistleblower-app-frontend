@@ -6,6 +6,7 @@ import { selectCompanyData } from '../../RTK/companySlice'
 import Settings from '../../components/MUI_comp/Settings';
 import TextFieldCustom from '../../components/MUI_comp/TextFieldCustom';
 import ButtonComponent from '../../components/MUI_comp/ButtonComponent';
+import SettingsGlobal from './SettingsGlobal';
 
 
 const ThemeEdit = () => {
@@ -58,15 +59,17 @@ const ThemeEdit = () => {
 }
    
   return (
-    <>
-    <button onClick={()=>{setAdmin(!admin)}}>{admin? 'admin': 'user'}</button>
+    <div style={{width: '100vs', height: '100vh', display: 'grid', placeContent: 'center'}}>
+    <SettingsGlobal/>
+    {/* <Settings/> */}
+
+    {/* <button onClick={()=>{setAdmin(!admin)}}>{admin? 'admin': 'user'}</button>
       <Box sx={admin? StylesAdmin: StyleUser}>
        
         {admin? 
         <>
           <div style={{backgroundColor: 'gray'}}>Users List Here!</div>
           <div>
-            <Settings/>
           </div>
         </>:
         <div>
@@ -119,8 +122,8 @@ const ThemeEdit = () => {
         </div>
         }
         
-      </Box>
-      </>
+      </Box> */}
+      </div>
   )
 }
 

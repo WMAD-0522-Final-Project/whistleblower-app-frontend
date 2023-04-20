@@ -30,12 +30,14 @@ const ListCustom = (props: CustomListItemButtonProps) => {
   } = props;
 
   const CustomListItemButton = styled(ListItemButton)(({ theme }) => ({
-    backgroundColor: `transparent`,
     cursor: 'pointer',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     height: `100%`,
+    width: `100%`,
+    backgroundColor: `transparent`,
+    borderRadius: '10px',
     boxShadow:
       ' rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px',
   }));
@@ -44,8 +46,9 @@ const ListCustom = (props: CustomListItemButtonProps) => {
     backgroundColor: `${iconColorLeft}`,
     color: 'white',
     padding: '10px',
-    borderRadius: '5px',
-    width: '10px',
+    height: '100%',
+    width: '100%',
+    borderRadius: '10px 0 0 10px',
     boxShadow:
       'rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px',
   }));
@@ -53,10 +56,9 @@ const ListCustom = (props: CustomListItemButtonProps) => {
     backgroundColor: `${iconColorCenter}`,
     color: 'white',
     padding: '10px',
-    borderRadius: '5px',
-    width: '10px',
-    marginLeft: '3px',
-    marginRight: '3px',
+    height: '100%',
+    width: '100%',
+    borderRadius: '0 10px 10px 0',
     boxShadow:
       'rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px',
   }));

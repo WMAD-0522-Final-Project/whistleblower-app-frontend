@@ -1,0 +1,268 @@
+$screen-xxs: 500px;
+$screen-xs: 800px;
+
+
+.global{
+    width: 60vw;
+    height: 70vh;
+    background-color:rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    overflow: hidden;
+    @media (max-width: $screen-xs) {
+        width: 70vw;
+     }
+     @media (max-width: $screen-xxs) {
+        height: 80vh;
+        width: 80vw;
+        border-radius: 10px;
+     }
+    .left_nav{
+        width: 100%;
+        background-color:  rgb(255, 255, 255);
+        display: flex;
+        justify-content: left;
+        
+        p{  
+            width: 200px;
+            text-align: center;
+            padding: 10px;
+            color: rgb(0, 0, 0);
+            font-size: 1rem;
+            border-bottom: 2px solid #9796963d;
+            
+            &:hover{
+                color: rgb(16, 16, 16);
+            }
+          
+        }
+    }
+    .rigth_options{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    //==============================================General View Styles=========================================================================
+    //==============================================General View Styles=========================================================================
+    //==============================================General View Styles=========================================================================
+    .gv_cont{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        flex-direction: column;
+        @media (max-width: $screen-xs) {
+            justify-content: space-evenly;
+        }
+    }
+    .gv_side_cont{
+        height: 80%;
+        width: 50%;
+        @media (max-width: $screen-xs) {
+           width: 100%;
+        }
+    }
+    .gv_inputs{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        @media (max-width: $screen-xs) {
+            flex-direction: row;
+         }
+    }
+    .gv_sub_cont{
+        width: 80%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 50px;
+     
+
+        .gv_company_name{
+            p{
+                font-weight: 900;
+                text-align: left;
+                @media (max-width: $screen-xs) {
+                    text-align: center;
+                    height: auto;
+                 }
+            }
+        }
+        input{
+            background-color: rgba(224, 224, 224, 0.511);
+            border: 2px solid transparent;
+            padding: 10px 15px;
+            color: #2f2f2f;
+            border-radius: 5px;
+            font-weight: 500;
+            font-size: 1rem;
+            font-weight: 300;
+            &:focus{
+                outline: none;
+
+            }
+         
+        }
+    }
+    
+    .gv_img_cont{
+        min-height: 100px;
+        min-width: 100px;
+        max-width: 3rem;
+        max-height: 3rem;
+        border-radius: 80px;
+        overflow: hidden;
+        position: relative;
+        cursor: pointer;
+        margin-right: 50px;
+        @media (max-width: $screen-xs) {
+            margin-right: 0;
+        }
+        &:hover{
+            & > .img_hover_edit{
+                transform: translateY(100%);
+            }
+        }
+        .img_hover_edit{
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(29, 29, 29, 0.573);
+            position: absolute;
+            bottom: 100%;
+            transition: transform 300ms;
+            p{
+               color: white;
+               font-weight: 300;
+               font-size: 1rem;
+            }
+        }
+        img{
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+
+        }
+    }
+}
+.gv_themeEditor{
+    border-top: 2px solid #9796963d;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    @media (max-width: $screen-xs) {
+        flex-direction: column;
+        margin-top: 0;
+        max-height: 500px;
+        border-top: 0px solid transparent;
+      }
+    
+    p{
+        color: #ffffff;
+    }
+    input[type="color"] {
+        appearance: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        background: none;
+        border: 0;
+        cursor: pointer;
+        min-height: 5em;
+        min-width: 5.5em;
+        display: flex;
+        justify-self: flex-end;
+      }
+      ::-webkit-color-swatch{
+        border: 0;
+        border-radius: 2rem;
+        box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+      }     
+} 
+
+
+
+.th_inputSuperCont{
+    width: 14rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    @media (max-width: $screen-xs) {
+        width: 10rem;
+        flex-direction: column;
+        p{
+            display: none;
+        }
+      }
+    .th_inputSub{
+        .th_primaryColor_title{
+            color: rgb(129, 129, 129);
+            font-weight: 900;
+        }
+    }
+    .th_color_value{
+       height: 40px;
+       width: 110px;
+       display: flex;
+      
+       color: rgb(209, 209, 209);
+       padding: 10px;
+       border-radius: 10px;
+       border: 1px solid #82828255;
+       
+    }
+}
+.th_primaryColor_title{
+    text-align: center;
+}
+.gv_pallete_super{
+    display: grid;
+    place-items: center;
+    margin-left: 50px;
+    min-width: 200px;
+    @media (max-width: $screen-xs) {
+        margin-left: 0;
+
+    }
+}
+.gv_pallete{
+    margin-top: 10px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    background-color: rgba(224, 224, 224, 0.511);
+    border-radius: 10px;
+    padding: 10px;
+
+}
+
+.gv_submit_cont{
+    margin-top: 10px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .gv_button{
+        background-color: transparent;
+        color: #828282e6;
+        padding: 10px;
+        font-weight: 600;
+        border-radius: 40px;
+        border: 1px solid #828282a3;
+        &:hover{
+            color: #686868;
+            border: 1px sorgb(130, 130, 130)82a3;
+        }
+    }
+
+}

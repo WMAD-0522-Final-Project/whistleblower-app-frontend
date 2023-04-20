@@ -10,6 +10,7 @@ import ListCustom from './ListItem';
 import ColorInputs from './colorSettings/ColorInput';
 import { useSelector } from 'react-redux';
 import FileInput from '../FileInput';
+import { auto } from '@popperjs/core';
 
 const Settings = () => {
   const dispatch = useDispatch();
@@ -29,15 +30,20 @@ const Settings = () => {
     { mainColor: '#BEB7A4', secondaryColor: '#929982' },
     { mainColor: '#8F857D', secondaryColor: '#F7F0F5' },
   ]);
+  console.log(companyData);
+  
   return (
     <div className="super" style={{width: '100%'}}>
       <div className="window" style={{ backgroundColor: '#FFFFFF' }}>
-        <p style={{ color: companyData.themeColors.primary }} className="setting_title">
-          Theme Settings
-        </p>
+  
+        <div className='company_img'>
+        </div>
         <div className="inputFields">
           <div className="textInputs">
-            <TextFieldCustom
+            <input className='field_input' type="text" />
+            <input className='field_input' type="text" />
+            <input className='field_input' type="text" />
+            {/* <TextFieldCustom
               label="Name"
               error={false}
               width="80%"
@@ -60,7 +66,7 @@ const Settings = () => {
               mainColor={companyData.themeColors.secondary}
               textColor="black"
               required
-            />
+            /> */}
           </div>
 
           {/* <NestedList /> */}
@@ -109,20 +115,9 @@ const Settings = () => {
         </div>
         {/* submit button */}
 
-        <FileInput name="file" sx={{ mt: '1rem' }} />
 
       </div>
-      {/* <div
-        className="bg_decoration"
-        style={{
-          backgroundImage:
-            'radial-gradient(circle, ' +
-            `${colors.secondaryColor}` +
-            ' 20%, transparent 10%), radial-gradient(circle, ' +
-            `${colors.secondaryColor}` +
-            ', 20%, transparent 10%)',
-        }}
-      ></div> */}
+ 
     </div>
   );
 };
