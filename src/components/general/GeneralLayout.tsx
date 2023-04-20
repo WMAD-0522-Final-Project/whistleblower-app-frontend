@@ -10,6 +10,7 @@ import { selectCompanyData } from '../../RTK/companySlice';
 import { setUserData } from '../../RTK/userDataSlice';
 import localStorageHelper from '../../helpers/localStorageHelper';
 import { UserRoleOption } from '../../types/enums';
+import getAuthorizationValue from '../../helpers/getAuthorizationValue';
 
 type Props = {};
 
@@ -24,14 +25,14 @@ const GeneralLayout = (props: Props) => {
   const dispatch = useDispatch();
 
   const verifyToken = (): Promise<AxiosResponse<VerifyTokenResponseData>> => {
-    const token = localStorageHelper('get', 'token');
-    if (!token?.data) navigator('/login');
+    const authorizationValue = getAuthorizationValue();
+    if (!authorizationValue) navigator('/login');
 
     return axios({
       method: 'GET',
       url: `${import.meta.env.VITE_BACKEND_URL}/api/auth/verify-token`,
       headers: {
-        Authorization: `Bearer ${token!.data}`,
+        Authorization: authorizationValue,
       },
     });
   };
@@ -63,7 +64,9 @@ const GeneralLayout = (props: Props) => {
   });
 
   const logout = () => {
-    // logout
+    localStorageHelper('set', 'token', '');
+    localStorageHelper('set', 'refreshToken', '');
+    navigator('/login');
   };
 
   return (
@@ -79,7 +82,7 @@ const GeneralLayout = (props: Props) => {
       <ButtonComponent
         customColor={companyData.themeColors.secondary}
         type="submit"
-        // onClick={logout}
+        onClick={logout}
         sx={{
           boxShadow: '2px 2px 2px 2px rgba(0,0,0,0.2)',
           display: 'block',

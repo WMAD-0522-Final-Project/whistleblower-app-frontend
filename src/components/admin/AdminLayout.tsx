@@ -7,6 +7,7 @@ import AvatarIcon from './AvatarIcon';
 import Header from '../Header';
 import { setUserData } from '../../RTK/userDataSlice';
 import localStorageHelper from '../../helpers/localStorageHelper';
+import getAuthorizationValue from '../../helpers/getAuthorizationValue';
 import { UserRoleOption } from '../../types/enums';
 
 type Props = {};
@@ -20,14 +21,14 @@ const AdminLayout = (props: Props) => {
   const dispatch = useDispatch();
 
   const verifyToken = (): Promise<AxiosResponse<VerifyTokenResponseData>> => {
-    const token = localStorageHelper('get', 'token');
-    if (!token?.data) navigator('/login');
+    const authorizationValue = getAuthorizationValue();
+    if (!authorizationValue) navigator('/login');
 
     return axios({
       method: 'GET',
       url: `${import.meta.env.VITE_BACKEND_URL}/api/auth/verify-token`,
       headers: {
-        Authorization: `Bearer ${token!.data}`,
+        Authorization: authorizationValue,
       },
     });
   };

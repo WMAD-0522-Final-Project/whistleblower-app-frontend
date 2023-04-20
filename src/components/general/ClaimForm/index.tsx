@@ -16,6 +16,7 @@ import localStorageHelper from '../../../helpers/localStorageHelper';
 import AlertCustom from '../../MUI_comp/AlertCustom';
 import sampleClaimCategories from '../../../temp/sampleClaimCategories';
 import { AxiosCustomError } from '../../../types';
+import getAuthorizationValue from '../../../helpers/getAuthorizationValue';
 
 type Props = {};
 
@@ -66,7 +67,7 @@ const ClaimForm = (props: Props) => {
         isAnonymous,
       },
       headers: {
-        Authorization: `Bearer ${localStorageHelper('get', 'token')!.data}`,
+        Authorization: getAuthorizationValue(),
       },
     });
   };

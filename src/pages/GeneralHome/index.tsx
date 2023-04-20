@@ -12,6 +12,7 @@ import useModal from '../../hooks/useModal';
 import TabsCustom from '../../components/MUI_comp/TabsCustom';
 import localStorageHelper from '../../helpers/localStorageHelper';
 import { ClaimMessageData } from '../../types';
+import getAuthorizationValue from '../../helpers/getAuthorizationValue';
 
 type Props = {};
 
@@ -31,7 +32,7 @@ const GeneralHome = (props: Props) => {
         import.meta.env.VITE_BACKEND_URL
       }/api/claim/${currentClaimId}/message/list`,
       headers: {
-        Authorization: `Bearer ${localStorageHelper('get', 'token')!.data}`,
+        Authorization: getAuthorizationValue(),
       },
     });
 

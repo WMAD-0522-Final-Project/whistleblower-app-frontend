@@ -22,6 +22,7 @@ import SelectBoxCustom from '../../../MUI_comp/SelectBoxCustom';
 import SelectBoxLabel from '../../../SelectBoxLabel';
 
 import { motion, useCycle } from 'framer-motion';
+import getAuthorizationValue from '../../../../helpers/getAuthorizationValue';
 
 type Props = {
   claim: Partial<Claim>;
@@ -72,7 +73,7 @@ function MainWindow({ claim }: Props) {
       method: 'GET',
       url: `${import.meta.env.VITE_BACKEND_URL}/api/claim/label/list`,
       headers: {
-        Authorization: `Bearer ${localStorageHelper('get', 'token')?.data}`,
+        Authorization: getAuthorizationValue(),
       },
     });
   };
@@ -90,7 +91,7 @@ function MainWindow({ claim }: Props) {
         name: newLabelName,
       },
       headers: {
-        Authorization: `Bearer ${localStorageHelper('get', 'token')?.data}`,
+        Authorization: getAuthorizationValue(),
       },
     });
   };

@@ -11,7 +11,6 @@ type Props = {
 
 const ClaimListAdmin = ({ claims }: Props) => {
   return (
-
     <Box
       component="ul"
       // sx={{
