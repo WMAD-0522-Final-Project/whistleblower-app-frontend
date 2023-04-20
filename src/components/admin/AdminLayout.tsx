@@ -6,9 +6,9 @@ import { useQuery } from '@tanstack/react-query';
 import AvatarIcon from './AvatarIcon';
 import Header from '../Header';
 import { setUserData } from '../../RTK/userDataSlice';
-import localStorageHelper from '../../helpers/localStorageHelper';
 import getAuthorizationValue from '../../helpers/getAuthorizationValue';
 import { UserRoleOption } from '../../types/enums';
+import LogoutButton from '../LogoutButton';
 
 type Props = {};
 interface VerifyTokenResponseData {
@@ -63,6 +63,13 @@ const AdminLayout = (props: Props) => {
     <>
       <Header hasMenu={true} />
       <AvatarIcon />
+      <LogoutButton
+        sx={{
+          mt: '1rem',
+          position: 'relative',
+          zIndex: '100',
+        }}
+      />
       <Outlet />
     </>
   );

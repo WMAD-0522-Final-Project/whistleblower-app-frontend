@@ -4,11 +4,8 @@ import { useQuery } from '@tanstack/react-query';
 import { Box, Typography } from '@mui/material';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import Header from '../Header';
-import ButtonComponent from '../MUI_comp/ButtonComponent';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectCompanyData } from '../../RTK/companySlice';
+import { useDispatch } from 'react-redux';
 import { setUserData } from '../../RTK/userDataSlice';
-import localStorageHelper from '../../helpers/localStorageHelper';
 import { UserRoleOption } from '../../types/enums';
 import getAuthorizationValue from '../../helpers/getAuthorizationValue';
 
@@ -20,7 +17,6 @@ interface VerifyTokenResponseData {
 }
 
 const GeneralLayout = (props: Props) => {
-  const { companyData } = useSelector(selectCompanyData);
   const navigator = useNavigate();
   const dispatch = useDispatch();
 
@@ -63,12 +59,6 @@ const GeneralLayout = (props: Props) => {
     },
   });
 
-  const logout = () => {
-    localStorageHelper('set', 'token', '');
-    localStorageHelper('set', 'refreshToken', '');
-    navigator('/login');
-  };
-
   return (
     <Box
       sx={{
@@ -79,24 +69,6 @@ const GeneralLayout = (props: Props) => {
     >
       <Header hasMenu={false} />
       <Outlet />
-      <ButtonComponent
-        customColor={companyData.themeColors.secondary}
-        type="submit"
-        onClick={logout}
-        sx={{
-          boxShadow: '2px 2px 2px 2px rgba(0,0,0,0.2)',
-          display: 'block',
-          mt: '1rem',
-          p: '0.8rem 0',
-          color: companyData.themeColors.primary,
-          fontWeight: '600',
-          m: '3rem auto 0',
-          maxWidth: '200px',
-          width: '90%',
-        }}
-      >
-        Logout
-      </ButtonComponent>
       <Typography
         variant="h1"
         sx={{ fontSize: '.8rem', textAlign: 'center', mt: '1.4rem' }}
