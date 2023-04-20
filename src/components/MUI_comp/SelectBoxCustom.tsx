@@ -8,11 +8,21 @@ interface Props {
   placeholder: string;
   color: string;
   name?: string;
+  options: any[];
   onChange?: (e: SelectChangeEvent<string>) => void;
+  menuItemSx?: SxProps;
   sx?: SxProps;
 }
 
-const SelectBoxCustom = ({ placeholder, color, name, onChange, sx }: Props) => {
+const SelectBoxCustom = ({
+  placeholder,
+  color,
+  options,
+  name,
+  onChange,
+  menuItemSx,
+  sx,
+}: Props) => {
   const [value, setValue] = useState('');
 
   const handleChange = (e: SelectChangeEvent<string>) => {
@@ -36,12 +46,16 @@ const SelectBoxCustom = ({ placeholder, color, name, onChange, sx }: Props) => {
         ...sx,
       }}
     >
-      <MenuItem disabled value="">
+      <MenuItem disabled value="" sx={{ ...menuItemSx }}>
         <em>{placeholder}</em>
       </MenuItem>
-      {sampleClaimCategories.map((category) => (
-        <MenuItem value={category.id} key={category.id}>
-          {category.name}
+      {options.map((option) => (
+        <MenuItem
+          value={option.id ?? option._id}
+          key={option.id ?? option._id}
+          sx={{ ...menuItemSx }}
+        >
+          {option.name}
         </MenuItem>
       ))}
     </Select>

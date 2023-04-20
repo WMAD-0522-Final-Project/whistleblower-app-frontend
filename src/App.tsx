@@ -7,17 +7,8 @@ import {
 } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import {
-  Box,
-  Alert,
-  AlertTitle,
-  CircularProgress,
-  ThemeProvider,
-  Typography,
-  Button,
-} from '@mui/material';
+import { Box, ThemeProvider } from '@mui/material';
 import theme from './theme';
-import TestComponent from './components/MUI_comp/TestComponent';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from './components/Header';
 import Login from './pages/Login';
@@ -58,6 +49,7 @@ const App = () => {
   // TODO: get user data from store
   const userData = useSelector(selectUserData);
   const dispatch = useDispatch();
+
   useEffect(() => {
     setUserData({ firstName: 'Isaac', lastName: 'Wu', profileImg: 'n/a' });
   }, []);
@@ -70,11 +62,6 @@ const App = () => {
     if (location.pathname === '/admin') yellowControl.start({ rotate: 100 });
     if (location.pathname === '/general') yellowControl.start({ rotate: -100 });
   }, [location]);
-  // use Redux for alert state
-  const sampleAlert = {
-    message: 'test alert!',
-    type: 'success',
-  };
 
   const submitData = () => {
     console.log('Confirmed!!!!!!!!!!!');
@@ -102,8 +89,6 @@ const App = () => {
             ></YellowMashroom>
           </div>
 
-          {/* <Header /> */}
-          {/* <AvatarIcon /> */}
 
           <Routes>
             <Route path="/login" element={<Login />} />
@@ -119,28 +104,10 @@ const App = () => {
                 <Route path="home" element={<AdminHome />} />
                 <Route path="adminUserView" element={<AdminUserView />} />
                 <Route path="generalUserView" element={<GeneralUserView />} />
-                <Route path="setting" element={<Settings />} />
+                <Route path="settings" element={<Settings />} />
               </Route>
             </Route>
           </Routes>
-          {/* <TestComponent /> */}
-          {/* {isLoading && <CircularProgress />} */}
-          {/* {sampleAlert.message && (
-          <Alert
-          severity={sampleAlert.type}
-          sx={
-            {
-              // style here
-            }
-          }
-          onClose={() => {
-            // reset alert state here
-          }}
-        >
-          <AlertTitle>{sampleAlert.type}</AlertTitle>
-          {sampleAlert.message}
-          </Alert>
-      )} */}
         </Box>
       </ThemeProvider>
     </ClaimIdContext.Provider>

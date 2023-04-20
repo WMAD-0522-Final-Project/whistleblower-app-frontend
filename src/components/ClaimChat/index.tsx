@@ -6,51 +6,94 @@ import React, {
 } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { format } from 'date-fns';
-import { Avatar, Box, TextField, Typography } from '@mui/material';
-import ButtonComponent from '../MUI_comp/ButtonComponent';
+import { AlertColor, Avatar, Box, TextField, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../RTK/companySlice';
-import { Chat } from '../../types';
+import { AxiosCustomError, Chat } from '../../types';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { selectUserData } from '../../RTK/userDataSlice';
+import axios, { AxiosResponse } from 'axios';
+import localStorageHelper from '../../helpers/localStorageHelper';
+import { useMutation } from '@tanstack/react-query';
+import AlertCustom from '../MUI_comp/AlertCustom';
 
 type Props = {
+  claimId: string;
   chatData: Chat[] | undefined;
 };
 
-const ClaimChat = ({ chatData }: Props) => {
+interface NewClaimResponseData {
+  message: string;
+  msg: { [key: string]: any };
+}
+
+const ClaimChat = ({ claimId, chatData }: Props) => {
   const { companyData } = useSelector(selectCompanyData);
-  const [messageList, setMessageList] = useState(chatData || []);
-  const [content, setContent] = useState('');
+  const { userData } = useSelector(selectUserData);
+  const [alert, setAlert] = useState({
+    type: '' as AlertColor,
+    message: '',
+  });
+  const [messageList, setMessageList] = useState<Chat[]>(chatData || []);
+  const [message, setMessage] = useState('');
   const scrollRef = useRef<HTMLElement>(null);
 
   const msgStyle = {
     borderRadius: '30px',
     fontSize: '0.9rem',
-    p: '0.5rem 2rem',
-  }
-  // TODO: temporary data
-  const user = {
-    id: 'poiuytresdfgh',
-    avatarUrl: '/images/profileImg.jpg',
+    p: '0.4rem 1.2rem',
   };
+
+  const sendNewMessage = async (
+    message: string
+  ): Promise<AxiosResponse<NewClaimResponseData>> => {
+    const res = await axios({
+      method: 'POST',
+      url: `${
+        import.meta.env.VITE_BACKEND_URL
+      }/api/claim/${claimId}/message/create`,
+      headers: {
+        Authorization: `Bearer ${localStorageHelper('get', 'token')!.data}`,
+      },
+      data: { message },
+    });
+    return res.data;
+  };
+
+  const sendNewMessageMutation = useMutation({
+    mutationFn: sendNewMessage,
+    onSuccess: (data) => {
+      setMessageList((prev) => [
+        ...prev,
+        {
+          _id: uuidv4(),
+          claimId,
+          user: {
+            _id: userData._id,
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            profileImg: userData.profileImg,
+          },
+          message,
+          createdAt: Date.now(),
+          updatedAt: Date.now(),
+        },
+      ]);
+      setMessage('');
+    },
+    onError: (data: AxiosCustomError) => {
+      setAlert({
+        type: 'error',
+        message: 'Submission failed.. Please try again.',
+      });
+      console.log('Error:', data.response!.data.message);
+    },
+  });
 
   const handleSubmitClick: FormEventHandler = (e) => {
     e.preventDefault();
-    if (!content) return;
-    // TODO: send request to API
-    setMessageList((prev) => [
-      ...prev,
-      {
-        id: uuidv4(),
-        datetime: format(new Date(), 'yyyy/MM/dd hh:mm'),
-        user: {
-          id: 'poiuytresdfgh',
-          avatarUrl: user.avatarUrl,
-        },
-        content,
-      },
-    ]);
-    setContent('');
+    if (!message) return;
+    sendNewMessageMutation.mutate(message);
   };
 
   useLayoutEffect(() => {
@@ -60,85 +103,99 @@ const ClaimChat = ({ chatData }: Props) => {
   }, [messageList]);
 
   return (
-    <Box sx={{ height: '100%', overflowY: 'hidden', width: '100%'}}>
+    <Box sx={{ height: '100%', overflowY: 'hidden', width: '100%' }}>
+      {alert.message && <AlertCustom text={alert.message} type={alert.type} />}
       <Box
         ref={scrollRef}
         sx={{
           height: '80%',
-          overflowY: 'scroll',
+          overflowY: 'auto',
         }}
       >
-        {messageList.map((item) => {
-          const isOwnItem = item.user.id === user.id;
-          return (
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: isOwnItem ? 'flex-end' : 'flex-start',
-                mt: '1.4rem',
-                ml: isOwnItem ? 'auto' : '0',
-                maxWidth: '90%',
-              }}
-              key={item.id}
-            >
-              <Avatar
-                alt="User avatar"
-                src={isOwnItem ? user.avatarUrl : item.user.avatarUrl}
+        {messageList.length ? (
+          messageList.map((item) => {
+            const isOwnItem = item.user!._id === userData._id;
+            return (
+              <Box
                 sx={{
-                  order: isOwnItem ? 2 : 1,
-                  m: isOwnItem ? '0 0 0 0.5rem' : '0 0.5rem 0 0',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: isOwnItem ? 'flex-end' : 'flex-start',
+                  mt: '1.4rem',
+                  ml: isOwnItem ? 'auto' : '0',
+                  maxWidth: '90%',
                 }}
-              />
-              <Typography      
-                sx={     
-                  isOwnItem ? { 
-                    ...msgStyle,
-                    border: `2px solid ${companyData.themeColors.primary}`,
-                    order: isOwnItem ? 1 : 2,
-                    }
-                  :
-                  {
-                    ...msgStyle,
-                    border: `2px solid ${'#ddd'}`,
-                    order: isOwnItem ? 1 : 2,
-                  }}
+                key={item._id}
               >
-                {item.content}
-                <Typography
-                  component={'span'}
+                <Avatar
+                  alt="User avatar"
+                  src={isOwnItem ? userData.profileImg : item.user!.profileImg}
                   sx={{
-                    fontSize: '0.6rem',
-                    color: '#535353',
-                    display: 'block',
-                    mt: '0.5rem',
+                    order: isOwnItem ? 2 : 1,
+                    m: isOwnItem ? '0 0 0 0.5rem' : '0 0.5rem 0 0',
                   }}
+                />
+                <Typography
+                  sx={
+                    isOwnItem
+                      ? {
+                          ...msgStyle,
+                          border: `2px solid ${companyData.themeColors.primary}`,
+                          order: isOwnItem ? 1 : 2,
+                        }
+                      : {
+                          ...msgStyle,
+                          border: `2px solid ${'#ddd'}`,
+                          order: isOwnItem ? 1 : 2,
+                        }
+                  }
                 >
-                  {item.datetime}
+                  {item.message}
+                  <Typography
+                    component={'span'}
+                    sx={{
+                      fontSize: '0.6rem',
+                      color: '#535353',
+                      display: 'block',
+                      mt: '0.5rem',
+                    }}
+                  >
+                    {format(new Date(item.createdAt), 'yyyy/MM/dd HH:mm')}
+                  </Typography>
                 </Typography>
-              </Typography>
-            </Box>
-          );
-        })}
+              </Box>
+            );
+          })
+        ) : (
+          <Typography
+            sx={{
+              textAlign: 'center',
+              mt: '2rem',
+            }}
+          >
+            Start conversation with admin regarding this claim.
+          </Typography>
+        )}
       </Box>
 
-      <div style={{width: '100%',
-      height: '5rem',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginTop: '2rem'
-      }}>
-
-      <TextField
+      <div
+        style={{
+          width: '100%',
+          height: '5rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginTop: '2rem',
+        }}
+      >
+        <TextField
           id="outlined-multiline-static"
           label=""
           multiline
           maxRows={2}
           placeholder="Enter message"
-          name="message"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
           sx={{
             width: '80%',
             '& .MuiOutlinedInput-root': {
@@ -152,16 +209,22 @@ const ClaimChat = ({ chatData }: Props) => {
             },
           }}
         />
-        <button style={{  backgroundColor: `${companyData.themeColors.primary}`,
-        color: `${companyData.themeColors.secondary}`,
-        }}
+        <button
+          style={{
+            backgroundColor: `${companyData.themeColors.primary}`,
+            color: `${companyData.themeColors.secondary}`,
+            padding: '0.9rem 0.5rem',
+            border: 'none',
+            borderRadius: '5px',
+            marginLeft: '5px',
+          }}
           type="submit"
           onClick={handleSubmitClick}
-          >
+        >
           <ArrowForwardIosIcon />
         </button>
       </div>
-      </Box>
+    </Box>
   );
 };
 

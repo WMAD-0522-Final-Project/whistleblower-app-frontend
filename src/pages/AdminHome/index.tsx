@@ -49,7 +49,7 @@ const AdminHome = (props: Props) => {
   const [isModalWindow, setIsModalWindow] = useState<boolean>(false);
   const [claimId, setClaimId] = useState<string | null>(null);
 
-  const [modalClaim, setModalClaim] = useState<Partial<Claim>>();
+  const [modalClaim, setModalClaim] = useState<Partial<Claim>>(null);
   // const [claims, setClaims] = useState<Partial<Claim>[]>([]);
   const matches = useMediaQuery((theme) => theme.breakpoints.up('sm'));
   useEffect(() => {
@@ -73,7 +73,7 @@ const AdminHome = (props: Props) => {
   // console.log(claimId, 'this is Id');
 
   // const filteredClaims = () =>
-  //   claims.filter((claim:Claim) =>
+  //   claims.filter((claim: Claim) =>
   //     claim.message?.toLowerCase().includes(query.toLowerCase())
   //   );
 
@@ -160,7 +160,7 @@ const AdminHome = (props: Props) => {
             </Box>
           </div>
 
-          {/* <motion.div
+          <motion.div
             initial={{ opacity: 0 }}
             animate={
               claimId !== ''
@@ -176,11 +176,10 @@ const AdminHome = (props: Props) => {
               marginTop: '-10%',
             }}
           >
-            {modalClaim && <ModalWindow claim={modalClaim}></ModalWindow>}
-          </motion.div> */}
-          <Modal innerBoxStyle={{ width: '100%', height: '100%' }}>
-            {modalClaim && <MainWindow claim={modalClaim}></MainWindow>}
-          </Modal>
+            <Modal innerBoxStyle={{ width: '100%', height: '100%' }}>
+              <MainWindow claim={modalClaim}></MainWindow>
+            </Modal>
+          </motion.div>
         </div>
       </DragDropContext>
     </>

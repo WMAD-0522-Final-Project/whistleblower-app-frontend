@@ -5,13 +5,14 @@ import { useMutation } from '@tanstack/react-query';
 import CustomBox from '../../components/CustomBox/CustomBox';
 import InputLabel from '../../components/InputLabel';
 import ButtonComponent from '../../components/MUI_comp/ButtonComponent';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectCompanyData } from '../../RTK/companySlice';
 import { Link, useNavigate } from 'react-router-dom';
 import SectionTitle from '../../components/SectionTitle';
 import { AxiosCustomError } from '../../types';
 import localStorageHelper from '../../helpers/localStorageHelper';
 import AlertCustom from '../../components/MUI_comp/AlertCustom';
+import { setUserData } from '../../RTK/userDataSlice';
 
 type Props = {};
 
@@ -24,6 +25,7 @@ interface LoginResponseData {
 const Login = (props: Props) => {
   const { companyData } = useSelector(selectCompanyData);
   const navigator = useNavigate();
+  const dispatch = useDispatch();
 
   const login = (data: {
     email: string;
@@ -39,6 +41,30 @@ const Login = (props: Props) => {
   const loginMutation = useMutation({
     mutationFn: login,
     onSuccess: ({ data }) => {
+      const {
+        _id,
+        companyId,
+        firstName,
+        lastName,
+        role,
+        email,
+        profileImg,
+        permissions,
+      } = data.user;
+      console.log('userData after login', data);
+
+      dispatch(
+        setUserData({
+          _id,
+          companyId,
+          firstName,
+          lastName,
+          role,
+          email,
+          profileImg,
+          permissions,
+        })
+      );
       localStorageHelper('set', 'token', data.token);
       navigator(`/${data.user.role}`);
     },

@@ -1,7 +1,7 @@
 export enum ClaimStatus {
-  Unhandled = 'Unhandled',
-  InProcess = 'In Process',
-  Done = 'Done',
+  Unhandled = 'unHandled',
+  InProcess = 'inProcess',
+  Done = 'done',
 }
 
 export enum UserRoleOption {

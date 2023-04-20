@@ -1,13 +1,14 @@
 import React, { MouseEventHandler } from 'react';
 import { useSelector } from 'react-redux';
 import { Box, SxProps, Typography, useTheme } from '@mui/material';
+import { format } from 'date-fns';
 import { selectCompanyData } from '../../../RTK/companySlice';
 import ItemLabel from '../../ItemLabel';
-import { ClaimGeneral } from '../../../types';
+import { ClaimCardDataGeneral } from '../../../types';
 import { ClaimStatus } from '../../../types/enums';
 
 type Props = {
-  claim: ClaimGeneral;
+  claim: ClaimCardDataGeneral;
   onClick: MouseEventHandler;
   sx?: SxProps;
 };
@@ -33,7 +34,9 @@ const ClaimCardGeneral = ({ claim, onClick, sx }: Props) => {
     >
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <ItemLabel
-          text={claim.status}
+          text={
+            claim.status === ClaimStatus.Unhandled ? 'To be checked' : 'Checked'
+          }
           bgColor={
             claim.status === ClaimStatus.InProcess
               ? companyData.themeColors.primary
@@ -51,11 +54,11 @@ const ClaimCardGeneral = ({ claim, onClick, sx }: Props) => {
           }}
         />
         <Typography component="span" fontSize="0.7rem">
-          Submitted on: {claim.submissionDate}
+          Submitted on: {format(new Date(claim.createdAt), 'yyyy/MM/dd hh:mm')}
         </Typography>
       </Box>
       <Typography sx={{ mt: '4%', lineHeight: '1.2', fontSize: '0.9rem' }}>
-        {claim.message}
+        {claim.body}
       </Typography>
     </Box>
   );
