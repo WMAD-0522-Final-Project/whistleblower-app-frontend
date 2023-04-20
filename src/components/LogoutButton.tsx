@@ -2,6 +2,7 @@ import { SxProps } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import LogoutIcon from '@mui/icons-material/Logout';
 import localStorageHelper from '../helpers/localStorageHelper';
 import { selectCompanyData } from '../RTK/companySlice';
 import theme from '../theme';
@@ -46,6 +47,17 @@ const LogoutButton = ({ sx }: Props) => {
       }}
     >
       Logout
+      <LogoutIcon
+        sx={{
+          fontSize: '0.8rem',
+          verticalAlign: 'middle',
+          ml: '0.2rem',
+          [theme.breakpoints.up('md')]: {
+            fontSize: '1rem',
+            ml: '0.3rem',
+          },
+        }}
+      />
     </ButtonComponent>
   );
 };
