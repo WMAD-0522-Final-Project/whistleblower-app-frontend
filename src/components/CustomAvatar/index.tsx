@@ -1,6 +1,6 @@
 import { Typography, Button, Stack, Box } from '@mui/material';
 import FileInput from '../FileInput';
-import { useEffect, useState } from 'react';
+import { ChangeEventHandler, useEffect, useState } from 'react';
 
 type Props = {
   handleClose: () => void;
@@ -35,14 +35,14 @@ const userData = {
 };
 
 const CustomAvatar = ({ handleClose }: Props) => {
-  const [img, setImg] = useState<string | null>();
+  const [img, setImg] = useState<string>();
 
   useEffect(() => {
     setImg(userData.profileImg);
   }, []);
 
-  const getUploadedImg = (e) => {
-    const tempImgUrl = URL.createObjectURL(e.target.files[0]);
+  const getUploadedImg: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const tempImgUrl = URL.createObjectURL(e.target.files![0]);
     setImg(tempImgUrl);
   };
 
