@@ -100,7 +100,7 @@ const App = () => {
             </Route>
             <Route path="admin">
               <Route element={<AdminLayout />}>
-                <Route path="home" element={<AdminHome />} />
+                <Route index element={<AdminHome />} />
                 <Route path="adminUserView" element={<AdminUserView />} />
                 <Route path="generalUserView" element={<GeneralUserView />} />
                 <Route path="settings" element={<Settings />} />
