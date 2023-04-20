@@ -35,12 +35,8 @@ import CompanySetting from './pages/CompanySetting';
 import AvatarIcon from './components/admin/AvatarIcon';
 
 const App = () => {
-  const { isLoading } = useSelector(selectLoading);
   const { companyData } = useSelector(selectCompanyData);
   const [claimId, setClaimId] = useState<string | null>(null);
-
-  const loadingDispatch = useDispatch();
-  loadingDispatch(setLoading(true));
 
   let location = useLocation();
 
@@ -62,12 +58,6 @@ const App = () => {
     if (location.pathname === '/admin') yellowControl.start({ rotate: 100 });
     if (location.pathname === '/general') yellowControl.start({ rotate: -100 });
   }, [location]);
-
-  const submitData = () => {
-    console.log('Confirmed!!!!!!!!!!!');
-  };
-
-  console.log(location.pathname, 'this is location ');
 
   return (
     <ClaimIdContext.Provider value={{ claimId, setClaimId }}>
