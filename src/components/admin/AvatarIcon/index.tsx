@@ -1,7 +1,4 @@
-import React from 'react';
 import { Box, Typography } from '@mui/material';
-import CustomAvatar from '../../CustomAvatar';
-import useModal from '../../../hooks/useModal';
 
 type Props = {
   onClick: () => void;
@@ -33,10 +30,9 @@ const AvatarIcon = ({ onClick }: Props) => {
         maxWidth: '200px',
         minWidth: '150px',
         width: '50%',
-
         cursor: 'pointer',
       }}
-      onClick={() => console.log('iwatani')}
+      onClick={onClick}
     >
       <Box
         component="img"

@@ -10,9 +10,18 @@ type Props = {
   name?: string;
   sx?: SxProps;
   text: string;
+  allowedFormats?: string;
+  fileSizeLimit: number;
 };
 
-const FileInput = ({ onChange, name, sx, text }: Props) => {
+const FileInput = ({
+  onChange,
+  name,
+  sx,
+  text,
+  allowedFormats,
+  fileSizeLimit,
+}: Props) => {
   const { companyData } = useSelector(selectCompanyData);
   const theme = useTheme();
   const [file, setFile] = useState<File | null>(null);
@@ -20,6 +29,7 @@ const FileInput = ({ onChange, name, sx, text }: Props) => {
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setFile(e.target.files![0]);
     if (onChange) onChange(e);
+    // console.log(e.target.files[0].size);
   };
 
   return (
@@ -47,6 +57,7 @@ const FileInput = ({ onChange, name, sx, text }: Props) => {
         <input
           type="file"
           name={name}
+          accept={allowedFormats}
           style={{
             cursor: 'pointer',
             fontSize: '0',
@@ -58,6 +69,7 @@ const FileInput = ({ onChange, name, sx, text }: Props) => {
             height: '100%',
           }}
           onChange={handleChange}
+          multiple={false}
         />
       </Button>
       <Typography
@@ -71,7 +83,7 @@ const FileInput = ({ onChange, name, sx, text }: Props) => {
           color: companyData.themeColors.secondary,
         }}
       >
-        ({file ? file.name : 'No file selected'})
+        {file ? file.name : 'No file selected'}
       </Typography>
     </>
   );

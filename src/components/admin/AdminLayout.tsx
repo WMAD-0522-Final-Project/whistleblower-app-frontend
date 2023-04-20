@@ -15,6 +15,19 @@ interface VerifyTokenResponseData {
   user: { [key: string]: any };
 }
 
+const outerBoxStyle = {
+  // width: 250,
+  // height: 250,
+  bgcolor: '#FFCB14',
+  boxShadow: 24,
+};
+
+const innerBoxStyle = {
+  // width: 200,
+  // height: 200,
+  border: '5px solid white',
+};
+
 const AdminLayout = (props: Props) => {
   const navigator = useNavigate();
   const { Modal, handleOpen, handleClose } = useModal();
@@ -50,7 +63,7 @@ const AdminLayout = (props: Props) => {
     <>
       <Header hasMenu={true} />
       <AvatarIcon onClick={handleOpen} />
-      <Modal>
+      <Modal outerBoxStyle={outerBoxStyle} innerBoxStyle={innerBoxStyle}>
         <CustomAvatar handleClose={handleClose} />
       </Modal>
       <Outlet />

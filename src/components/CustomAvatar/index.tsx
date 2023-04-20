@@ -1,14 +1,14 @@
 import { Typography, Button, Stack, Box } from '@mui/material';
 
 import FileInput from '../FileInput';
-import useModal from '../../hooks/useModal';
+import { useEffect, useState } from 'react';
 
 type Props = {
   handleClose: () => void;
 };
 
 const buttonStyle = {
-  width: '120px',
+  width: '150px',
   bgcolor: '#F96A02',
   color: 'white',
   borderRadius: '25px',
@@ -22,19 +22,27 @@ const buttonStyle = {
   },
 };
 
+const companyData = {
+  themeColors: {
+    primary: 'f96a02',
+    secondary: '#fff',
+  },
+};
+// TODO: get user data from store
+const userData = {
+  firstName: 'john',
+  lastName: 'doe',
+  profileImg: '/images/profileImg.jpg',
+};
+
 const CustomAvatar = ({ handleClose }: Props) => {
-  const companyData = {
-    themeColors: {
-      primary: 'f96a02',
-      secondary: '#fff',
-    },
-  };
-  // TODO: get user data from store
-  const userData = {
-    firstName: 'john',
-    lastName: 'doe',
-    profileImg: '/images/profileImg.jpg',
-  };
+  const [img, setImg] = useState(userData.profileImg);
+
+  useEffect(() => {
+    // setImg();
+  }, [img]);
+
+  const handleApply = () => {};
 
   return (
     <>
@@ -43,37 +51,44 @@ const CustomAvatar = ({ handleClose }: Props) => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          gap: '10px',
         }}
       >
         <Box
           component="img"
-          src={userData.profileImg}
+          src={img}
           alt=""
           sx={{
-            border: `2px solid ${companyData.themeColors.secondary}`,
-            borderRadius: '0 50% 50% 0',
+            border: `1px solid #FFF`,
+            // border: `2px solid ${companyData.themeColors.secondary}`,
+            borderRadius: '50%',
             display: 'block',
             width: '30%',
             maxWidth: '200px',
           }}
         />
-        <FileInput sx={{ width: '150px' }} name="avatar" text="Upload Image" />
+        <FileInput
+          sx={{ width: '150px' }}
+          name="avatar"
+          text="Upload new image"
+          allowedFormats="image/jpg,image/jpeg,image/png"
+        />
         <Box>
           <Typography fontSize={12} color={'red'}>
             File restrictions:
           </Typography>
           <Typography fontSize={12} color={'red'}>
-            1. Format: .png or .jpg(.jpeg)
+            1. Support formats: .png or .jpg(.jpeg)
           </Typography>
           <Typography fontSize={12} color={'red'}>
-            2. Maximum file size: 500 Kilobytes
+            2. Maximum file size: 500KB
           </Typography>
           <Typography fontSize={12} color={'red'}>
             3. Dimensions: 300 * 300px
           </Typography>
         </Box>
-        <Stack spacing={2} marginTop={4}>
-          <Button variant="contained" sx={buttonStyle} onClick={handleClose}>
+        <Stack spacing={2}>
+          <Button variant="contained" sx={buttonStyle} onClick={handleApply}>
             Apply
           </Button>
           <Button variant="outlined" sx={buttonStyle} onClick={handleClose}>
