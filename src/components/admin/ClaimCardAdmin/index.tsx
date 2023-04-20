@@ -75,6 +75,7 @@ const ClaimCardAdmin = ({ claim, sx }: Props) => {
                     width: '24px',
                   },
                 }}
+                key={index}
               >
                 {index <= 3 ? (
                   <ClaimLabel color={stc(label)} />

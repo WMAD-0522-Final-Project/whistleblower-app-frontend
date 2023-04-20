@@ -161,6 +161,7 @@ function MainWindow({ claim }: Props) {
                   sx={{
                     mt: '1rem',
                   }}
+                  key={i}
                 ></LabelCard>
               ))}
             {labelData && (
@@ -456,16 +457,15 @@ function MainWindow({ claim }: Props) {
               <div className="members">
                 {claim.members?.map((member, i) => {
                   return (
-                    <>
-                      <div className="cards">
-                        <UserCard
-                          name={member.userId}
-                          width={100}
-                          height={40}
-                          url={member.avatarUrl}
-                        ></UserCard>
-                      </div>
-                    </>
+                    <div className="cards">
+                      <UserCard
+                        name={member.userId}
+                        width={100}
+                        height={40}
+                        url={member.avatarUrl}
+                        key={i}
+                      ></UserCard>
+                    </div>
                   );
                 })}
               </div>

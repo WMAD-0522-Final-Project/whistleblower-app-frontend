@@ -30,6 +30,7 @@ let innerBoxSx = {
 };
 
 type PermissionType = {
+  _id: string;
   name: string;
   is: boolean;
 };
@@ -98,19 +99,18 @@ export default function RoleToggles({ permmisions, permissionsResult }: Props) {
       >
         {checkedPermissions.map((permission, i) => {
           return (
-            <>
-              <FormControlLabel
-                label={permission.name}
-                control={
-                  <Switch
-                    name={permission.name}
-                    checked={permission.is}
-                    onChange={handle}
-                    sx={switchSx}
-                  ></Switch>
-                }
-              ></FormControlLabel>
-            </>
+            <FormControlLabel
+              label={permission.name}
+              control={
+                <Switch
+                  name={permission.name}
+                  checked={permission.is}
+                  onChange={handle}
+                  sx={switchSx}
+                ></Switch>
+              }
+              key={permission._id}
+            ></FormControlLabel>
           );
         })}
       </div>
