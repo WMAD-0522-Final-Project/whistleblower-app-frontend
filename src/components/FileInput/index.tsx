@@ -1,4 +1,4 @@
-import React, { useState, ChangeEventHandler } from 'react';
+import { useState, ChangeEventHandler, useEffect } from 'react';
 import { Button, Typography, useTheme } from '@mui/material';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { SxProps } from '@mui/material';
@@ -10,18 +10,9 @@ type Props = {
   name?: string;
   sx?: SxProps;
   text: string;
-  allowedFormats?: string;
-  fileSizeLimit: number;
 };
 
-const FileInput = ({
-  onChange,
-  name,
-  sx,
-  text,
-  allowedFormats,
-  fileSizeLimit,
-}: Props) => {
+const FileInput = ({ onChange, name, sx, text }: Props) => {
   const { companyData } = useSelector(selectCompanyData);
   const theme = useTheme();
   const [file, setFile] = useState<File | null>(null);
@@ -29,7 +20,6 @@ const FileInput = ({
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setFile(e.target.files![0]);
     if (onChange) onChange(e);
-    // console.log(e.target.files[0].size);
   };
 
   return (
@@ -57,7 +47,6 @@ const FileInput = ({
         <input
           type="file"
           name={name}
-          accept={allowedFormats}
           style={{
             cursor: 'pointer',
             fontSize: '0',

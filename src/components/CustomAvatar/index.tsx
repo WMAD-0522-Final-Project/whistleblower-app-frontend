@@ -1,5 +1,4 @@
 import { Typography, Button, Stack, Box } from '@mui/material';
-
 import FileInput from '../FileInput';
 import { useEffect, useState } from 'react';
 
@@ -36,11 +35,16 @@ const userData = {
 };
 
 const CustomAvatar = ({ handleClose }: Props) => {
-  const [img, setImg] = useState(userData.profileImg);
+  const [img, setImg] = useState<string | null>();
 
   useEffect(() => {
-    // setImg();
-  }, [img]);
+    setImg(userData.profileImg);
+  }, []);
+
+  const getUploadedImg = (e) => {
+    const tempImgUrl = URL.createObjectURL(e.target.files[0]);
+    setImg(tempImgUrl);
+  };
 
   const handleApply = () => {};
 
@@ -68,10 +72,10 @@ const CustomAvatar = ({ handleClose }: Props) => {
           }}
         />
         <FileInput
+          onChange={getUploadedImg}
           sx={{ width: '150px' }}
-          name="avatar"
+          name="avatarUpload"
           text="Upload new image"
-          allowedFormats="image/jpg,image/jpeg,image/png"
         />
         <Box>
           <Typography fontSize={12} color={'red'}>
