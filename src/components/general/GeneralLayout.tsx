@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import { Box, Typography } from '@mui/material';
@@ -19,6 +19,7 @@ interface VerifyTokenResponseData {
 const GeneralLayout = (props: Props) => {
   const navigator = useNavigate();
   const dispatch = useDispatch();
+  const [isTokenChecked, setIsTokenChecked] = useState(false);
 
   const verifyToken = (): Promise<AxiosResponse<VerifyTokenResponseData>> => {
     const authorizationValue = getAuthorizationValue();
@@ -37,6 +38,7 @@ const GeneralLayout = (props: Props) => {
     queryKey: ['token'],
     queryFn: verifyToken,
     staleTime: 1000 * 10 * 10,
+    retry: 0,
     onSuccess: ({ data }) => {
       if (data.user.role !== UserRoleOption.GENERAL) {
         navigator('/login');
@@ -53,13 +55,14 @@ const GeneralLayout = (props: Props) => {
           permissions: data.user.permissions,
         })
       );
+      setIsTokenChecked(true);
     },
     onError: () => {
       navigator('/login');
     },
   });
 
-  return (
+  return isTokenChecked ? (
     <Box
       sx={{
         maxWidth: '1200px',
@@ -86,7 +89,7 @@ const GeneralLayout = (props: Props) => {
         </Link>
       </Typography>
     </Box>
-  );
+  ) : null;
 };
 
 export default GeneralLayout;

@@ -176,6 +176,7 @@ const ClaimForm = (props: Props) => {
                 fontSize: '0.8rem',
               },
             }}
+            text="Attach File"
           />
           <CheckboxLabel
             label="send anonymously"
