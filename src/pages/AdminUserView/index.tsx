@@ -85,6 +85,7 @@ function AdminUserView() {
                       justifyContent: 'center',
                       top: 10,
                     }}
+                    key={i}
                   >
                     <UserViewCard
                       whileHover={{ x: 20 }}
@@ -329,7 +330,10 @@ function AdminUserView() {
                     >
                       {companyData.departments.map((dep, i) => {
                         return (
-                          <option value={dep.name}>{`${dep.name}`}</option>
+                          <option
+                            value={dep.name}
+                            key={i}
+                          >{`${dep.name}`}</option>
                         );
                       })}
                     </NativeSelect>

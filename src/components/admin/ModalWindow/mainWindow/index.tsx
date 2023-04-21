@@ -22,6 +22,7 @@ import SelectBoxCustom from '../../../MUI_comp/SelectBoxCustom';
 import SelectBoxLabel from '../../../SelectBoxLabel';
 
 import { motion, useCycle } from 'framer-motion';
+import getAuthorizationValue from '../../../../helpers/getAuthorizationValue';
 
 type Props = {
   claim: Partial<Claim>;
@@ -72,7 +73,7 @@ function MainWindow({ claim }: Props) {
       method: 'GET',
       url: `${import.meta.env.VITE_BACKEND_URL}/api/claim/label/list`,
       headers: {
-        Authorization: `Bearer ${localStorageHelper('get', 'token')?.data}`,
+        Authorization: getAuthorizationValue(),
       },
     });
   };
@@ -90,7 +91,7 @@ function MainWindow({ claim }: Props) {
         name: newLabelName,
       },
       headers: {
-        Authorization: `Bearer ${localStorageHelper('get', 'token')?.data}`,
+        Authorization: getAuthorizationValue(),
       },
     });
   };
@@ -160,6 +161,7 @@ function MainWindow({ claim }: Props) {
                   sx={{
                     mt: '1rem',
                   }}
+                  key={i}
                 ></LabelCard>
               ))}
             {labelData && (
@@ -455,16 +457,15 @@ function MainWindow({ claim }: Props) {
               <div className="members">
                 {claim.members?.map((member, i) => {
                   return (
-                    <>
-                      <div className="cards">
-                        <UserCard
-                          name={member.userId}
-                          width={100}
-                          height={40}
-                          url={member.avatarUrl}
-                        ></UserCard>
-                      </div>
-                    </>
+                    <div className="cards">
+                      <UserCard
+                        name={member.userId}
+                        width={100}
+                        height={40}
+                        url={member.avatarUrl}
+                        key={i}
+                      ></UserCard>
+                    </div>
                   );
                 })}
               </div>

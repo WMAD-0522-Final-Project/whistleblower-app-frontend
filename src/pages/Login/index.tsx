@@ -19,6 +19,7 @@ type Props = {};
 interface LoginResponseData {
   message: string;
   token: string;
+  refreshToken: string;
   user: { [key: string]: any };
 }
 
@@ -66,6 +67,7 @@ const Login = (props: Props) => {
         })
       );
       localStorageHelper('set', 'token', data.token);
+      localStorageHelper('set', 'refreshToken', data.refreshToken);
       navigator(`/${data.user.role}`);
     },
   });
@@ -128,6 +130,7 @@ const Login = (props: Props) => {
               label={'Password'}
               topLabel={'Password'}
               required
+              type="password"
               name="password"
               placeholder={'Enter your password'}
               sx={{ mt: '1.2rem', maxWidth: '400px' }}

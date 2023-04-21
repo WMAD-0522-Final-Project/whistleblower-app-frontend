@@ -8,7 +8,10 @@ const localStorageHelper: LocalStorageHelper = (action, key, value) => {
   switch (action) {
     case 'get':
       return {
-        data: JSON.parse(localStorage.getItem(key)!),
+        data:
+          localStorage.getItem(key) !== 'undefined'
+            ? JSON.parse(localStorage.getItem(key)!)
+            : '',
       };
     case 'set':
       localStorage.setItem(key, JSON.stringify(value));

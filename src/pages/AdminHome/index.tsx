@@ -53,9 +53,6 @@ const AdminHome = (props: Props) => {
   // const [claims, setClaims] = useState<Partial<Claim>[]>([]);
   const matches = useMediaQuery((theme) => theme.breakpoints.up('sm'));
   useEffect(() => {
-    console.log(matches, 'metS');
-  }, [matches]);
-  useEffect(() => {
     // fetch claim data from API
     setClaims(sampleClaims);
   }, []);

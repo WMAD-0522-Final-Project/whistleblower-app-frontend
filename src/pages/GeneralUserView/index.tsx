@@ -85,6 +85,7 @@ function GeneralUserView() {
                       justifyContent: 'center',
                       top: 10,
                     }}
+                    key={item._id}
                   >
                     <GeneralUserViewCard
                       whileHover={{ x: 20 }}
@@ -314,7 +315,10 @@ function GeneralUserView() {
                     >
                       {companyData.departments.map((dep, i) => {
                         return (
-                          <option value={dep.name}>{`${dep.name}`}</option>
+                          <option
+                            value={dep.name}
+                            key={i}
+                          >{`${dep.name}`}</option>
                         );
                       })}
                     </NativeSelect>

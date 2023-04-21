@@ -16,6 +16,7 @@ import axios, { AxiosResponse } from 'axios';
 import localStorageHelper from '../../helpers/localStorageHelper';
 import { useMutation } from '@tanstack/react-query';
 import AlertCustom from '../MUI_comp/AlertCustom';
+import getAuthorizationValue from '../../helpers/getAuthorizationValue';
 
 type Props = {
   claimId: string;
@@ -53,7 +54,7 @@ const ClaimChat = ({ claimId, chatData }: Props) => {
         import.meta.env.VITE_BACKEND_URL
       }/api/claim/${claimId}/message/create`,
       headers: {
-        Authorization: `Bearer ${localStorageHelper('get', 'token')!.data}`,
+        Authorization: getAuthorizationValue(),
       },
       data: { message },
     });

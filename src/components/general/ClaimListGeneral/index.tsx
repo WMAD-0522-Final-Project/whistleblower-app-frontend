@@ -8,6 +8,7 @@ import ClaimCardGeneral from '../ClaimCardGeneral';
 import sampleClaimsForGenUsers from '../../../temp/sampleClaimsForGenUsers';
 import localStorageHelper from '../../../helpers/localStorageHelper';
 import { ClaimCardDataGeneral } from '../../../types';
+import getAuthorizationValue from '../../../helpers/getAuthorizationValue';
 
 type Props = {
   onClaimClick: (claimId: string) => void;
@@ -24,7 +25,7 @@ const ClaimListGeneral = ({ onClaimClick, sx }: Props) => {
       method: 'GET',
       url: `${import.meta.env.VITE_BACKEND_URL}/api/claim/list`,
       headers: {
-        Authorization: `Bearer ${localStorageHelper('get', 'token')!.data}`,
+        Authorization: getAuthorizationValue(),
       },
     });
   };
