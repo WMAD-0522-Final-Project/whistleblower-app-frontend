@@ -1,11 +1,14 @@
 import * as React from 'react';
-import { Component } from 'react';
-import { Badge, Box, SxProps, Typography } from '@mui/material';
+import { Avatar, Box } from '@mui/material';
 
 type Props = {
-  url: string;
+  url: string | undefined;
+  initials?: string;
 };
-function Yeallowtable({ url }: Props) {
+function Yeallowtable({ url, initials }: Props) {
+  console.log('url', url);
+  console.log('initials', initials);
+
   return (
     <>
       <div
@@ -71,28 +74,46 @@ function Yeallowtable({ url }: Props) {
             </defs>
           </svg>
         </div>
-        <Box
-          component="img"
-          src={url}
-          alt=""
-          sx={{
-            borderRadius: '50%',
-            // display: 'flex',
-            // position: 'absolute',
-            width: '50px',
-            height: '50px',
-            top: '-30px',
-            // left: '0%',
-            // backgroundColor: 'red',
-            // justifyContent: 'center',
-            // alignItems: 'center',
-            // // top: '0',
-            // // minWidth: '40px',
-            // // maxWidth: '60px',
-            // // backgroundColor: 'red',
-            position: 'absolute',
-          }}
-        ></Box>
+        {url ? (
+          <Box
+            component="img"
+            src={url}
+            alt=""
+            sx={{
+              borderRadius: '50%',
+              // display: 'flex',
+              // position: 'absolute',
+              width: '50px',
+              height: '50px',
+              top: '-30px',
+              // left: '0%',
+              // backgroundColor: 'red',
+              // justifyContent: 'center',
+              // alignItems: 'center',
+              // // top: '0',
+              // // minWidth: '40px',
+              // // maxWidth: '60px',
+              // // backgroundColor: 'red',
+              position: 'absolute',
+            }}
+          ></Box>
+        ) : (
+          <Avatar
+            alt={initials}
+            src={url}
+            sx={{
+              backgroundColor: '#848484',
+              fontSize: '0.9rem',
+              letterSpacing: '0',
+              width: '50px',
+              height: '50px',
+              position: 'absolute',
+              top: '-30px',
+            }}
+          >
+            {initials}
+          </Avatar>
+        )}
       </div>
     </>
   );

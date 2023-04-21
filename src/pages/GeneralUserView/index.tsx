@@ -58,7 +58,7 @@ function GeneralUserView() {
               alignItems: 'center',
               width: '100%',
               height: '400px',
-              overflow: 'scroll',
+              overflowY: 'scroll',
               marginTop: '6%',
             }}
             className={styles.box}
@@ -85,7 +85,7 @@ function GeneralUserView() {
                       justifyContent: 'center',
                       top: 10,
                     }}
-                    key={item._id}
+                    key={user._id}
                   >
                     <GeneralUserViewCard
                       whileHover={{ x: 20 }}

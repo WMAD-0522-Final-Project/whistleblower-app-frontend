@@ -33,6 +33,7 @@ import AdminLayout from './components/admin/AdminLayout';
 import GeneralLayout from './components/general/GeneralLayout';
 import CompanySetting from './pages/CompanySetting';
 import AvatarIcon from './components/admin/AvatarIcon';
+import UserInquiries from './pages/UserInquiries';
 
 const App = () => {
   const { companyData } = useSelector(selectCompanyData);
@@ -93,6 +94,7 @@ const App = () => {
                 <Route index element={<AdminHome />} />
                 <Route path="adminUserView" element={<AdminUserView />} />
                 <Route path="generalUserView" element={<GeneralUserView />} />
+                <Route path="user-inquiries" element={<UserInquiries />} />
                 <Route path="settings" element={<Settings />} />
               </Route>
             </Route>

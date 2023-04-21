@@ -22,6 +22,13 @@ export interface User {
   profileImg: string;
 }
 
+export interface InquiryUser {
+  _id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+}
+
 export interface ClaimCardDataGeneral {
   _id: string;
   title: string;
