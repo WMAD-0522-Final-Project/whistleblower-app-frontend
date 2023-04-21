@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -19,6 +19,7 @@ interface VerifyTokenResponseData {
 const AdminLayout = (props: Props) => {
   const navigator = useNavigate();
   const dispatch = useDispatch();
+  const [isTokenChecked, setIsTokenChecked] = useState(false);
 
   const verifyToken = (): Promise<AxiosResponse<VerifyTokenResponseData>> => {
     const authorizationValue = getAuthorizationValue();
@@ -37,6 +38,7 @@ const AdminLayout = (props: Props) => {
     queryKey: ['token'],
     queryFn: verifyToken,
     staleTime: 1000 * 10,
+    retry: 0,
     onSuccess: ({ data }) => {
       if (data.user.role !== UserRoleOption.ADMIN) {
         navigator('/login');
@@ -53,6 +55,7 @@ const AdminLayout = (props: Props) => {
           permissions: data.user.permissions,
         })
       );
+      setIsTokenChecked(true);
     },
     onError: () => {
       navigator('/login');
@@ -60,18 +63,20 @@ const AdminLayout = (props: Props) => {
   });
 
   return (
-    <>
-      <Header hasMenu={true} />
-      <AvatarIcon />
-      <LogoutButton
-        sx={{
-          mt: '1rem',
-          position: 'relative',
-          zIndex: '100',
-        }}
-      />
-      <Outlet />
-    </>
+    isTokenChecked && (
+      <>
+        <Header hasMenu={true} />
+        <AvatarIcon />
+        <LogoutButton
+          sx={{
+            mt: '1rem',
+            position: 'relative',
+            zIndex: '100',
+          }}
+        />
+        <Outlet />
+      </>
+    )
   );
 };
 

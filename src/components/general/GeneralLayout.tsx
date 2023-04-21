@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import { Box, Typography } from '@mui/material';
@@ -19,6 +19,7 @@ interface VerifyTokenResponseData {
 const GeneralLayout = (props: Props) => {
   const navigator = useNavigate();
   const dispatch = useDispatch();
+  const [isTokenChecked, setIsTokenChecked] = useState(false);
 
   const verifyToken = (): Promise<AxiosResponse<VerifyTokenResponseData>> => {
     const authorizationValue = getAuthorizationValue();
@@ -37,6 +38,7 @@ const GeneralLayout = (props: Props) => {
     queryKey: ['token'],
     queryFn: verifyToken,
     staleTime: 1000 * 10 * 10,
+    retry: 0,
     onSuccess: ({ data }) => {
       if (data.user.role !== UserRoleOption.GENERAL) {
         navigator('/login');
@@ -53,6 +55,7 @@ const GeneralLayout = (props: Props) => {
           permissions: data.user.permissions,
         })
       );
+      setIsTokenChecked(true);
     },
     onError: () => {
       navigator('/login');
@@ -60,32 +63,34 @@ const GeneralLayout = (props: Props) => {
   });
 
   return (
-    <Box
-      sx={{
-        maxWidth: '1200px',
-        margin: '0 auto',
-        pb: '1rem',
-      }}
-    >
-      <Header hasMenu={false} />
-      <Outlet />
-      <Typography
-        variant="h1"
-        sx={{ fontSize: '.8rem', textAlign: 'center', mt: '1.4rem' }}
+    isTokenChecked && (
+      <Box
+        sx={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          pb: '1rem',
+        }}
       >
-        Need help?
-        <Link
-          to="/contact"
-          style={{
-            color: 'inherit',
-            fontWeight: '500',
-            paddingLeft: '0.4em',
-          }}
+        <Header hasMenu={false} />
+        <Outlet />
+        <Typography
+          variant="h1"
+          sx={{ fontSize: '.8rem', textAlign: 'center', mt: '1.4rem' }}
         >
-          Contact admin team
-        </Link>
-      </Typography>
-    </Box>
+          Need help?
+          <Link
+            to="/contact"
+            style={{
+              color: 'inherit',
+              fontWeight: '500',
+              paddingLeft: '0.4em',
+            }}
+          >
+            Contact admin team
+          </Link>
+        </Typography>
+      </Box>
+    )
   );
 };
 
