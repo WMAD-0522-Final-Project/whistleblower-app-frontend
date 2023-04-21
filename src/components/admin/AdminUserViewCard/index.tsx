@@ -29,8 +29,9 @@ const AdminUserViewCard = React.forwardRef(
       if (user)
         setContext((context) => ({
           ...context,
-          userId: user._id,
+          AdminUserIdAdmin: user._id,
         }));
+      console.log(';lkjiwatani');
     };
     return (
       <>
@@ -126,7 +127,9 @@ const AdminUserViewCard = React.forwardRef(
             }}
           >
             <EditIcon
-              animate={context.userId === user._id ? { rotate: 90 } : {}}
+              animate={
+                context.AdminUserIdAdmin === user._id ? { rotate: 90 } : {}
+              }
               transition={{ duration: 0.5 }}
             ></EditIcon>
           </div>

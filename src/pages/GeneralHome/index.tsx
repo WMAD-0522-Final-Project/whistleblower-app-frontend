@@ -20,10 +20,11 @@ const GeneralHome = (props: Props) => {
   const [currentClaim, setCurrentClaim] = useState<Claim | undefined>(
     undefined
   );
+  const [state, setState] = useState<number | null>(null);
 
   const handleClaimClick = () => {
     // fetch chat data
-    setCurrentClaim(sampleClaimDetail as Claim);
+    setCurrentClaim(sampleClaimDetail as unknown as Claim);
     handleOpen();
   };
 
@@ -45,6 +46,7 @@ const GeneralHome = (props: Props) => {
             <ClaimForm />,
             <ClaimListGeneral onClaimClick={handleClaimClick} />,
           ]}
+          currentState={(e) => setState(e)}
           sx={{
             bgcolor: lighten(companyData.themeColors.primary, 0.28),
             padding: '30px',

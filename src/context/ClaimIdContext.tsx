@@ -20,7 +20,12 @@ type ClaimIdContextType = {
   setContext: (c: ContextType) => {};
 };
 const CreateContext = createContext<ClaimIdContextType>({
-  context: { claimsId: '', userId: '', yellowRotate: 0 },
+  context: {
+    claimsId: '',
+    GeneralUserId: '',
+    AdminUserIdAdmin: '',
+    yellowRotate: 0,
+  },
   setContext: (c) => {},
 });
 
@@ -29,7 +34,8 @@ export const useAllContext = () => useContext(CreateContext);
 const AllContextProvider = ({ children }: { children: ReactJSXElement }) => {
   const [context, setContext] = useState<ContextType>({
     claimsId: '',
-    userId: '',
+    GeneralUserId: '',
+    AdminUserIdAdmin: '',
     yellowRotate: 0,
   });
 

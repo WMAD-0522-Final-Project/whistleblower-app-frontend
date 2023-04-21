@@ -28,7 +28,7 @@ const ClaimListAdmin = ({ claims }: Props) => {
               {...provided.draggableProps}
             >
               <ClaimCardAdmin
-                whileHover={{ x: 100 }}
+                whileHover={{ x: 10 }}
                 claim={claim}
                 sx={{ mt: '0.8rem' }}
                 key={claim.id}

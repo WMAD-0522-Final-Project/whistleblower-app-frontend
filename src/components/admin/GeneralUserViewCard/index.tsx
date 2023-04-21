@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Component } from 'react';
-import { Badge, Box, SxProps, Typography } from '@mui/material';
+import { Component, useEffect } from 'react';
+import { Badge, Box, SxProps, Typography, useMediaQuery } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../../RTK/companySlice';
 import Yeallowtable from '../../SVG/YeallowTable';
@@ -24,11 +24,16 @@ const GeneralUserViewCard = React.forwardRef(
   ({ user, width, height, url, edit, sx }: Props, ref) => {
     const { companyData } = useSelector(selectCompanyData);
     const { context, setContext } = useAllContext();
+    const matches = useMediaQuery((theme) => theme.breakpoints.up('lg'));
+    const smallmatches = useMediaQuery((theme) => theme.breakpoints.up('sm'));
+
+    const middlematches = useMediaQuery((theme) => theme.breakpoints.up('md'));
+
     const editHandle = () => {
       if (user)
         setContext((context) => ({
           ...context,
-          userId: user._id,
+          GeneralUserId: user._id,
         }));
     };
     return (
@@ -43,6 +48,7 @@ const GeneralUserViewCard = React.forwardRef(
             color: companyData.themeColors.secondary,
             cursor: 'pointer',
             display: 'flex',
+            flexDirection: smallmatches ? 'row' : 'column',
             alignItems: 'center',
             justifyContent: 'space-around',
             minHeight: '16px',
@@ -56,33 +62,56 @@ const GeneralUserViewCard = React.forwardRef(
           <div style={{ top: '30px', left: '10px', position: 'absolute' }}>
             <Yeallowtable url={url}></Yeallowtable>
           </div>
-          {/* <div
-            style={{ position: 'absolute', right: '-12px', bottom: '-10px' }}
-          >
-            <YellowTablePassword></YellowTablePassword>
-          </div> */}
-          <div></div>
+          {!smallmatches && <div></div>}
           <div>
             {user.firstName} {user.lastName}
           </div>
-          <div style={{ fontSize: '0.9rem' }}>
+          <div style={{ fontSize: middlematches ? '0.9rem' : '0.6rem' }}>
             <div>email : {user.email}</div>
             <div>department : {user.department?.name}</div>
           </div>
-          <div
-            onClick={editHandle}
-            style={{
-              width: '8%',
-              height: '90%',
-              position: 'relative',
-              right: '3%',
-            }}
-          >
-            <EditIcon
-              animate={context.userId === user._id ? { rotate: 90 } : {}}
-              transition={{ duration: 0.5 }}
-            ></EditIcon>
-          </div>
+          {smallmatches && (
+            <div
+              onClick={editHandle}
+              style={{
+                width: '8%',
+                height: '90%',
+                position: 'relative',
+                right: '3%',
+                // display: !middlematches && 'none',
+
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <EditIcon
+                animate={
+                  context.GeneralUserId === user._id ? { rotate: 90 } : {}
+                }
+                transition={{ duration: 0.5 }}
+              ></EditIcon>
+            </div>
+          )}
+          {!smallmatches && (
+            <div
+              onClick={editHandle}
+              style={{
+                width: '15%',
+                height: '15%',
+                position: 'absolute',
+                right: '5%',
+                top: '20%',
+              }}
+            >
+              <EditIcon
+                animate={
+                  context.GeneralUserId === user._id ? { rotate: 90 } : {}
+                }
+                transition={{ duration: 0.5 }}
+              ></EditIcon>
+            </div>
+          )}
         </Box>
       </>
     );

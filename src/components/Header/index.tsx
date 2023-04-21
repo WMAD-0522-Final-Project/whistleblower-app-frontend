@@ -83,7 +83,7 @@ const Header = ({ hasMenu = false }: Props) => {
           </MuiLink>
           <MuiLink
             component={RouterLink}
-            to="/admin/adminUserView"
+            to="/admin/userView"
             sx={{
               ...muiLinkStyles,
               right: '98%',

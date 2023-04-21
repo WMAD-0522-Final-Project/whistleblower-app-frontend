@@ -7,13 +7,14 @@ import { selectCompanyData } from '../../../RTK/companySlice';
 import ClaimYellowTable from '../../SVG/ClaimYellowTable';
 import { useAllContext } from '../../../context/ClaimIdContext';
 import ClaimLabel from '../../SVG/ClaimLabel';
+import { motion } from 'framer-motion';
 
 type Props = {
   claim: Partial<Claim>;
   sx?: SxProps;
 };
 
-const ClaimCardAdmin = ({ claim, sx }: Props) => {
+const ClaimCardAdmin = React.forwardRef(({ claim, sx }: Props, ref) => {
   const { companyData } = useSelector(selectCompanyData);
   const { context, setContext } = useAllContext();
   const handleClaimClick = () => {
@@ -28,6 +29,7 @@ const ClaimCardAdmin = ({ claim, sx }: Props) => {
   return (
     <Box
       onClick={() => handleClaimClick()}
+      ref={ref}
       sx={{
         backgroundColor: companyData.themeColors.primary,
         borderRadius: '2rem',
@@ -104,6 +106,6 @@ const ClaimCardAdmin = ({ claim, sx }: Props) => {
       <ClaimYellowTable claim={claim} sx={{ width: '25%' }}></ClaimYellowTable>
     </Box>
   );
-};
+});
 
-export default ClaimCardAdmin;
+export default motion(ClaimCardAdmin);

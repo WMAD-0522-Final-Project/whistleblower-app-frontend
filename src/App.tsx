@@ -44,6 +44,7 @@ import AvatarIcon from './components/admin/AvatarIcon';
 
 import { ContextType } from './types';
 import { useAllContext } from './context/ClaimIdContext';
+import UserViewer from './pages/UserViewer';
 const App = () => {
   const { isLoading } = useSelector(selectLoading);
   const { companyData } = useSelector(selectCompanyData);
@@ -121,8 +122,7 @@ const App = () => {
           <Route path="admin">
             <Route element={<AdminLayout />}>
               <Route path="" element={<AdminHome />} />
-              <Route path="adminUserView" element={<AdminUserView />} />
-              <Route path="generalUserView" element={<GeneralUserView />} />
+              <Route path="userView" element={<UserViewer />} />
             </Route>
             <Route path="setting" element={<Settings />} />
           </Route>

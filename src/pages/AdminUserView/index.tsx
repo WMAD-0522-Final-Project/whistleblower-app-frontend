@@ -8,29 +8,27 @@ import sampleUserDatas from '../../temp/sampleUserDatas';
 import { useAllContext } from '../../context/ClaimIdContext';
 import { adminUser } from '../../types';
 import RoleToggles from '../../components/admin/RoleToggles';
-import { NativeSelect } from '@mui/material';
+import { NativeSelect, useMediaQuery } from '@mui/material';
 import ItemLabel from '../../components/ItemLabel';
 import UserViewCard from '../../components/admin/AdminUserViewCard';
 import styles from './AdminUserView.module.scss';
 
 function AdminUserView() {
   const [text, setText] = useState('');
+  const matches = useMediaQuery((theme) => theme.breakpoints.up('lg'));
+  const smallmatches = useMediaQuery((theme) => theme.breakpoints.up('md'));
 
   const { companyData } = useSelector(selectCompanyData);
   const { context, setContext } = useAllContext();
   const [nowUser, setNowUser] = useState<Partial<adminUser> | null>(null);
   useEffect(() => {
-    if (context.userId) {
+    if (context.AdminUserIdAdmin) {
       const user = sampleUserDatas.filter(
-        (user) => user._id === context.userId
+        (user) => user._id === context.AdminUserIdAdmin
       )[0];
-      console.log(user);
       setNowUser(user);
     }
-  }, [context.userId]);
-  useEffect(() => {
-    console.log(nowUser?.department, ';lkj');
-  }, [nowUser?.department]);
+  }, [context.AdminUserIdAdmin]);
 
   const modifySubmit = () => {
     //submit nowUser with fetch
@@ -40,11 +38,16 @@ function AdminUserView() {
       <div
         style={{
           display: 'flex',
-          marginTop: '1%',
+          flexDirection: matches ? 'row' : 'column',
+          justifyContent: 'space-around',
+          // marginTop: '-3%',
+          marginTop: matches ? '-3%' : '-19%',
+          marginBottom: matches ? '-3%' : '-7%',
           width: '100vw',
+          height: '70vh',
         }}
       >
-        <CustomBox sx={{ height: '90%', width: '40%' }}>
+        <CustomBox sx={{ height: '90%', width: matches ? '40%' : '90%' }}>
           <SearchBox
             onChange={(e) => setText(e.target.value)}
             sx={{ width: 300, height: 50 }}
@@ -80,7 +83,7 @@ function AdminUserView() {
                       position: 'absolute',
                       width: '100%',
                       height: '30%',
-                      marginTop: `${20 * i}%`,
+                      marginTop: smallmatches ? `${25 * i}%` : `${30 * i}%`,
                       display: 'flex',
                       justifyContent: 'center',
                       top: 10,

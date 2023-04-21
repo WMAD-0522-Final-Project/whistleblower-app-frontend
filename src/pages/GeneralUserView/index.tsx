@@ -8,11 +8,13 @@ import sampleUserDatas from '../../temp/sampleUserDatas';
 import { useAllContext } from '../../context/ClaimIdContext';
 import { adminUser } from '../../types';
 import RoleToggles from '../../components/admin/RoleToggles';
-import { NativeSelect } from '@mui/material';
+import { NativeSelect, TextField, useMediaQuery } from '@mui/material';
 import ItemLabel from '../../components/ItemLabel';
 import AdminUserViewCard from '../../components/admin/AdminUserViewCard';
 import styles from './GeneralUserView.module.scss';
 import GeneralUserViewCard from '../../components/admin/GeneralUserViewCard';
+import Closebutton from '../../components/SVG/Closebutton';
+import TextFieldCustom from '../../components/MUI_comp/TextFieldCustom';
 
 function GeneralUserView() {
   const [text, setText] = useState('');
@@ -20,91 +22,126 @@ function GeneralUserView() {
   const { companyData } = useSelector(selectCompanyData);
   const { context, setContext } = useAllContext();
   const [nowUser, setNowUser] = useState<Partial<adminUser> | null>(null);
+  const matches = useMediaQuery((theme) => theme.breakpoints.up('lg'));
+  const middlemaches = useMediaQuery((theme) => theme.breakpoints.up('md'));
+  const smallmatches = useMediaQuery((theme) => theme.breakpoints.up('sm'));
+
   useEffect(() => {
-    if (context.userId !== '') {
+    if (context.GeneralUserId !== '') {
       const user = sampleUserDatas.filter(
-        (user) => user._id === context.userId
+        (user) => user._id === context.GeneralUserId
       )[0];
       setNowUser(user);
     }
-  }, [context.userId]);
+  }, [context.GeneralUserId]);
   useEffect(() => {
     console.log(nowUser?.department, ';lkj');
   }, [nowUser?.department]);
 
+  useEffect(() => {
+    console.log('sm');
+  }, [smallmatches]);
   const modifySubmit = () => {
     //submit nowUser with fetch
+  };
+
+  const closeEdit = () => {
+    setContext((context) => ({
+      ...context,
+      GeneralUserId: '',
+    }));
+    setNowUser(null);
   };
   return (
     <>
       <div
         style={{
           display: 'flex',
-          marginTop: '1%',
+          marginTop: middlemaches ? '-3%' : '-13%',
+          marginBottom: middlemaches ? '-3%' : '-13%',
+          width: '100vw',
+          height: '70vh',
         }}
       >
-        <CustomBox sx={{ height: '90%', width: '100%' }}>
-          <SearchBox
-            onChange={(e) => setText(e.target.value)}
-            sx={{ width: 300, height: 50 }}
-          ></SearchBox>
-          <div
-            style={{
-              position: 'relative',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-around',
-              alignItems: 'center',
-              width: '100%',
-              height: '400px',
-              overflow: 'scroll',
-              marginTop: '6%',
-            }}
-            className={styles.box}
-          >
-            {sampleUserDatas
-              .filter((user, i) => {
-                if (text == '') {
-                  return user;
-                } else if (
-                  user.firstName.toLowerCase().includes(text.toLowerCase())
-                ) {
-                  return user;
-                }
-              })
-              .map((user, i) => {
-                return (
-                  <div
-                    style={{
-                      position: 'absolute',
-                      width: '100%',
-                      height: '30%',
-                      marginTop: `${13 * i}%`,
-                      display: 'flex',
-                      justifyContent: 'center',
-                      top: 10,
-                    }}
-                  >
-                    <GeneralUserViewCard
-                      whileHover={{ x: 20 }}
-                      user={user}
-                      width={80}
-                      height={60}
-                      url={user.avatarUrl}
-                      edit={true}
-                      sx={{ marginBottom: '20px' }}
-                    ></GeneralUserViewCard>
-                  </div>
-                );
-              })}
-          </div>
-        </CustomBox>
+        {!matches && nowUser ? (
+          <div></div>
+        ) : (
+          <CustomBox sx={{ height: '90%', width: matches ? '40%' : '90%' }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-around',
+                width: '100%',
+              }}
+            >
+              <SearchBox
+                onChange={(e) => setText(e.target.value)}
+                sx={{ width: 300, height: 50 }}
+              ></SearchBox>
+            </div>
+            <div
+              style={{
+                position: 'relative',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-around',
+                alignItems: 'center',
+                width: '100%',
+                height: '400px',
+                overflow: 'scroll',
+                marginTop: '6%',
+                // backgroundColor: 'red',
+              }}
+              className={styles.bix}
+            >
+              {sampleUserDatas
+                .filter((user, i) => {
+                  if (text == '') {
+                    return user;
+                  } else if (
+                    user.firstName.toLowerCase().includes(text.toLowerCase())
+                  ) {
+                    return user;
+                  }
+                })
+                .map((user, i) => {
+                  return (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        width: '100%',
+                        height: '30%',
+                        // marginTop: `${13 * i}%`,
+                        marginTop: middlemaches
+                          ? `${25 * i - 5 * i}%`
+                          : `${25 * i}%`,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        top: 10,
+                      }}
+                    >
+                      <GeneralUserViewCard
+                        whileHover={{ x: 20 }}
+                        user={user}
+                        width={80}
+                        height={60}
+                        url={user.avatarUrl}
+                        edit={true}
+                        sx={{ marginBottom: '20px' }}
+                      ></GeneralUserViewCard>
+                    </div>
+                  );
+                })}
+            </div>
+          </CustomBox>
+        )}
 
         {nowUser && (
           <CustomBox
             // animate={claimId !== '' ? { display: 'inline-block' } : {}}
             sx={{
-              width: '100%',
+              // width: '40%',
+              width: matches ? '40%' : '90%',
               height: '90%',
               fontSize: '1rem',
             }}
@@ -122,15 +159,39 @@ function GeneralUserView() {
               <div
                 style={{
                   display: 'flex',
+                  justifyContent: 'space-between',
+                  width: '100%',
+                }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    position: 'relative',
+                    left: '10%',
+                  }}
+                >
+                  user id : {nowUser.firstName}
+                </div>
+                <div
+                  onClick={closeEdit}
+                  style={{
+                    position: 'relative',
+                    top: matches ? '-46%' : '-20%',
+                  }}
+                >
+                  <Closebutton></Closebutton>
+                </div>
+              </div>
+              <div
+                style={{
+                  display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-around',
                   width: '100%',
                   height: '70%',
                 }}
               >
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  user setting : {nowUser.firstName}
-                </div>
                 <div
                   style={{
                     width: '100%',
@@ -173,6 +234,22 @@ function GeneralUserView() {
                       }))
                     }
                   ></input>
+                  {/* <div
+                    style={{
+                      width: '35%',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      marginRight: '10%',
+                    }}
+                  >
+                    <TextFieldCustom
+                      label="firstName"
+                      value={';lkj'}
+                      width="10"
+                      height="10"
+                      mainColor={'blue'}
+                    ></TextFieldCustom>
+                  </div> */}
                 </div>
                 <div
                   style={{

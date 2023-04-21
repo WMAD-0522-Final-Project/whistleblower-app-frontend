@@ -15,14 +15,18 @@ interface Props {
   options: string[];
   contents: ReactNode[];
   sx?: SxProps;
+  currentState: (e: number) => void;
 }
-const TabsCustom = ({ options, contents, sx }: Props) => {
+const TabsCustom = ({ options, contents, sx, currentState }: Props) => {
   const [value, setValue] = React.useState(0);
   const { companyData } = useSelector(selectCompanyData);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+  React.useEffect(() => {
+    currentState(value);
+  }, [value]);
 
   return (
     <Box sx={{ width: '100%', ...sx }}>
