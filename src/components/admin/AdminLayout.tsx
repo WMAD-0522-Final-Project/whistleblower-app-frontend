@@ -78,25 +78,23 @@ const AdminLayout = (props: Props) => {
     },
   });
 
-  return (
-    isTokenChecked && (
-      <>
-        <Header hasMenu={true} />
-        <AvatarIcon onClick={handleOpen} />
-        <LogoutButton
-          sx={{
-            mt: '1rem',
-            position: 'relative',
-            zIndex: '100',
-          }}
-        />
-        <Modal outerBoxStyle={outerBoxStyle} innerBoxStyle={innerBoxStyle}>
-          <CustomAvatar handleClose={handleClose} />
-        </Modal>
-        <Outlet />
-      </>
-    )
-  );
+  return isTokenChecked ? (
+    <>
+      <Header hasMenu={true} />
+      <AvatarIcon onClick={handleOpen} />
+      <LogoutButton
+        sx={{
+          mt: '1rem',
+          position: 'relative',
+          zIndex: '100',
+        }}
+      />
+      <Modal outerBoxStyle={outerBoxStyle} innerBoxStyle={innerBoxStyle}>
+        <CustomAvatar handleClose={handleClose} />
+      </Modal>
+      <Outlet />
+    </>
+  ) : null;
 };
 
 export default AdminLayout;

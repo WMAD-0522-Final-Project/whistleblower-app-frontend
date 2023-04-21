@@ -62,36 +62,34 @@ const GeneralLayout = (props: Props) => {
     },
   });
 
-  return (
-    isTokenChecked && (
-      <Box
-        sx={{
-          maxWidth: '1200px',
-          margin: '0 auto',
-          pb: '1rem',
-        }}
+  return isTokenChecked ? (
+    <Box
+      sx={{
+        maxWidth: '1200px',
+        margin: '0 auto',
+        pb: '1rem',
+      }}
+    >
+      <Header hasMenu={false} />
+      <Outlet />
+      <Typography
+        variant="h1"
+        sx={{ fontSize: '.8rem', textAlign: 'center', mt: '1.4rem' }}
       >
-        <Header hasMenu={false} />
-        <Outlet />
-        <Typography
-          variant="h1"
-          sx={{ fontSize: '.8rem', textAlign: 'center', mt: '1.4rem' }}
+        Need help?
+        <Link
+          to="/contact"
+          style={{
+            color: 'inherit',
+            fontWeight: '500',
+            paddingLeft: '0.4em',
+          }}
         >
-          Need help?
-          <Link
-            to="/contact"
-            style={{
-              color: 'inherit',
-              fontWeight: '500',
-              paddingLeft: '0.4em',
-            }}
-          >
-            Contact admin team
-          </Link>
-        </Typography>
-      </Box>
-    )
-  );
+          Contact admin team
+        </Link>
+      </Typography>
+    </Box>
+  ) : null;
 };
 
 export default GeneralLayout;
