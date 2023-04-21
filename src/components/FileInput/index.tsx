@@ -1,4 +1,4 @@
-import React, { useState, ChangeEventHandler } from 'react';
+import { useState, ChangeEventHandler, useEffect } from 'react';
 import { Button, Typography, useTheme } from '@mui/material';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { SxProps } from '@mui/material';
@@ -9,9 +9,10 @@ type Props = {
   onChange?: ChangeEventHandler<HTMLInputElement>;
   name?: string;
   sx?: SxProps;
+  text: string;
 };
 
-const FileInput = ({ onChange, name, sx }: Props) => {
+const FileInput = ({ onChange, name, sx, text }: Props) => {
   const { companyData } = useSelector(selectCompanyData);
   const theme = useTheme();
   const [file, setFile] = useState<File | null>(null);
@@ -42,7 +43,7 @@ const FileInput = ({ onChange, name, sx }: Props) => {
         }}
       >
         <AttachFileIcon sx={{ fontSize: '1rem' }} />
-        Attach File
+        {text}
         <input
           type="file"
           name={name}
@@ -57,6 +58,7 @@ const FileInput = ({ onChange, name, sx }: Props) => {
             height: '100%',
           }}
           onChange={handleChange}
+          multiple={false}
         />
       </Button>
       <Typography
@@ -70,7 +72,7 @@ const FileInput = ({ onChange, name, sx }: Props) => {
           color: companyData.themeColors.secondary,
         }}
       >
-        ({file ? file.name : 'No file selected'})
+        {file ? file.name : 'No file selected'}
       </Typography>
     </>
   );

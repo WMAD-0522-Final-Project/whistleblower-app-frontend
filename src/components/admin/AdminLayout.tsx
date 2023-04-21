@@ -8,6 +8,8 @@ import Header from '../Header';
 import { setUserData } from '../../RTK/userDataSlice';
 import localStorageHelper from '../../helpers/localStorageHelper';
 import { UserRoleOption } from '../../types/enums';
+import useModal from '../../hooks/useModal';
+import CustomAvatar from '../CustomAvatar';
 
 type Props = {};
 interface VerifyTokenResponseData {
@@ -15,8 +17,22 @@ interface VerifyTokenResponseData {
   user: { [key: string]: any };
 }
 
+const outerBoxStyle = {
+  // width: 250,
+  // height: 250,
+  bgcolor: '#FFCB14',
+  boxShadow: 24,
+};
+
+const innerBoxStyle = {
+  // width: 200,
+  // height: 200,
+  border: '5px solid white',
+};
+
 const AdminLayout = (props: Props) => {
   const navigator = useNavigate();
+  const { Modal, handleOpen, handleClose } = useModal();
   const dispatch = useDispatch();
 
   const verifyToken = (): Promise<AxiosResponse<VerifyTokenResponseData>> => {
@@ -61,7 +77,10 @@ const AdminLayout = (props: Props) => {
   return (
     <>
       <Header hasMenu={true} />
-      <AvatarIcon />
+      <AvatarIcon onClick={handleOpen} />
+      <Modal outerBoxStyle={outerBoxStyle} innerBoxStyle={innerBoxStyle}>
+        <CustomAvatar handleClose={handleClose} />
+      </Modal>
       <Outlet />
     </>
   );
