@@ -70,7 +70,7 @@ const AdminHome = (props: Props) => {
     } else {
       handleClose();
     }
-  }, [context.claimsId !== '']);
+  }, [context.claimsId]);
 
   // const filteredClaims = () =>
   //   claims.filter((claim: Claim) =>

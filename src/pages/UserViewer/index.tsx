@@ -3,7 +3,7 @@ import { Component, useState, useEffect } from 'react';
 import GeneralUserView from '../GeneralUserView';
 import AdminUserView from '../AdminUserView';
 import TabsCustom from '../../components/MUI_comp/TabsCustom';
-import { lighten, useMediaQuery } from '@mui/material';
+import { Theme, lighten, useMediaQuery } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../RTK/companySlice';
 import { useAllContext } from '../../context/ClaimIdContext';
@@ -11,7 +11,7 @@ function UserViewer() {
   const { companyData } = useSelector(selectCompanyData);
   const [state, setState] = useState<number | null>(null);
   const { context, setContext } = useAllContext();
-  const matches = useMediaQuery((theme) => theme.breakpoints.up('lg'));
+  const matches = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
 
   useEffect(() => {
     console.log(state, 'state');

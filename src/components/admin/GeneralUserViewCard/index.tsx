@@ -1,6 +1,13 @@
 import * as React from 'react';
 import { Component, useEffect } from 'react';
-import { Badge, Box, SxProps, Typography, useMediaQuery } from '@mui/material';
+import {
+  Badge,
+  Box,
+  SxProps,
+  Theme,
+  Typography,
+  useMediaQuery,
+} from '@mui/material';
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../../RTK/companySlice';
 import Yeallowtable from '../../SVG/YeallowTable';
@@ -24,10 +31,14 @@ const GeneralUserViewCard = React.forwardRef(
   ({ user, width, height, url, edit, sx }: Props, ref) => {
     const { companyData } = useSelector(selectCompanyData);
     const { context, setContext } = useAllContext();
-    const matches = useMediaQuery((theme) => theme.breakpoints.up('lg'));
-    const smallmatches = useMediaQuery((theme) => theme.breakpoints.up('sm'));
+    const matches = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
+    const smallmatches = useMediaQuery((theme: Theme) =>
+      theme.breakpoints.up('sm')
+    );
 
-    const middlematches = useMediaQuery((theme) => theme.breakpoints.up('md'));
+    const middlematches = useMediaQuery((theme: Theme) =>
+      theme.breakpoints.up('md')
+    );
 
     const editHandle = () => {
       if (user)

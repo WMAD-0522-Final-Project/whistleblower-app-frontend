@@ -482,7 +482,7 @@ function MainWindow({ claim }: Props) {
           </div>
         </motion.div>
         <div className="chat">
-          {/* <ClaimChat chatData={sampleClaimDetail.chats} /> */}
+          <ClaimChat chatData={sampleClaimDetail.chats} />
         </div>
       </div>
     </div>
