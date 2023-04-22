@@ -39,33 +39,6 @@ const Settings = () => {
           Company Settings
         </p>
         <div className="inputFields">
-          <div className="textInputs">
-            <TextFieldCustom
-              label="Name"
-              error={false}
-              width="80%"
-              mainColor={companyData.themeColors.secondary}
-              textColor="black"
-              required
-            />
-            <TextFieldCustom
-              label="Name"
-              error={false}
-              width="80%"
-              mainColor={companyData.themeColors.secondary}
-              textColor="black"
-              required
-            />
-            <TextFieldCustom
-              label="Name"
-              error={false}
-              width="80%"
-              mainColor={companyData.themeColors.secondary}
-              textColor="black"
-              required
-            />
-          </div>
-
           {/* <NestedList /> */}
           <div className="colorInputSelector">
             <ColorInputs

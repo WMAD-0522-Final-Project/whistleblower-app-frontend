@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { Badge, Box, SxProps, Typography } from '@mui/material';
+import { Badge, Box, SxProps, Typography, useMediaQuery } from '@mui/material';
 
 type Props = {
   url: string;
 };
 function Yeallowtable({ url }: Props) {
+  const matches = useMediaQuery((theme) => theme.breakpoints.up('md'));
+
   return (
     <>
       <div
@@ -20,8 +22,10 @@ function Yeallowtable({ url }: Props) {
       >
         <div style={{ position: 'absolute' }}>
           <svg
-            width="75"
-            height="71"
+            // width="75"
+            // height="71"
+            widths={matches ? '75' : '55'}
+            height={matches ? '71' : '51'}
             viewBox="0 0 75 71"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -77,19 +81,10 @@ function Yeallowtable({ url }: Props) {
           alt=""
           sx={{
             borderRadius: '50%',
-            // display: 'flex',
-            // position: 'absolute',
-            width: '50px',
-            height: '50px',
-            top: '-30px',
-            // left: '0%',
-            // backgroundColor: 'red',
-            // justifyContent: 'center',
-            // alignItems: 'center',
-            // // top: '0',
-            // // minWidth: '40px',
-            // // maxWidth: '60px',
-            // // backgroundColor: 'red',
+            width: matches ? '50px' : '30px',
+            height: matches ? '50px' : '30px',
+            // top: '-40px',
+            top: matches ? '-30px' : '-20px',
             position: 'absolute',
           }}
         ></Box>

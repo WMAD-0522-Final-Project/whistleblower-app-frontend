@@ -22,6 +22,7 @@ const GeneralHome = (props: Props) => {
   const isLg = useMediaQuery(theme.breakpoints.up('lg'));
   const { handleOpen, Modal } = useModal();
   const [currentClaimId, setCurrentClaimId] = useState<string | null>(null);
+  const [state, setState] = useState<number | null>(null);
 
   const getMessagesData = async (): Promise<
     AxiosResponse<{ messages: ClaimMessageData[] }>
@@ -77,6 +78,7 @@ const GeneralHome = (props: Props) => {
             <ClaimForm />,
             <ClaimListGeneral onClaimClick={handleClaimClick} />,
           ]}
+          currentState={(e) => setState(e)}
           sx={{
             bgcolor: lighten(companyData.themeColors.primary, 0.28),
             padding: '30px',

@@ -26,7 +26,6 @@ import { useAnimationControls } from 'framer-motion';
 import AdminUserView from './pages/AdminUserView';
 import GeneralUserView from './pages/GeneralUserView';
 import { Claim } from './types';
-import { ClaimIdContext } from './custom/ClaimIdContext';
 import AdminSetting from './pages/AdminSetting';
 import Settings from './components/MUI_comp/Settings';
 import AdminLayout from './components/admin/AdminLayout';
@@ -34,9 +33,14 @@ import GeneralLayout from './components/general/GeneralLayout';
 import CompanySetting from './pages/CompanySetting';
 import AvatarIcon from './components/admin/AvatarIcon';
 
+import { ContextType } from './types';
+import { useAllContext } from './context/ClaimIdContext';
+import UserViewer from './pages/UserViewer';
 const App = () => {
   const { companyData } = useSelector(selectCompanyData);
-  const [claimId, setClaimId] = useState<string | null>(null);
+  const { context, setContext } = useAllContext();
+  const loadingDispatch = useDispatch();
+  loadingDispatch(setLoading(true));
 
   let location = useLocation();
 
@@ -55,52 +59,60 @@ const App = () => {
   }, [userData]);
 
   useEffect(() => {
-    if (location.pathname === '/admin') yellowControl.start({ rotate: 100 });
-    if (location.pathname === '/general') yellowControl.start({ rotate: -100 });
+    // if (location.pathname === '/admin') yellowControl.start({ rotate: 100 });
+    // if (location.pathname === '/general') yellowControl.start({ rotate: -100 });
+    setContext((context) => ({
+      ...context,
+      yellowRotate: context.yellowRotate + 70,
+    }));
+    yellowControl.start({ rotate: context.yellowRotate });
+    console.log(context.yellowRotate, 'yellowrotate');
   }, [location]);
 
+  // use Redux for alert state
+  const sampleAlert = {
+    message: 'test alert!',
+    type: 'success',
+  };
+
   return (
-    <ClaimIdContext.Provider value={{ claimId, setClaimId }}>
-      <ThemeProvider theme={theme}>
-        <Box
-          sx={{
-            backgroundColor: companyData.themeColors.primary,
-            minHeight: '100vh',
-            overflowX: 'hidden',
-            position: 'relative',
-            overflow: 'hidden',
-            zIndex: '1',
-          }}
-        >
-          <div style={{ position: 'absolute', zIndex: '-1' }}>
-            <YellowMashroom
-              animate={yellowControl}
-              transition={{ duration: 1 }}
-            ></YellowMashroom>
-          </div>
+    <ThemeProvider theme={theme}>
+      <Box
+        sx={{
+          backgroundColor: companyData.themeColors.primary,
+          minHeight: '100vh',
+          overflowX: 'hidden',
+          position: 'relative',
+          overflow: 'hidden',
+          zIndex: '1',
+        }}
+      >
+        <div style={{ position: 'absolute', zIndex: '-1' }}>
+          <YellowMashroom
+            animate={yellowControl}
+            transition={{ duration: 1 }}
+          ></YellowMashroom>
+        </div>
 
-
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/contact" element={<Contact />} />
-            {/* TODO: protect these routes */}
-            <Route path="general">
-              <Route element={<GeneralLayout />}>
-                <Route index element={<GeneralHome />} />
-              </Route>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/contact" element={<Contact />} />
+          {/* TODO: protect these routes */}
+          <Route path="general">
+            <Route element={<GeneralLayout />}>
+              <Route index element={<GeneralHome />} />
             </Route>
-            <Route path="admin">
-              <Route element={<AdminLayout />}>
-                <Route index element={<AdminHome />} />
-                <Route path="adminUserView" element={<AdminUserView />} />
-                <Route path="generalUserView" element={<GeneralUserView />} />
-                <Route path="settings" element={<Settings />} />
-              </Route>
+          </Route>
+          <Route path="admin">
+            <Route element={<AdminLayout />}>
+              <Route index element={<AdminHome />} />
+              <Route path="userView" element={<UserViewer />} />
             </Route>
-          </Routes>
-        </Box>
-      </ThemeProvider>
-    </ClaimIdContext.Provider>
+            <Route path="settings" element={<Settings />} />
+          </Route>
+        </Routes>
+      </Box>
+    </ThemeProvider>
   );
 };
 

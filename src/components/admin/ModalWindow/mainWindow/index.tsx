@@ -6,11 +6,11 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import Frame from '../Frame.tsx/Frame';
 import Closebutton from '../../../SVG/Closebutton';
 import UserCard from '../UserCard';
-import { useClaimContext } from '../../../../custom/ClaimIdContext';
+import { useAllContext } from '../../../../context/ClaimIdContext';
 // import { MotionUserCard } from '../UserCard';
 import LabelCard from '../LabelCard';
 import styles from './mainWindow.module.scss';
-import { Claim } from '../../../../types';
+import { Claim, ClaimLabel } from '../../../../types';
 import ClaimChat from '../../../ClaimChat';
 import sampleClaimDetail from '../../../../temp/sampleClaimDetail';
 import './windowStyles.scss';
@@ -39,25 +39,27 @@ function MainWindow({ claim }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
   const { companyData } = useSelector(selectCompanyData);
-  const { claimId, setClaimId } = useClaimContext();
+  const { context, setContext } = useAllContext();
   const queryClient = useQueryClient();
-  const [activeClaim, setActiveClaim] = useState<Claim>(null);
+  const [activeClaim, setActiveClaim] = useState<Claim | null>(null);
   const [showLabelForm, setShowLabelForm] = useState(false);
   const [newLabelName, setNewLabelName] = useState('');
 
   const closeModalWindow = () => {
-    setClaimId(null);
+    setContext({ userId: '', claimsId: '' });
   };
 
   useEffect(() => {
-    console.log('claim', claim);
-
     setActiveClaim(claim);
   }, []);
 
+  useEffect(() => {
+    console.log(activeClaim?.labels, 'this is label');
+  }, [activeClaim]);
+
   const selectLabel = (e) => {
     const name = labelData?.data.labels.find(
-      (label: ClaimLabel) => label._id === e.target.value
+      (label: ClaimLabel) => label.id === e.target.value
     ).name;
     if (activeClaim.labels.includes(name)) return;
 
@@ -82,6 +84,10 @@ function MainWindow({ claim }: Props) {
     queryKey: ['labels'],
     queryFn: getLabelList,
   });
+
+  useEffect(() => {
+    console.log(labelData, 'labeldata');
+  }, [labelData]);
 
   const addNewLabel = (): Promise<AxiosResponse<NewLabelResponseData>> => {
     return axios({
@@ -114,7 +120,7 @@ function MainWindow({ claim }: Props) {
             Description
           </h1>
           <p style={{ color: companyData.themeColors.primary }}>
-            ID: {claim._id}
+            ID: {claim.id}
           </p>
         </div>
         <div className="claim_description">
@@ -318,7 +324,7 @@ function MainWindow({ claim }: Props) {
                 Description
               </h1>
               <p style={{ color: companyData.themeColors.primary }}>
-                ID: {claim._id}
+                ID: {claim.id}
               </p>
             </div>
             <div className="claim_description">
@@ -457,15 +463,18 @@ function MainWindow({ claim }: Props) {
               <div className="members">
                 {claim.members?.map((member, i) => {
                   return (
-                    <div className="cards">
-                      <UserCard
-                        name={member.userId}
-                        width={100}
-                        height={40}
-                        url={member.avatarUrl}
-                        key={i}
-                      ></UserCard>
-                    </div>
+                    <>
+                      <div className="cards">
+                        <UserCard
+                          name={member.userId}
+                          width={100}
+                          height={40}
+                          url={member.avatarUrl}
+                          edit={false}
+                          key={i}
+                        ></UserCard>
+                      </div>
+                    </>
                   );
                 })}
               </div>

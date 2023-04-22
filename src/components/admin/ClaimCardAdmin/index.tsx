@@ -1,32 +1,35 @@
-import React from 'react';
+import React, { ContextType } from 'react';
 import { Box, SxProps, Typography } from '@mui/material';
 import { Claim } from '../../../types';
 import { useSelector } from 'react-redux';
 import stc from 'string-to-color';
 import { selectCompanyData } from '../../../RTK/companySlice';
 import ClaimYellowTable from '../../SVG/ClaimYellowTable';
-import {
-  ClaimIdContext,
-  useClaimContext,
-} from '../../../custom/ClaimIdContext';
+import { useAllContext } from '../../../context/ClaimIdContext';
 import ClaimLabel from '../../SVG/ClaimLabel';
+import { motion } from 'framer-motion';
 
 type Props = {
   claim: Partial<Claim>;
   sx?: SxProps;
 };
 
-const ClaimCardAdmin = ({ claim, sx }: Props) => {
+const ClaimCardAdmin = React.forwardRef(({ claim, sx }: Props, ref) => {
   const { companyData } = useSelector(selectCompanyData);
-  const { claimId, setClaimId } = useClaimContext();
+  const { context, setContext } = useAllContext();
   const handleClaimClick = () => {
     // open detail window using a state variable
-    if (claim.id) setClaimId(claim.id);
+    if (claim.id)
+      setContext((context) => ({
+        ...context,
+        claimsId: claim.id,
+      }));
   };
 
   return (
     <Box
       onClick={() => handleClaimClick()}
+      ref={ref}
       sx={{
         backgroundColor: companyData.themeColors.primary,
         borderRadius: '2rem',
@@ -104,6 +107,6 @@ const ClaimCardAdmin = ({ claim, sx }: Props) => {
       <ClaimYellowTable claim={claim} sx={{ width: '25%' }}></ClaimYellowTable>
     </Box>
   );
-};
+});
 
-export default ClaimCardAdmin;
+export default motion(ClaimCardAdmin);

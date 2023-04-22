@@ -5,6 +5,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
+import HomeIcon from '@mui/icons-material/Home';
 import theme from '../../theme';
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../RTK/companySlice';
