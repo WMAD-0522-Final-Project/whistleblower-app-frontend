@@ -20,6 +20,8 @@ import { motion } from 'framer-motion';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import CustomBox from '../../components/CustomBox/CustomBox';
 import { DragDropContext } from 'react-beautiful-dnd';
+import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
 
 type Props = {};
 
@@ -34,6 +36,20 @@ const addTo = (column, index: number, item) => {
   output.splice(index, 0, item);
   return output;
 };
+
+const getClaimData = () =>
+  axios({
+    method: 'GET',
+    url: `${import.meta.env.VITE_BACKEND_URL}/api/claim/list?status=`,
+  });
+
+const changeStatus = () =>
+  axios({
+    method: 'PUT',
+    url: `${
+      import.meta.env.VITE_BACKEND_URL
+    }/api/claim/:${claimId}/changeStatus`,
+  });
 
 const AdminHome = (props: Props) => {
   const { companyData } = useSelector(selectCompanyData);
@@ -54,6 +70,17 @@ const AdminHome = (props: Props) => {
   });
   // const [claims, setClaims] = useState<Partial<Claim>[]>([]);
   const matches = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
+
+  useQuery({
+    queryKey: ['getClaimData'],
+    queryFn: getClaimData,
+    onSuccess: ({ data }) => {
+      console.log(data);
+    },
+    onError: (message) => {
+      console.log(message);
+    },
+  });
 
   useEffect(() => {
     // fetch claim data from API
