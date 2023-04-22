@@ -9,6 +9,7 @@ interface Props {
   color: string;
   name?: string;
   options: any[];
+  optionKey?: string[];
   onChange?: (e: SelectChangeEvent<string>) => void;
   menuItemSx?: SxProps;
   sx?: SxProps;
@@ -18,6 +19,7 @@ const SelectBoxCustom = ({
   placeholder,
   color,
   options,
+  optionKey = ['name'],
   name,
   onChange,
   menuItemSx,
@@ -55,7 +57,7 @@ const SelectBoxCustom = ({
           key={option.id ?? option._id}
           sx={{ ...menuItemSx }}
         >
-          {option.name}
+          {optionKey.map((key) => ` ${option[key]}`)}
         </MenuItem>
       ))}
     </Select>
