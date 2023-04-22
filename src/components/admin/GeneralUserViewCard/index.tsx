@@ -62,7 +62,7 @@ const GeneralUserViewCard = React.forwardRef(
           <div style={{ top: '30px', left: '10px', position: 'absolute' }}>
             <Yeallowtable url={url}></Yeallowtable>
           </div>
-          {!smallmatches && <div></div>}
+          <div></div>
           <div>
             {user.firstName} {user.lastName}
           </div>

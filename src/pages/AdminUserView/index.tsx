@@ -8,15 +8,17 @@ import sampleUserDatas from '../../temp/sampleUserDatas';
 import { useAllContext } from '../../context/ClaimIdContext';
 import { adminUser } from '../../types';
 import RoleToggles from '../../components/admin/RoleToggles';
-import { NativeSelect, useMediaQuery } from '@mui/material';
+import { NativeSelect, Theme, useMediaQuery } from '@mui/material';
 import ItemLabel from '../../components/ItemLabel';
 import UserViewCard from '../../components/admin/AdminUserViewCard';
 import styles from './AdminUserView.module.scss';
 
 function AdminUserView() {
   const [text, setText] = useState('');
-  const matches = useMediaQuery((theme) => theme.breakpoints.up('lg'));
-  const smallmatches = useMediaQuery((theme) => theme.breakpoints.up('md'));
+  const matches = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
+  const smallmatches = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.up('md')
+  );
 
   const { companyData } = useSelector(selectCompanyData);
   const { context, setContext } = useAllContext();

@@ -1,4 +1,4 @@
-import { Box, useMediaQuery } from '@mui/material';
+import { Box, Theme, useMediaQuery } from '@mui/material';
 import useModal from '../../hooks/useModal';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -53,7 +53,7 @@ const AdminHome = (props: Props) => {
     done: 6,
   });
   // const [claims, setClaims] = useState<Partial<Claim>[]>([]);
-  const matches = useMediaQuery((theme) => theme.breakpoints.up('lg'));
+  const matches = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
 
   useEffect(() => {
     // fetch claim data from API
