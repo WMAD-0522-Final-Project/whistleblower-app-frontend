@@ -63,7 +63,7 @@ function Frame({ width, height, label, text, component, claim }: Props) {
             alignItems: 'center',
             width: '100%',
             height: '100%',
-            overflow:  'chat' ? 'scroll' : 'initial',
+            overflow: 'chat' ? 'scroll' : 'initial',
             overflowX: 'hidden',
             top: '-10%',
             // border: 'solid 3px black',
@@ -80,19 +80,18 @@ function Frame({ width, height, label, text, component, claim }: Props) {
           {label !== 'chat'
             ? component?.map((user, i) => {
                 return (
-                  <>
-                    <div
-                      style={{
-                        width: '70%',
-                        height: '30%',
-                        // border: 'solid 2px black',
-                        position: 'absolute',
-                        marginTop: `${50 * i}%`,
-                      }}
-                    >
-                      {user}
-                    </div>
-                  </>
+                  <div
+                    style={{
+                      width: '70%',
+                      height: '30%',
+                      // border: 'solid 2px black',
+                      position: 'absolute',
+                      marginTop: `${50 * i}%`,
+                    }}
+                    key={i}
+                  >
+                    {user}
+                  </div>
                 );
               })
             : component?.map((user, i) => {

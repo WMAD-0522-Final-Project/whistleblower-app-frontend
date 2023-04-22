@@ -1,14 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios, { AxiosResponse } from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import { Box, Typography } from '@mui/material';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import Header from '../Header';
-import ButtonComponent from '../MUI_comp/ButtonComponent';
-import { useSelector } from 'react-redux';
-import { selectCompanyData } from '../../RTK/companySlice';
-import localStorageHelper from '../../helpers/localStorageHelper';
-import axios, { AxiosResponse } from 'axios';
+import { useDispatch } from 'react-redux';
+import { setUserData } from '../../RTK/userDataSlice';
 import { UserRoleOption } from '../../types/enums';
+import getAuthorizationValue from '../../helpers/getAuthorizationValue';
 
 type Props = {};
 
@@ -18,41 +17,52 @@ interface VerifyTokenResponseData {
 }
 
 const GeneralLayout = (props: Props) => {
-  const { companyData } = useSelector(selectCompanyData);
   const navigator = useNavigate();
+  const dispatch = useDispatch();
+  const [isTokenChecked, setIsTokenChecked] = useState(false);
 
-  // const verifyToken = (): Promise<AxiosResponse<VerifyTokenResponseData>> => {
-  //   const token = localStorageHelper('get', 'token');
-  //   if (!token?.data) navigator('/login');
+  const verifyToken = (): Promise<AxiosResponse<VerifyTokenResponseData>> => {
+    const authorizationValue = getAuthorizationValue();
+    if (!authorizationValue) navigator('/login');
 
-  //   return axios({
-  //     method: 'GET',
-  //     url: `${import.meta.env.VITE_BACKEND_URL}/api/auth/verify-token`,
-  //     headers: {
-  //       Authorization: `Bearer ${token!.data}`,
-  //     },
-  //   });
-  // };
-
-  // useQuery({
-  //   queryKey: ['token'],
-  //   queryFn: verifyToken,
-  //   staleTime: 1000 * 10 * 10,
-  //   onSuccess: ({ data }) => {
-  //     if (data.user.role !== UserRoleOption.GENERAL) {
-  //       navigator('/login');
-  //     }
-  //   },
-  //   onError: () => {
-  //     navigator('/login');
-  //   },
-  // });
-
-  const logout = () => {
-    // logout
+    return axios({
+      method: 'GET',
+      url: `${import.meta.env.VITE_BACKEND_URL}/api/auth/verify-token`,
+      headers: {
+        Authorization: authorizationValue,
+      },
+    });
   };
 
-  return (
+  useQuery({
+    queryKey: ['token'],
+    queryFn: verifyToken,
+    staleTime: 1000 * 10 * 10,
+    retry: 0,
+    onSuccess: ({ data }) => {
+      if (data.user.role !== UserRoleOption.GENERAL) {
+        navigator('/login');
+      }
+      dispatch(
+        setUserData({
+          _id: data.user._id,
+          companyId: data.user.companyId,
+          firstName: data.user.firstName,
+          lastName: data.user.lastName,
+          role: data.user.role,
+          email: data.user.email,
+          profileImg: data.user.profileImg,
+          permissions: data.user.permissions,
+        })
+      );
+      setIsTokenChecked(true);
+    },
+    onError: () => {
+      navigator('/login');
+    },
+  });
+
+  return isTokenChecked ? (
     <Box
       sx={{
         maxWidth: '1200px',
@@ -62,24 +72,6 @@ const GeneralLayout = (props: Props) => {
     >
       <Header hasMenu={false} />
       <Outlet />
-      <ButtonComponent
-        customColor={companyData.themeColors.secondary}
-        type="submit"
-        // onClick={logout}
-        sx={{
-          boxShadow: '2px 2px 2px 2px rgba(0,0,0,0.2)',
-          display: 'block',
-          mt: '1rem',
-          p: '0.8rem 0',
-          color: companyData.themeColors.primary,
-          fontWeight: '600',
-          m: '3rem auto 0',
-          maxWidth: '200px',
-          width: '90%',
-        }}
-      >
-        Logout
-      </ButtonComponent>
       <Typography
         variant="h1"
         sx={{ fontSize: '.8rem', textAlign: 'center', mt: '1.4rem' }}
@@ -97,7 +89,7 @@ const GeneralLayout = (props: Props) => {
         </Link>
       </Typography>
     </Box>
-  );
+  ) : null;
 };
 
 export default GeneralLayout;

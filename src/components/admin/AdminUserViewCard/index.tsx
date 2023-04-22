@@ -96,22 +96,21 @@ const AdminUserViewCard = React.forwardRef(
           >
             {user.permissions?.map((per, i) => {
               return (
-                <>
-                  <div
-                    style={{
-                      backgroundColor: companyData.themeColors.tertiary,
-                      color: 'black',
-                      padding: '0.1rem',
-                      width: '80%',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      borderRadius: '10px',
-                      fontSize: '0.6rem',
-                    }}
-                  >
-                    {per.name}
-                  </div>
-                </>
+                <div
+                  style={{
+                    backgroundColor: companyData.themeColors.tertiary,
+                    color: 'black',
+                    padding: '0.1rem',
+                    width: '80%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    borderRadius: '10px',
+                    fontSize: '0.6rem',
+                  }}
+                  key={per._id}
+                >
+                  {per.name}
+                </div>
               );
             })}
           </div>

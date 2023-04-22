@@ -30,7 +30,11 @@ const ClaimList = ({ claims }: Props) => {
             // }}
           >
             {claims.map((claim, index) => (
-              <Draggable key={claim.id} draggableId={'claim.id'} index={index}>
+              <Draggable
+                key={claim.id}
+                draggableId={`${claim.id}`}
+                index={index}
+              >
                 {(provided, snapshot) => (
                   <div
                     ref={provided.innerRef}

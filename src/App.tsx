@@ -7,17 +7,8 @@ import {
 } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import {
-  Box,
-  Alert,
-  AlertTitle,
-  CircularProgress,
-  ThemeProvider,
-  Typography,
-  Button,
-} from '@mui/material';
+import { Box, ThemeProvider } from '@mui/material';
 import theme from './theme';
-import TestComponent from './components/MUI_comp/TestComponent';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from './components/Header';
 import Login from './pages/Login';
@@ -46,7 +37,6 @@ import { ContextType } from './types';
 import { useAllContext } from './context/ClaimIdContext';
 import UserViewer from './pages/UserViewer';
 const App = () => {
-  const { isLoading } = useSelector(selectLoading);
   const { companyData } = useSelector(selectCompanyData);
   const { context, setContext } = useAllContext();
   const loadingDispatch = useDispatch();
@@ -59,6 +49,7 @@ const App = () => {
   // TODO: get user data from store
   const userData = useSelector(selectUserData);
   const dispatch = useDispatch();
+
   useEffect(() => {
     setUserData({ firstName: 'Isaac', lastName: 'Wu', profileImg: 'n/a' });
   }, []);
@@ -106,9 +97,6 @@ const App = () => {
             transition={{ duration: 1 }}
           ></YellowMashroom>
         </div>
-
-        {/* <Header /> */}
-        {/* <AvatarIcon /> */}
 
         <Routes>
           <Route path="/login" element={<Login />} />

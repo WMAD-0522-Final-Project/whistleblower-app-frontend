@@ -39,7 +39,7 @@ const AdminHome = (props: Props) => {
   const { companyData } = useSelector(selectCompanyData);
   const { Modal, handleOpen, handleClose } = useModal();
   const [query, setQuery] = useState('');
-  const [claims, setClaims] = useState<Partial<Claim>[] | null>();
+  const [claims, setClaims] = useState<Partial<Claim>[] | null>(null);
   const [isModalWindow, setIsModalWindow] = useState<boolean>(false);
   const { context, setContext } = useAllContext();
   const newClaim = 'unHandled';

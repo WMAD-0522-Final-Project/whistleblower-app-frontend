@@ -78,6 +78,7 @@ const ClaimCardAdmin = React.forwardRef(({ claim, sx }: Props, ref) => {
                     width: '24px',
                   },
                 }}
+                key={index}
               >
                 {index <= 3 ? (
                   <ClaimLabel color={stc(label)} />

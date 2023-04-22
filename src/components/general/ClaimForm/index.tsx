@@ -1,5 +1,7 @@
-import React, { FormEventHandler } from 'react';
-import { Box, useTheme } from '@mui/material';
+import React, { FormEventHandler, useState } from 'react';
+import axios, { AxiosResponse } from 'axios';
+import { AlertColor, Box, useTheme } from '@mui/material';
+import { useMutation } from '@tanstack/react-query';
 import CustomBox from '../../CustomBox/CustomBox';
 import SectionTitle from '../../SectionTitle';
 import TextareaLabel from '../../TextareaLabel';
@@ -9,26 +11,118 @@ import SelectBoxLabel from '../../SelectBoxLabel';
 import FileInput from '../../FileInput';
 import CheckboxLabel from '../../CheckboxLabel';
 import ButtonComponent from '../../MUI_comp/ButtonComponent';
+import InputLabel from '../../InputLabel';
+import localStorageHelper from '../../../helpers/localStorageHelper';
+import AlertCustom from '../../MUI_comp/AlertCustom';
 import sampleClaimCategories from '../../../temp/sampleClaimCategories';
+import { AxiosCustomError } from '../../../types';
+import getAuthorizationValue from '../../../helpers/getAuthorizationValue';
 
 type Props = {};
+
+interface NewClaimRequestBody {
+  claimTitle: string;
+  category: string;
+  body: string;
+  // file: File;
+  isAnonymous: boolean;
+}
+interface NewClaimResponseData {
+  message: string;
+  claim: { [key: string]: any };
+}
 
 const ClaimForm = (props: Props) => {
   const { companyData } = useSelector(selectCompanyData);
   const theme = useTheme();
+  const [alert, setAlert] = useState({
+    type: '' as AlertColor,
+    message: '',
+  });
+
+  const createNewClaim = ({
+    claimTitle,
+    category,
+    body,
+    // file,
+    isAnonymous,
+  }: NewClaimRequestBody): Promise<AxiosResponse<NewClaimResponseData>> => {
+    console.log('request body:', {
+      title: claimTitle,
+      category,
+      body,
+      isAnonymous,
+    });
+
+    return axios({
+      method: 'POST',
+      url: `${import.meta.env.VITE_BACKEND_URL}/api/claim/create`,
+      data: {
+        title: claimTitle,
+        category,
+        body,
+        isAnonymous,
+      },
+      params: {
+        isAnonymous,
+      },
+      headers: {
+        Authorization: getAuthorizationValue(),
+      },
+    });
+  };
+
+  const newClaimMutation = useMutation({
+    mutationFn: createNewClaim,
+    onSuccess: (data) => {
+      setAlert({
+        type: 'success',
+        message:
+          'Claim successfully submitted! Admin team will respond shortly.',
+      });
+    },
+    onError: () => {
+      setAlert({
+        type: 'error',
+        message: (newClaimMutation.error as AxiosCustomError).response!.data
+          .message,
+      });
+    },
+  });
 
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    const { category, message, file, isAnonymous } =
-      e.target as HTMLFormElement;
-    if (!category.value || !message.value) {
-      // TODO: set alert
+    const {
+      claimTitle,
+      category,
+      body,
+      // file,
+      isAnonymous,
+    } = e.target as HTMLFormElement;
+    if (!claimTitle.value || !category.value || !body.value) {
+      setAlert({
+        type: 'error',
+        message: '"Title", "Category" and "Message" fields are required.',
+      });
       return;
     }
+    newClaimMutation.mutate({
+      claimTitle: claimTitle.value,
+      category: category.value,
+      body: body.value,
+      // file,
+      isAnonymous: isAnonymous.checked,
+    });
+    // console.log('claimTitle', claimTitle.value);
+    // console.log('category', category.value);
+    // console.log('body', body.value);
+    // console.log('file', file.files[0]);
+    // console.log('isAnonymous', isAnonymous.checked);
   };
 
   return (
     <Box>
+      {alert.message && <AlertCustom text={alert.message} type={alert.type} />}
       <SectionTitle title="MAKE CLAIM" />
       <CustomBox>
         <Box
@@ -41,6 +135,16 @@ const ClaimForm = (props: Props) => {
             flexDirection: 'column',
           }}
         >
+          <InputLabel
+            label="Title"
+            topLabel={'Title'}
+            required
+            name="claimTitle"
+            placeholder={'Enter title'}
+            sx={{
+              width: '100%',
+            }}
+          />
           <SelectBoxLabel
             placeholder="Choose category"
             label="Category"
@@ -52,13 +156,13 @@ const ClaimForm = (props: Props) => {
                 padding: '1rem',
               },
             }}
-            sx={{ width: '100%' }}
+            sx={{ mt: '1rem', width: '100%' }}
           />
           <TextareaLabel
             placeholder="Enter message"
             label="Message"
             topLabel=""
-            name="message"
+            name="body"
             sx={{
               mt: '1rem',
               width: '100%',
@@ -72,6 +176,7 @@ const ClaimForm = (props: Props) => {
                 fontSize: '0.8rem',
               },
             }}
+            text="Attach File"
           />
           <CheckboxLabel
             label="send anonymously"

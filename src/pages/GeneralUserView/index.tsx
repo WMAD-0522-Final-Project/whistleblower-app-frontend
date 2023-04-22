@@ -38,13 +38,7 @@ function GeneralUserView() {
       setNowUser(user);
     }
   }, [context.GeneralUserId]);
-  useEffect(() => {
-    console.log(nowUser?.department, ';lkj');
-  }, [nowUser?.department]);
 
-  useEffect(() => {
-    console.log('sm');
-  }, [smallmatches]);
   const modifySubmit = () => {
     //submit nowUser with fetch
   };
@@ -455,7 +449,10 @@ function GeneralUserView() {
                     >
                       {companyData.departments.map((dep, i) => {
                         return (
-                          <option value={dep.name}>{`${dep.name}`}</option>
+                          <option
+                            value={dep.name}
+                            key={i}
+                          >{`${dep.name}`}</option>
                         );
                       })}
                     </NativeSelect>

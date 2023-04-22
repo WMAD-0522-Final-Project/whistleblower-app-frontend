@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import axios, { AxiosResponse } from 'axios';
+import { useQuery } from '@tanstack/react-query';
 import { Box, lighten, useMediaQuery, useTheme } from '@mui/material';
 import { selectCompanyData } from '../../RTK/companySlice';
 import ClaimListGeneral from '../../components/general/ClaimListGeneral';
 import ClaimForm from '../../components/general/ClaimForm';
 import ClaimChat from '../../components/ClaimChat';
-import sampleClaimDetail from '../../temp/sampleClaimDetail';
+// import sampleClaimDetail from '../../temp/sampleClaimDetail';
 import useModal from '../../hooks/useModal';
-import { Claim } from '../../types';
 import TabsCustom from '../../components/MUI_comp/TabsCustom';
+import localStorageHelper from '../../helpers/localStorageHelper';
+import { ClaimMessageData } from '../../types';
+import getAuthorizationValue from '../../helpers/getAuthorizationValue';
 
 type Props = {};
 
@@ -17,16 +21,44 @@ const GeneralHome = (props: Props) => {
   const theme = useTheme();
   const isLg = useMediaQuery(theme.breakpoints.up('lg'));
   const { handleOpen, Modal } = useModal();
-  const [currentClaim, setCurrentClaim] = useState<Claim | undefined>(
-    undefined
-  );
+  const [currentClaimId, setCurrentClaimId] = useState<string | null>(null);
   const [state, setState] = useState<number | null>(null);
 
-  const handleClaimClick = () => {
-    // fetch chat data
-    setCurrentClaim(sampleClaimDetail as unknown as Claim);
+  const getMessagesData = async (): Promise<
+    AxiosResponse<{ messages: ClaimMessageData[] }>
+  > => {
+    const res = await axios({
+      method: 'GET',
+      url: `${
+        import.meta.env.VITE_BACKEND_URL
+      }/api/claim/${currentClaimId}/message/list`,
+      headers: {
+        Authorization: getAuthorizationValue(),
+      },
+    });
+
+    return res.data;
+  };
+
+  const {
+    data,
+    refetch,
+    isFetching: isMessagesFetching,
+  } = useQuery({
+    queryFn: getMessagesData,
+    queryKey: ['claim'],
+    enabled: false,
+  });
+
+  const handleClaimClick = (claimId: string) => {
+    setCurrentClaimId(claimId);
     handleOpen();
   };
+
+  useEffect(() => {
+    if (!currentClaimId) return;
+    refetch();
+  }, [currentClaimId]);
 
   return (
     <Box
@@ -62,9 +94,14 @@ const GeneralHome = (props: Props) => {
           />
         </>
       )}
-      <Modal outerBoxStyle={{ maxWidth: '600px' }}>
-        <ClaimChat chatData={currentClaim?.chats} />
-      </Modal>
+      {currentClaimId && !isMessagesFetching && (
+        <Modal
+          outerBoxStyle={{ maxWidth: '600px' }}
+          onClose={() => setCurrentClaimId(null)}
+        >
+          <ClaimChat claimId={currentClaimId} chatData={data?.messages} />
+        </Modal>
+      )}
     </Box>
   );
 };

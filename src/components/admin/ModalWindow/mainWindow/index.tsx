@@ -22,6 +22,7 @@ import SelectBoxCustom from '../../../MUI_comp/SelectBoxCustom';
 import SelectBoxLabel from '../../../SelectBoxLabel';
 
 import { motion, useCycle } from 'framer-motion';
+import getAuthorizationValue from '../../../../helpers/getAuthorizationValue';
 
 type Props = {
   claim: Partial<Claim>;
@@ -58,7 +59,7 @@ function MainWindow({ claim }: Props) {
 
   const selectLabel = (e) => {
     const name = labelData?.data.labels.find(
-      (label: ClaimLabel) => label._id === e.target.value
+      (label: ClaimLabel) => label.id === e.target.value
     ).name;
     if (activeClaim.labels.includes(name)) return;
 
@@ -74,7 +75,7 @@ function MainWindow({ claim }: Props) {
       method: 'GET',
       url: `${import.meta.env.VITE_BACKEND_URL}/api/claim/label/list`,
       headers: {
-        Authorization: `Bearer ${localStorageHelper('get', 'token')?.data}`,
+        Authorization: getAuthorizationValue(),
       },
     });
   };
@@ -96,7 +97,7 @@ function MainWindow({ claim }: Props) {
         name: newLabelName,
       },
       headers: {
-        Authorization: `Bearer ${localStorageHelper('get', 'token')?.data}`,
+        Authorization: getAuthorizationValue(),
       },
     });
   };
@@ -155,42 +156,39 @@ function MainWindow({ claim }: Props) {
             >
               Labels
             </p>
-
             {activeClaim &&
-              activeClaim.labels?.map((label, i) => {
-                return i < activeClaim.labels?.length! - 1 ? (
-                  <LabelCard
-                    name={label}
-                    width={100}
-                    height={50}
-                    url={'/images/profileImg.jpg'}
-                    color={'blue'}
-                    sx={{
-                      mt: '1rem',
-                    }}
-                  ></LabelCard>
-                ) : (
-                  labelData && (
-                    <SelectBoxCustom
-                      placeholder="Choose label"
-                      // all labels company have
-                      options={labelData.data.labels}
-                      name="labels"
-                      color="orange"
-                      onChange={selectLabel}
-                      menuItemSx={{ fontSize: '0.8rem' }}
-                      sx={{
-                        borderRadius: '10px',
-                        mt: '2rem',
-                        fontSize: '0.8rem',
-                        '& .MuiSelect-select': {
-                          pt: '0.4rem',
-                        },
-                      }}
-                    />
-                  )
-                );
-              })}
+              activeClaim.labels?.map((label, i) => (
+                <LabelCard
+                  name={label}
+                  width={100}
+                  height={50}
+                  url={'/images/profileImg.jpg'}
+                  color={'blue'}
+                  sx={{
+                    mt: '1rem',
+                  }}
+                  key={i}
+                ></LabelCard>
+              ))}
+            {labelData && (
+              <SelectBoxCustom
+                placeholder="Choose label"
+                // all labels company have
+                options={labelData.data.labels}
+                name="labels"
+                color="orange"
+                onChange={selectLabel}
+                menuItemSx={{ fontSize: '0.8rem' }}
+                sx={{
+                  borderRadius: '10px',
+                  mt: '2rem',
+                  fontSize: '0.8rem',
+                  '& .MuiSelect-select': {
+                    pt: '0.4rem',
+                  },
+                }}
+              />
+            )}
             <Box
               component="button"
               onClick={() => setShowLabelForm(true)}
@@ -349,42 +347,39 @@ function MainWindow({ claim }: Props) {
               >
                 Labels
               </p>
-
               {activeClaim &&
-                activeClaim.labels?.map((label, i) => {
-                  return i < activeClaim.labels?.length! - 1 ? (
-                    <LabelCard
-                      name={label}
-                      width={100}
-                      height={50}
-                      url={'/images/profileImg.jpg'}
-                      color={'blue'}
-                      sx={{
-                        mt: '1rem',
-                      }}
-                    ></LabelCard>
-                  ) : (
-                    labelData && (
-                      <SelectBoxCustom
-                        placeholder="Choose label"
-                        // all labels company have
-                        options={labelData.data.labels}
-                        name="labels"
-                        color="orange"
-                        onChange={selectLabel}
-                        menuItemSx={{ fontSize: '0.8rem' }}
-                        sx={{
-                          borderRadius: '10px',
-                          mt: '2rem',
-                          fontSize: '0.8rem',
-                          '& .MuiSelect-select': {
-                            pt: '0.4rem',
-                          },
-                        }}
-                      />
-                    )
-                  );
-                })}
+                activeClaim.labels?.map((label, i) => (
+                  <LabelCard
+                    name={label}
+                    width={100}
+                    height={50}
+                    url={'/images/profileImg.jpg'}
+                    color={'blue'}
+                    sx={{
+                      mt: '1rem',
+                    }}
+                  ></LabelCard>
+                ))}
+              {labelData && (
+                <SelectBoxCustom
+                  placeholder="Choose label"
+                  // all labels company have
+                  options={labelData.data.labels}
+                  name="labels"
+                  color="orange"
+                  onChange={selectLabel}
+                  menuItemSx={{ fontSize: '0.8rem' }}
+                  sx={{
+                    borderRadius: '10px',
+                    mt: '2rem',
+                    fontSize: '0.8rem',
+                    '& .MuiSelect-select': {
+                      pt: '0.4rem',
+                    },
+                  }}
+                />
+              )}
+
               <Box
                 component="button"
                 onClick={() => setShowLabelForm(true)}
@@ -476,6 +471,7 @@ function MainWindow({ claim }: Props) {
                           height={40}
                           url={member.avatarUrl}
                           edit={false}
+                          key={i}
                         ></UserCard>
                       </div>
                     </>

@@ -51,7 +51,6 @@ const InputLabel = ({
         required={required}
         sx={{
           mt: '0.3rem',
-          backgroundColor: '#D9D9D9',
           color: companyData.themeColors.secondary,
         }}
       ></TextFieldCustom>

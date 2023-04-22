@@ -1,9 +1,10 @@
-import React from 'react';
 import { Box, Typography } from '@mui/material';
 
-type Props = {};
+type Props = {
+  onClick: () => void;
+};
 
-const AvatarIcon = (props: Props) => {
+const AvatarIcon = ({ onClick }: Props) => {
   // TODO: get company data from store
   const companyData = {
     themeColors: {
@@ -29,7 +30,9 @@ const AvatarIcon = (props: Props) => {
         maxWidth: '200px',
         minWidth: '150px',
         width: '50%',
+        cursor: 'pointer',
       }}
+      onClick={onClick}
     >
       <Box
         component="img"

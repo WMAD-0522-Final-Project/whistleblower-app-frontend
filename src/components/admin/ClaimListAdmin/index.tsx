@@ -20,7 +20,7 @@ const ClaimListAdmin = ({ claims }: Props) => {
       // }}
     >
       {claims.map((claim, index) => (
-        <Draggable draggableId={claim.id} index={index} key={claim.id}>
+        <Draggable draggableId={`${claim.id}`} index={index} key={claim.id}>
           {(provided) => (
             <div
               ref={provided.innerRef}
