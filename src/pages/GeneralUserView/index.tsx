@@ -15,6 +15,7 @@ import styles from './GeneralUserView.module.scss';
 import GeneralUserViewCard from '../../components/admin/GeneralUserViewCard';
 import Closebutton from '../../components/SVG/Closebutton';
 import TextFieldCustom from '../../components/MUI_comp/TextFieldCustom';
+import ButtonComponent from '../../components/MUI_comp/ButtonComponent';
 
 function GeneralUserView() {
   const [text, setText] = useState('');
@@ -169,7 +170,7 @@ function GeneralUserView() {
                     left: '10%',
                   }}
                 >
-                  user id : {nowUser.firstName}
+                  user id : {nowUser._id}
                 </div>
                 <div
                   onClick={closeEdit}
@@ -468,18 +469,19 @@ function GeneralUserView() {
                   height: '10%',
                 }}
               >
-                <button
+                <ButtonComponent
+                  customColor={companyData.themeColors.tertiary}
+                  type="submit"
                   onClick={modifySubmit}
-                  style={{
-                    backgroundColor: companyData.themeColors.tertiary,
-                    border: 'none',
-                    padding: '15px',
-                    borderRadius: '10px',
-                    fontSize: '1.2rem',
+                  sx={{
+                    color: 'black',
+                    boxShadow: '2px 2px 2px 2px rgba(0.2,0.2,0.2,0.2)',
+                    padding: '0.7rem',
+                    borderRadius: '7px',
                   }}
                 >
                   submit
-                </button>
+                </ButtonComponent>
               </div>
             </div>
           </CustomBox>
