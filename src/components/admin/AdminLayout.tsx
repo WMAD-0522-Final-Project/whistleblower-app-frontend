@@ -81,7 +81,13 @@ const AdminLayout = (props: Props) => {
   return true ? (
     <>
       <Header hasMenu={true} />
-      <AvatarIcon onClick={handleOpen} />
+      <AvatarIcon
+        onClick={handleOpen}
+        sx={{
+          position: 'relative',
+          zIndex: '10',
+        }}
+      />
       <LogoutButton
         sx={{
           mt: '1rem',
