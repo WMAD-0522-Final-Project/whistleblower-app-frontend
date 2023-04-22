@@ -75,10 +75,6 @@ const App = () => {
     type: 'success',
   };
 
-  const submitData = () => {
-    console.log('Confirmed!!!!!!!!!!!');
-  };
-
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -109,30 +105,12 @@ const App = () => {
           </Route>
           <Route path="admin">
             <Route element={<AdminLayout />}>
-              <Route path="" element={<AdminHome />} />
+              <Route index element={<AdminHome />} />
               <Route path="userView" element={<UserViewer />} />
             </Route>
-            <Route path="setting" element={<Settings />} />
+            <Route path="settings" element={<Settings />} />
           </Route>
         </Routes>
-        {/* <TestComponent /> */}
-        {/* {isLoading && <CircularProgress />} */}
-        {/* {sampleAlert.message && (
-            <Alert
-            severity={sampleAlert.type}
-            sx={
-            {
-              // style here
-            }
-          }
-          onClose={() => {
-            // reset alert state here
-          }}
-          >
-          <AlertTitle>{sampleAlert.type}</AlertTitle>
-          {sampleAlert.message}
-          </Alert>
-        )} */}
       </Box>
     </ThemeProvider>
   );
