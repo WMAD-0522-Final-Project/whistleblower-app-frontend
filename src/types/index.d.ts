@@ -33,7 +33,7 @@ export interface ClaimCardDataGeneral {
 }
 
 export interface Claim {
-  id: string;
+  _id: string;
   submissionDate: string;
   message: string;
   labels: ClaimLabel[];

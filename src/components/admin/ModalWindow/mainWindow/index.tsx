@@ -50,7 +50,7 @@ function MainWindow({ claim }: Props) {
   };
 
   useEffect(() => {
-    setActiveClaim(claim);
+    return setActiveClaim(claim);
   }, []);
 
   useEffect(() => {
@@ -120,7 +120,7 @@ function MainWindow({ claim }: Props) {
             Description
           </h1>
           <p style={{ color: companyData.themeColors.primary }}>
-            ID: {claim.id}
+            ID: {claim._id}
           </p>
         </div>
         <div className="claim_description">
@@ -324,7 +324,7 @@ function MainWindow({ claim }: Props) {
                 Description
               </h1>
               <p style={{ color: companyData.themeColors.primary }}>
-                ID: {claim.id}
+                ID: {claim._id}
               </p>
             </div>
             <div className="claim_description">
@@ -482,7 +482,7 @@ function MainWindow({ claim }: Props) {
           </div>
         </motion.div>
         <div className="chat">
-          <ClaimChat chatData={sampleClaimDetail.chats} />
+          {/* <ClaimChat chatData={sampleClaimDetail.chats} /> */}
         </div>
       </div>
     </div>

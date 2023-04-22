@@ -20,7 +20,7 @@ const ClaimListAdmin = ({ claims }: Props) => {
       // }}
     >
       {claims.map((claim, index) => (
-        <Draggable draggableId={`${claim.id}`} index={index} key={claim.id}>
+        <Draggable draggableId={`${claim._id}`} index={index} key={claim._id}>
           {(provided) => (
             <div
               ref={provided.innerRef}
@@ -31,7 +31,7 @@ const ClaimListAdmin = ({ claims }: Props) => {
                 whileHover={{ x: 10 }}
                 claim={claim}
                 sx={{ mt: '0.8rem' }}
-                key={claim.id}
+                key={claim._id}
               />
             </div>
           )}

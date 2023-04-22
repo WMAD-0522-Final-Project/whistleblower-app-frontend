@@ -63,7 +63,7 @@ const AdminHome = (props: Props) => {
   useEffect(() => {
     if (claims !== null) {
       const modalClaim = claims?.filter(
-        (element) => element.id === context.claimsId
+        (element) => element._id === context.claimsId
       )[0];
       setModalClaim(modalClaim);
       handleOpen();
@@ -76,6 +76,10 @@ const AdminHome = (props: Props) => {
   //   claims.filter((claim: Claim) =>
   //     claim.message?.toLowerCase().includes(query.toLowerCase())
   //   );
+
+  useEffect(() => {
+    console.log(context, 'roren');
+  }, [context.claimsId]);
   const columns = [
     {
       id: 'unHandled',

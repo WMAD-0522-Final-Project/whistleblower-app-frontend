@@ -19,16 +19,18 @@ const ClaimCardAdmin = React.forwardRef(({ claim, sx }: Props, ref) => {
   const { context, setContext } = useAllContext();
   const handleClaimClick = () => {
     // open detail window using a state variable
-    if (claim.id)
+    if (claim._id)
       setContext((context) => ({
         ...context,
-        claimsId: claim.id,
+        claimsId: claim._id,
       }));
+
+    console.log(context, ';lkj;lkj');
   };
 
   return (
     <Box
-      onClick={() => handleClaimClick()}
+      onClick={handleClaimClick}
       ref={ref}
       sx={{
         backgroundColor: companyData.themeColors.primary,
