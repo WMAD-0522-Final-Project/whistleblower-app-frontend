@@ -43,7 +43,7 @@ const getClaimData = () =>
     url: `${import.meta.env.VITE_BACKEND_URL}/api/claim/list?status=`,
   });
 
-const changeStatus = () =>
+const putStatus = () =>
   axios({
     method: 'PUT',
     url: `${
@@ -71,19 +71,12 @@ const AdminHome = (props: Props) => {
   // const [claims, setClaims] = useState<Partial<Claim>[]>([]);
   const matches = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
 
-  useQuery({
+  const claimsQuery = useQuery({
     queryKey: ['getClaimData'],
     queryFn: getClaimData,
-    onSuccess: ({ data }) => {
-      console.log(data);
-    },
-    onError: (message) => {
-      console.log(message);
-    },
   });
 
   useEffect(() => {
-    // fetch claim data from API
     setClaims(sampleClaims);
   }, []);
 
@@ -107,6 +100,7 @@ const AdminHome = (props: Props) => {
   useEffect(() => {
     console.log(context, 'roren');
   }, [context.claimsId]);
+
   const columns = [
     {
       id: 'unHandled',

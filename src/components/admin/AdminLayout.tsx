@@ -37,18 +37,18 @@ const AdminLayout = (props: Props) => {
   const dispatch = useDispatch();
   const [isTokenChecked, setIsTokenChecked] = useState(false);
 
-  // const verifyToken = (): Promise<AxiosResponse<VerifyTokenResponseData>> => {
-  //   const authorizationValue = getAuthorizationValue();
-  //   if (!authorizationValue) navigator('/login');
+  const verifyToken = (): Promise<AxiosResponse<VerifyTokenResponseData>> => {
+    const authorizationValue = getAuthorizationValue();
+    if (!authorizationValue) navigator('/login');
 
-  //   return axios({
-  //     method: 'GET',
-  //     url: `${import.meta.env.VITE_BACKEND_URL}/api/auth/verify-token`,
-  //     headers: {
-  //       Authorization: authorizationValue,
-  //     },
-  //   });
-  // };
+    return axios({
+      method: 'GET',
+      url: `${import.meta.env.VITE_BACKEND_URL}/api/auth/verify-token`,
+      headers: {
+        Authorization: authorizationValue,
+      },
+    });
+  };
 
   // useQuery({
   //   queryKey: ['token'],
@@ -78,6 +78,7 @@ const AdminLayout = (props: Props) => {
   //   },
   // });
 
+  // return (
   return true ? (
     <>
       <Header hasMenu={true} />
@@ -100,7 +101,8 @@ const AdminLayout = (props: Props) => {
       </Modal>
       <Outlet />
     </>
-  ) : null;
+  ) : // );
+  null;
 };
 
 export default AdminLayout;
