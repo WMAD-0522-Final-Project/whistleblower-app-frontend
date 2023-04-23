@@ -21,7 +21,7 @@ import ConfirmationModal from '../../components/ConfirmationModal';
 import CustomBox from '../../components/CustomBox/CustomBox';
 import { DragDropContext } from 'react-beautiful-dnd';
 import axios from 'axios';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import getAuthorizationValue from '../../helpers/getAuthorizationValue';
 import { da } from 'date-fns/locale';
 
@@ -43,13 +43,6 @@ const addTo = (column: [], index: number, item: object) => {
   output.splice(index, 0, item);
   return output;
 };
-
-const putStatus = () =>
-  axios({
-    method: 'PUT',
-    url: `${import.meta.env.VITE_BACKEND_URL}/api/claim/:${claimId}/changeStatus
-    `,
-  });
 
 const AdminHome = (props: Props) => {
   const { companyData } = useSelector(selectCompanyData);
@@ -92,7 +85,12 @@ const AdminHome = (props: Props) => {
 
   useEffect(() => {
     setClaims(fetchedClaims);
+    console.log(claims);
   }, []);
+
+  useEffect(() => {
+    console.log(claims);
+  }, [claims]);
 
   useEffect(() => {
     if (claims !== null) {
@@ -168,6 +166,25 @@ const AdminHome = (props: Props) => {
     console.log('claimsCopy:', claimsCopy);
 
     setClaims(claimsCopy);
+
+    const putStatus = (removedClaim: { id: string }) => {
+      const authorizationValue = getAuthorizationValue();
+
+      return axios({
+        method: 'PUT',
+        url: `${import.meta.env.VITE_BACKEND_URL}/api/claim/:${
+          removedClaim.id
+        }/changeStatus`,
+        data: { status: result.destination.droppableId },
+        headers: {
+          Authorization: authorizationValue,
+        },
+      });
+    };
+
+    useMutation({
+      mutationFn: putStatus,
+    });
   };
 
   return (
