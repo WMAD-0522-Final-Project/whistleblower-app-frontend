@@ -1,6 +1,11 @@
 import { Typography, Button, Stack, Box } from '@mui/material';
 import FileInput from '../FileInput';
 import { ChangeEventHandler, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectUserData } from '../../RTK/userDataSlice';
+import { useMutation } from '@tanstack/react-query';
+import getAuthorizationValue from '../../helpers/getAuthorizationValue';
+import axios from 'axios';
 
 type Props = {
   handleClose: () => void;
@@ -34,7 +39,14 @@ const userData = {
   profileImg: '/images/profileImg.jpg',
 };
 
+const putAdminImg=()=>{
+  const authorizationValue = getAuthorizationValue();
+//Waiting for PUT endpoint
+  return axios({method:'PUT',url:`${import.meta.env.VITE_BACKEND_URL}/`})
+}
+
 const CustomAvatar = ({ handleClose }: Props) => {
+  // const { userData } = useSelector(selectUserData);
   const [img, setImg] = useState<string>();
 
   useEffect(() => {
@@ -45,6 +57,8 @@ const CustomAvatar = ({ handleClose }: Props) => {
     const tempImgUrl = URL.createObjectURL(e.target.files![0]);
     setImg(tempImgUrl);
   };
+
+useMutation({mutationFn:})
 
   const handleApply = () => {};
 
