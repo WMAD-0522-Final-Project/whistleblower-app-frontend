@@ -3,7 +3,7 @@ import axios, { AxiosResponse } from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import CustomBox from '../../components/CustomBox/CustomBox';
 import SearchBox from '../../components/SearchBox';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { InquiryUser, Log } from '../../types';
 import LogCard from '../../components/admin/LogCard';
 import getAuthorizationValue from '../../helpers/getAuthorizationValue';
@@ -36,6 +36,12 @@ const AdminLogList = () => {
     },
   });
 
+  const searchFilteredList = () => {
+    return logListData!.logs.filter((log) =>
+      text != '' ? log.content.toLowerCase().includes(text.toLowerCase()) : log
+    );
+  };
+
   return (
     <Box sx={{ mt: '1rem' }}>
       <SectionTitle title="Log List" />
@@ -53,26 +59,30 @@ const AdminLogList = () => {
             marginTop: '3%',
           }}
         >
-          {logListData &&
-            logListData.logs
-              .filter((log) =>
-                text != ''
-                  ? log.content.toLowerCase().includes(text.toLowerCase())
-                  : log
-              )
-              .map((log) => (
-                <Box
-                  sx={{
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    mt: '1.5rem',
-                  }}
-                  key={log._id}
-                >
-                  <LogCard whileHover={{ x: 20 }} log={log} sx={{}}></LogCard>
-                </Box>
-              ))}
+          {logListData && searchFilteredList().length ? (
+            searchFilteredList().map((log) => (
+              <Box
+                sx={{
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  mt: '1.5rem',
+                }}
+                key={log._id}
+              >
+                <LogCard whileHover={{ x: 20 }} log={log} sx={{}}></LogCard>
+              </Box>
+            ))
+          ) : (
+            <Typography
+              sx={{
+                textAlign: 'center',
+                mt: '5rem',
+              }}
+            >
+              No matching logs found...
+            </Typography>
+          )}
         </Box>
       </CustomBox>
     </Box>
