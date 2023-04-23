@@ -6,12 +6,14 @@ import SearchBox from '../../components/SearchBox';
 import sampleInquiryUserList from '../../temp/sampleInquiryUserList';
 import UserInquiryCard from '../../components/admin/UserInquiryCard';
 import useModal from '../../hooks/useModal';
-import { Box } from '@mui/material';
-import { InquiryUser } from '../../types';
+import { Box, Typography } from '@mui/material';
+import { InquiryUser, User } from '../../types';
+import { inquiryOption } from '../../types/enums';
+import getAuthorizationValue from '../../helpers/getAuthorizationValue';
 
 interface InquiryListData {
   message: string;
-  inquiries: any[];
+  users: InquiryUser[];
 }
 // interface InquiryDetailData {
 //   message: string;
@@ -28,7 +30,10 @@ const UserInquiries = () => {
   const getInquiryUserList = async () => {
     const res: AxiosResponse<InquiryListData> = await axios({
       method: 'GET',
-      url: `${import.meta.env.VITE_BACKEND_URL}/api/inquiry-users`,
+      url: `${import.meta.env.VITE_BACKEND_URL}/api/user/contacted/list`,
+      headers: {
+        Authorization: getAuthorizationValue(),
+      },
     });
     return res.data;
   };
@@ -40,6 +45,12 @@ const UserInquiries = () => {
       console.log('data', data);
     },
   });
+
+  const passwordForgottenUsers = () => {
+    return userListData?.users.filter(
+      (user) => user.inquiry === inquiryOption.FORGOT_PASSWORD
+    );
+  };
 
   /* ========================== ↓ FOR FUTURE LAUNCH ↓ ================================
 
@@ -132,31 +143,41 @@ const UserInquiries = () => {
             marginTop: '3%',
           }}
         >
-          {sampleInquiryUserList
-            .filter((user) =>
-              text != ''
-                ? user.firstName.toLowerCase().includes(text.toLowerCase())
-                : user
-            )
-            .map((user) => (
-              <Box
-                sx={{
-                  width: '100%',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  mt: '1.5rem',
-                }}
-                key={user._id}
-              >
-                <UserInquiryCard
-                  whileHover={{ x: 20 }}
-                  user={user}
-                  url={undefined}
-                  onClick={() => handleInquiryCardClick(user._id)}
-                  sx={{}}
-                ></UserInquiryCard>
-              </Box>
-            ))}
+          {passwordForgottenUsers()?.length ? (
+            passwordForgottenUsers()
+              ?.filter((user) =>
+                text != ''
+                  ? user.firstName.toLowerCase().includes(text.toLowerCase())
+                  : user
+              )
+              .map((user) => (
+                <Box
+                  sx={{
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    mt: '1.5rem',
+                  }}
+                  key={user._id}
+                >
+                  <UserInquiryCard
+                    whileHover={{ x: 20 }}
+                    user={user}
+                    url={undefined}
+                    onClick={() => handleInquiryCardClick(user._id)}
+                    sx={{}}
+                  ></UserInquiryCard>
+                </Box>
+              ))
+          ) : (
+            <Typography
+              sx={{
+                textAlign: 'center',
+              }}
+            >
+              No users found
+            </Typography>
+          )}
         </Box>
       </CustomBox>
     </div>
