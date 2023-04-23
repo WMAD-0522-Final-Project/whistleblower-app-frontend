@@ -54,6 +54,11 @@ function MainWindow({ claim }: Props) {
     );
     if (currentClaim!.labels!.find((label) => label._id === selectedLabel._id))
       return;
+
+    attachLabelMutation.mutate([
+      ...currentClaim!.labels.map((label) => label._id),
+      selectedLabel._id,
+    ]);
     setCurrentClaim((prev) => ({
       ...prev!,
       labels: [...prev!.labels, selectedLabel],
@@ -130,7 +135,7 @@ function MainWindow({ claim }: Props) {
     });
   };
 
-  const assignAdmin = (): Promise<AxiosResponse<NewLabelResponseData>> => {
+  const assignAdmin = (): Promise<AxiosResponse> => {
     return axios({
       method: 'PUT',
       url: `${import.meta.env.VITE_BACKEND_URL}/api/claim/${
@@ -145,8 +150,32 @@ function MainWindow({ claim }: Props) {
     });
   };
 
+  const attachLabel = (labels: string[]): Promise<AxiosResponse> => {
+    console.log('labels', labels);
+
+    return axios({
+      method: 'PUT',
+      url: `${import.meta.env.VITE_BACKEND_URL}/api/claim/${
+        currentClaim!._id
+      }/changeStatus`,
+      data: {
+        labels,
+      },
+      headers: {
+        Authorization: getAuthorizationValue(),
+      },
+    });
+  };
+
   const newLabelMutation = useMutation({
     mutationFn: addNewLabel,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['labels']);
+    },
+  });
+
+  const attachLabelMutation = useMutation({
+    mutationFn: attachLabel,
     onSuccess: () => {
       queryClient.invalidateQueries(['labels']);
     },
