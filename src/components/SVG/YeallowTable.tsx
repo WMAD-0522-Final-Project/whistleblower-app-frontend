@@ -1,11 +1,16 @@
 import * as React from 'react';
+import { Avatar, Box, useMediaQuery } from '@mui/material';
 import { Component } from 'react';
-import { Badge, Box, SxProps, Typography, useMediaQuery } from '@mui/material';
 
 type Props = {
-  url: string;
+  url: string | undefined;
+  initials?: string;
 };
-function Yeallowtable({ url }: Props) {
+
+function Yeallowtable({ url, initials }: Props) {
+  console.log('url', url);
+  console.log('initials', initials);
+
   const matches = useMediaQuery((theme) => theme.breakpoints.up('md'));
 
   return (
@@ -75,19 +80,46 @@ function Yeallowtable({ url }: Props) {
             </defs>
           </svg>
         </div>
-        <Box
-          component="img"
-          src={url}
-          alt=""
-          sx={{
-            borderRadius: '50%',
-            width: matches ? '50px' : '30px',
-            height: matches ? '50px' : '30px',
-            // top: '-40px',
-            top: matches ? '-30px' : '-20px',
-            position: 'absolute',
-          }}
-        ></Box>
+        {url ? (
+          <Box
+            component="img"
+            src={url}
+            alt=""
+            sx={{
+              borderRadius: '50%',
+              // display: 'flex',
+              // position: 'absolute',
+              width: matches ? '50px' : '30px',
+              height: matches ? '50px' : '30px',
+              top: matches ? '-30px' : '-20px',
+              // left: '0%',
+              // backgroundColor: 'red',
+              // justifyContent: 'center',
+              // alignItems: 'center',
+              // // top: '0',
+              // // minWidth: '40px',
+              // // maxWidth: '60px',
+              // // backgroundColor: 'red',
+              position: 'absolute',
+            }}
+          ></Box>
+        ) : (
+          <Avatar
+            alt={initials}
+            src={url}
+            sx={{
+              backgroundColor: '#848484',
+              fontSize: '0.9rem',
+              letterSpacing: '0',
+              width: '50px',
+              height: '50px',
+              position: 'absolute',
+              top: '-30px',
+            }}
+          >
+            {initials}
+          </Avatar>
+        )}
       </div>
     </>
   );
