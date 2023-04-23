@@ -159,6 +159,13 @@ function MainWindow({ claim }: Props) {
     },
   });
 
+  const filteredLabelOptions = () => {
+    return labelsData?.data.labels.filter(
+      (labelOption: ClaimLabel) =>
+        !currentClaim!.labels.find((label) => label._id === labelOption._id)
+    );
+  };
+
   const filteredAdminOptions = () => {
     return adminUsersData?.data.users.filter(
       (adminOption: User) =>
@@ -221,8 +228,7 @@ function MainWindow({ claim }: Props) {
               {labelsData && (
                 <SelectBoxCustom
                   placeholder="Choose label"
-                  // all labels company have
-                  options={labelsData.data.labels}
+                  options={filteredLabelOptions()}
                   name="labels"
                   color="orange"
                   onChange={selectLabel}
@@ -428,8 +434,7 @@ function MainWindow({ claim }: Props) {
                 {labelsData && (
                   <SelectBoxCustom
                     placeholder="Choose label"
-                    // all labels company have
-                    options={labelsData.data.labels}
+                    options={filteredLabelOptions()}
                     name="labels"
                     color="orange"
                     onChange={selectLabel}
