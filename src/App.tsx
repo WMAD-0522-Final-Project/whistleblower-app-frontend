@@ -33,10 +33,11 @@ import GeneralLayout from './components/general/GeneralLayout';
 import CompanySetting from './pages/CompanySetting';
 import AvatarIcon from './components/admin/AvatarIcon';
 import UserInquiries from './pages/UserInquiries';
-
 import { ContextType } from './types';
 import { useAllContext } from './context/ClaimIdContext';
 import UserViewer from './pages/UserViewer';
+import AdminLogList from './pages/AdminLogList';
+
 const App = () => {
   const { companyData } = useSelector(selectCompanyData);
   const { context, setContext } = useAllContext();
@@ -107,6 +108,7 @@ const App = () => {
               <Route path="userView" element={<UserViewer />} />
               <Route path="user-inquiries" element={<UserInquiries />} />
               <Route path="settings" element={<Settings />} />
+              <Route path="logs" element={<AdminLogList />} />
             </Route>
           </Route>
           <Route path="general">
