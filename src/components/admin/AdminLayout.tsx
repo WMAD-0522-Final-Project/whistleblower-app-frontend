@@ -50,36 +50,36 @@ const AdminLayout = (props: Props) => {
     });
   };
 
-  // useQuery({
-  //   queryKey: ['token'],
-  //   queryFn: verifyToken,
-  //   staleTime: 1000 * 10,
-  //   retry: 0,
-  //   onSuccess: ({ data }) => {
-  //     if (data.user.role !== UserRoleOption.ADMIN) {
-  //       navigator('/login');
-  //     }
-  //     dispatch(
-  //       setUserData({
-  //         _id: data.user._id,
-  //         companyId: data.user.companyId,
-  //         firstName: data.user.firstName,
-  //         lastName: data.user.lastName,
-  //         role: data.user.role,
-  //         email: data.user.email,
-  //         profileImg: data.user.profileImg,
-  //         permissions: data.user.permissions,
-  //       })
-  //     );
-  //     setIsTokenChecked(true);
-  //   },
-  //   onError: () => {
-  //     navigator('/login');
-  //   },
-  // });
+  useQuery({
+    queryKey: ['token'],
+    queryFn: verifyToken,
+    staleTime: 1000 * 10,
+    retry: 0,
+    onSuccess: ({ data }) => {
+      if (data.user.role !== UserRoleOption.ADMIN) {
+        navigator('/login');
+      }
+      dispatch(
+        setUserData({
+          _id: data.user._id,
+          companyId: data.user.companyId,
+          firstName: data.user.firstName,
+          lastName: data.user.lastName,
+          role: data.user.role,
+          email: data.user.email,
+          profileImg: data.user.profileImg,
+          permissions: data.user.permissions,
+        })
+      );
+      setIsTokenChecked(true);
+    },
+    onError: () => {
+      navigator('/login');
+    },
+  });
 
-  // return (
-  return true ? (
+  return (
+    // return true ? (
     <>
       <Header hasMenu={true} />
       <AvatarIcon
@@ -101,8 +101,8 @@ const AdminLayout = (props: Props) => {
       </Modal>
       <Outlet />
     </>
-  ) : // );
-  null;
+    // ) : null;
+  );
 };
 
 export default AdminLayout;

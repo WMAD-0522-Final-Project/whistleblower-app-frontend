@@ -22,33 +22,33 @@ import CustomBox from '../../components/CustomBox/CustomBox';
 import { DragDropContext } from 'react-beautiful-dnd';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
+import getAuthorizationValue from '../../helpers/getAuthorizationValue';
+import { da } from 'date-fns/locale';
 
 type Props = {};
 
-const removeFrom = (column, index: number) => {
+type DndResult = {
+  destination: { droppableId: string; index: number };
+  source: { droppableId: string; index: number };
+};
+
+const removeFrom = (column: [], index: number) => {
   const output = [...column];
   const [removedItem] = output.splice(index, 1);
   return [removedItem, output];
 };
 
-const addTo = (column, index: number, item) => {
+const addTo = (column: [], index: number, item: object) => {
   const output = [...column];
   output.splice(index, 0, item);
   return output;
 };
 
-const getClaimData = () =>
-  axios({
-    method: 'GET',
-    url: `${import.meta.env.VITE_BACKEND_URL}/api/claim/list?status=`,
-  });
-
 const putStatus = () =>
   axios({
     method: 'PUT',
-    url: `${
-      import.meta.env.VITE_BACKEND_URL
-    }/api/claim/:${claimId}/changeStatus`,
+    url: `${import.meta.env.VITE_BACKEND_URL}/api/claim/:${claimId}/changeStatus
+    `,
   });
 
 const AdminHome = (props: Props) => {
@@ -71,13 +71,27 @@ const AdminHome = (props: Props) => {
   // const [claims, setClaims] = useState<Partial<Claim>[]>([]);
   const matches = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
 
-  const claimsQuery = useQuery({
+  const getClaimData = () => {
+    const authorizationValue = getAuthorizationValue();
+
+    return axios({
+      method: 'GET',
+      url: `${import.meta.env.VITE_BACKEND_URL}/api/claim/list`,
+      headers: {
+        Authorization: authorizationValue,
+      },
+    });
+  };
+
+  const claimQuery = useQuery({
     queryKey: ['getClaimData'],
     queryFn: getClaimData,
   });
 
+  let fetchedClaims = claimQuery.data?.data.claims;
+
   useEffect(() => {
-    setClaims(sampleClaims);
+    setClaims(fetchedClaims);
   }, []);
 
   useEffect(() => {
@@ -122,7 +136,7 @@ const AdminHome = (props: Props) => {
     },
   ];
 
-  const handleOnDragEnd = function (result) {
+  const handleOnDragEnd = function (result: DndResult) {
     if (!result.destination) return;
     let claimsCopy = [...claims];
 
@@ -178,6 +192,8 @@ const AdminHome = (props: Props) => {
               {/* TODO: temporary claim data */}
               {/* <ClaimChat chatData={sampleClaimDetail.chats} /> */}
               {/* {claims && <MainWindow claim={claims[0]}></MainWindow>} */}
+              {claimQuery.isLoading && <>Loading...</>}
+              {claimQuery.isError && <>{claimQuery.error}</>}
               {claims && (
                 <div
                   style={
