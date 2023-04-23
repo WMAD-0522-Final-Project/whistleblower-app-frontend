@@ -40,7 +40,7 @@ export interface ClaimCardDataGeneral {
 }
 
 export interface Claim {
-  id: string;
+  _id: string;
   submissionDate: string;
   message: string;
   labels: ClaimLabel[];
@@ -99,6 +99,7 @@ export type department = {
 };
 
 export type adminUser = {
+  _id: string;
   email: string;
   password: string;
   firstName: string;
@@ -107,4 +108,11 @@ export type adminUser = {
   permissions: permission[];
   role: string;
   department: department;
+};
+
+export type ContextType = {
+  claimsId: string;
+  GeneralUserId: string;
+  AdminUserIdAdmin: string;
+  yellowRotate: number;
 };

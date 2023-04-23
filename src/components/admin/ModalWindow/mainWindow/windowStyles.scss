@@ -1,9 +1,9 @@
 $medium-screen: 800px;
 $fontSize: 1rem;
-
 .super {
   display: flex;
   flex-direction: row;
+
   justify-content: space-between;
   padding: 20px;
   height: 100%;
@@ -44,149 +44,149 @@ $fontSize: 1rem;
     @media (max-width: $medium-screen) {
       width: 100%;
     }
+  }
 
-    .more_info {
-      top: 2%;
-      left: 2%;
-      position: absolute;
-      z-index: 1;
-      height: 70%;
-      width: 70%;
-      display: none;
+  .more_info {
+    top: 2%;
+    left: 2%;
+    position: absolute;
+    z-index: 1;
+    height: 70%;
+    width: 70%;
+    display: none;
 
-      @media (max-width: $medium-screen) {
-        display: block;
-      }
+    @media (max-width: $medium-screen) {
+      display: block;
+    }
 
-      .mobile_extras {
-        border-radius: 10px;
-        height: 500px;
-        background-color: white;
-        box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
-          rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-        width: 100%;
+    .mobile_extras {
+      border-radius: 10px;
+      height: 500px;
+      background-color: white;
+      box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+        rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+      width: 100%;
+      display: flex;
+      align-items: left;
+      flex-direction: column;
+      overflow-y: auto;
+      padding: 36px 10px 0;
+
+      .labels {
+        background-color: #c9c9c94f;
         display: flex;
-        align-items: left;
         flex-direction: column;
-        overflow-y: auto;
-        padding: 36px 10px 0;
+        height: 40%;
+        margin-top: 10px;
+        border-radius: 5px;
 
-        .labels {
-          background-color: #c9c9c94f;
+        .claim_labels {
           display: flex;
-          flex-direction: column;
-          height: 40%;
-          margin-top: 10px;
-          border-radius: 5px;
+          height: 20%;
+          width: 90%;
+          justify-content: space-around;
+          align-items: center;
 
-          .claim_labels {
-            display: flex;
-            height: 20%;
-            width: 90%;
-            justify-content: space-around;
-            align-items: center;
+          .circle {
+            width: 20px;
+            height: 20px;
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+              rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+          }
 
-            .circle {
-              width: 20px;
-              height: 20px;
-              border-radius: 10px;
-              box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
-                rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-            }
+          .high {
+            background-color: rgb(252, 60, 60);
+          }
 
-            .high {
-              background-color: rgb(252, 60, 60);
-            }
-
-            .low {
-              background-color: rgb(249, 209, 76);
-            }
+          .low {
+            background-color: rgb(249, 209, 76);
           }
         }
       }
-
-      .mobileMenuToggler {
-        margin: 0;
-        position: absolute;
-        height: 10%;
-        width: 10%;
-        border-radius: 30px;
-        top: -2%;
-      }
     }
 
-    .chat {
+    .mobileMenuToggler {
+      margin: 0;
       position: absolute;
-      height: 100%;
-      overflow: hidden;
-
-      @media (max-width: $medium-screen) {
-        margin-top: 40px;
-      }
-
-      button {
-        border: none;
-        display: grid;
-        place-items: center;
-        border-radius: 10px;
-        padding: 5px;
-        height: 70%;
-        width: 3.5rem;
-        margin-left: 10px;
-      }
+      height: 10%;
+      width: 10%;
+      border-radius: 30px;
+      top: -2%;
     }
   }
 
-  .claim_id {
-    .title {
-      font-weight: bolder;
-      font-size: 1.2rem;
-    }
-  }
+  .chat {
+    position: absolute;
+    height: 100%;
+    overflow: hidden;
 
-  .claim_description {
-    background-color: #c9c9c94f;
-    border-radius: 5px;
-    padding: 10px;
-    height: 200px;
-    margin: 0 auto;
-    width: 90%;
-    overflow-y: auto;
     @media (max-width: $medium-screen) {
-      height: auto;
-      overflow-y: unset;
+      margin-top: 40px;
     }
-    .desc {
-      height: 80%;
-      width: 100%;
-      display: flex;
-      padding: 10px;
+
+    button {
+      border: none;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      padding: 5px;
+      height: 70%;
+      width: 3.5rem;
+      margin-left: 10px;
     }
   }
+}
 
-  .extras {
+.claim_id {
+  .title {
+    font-weight: bolder;
+    font-size: 1.2rem;
+  }
+}
+
+.claim_description {
+  background-color: #c9c9c94f;
+  border-radius: 5px;
+  padding: 10px;
+  height: 200px;
+  margin: 0 auto;
+  width: 90%;
+  overflow-y: auto;
+  @media (max-width: $medium-screen) {
+    height: auto;
+    overflow-y: unset;
+  }
+  .desc {
+    height: 80%;
+    width: 100%;
     display: flex;
-    .side_extra {
-      width: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    @media (max-width: $medium-screen) {
-      display: none;
-    }
+    padding: 10px;
   }
-  .extra_right {
-    @media (max-width: $medium-screen) {
-      overflow-y: unset;
-      margin-top: 50px;
-    }
+}
+
+.extras {
+  display: flex;
+  .side_extra {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  .extra_left {
-    @media (max-width: $medium-screen) {
-      overflow-y: unset;
-      margin-top: 50px;
-    }
+  @media (max-width: $medium-screen) {
+    display: none;
+  }
+}
+.extra_right {
+  @media (max-width: $medium-screen) {
+    overflow-y: unset;
+    margin-top: 50px;
+  }
+}
+.extra_left {
+  @media (max-width: $medium-screen) {
+    overflow-y: unset;
+    margin-top: 50px;
   }
 }
 

@@ -5,108 +5,141 @@ import SearchBox from '../../components/SearchBox';
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../RTK/companySlice';
 import sampleUserDatas from '../../temp/sampleUserDatas';
-import { useClaimContext } from '../../custom/ClaimIdContext';
+import { useAllContext } from '../../context/ClaimIdContext';
 import { adminUser } from '../../types';
 import RoleToggles from '../../components/admin/RoleToggles';
-import { NativeSelect } from '@mui/material';
+import { NativeSelect, TextField, Theme, useMediaQuery } from '@mui/material';
 import ItemLabel from '../../components/ItemLabel';
 import AdminUserViewCard from '../../components/admin/AdminUserViewCard';
 import styles from './GeneralUserView.module.scss';
 import GeneralUserViewCard from '../../components/admin/GeneralUserViewCard';
+import Closebutton from '../../components/SVG/Closebutton';
+import TextFieldCustom from '../../components/MUI_comp/TextFieldCustom';
 
 function GeneralUserView() {
   const [text, setText] = useState('');
 
   const { companyData } = useSelector(selectCompanyData);
-  const { claimId, setClaimId } = useClaimContext();
+  const { context, setContext } = useAllContext();
   const [nowUser, setNowUser] = useState<Partial<adminUser> | null>(null);
+  const matches = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
+  const middlemaches = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.up('md')
+  );
+  const smallmatches = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.up('sm')
+  );
+
   useEffect(() => {
-    if (claimId !== '') {
-      const firstName = claimId?.split(' ')[0];
+    if (context.GeneralUserId !== '') {
       const user = sampleUserDatas.filter(
-        (user) => user.firstName === firstName
+        (user) => user._id === context.GeneralUserId
       )[0];
       setNowUser(user);
     }
-  }, [claimId]);
-  useEffect(() => {
-    console.log(nowUser?.department, ';lkj');
-  }, [nowUser?.department]);
+  }, [context.GeneralUserId]);
 
   const modifySubmit = () => {
     //submit nowUser with fetch
+  };
+
+  const closeEdit = () => {
+    setContext((context) => ({
+      ...context,
+      GeneralUserId: '',
+    }));
+    setNowUser(null);
   };
   return (
     <>
       <div
         style={{
           display: 'flex',
-          marginTop: '1%',
+          marginTop: middlemaches ? '-3%' : '-13%',
+          marginBottom: middlemaches ? '-3%' : '-13%',
+          width: '100vw',
+          height: '70vh',
         }}
       >
-        <CustomBox sx={{ height: '90%', width: '100%' }}>
-          <SearchBox
-            onChange={(e) => setText(e.target.value)}
-            sx={{ width: 300, height: 50 }}
-          ></SearchBox>
-          <div
-            style={{
-              position: 'relative',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-around',
-              alignItems: 'center',
-              width: '100%',
-              height: '400px',
-              overflowY: 'scroll',
-              marginTop: '6%',
-            }}
-            className={styles.box}
-          >
-            {sampleUserDatas
-              .filter((user, i) => {
-                if (text == '') {
-                  return user;
-                } else if (
-                  user.firstName.toLowerCase().includes(text.toLowerCase())
-                ) {
-                  return user;
-                }
-              })
-              .map((user, i) => {
-                return (
-                  <div
-                    style={{
-                      position: 'absolute',
-                      width: '100%',
-                      height: '30%',
-                      marginTop: `${13 * i}%`,
-                      display: 'flex',
-                      justifyContent: 'center',
-                      top: 10,
-                    }}
-                    key={user._id}
-                  >
-                    <GeneralUserViewCard
-                      whileHover={{ x: 20 }}
-                      user={user}
-                      width={80}
-                      height={60}
-                      url={user.avatarUrl}
-                      edit={true}
-                      sx={{ marginBottom: '20px' }}
-                    ></GeneralUserViewCard>
-                  </div>
-                );
-              })}
-          </div>
-        </CustomBox>
+        {!matches && nowUser ? (
+          <div></div>
+        ) : (
+          <CustomBox sx={{ height: '90%', width: matches ? '40%' : '90%' }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-around',
+                width: '100%',
+              }}
+            >
+              <SearchBox
+                onChange={(e) => setText(e.target.value)}
+                sx={{ width: 300, height: 50 }}
+              ></SearchBox>
+            </div>
+            <div
+              style={{
+                position: 'relative',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-around',
+                alignItems: 'center',
+                width: '100%',
+                height: '400px',
+                overflow: 'scroll',
+                marginTop: '6%',
+                // backgroundColor: 'red',
+              }}
+              className={styles.bix}
+            >
+              {sampleUserDatas
+                .filter((user, i) => {
+                  if (text == '') {
+                    return user;
+                  } else if (
+                    user.firstName.toLowerCase().includes(text.toLowerCase())
+                  ) {
+                    return user;
+                  }
+                })
+                .map((user, i) => {
+                  return (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        width: '100%',
+                        height: '30%',
+                        // marginTop: `${13 * i}%`,
+                        marginTop: middlemaches
+                          ? `${25 * i - 5 * i}%`
+                          : `${25 * i}%`,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        top: 10,
+                      }}
+                    >
+                      <GeneralUserViewCard
+                        whileHover={{ x: 20 }}
+                        user={user}
+                        width={80}
+                        height={60}
+                        url={user.avatarUrl}
+                        edit={true}
+                        sx={{ marginBottom: '20px' }}
+                      ></GeneralUserViewCard>
+                    </div>
+                  );
+                })}
+            </div>
+          </CustomBox>
+        )}
 
         {nowUser && (
           <CustomBox
             // animate={claimId !== '' ? { display: 'inline-block' } : {}}
             sx={{
-              width: '100%',
+              // width: '40%',
+              width: matches ? '40%' : '90%',
               height: '90%',
               fontSize: '1rem',
             }}
@@ -124,15 +157,44 @@ function GeneralUserView() {
               <div
                 style={{
                   display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-around',
+                  justifyContent: 'space-between',
                   width: '100%',
-                  height: '70%',
                 }}
               >
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  user setting : {nowUser.firstName}
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    position: 'relative',
+                    left: '10%',
+                  }}
+                >
+                  user id : {nowUser.firstName}
                 </div>
+                <div
+                  onClick={closeEdit}
+                  style={{
+                    position: 'relative',
+                    top: matches ? '-46%' : '-20%',
+                  }}
+                >
+                  <Closebutton></Closebutton>
+                </div>
+              </div>
+              <div
+                className={styles.editBox}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-around',
+                  alignItems: 'center',
+                  width: '100%',
+                  height: '70%',
+                  overflow: 'scroll',
+                  marginBottom: '10px',
+                  marginTop: '-40px',
+                }}
+              >
                 <div
                   style={{
                     width: '100%',
@@ -141,40 +203,61 @@ function GeneralUserView() {
                     // border: 'solid 4px black',
                   }}
                 >
-                  <h1
-                    style={{
-                      width: '50%',
-                      display: 'flex',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <ItemLabel
-                      bgColor={companyData.themeColors.primary}
-                      textColor={companyData.themeColors.secondary}
-                      text="first name"
-                      sx={{
-                        fontSize: '1rem',
-                        width: '50%',
+                  {smallmatches ? (
+                    <>
+                      <h1
+                        style={{
+                          width: '50%',
+                          display: 'flex',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <ItemLabel
+                          bgColor={companyData.themeColors.primary}
+                          textColor={companyData.themeColors.secondary}
+                          text="first name"
+                          sx={{
+                            fontSize: '1rem',
+                            width: '50%',
+                            display: 'flex',
+                            justifyContent: 'center',
+                          }}
+                        ></ItemLabel>
+                      </h1>
+                      <input
+                        style={{
+                          width: '35%',
+                          display: 'flex',
+                          justifyContent: 'center',
+                          marginRight: '10%',
+                        }}
+                        value={nowUser.firstName}
+                        onChange={(e) =>
+                          setNowUser((pre) => ({
+                            ...pre,
+                            firstName: e.target.value,
+                          }))
+                        }
+                      ></input>
+                    </>
+                  ) : (
+                    <div
+                      style={{
+                        width: '80%',
                         display: 'flex',
                         justifyContent: 'center',
+                        marginRight: '10%',
                       }}
-                    ></ItemLabel>
-                  </h1>
-                  <input
-                    style={{
-                      width: '35%',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      marginRight: '10%',
-                    }}
-                    value={nowUser.firstName}
-                    onChange={(e) =>
-                      setNowUser((pre) => ({
-                        ...pre,
-                        firstName: e.target.value,
-                      }))
-                    }
-                  ></input>
+                    >
+                      <TextFieldCustom
+                        label="firstName"
+                        value={nowUser.firstName}
+                        width="10"
+                        height="10"
+                        mainColor={companyData.themeColors.primary}
+                      ></TextFieldCustom>
+                    </div>
+                  )}
                 </div>
                 <div
                   style={{
@@ -183,40 +266,61 @@ function GeneralUserView() {
                     justifyContent: 'space-around',
                   }}
                 >
-                  <h1
-                    style={{
-                      width: '50%',
-                      display: 'flex',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <ItemLabel
-                      bgColor={companyData.themeColors.primary}
-                      textColor={companyData.themeColors.secondary}
-                      text="last name"
-                      sx={{
-                        fontSize: '1rem',
-                        width: '50%',
+                  {smallmatches ? (
+                    <>
+                      <h1
+                        style={{
+                          width: '50%',
+                          display: 'flex',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <ItemLabel
+                          bgColor={companyData.themeColors.primary}
+                          textColor={companyData.themeColors.secondary}
+                          text="last name"
+                          sx={{
+                            fontSize: '1rem',
+                            width: '50%',
+                            display: 'flex',
+                            justifyContent: 'center',
+                          }}
+                        ></ItemLabel>
+                      </h1>
+                      <input
+                        style={{
+                          width: '35%',
+                          display: 'flex',
+                          justifyContent: 'center',
+                          marginRight: '10%',
+                        }}
+                        value={nowUser.lastName}
+                        onChange={(e) =>
+                          setNowUser((pre) => ({
+                            ...pre,
+                            lastName: e.target.value,
+                          }))
+                        }
+                      ></input>
+                    </>
+                  ) : (
+                    <div
+                      style={{
+                        width: '80%',
                         display: 'flex',
                         justifyContent: 'center',
+                        marginRight: '10%',
                       }}
-                    ></ItemLabel>
-                  </h1>
-                  <input
-                    style={{
-                      width: '35%',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      marginRight: '10%',
-                    }}
-                    value={nowUser.lastName}
-                    onChange={(e) =>
-                      setNowUser((pre) => ({
-                        ...pre,
-                        lastName: e.target.value,
-                      }))
-                    }
-                  ></input>
+                    >
+                      <TextFieldCustom
+                        label="lastName"
+                        value={nowUser.lastName}
+                        width="10"
+                        height="10"
+                        mainColor={companyData.themeColors.primary}
+                      ></TextFieldCustom>
+                    </div>
+                  )}
                 </div>
                 <div
                   style={{
@@ -225,40 +329,61 @@ function GeneralUserView() {
                     justifyContent: 'space-around',
                   }}
                 >
-                  <h1
-                    style={{
-                      width: '50%',
-                      display: 'flex',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <ItemLabel
-                      bgColor={companyData.themeColors.primary}
-                      textColor={companyData.themeColors.secondary}
-                      text="email"
-                      sx={{
-                        fontSize: '1rem',
-                        width: '50%',
+                  {smallmatches ? (
+                    <>
+                      <h1
+                        style={{
+                          width: '50%',
+                          display: 'flex',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <ItemLabel
+                          bgColor={companyData.themeColors.primary}
+                          textColor={companyData.themeColors.secondary}
+                          text="email"
+                          sx={{
+                            fontSize: '1rem',
+                            width: '50%',
+                            display: 'flex',
+                            justifyContent: 'center',
+                          }}
+                        ></ItemLabel>
+                      </h1>
+                      <input
+                        style={{
+                          width: '35%',
+                          display: 'flex',
+                          justifyContent: 'center',
+                          marginRight: '10%',
+                        }}
+                        value={nowUser.email}
+                        onChange={(e) =>
+                          setNowUser((pre) => ({
+                            ...pre,
+                            email: e.target.value,
+                          }))
+                        }
+                      ></input>
+                    </>
+                  ) : (
+                    <div
+                      style={{
+                        width: '80%',
                         display: 'flex',
                         justifyContent: 'center',
+                        marginRight: '10%',
                       }}
-                    ></ItemLabel>
-                  </h1>
-                  <input
-                    style={{
-                      width: '35%',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      marginRight: '10%',
-                    }}
-                    value={nowUser.email}
-                    onChange={(e) =>
-                      setNowUser((pre) => ({
-                        ...pre,
-                        email: e.target.value,
-                      }))
-                    }
-                  ></input>
+                    >
+                      <TextFieldCustom
+                        label="email"
+                        value={nowUser.email}
+                        width="10"
+                        height="10"
+                        mainColor={companyData.themeColors.primary}
+                      ></TextFieldCustom>
+                    </div>
+                  )}
                 </div>
                 <div
                   style={{
@@ -267,40 +392,49 @@ function GeneralUserView() {
                     justifyContent: 'space-around',
                   }}
                 >
-                  <h1
-                    style={{
-                      width: '50%',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <ItemLabel
-                      bgColor={companyData.themeColors.primary}
-                      textColor={companyData.themeColors.secondary}
-                      text="department"
-                      sx={{
-                        fontSize: '1rem',
-                        width: '50%',
-                        height: '85%',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}
-                    ></ItemLabel>
-                  </h1>
+                  {smallmatches && (
+                    <>
+                      <h1
+                        style={{
+                          width: '50%',
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}
+                      >
+                        <ItemLabel
+                          bgColor={companyData.themeColors.primary}
+                          textColor={companyData.themeColors.secondary}
+                          text="department"
+                          sx={{
+                            fontSize: '1rem',
+                            width: '50%',
+                            height: '85%',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                          }}
+                        ></ItemLabel>
+                      </h1>
+                    </>
+                  )}
 
                   <div
                     style={{
-                      width: '35%',
+                      width: smallmatches ? '35%' : '80%',
                       display: 'flex',
                       justifyContent: 'center',
                       marginRight: '10%',
+                      marginTop: '10px',
                     }}
                   >
                     <NativeSelect
                       defaultValue={nowUser.department?.name}
-                      sx={{ width: '100%', border: 'solid 2px black' }}
+                      sx={{
+                        width: '100%',
+                        height: '50px',
+                        backgroundColor: 'rgb(245,245,245)',
+                      }}
                       onChange={(e) =>
                         setNowUser((pre) => ({
                           ...pre,

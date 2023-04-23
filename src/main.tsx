@@ -7,7 +7,7 @@ import store from './RTK/store';
 import './styles/base/index.scss';
 import { CssBaseline } from '@mui/material';
 import { BrowserRouter } from 'react-router-dom';
-
+import AllContextProvider, { useAllContext } from './context/ClaimIdContext';
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
@@ -16,7 +16,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <Provider store={store}>
         <CssBaseline />
         <BrowserRouter>
-          <App />
+          <AllContextProvider>
+            <App />
+          </AllContextProvider>
         </BrowserRouter>
       </Provider>
     </QueryClientProvider>

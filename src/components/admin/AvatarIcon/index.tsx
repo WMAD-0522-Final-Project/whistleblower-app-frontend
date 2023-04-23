@@ -1,10 +1,11 @@
-import { Box, Typography } from '@mui/material';
+import { Box, SxProps, Typography } from '@mui/material';
 
 type Props = {
   onClick: () => void;
+  sx?: SxProps;
 };
 
-const AvatarIcon = ({ onClick }: Props) => {
+const AvatarIcon = ({ onClick, sx }: Props) => {
   // TODO: get company data from store
   const companyData = {
     themeColors: {
@@ -31,6 +32,7 @@ const AvatarIcon = ({ onClick }: Props) => {
         minWidth: '150px',
         width: '50%',
         cursor: 'pointer',
+        ...sx,
       }}
       onClick={onClick}
     >

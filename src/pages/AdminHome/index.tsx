@@ -1,4 +1,4 @@
-import { Box, useMediaQuery } from '@mui/material';
+import { Box, Theme, useMediaQuery } from '@mui/material';
 import useModal from '../../hooks/useModal';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -9,8 +9,8 @@ import sampleClaims from '../../temp/sampleClaims';
 import UserCard from '../../components/admin/ModalWindow/UserCard';
 import LabelCard from '../../components/admin/ModalWindow/LabelCard';
 import MainWindow from '../../components/admin/ModalWindow/mainWindow';
-import { ClaimIdContext } from '../../custom/ClaimIdContext';
-
+// import { useAllContext } from '../../custom/ClaimIdContext';
+import { useAllContext } from '../../context/ClaimIdContext';
 import ClaimChat from '../../components/ClaimChat';
 import sampleClaimDetail from '../../temp/sampleClaimDetail';
 import Frame from '../../components/admin/ModalWindow/Frame.tsx/Frame';
@@ -22,12 +22,6 @@ import CustomBox from '../../components/CustomBox/CustomBox';
 import { DragDropContext } from 'react-beautiful-dnd';
 
 type Props = {};
-
-const columns = [
-  { id: 'unHandled', width: 25, height: 70, label: 'New Claims' },
-  { id: 'inProgress', width: 25, height: 70, label: 'In Progress' },
-  { id: 'done', width: 25, height: 70, label: 'Done' },
-];
 
 const removeFrom = (column, index: number) => {
   const output = [...column];
@@ -47,11 +41,20 @@ const AdminHome = (props: Props) => {
   const [query, setQuery] = useState('');
   const [claims, setClaims] = useState<Partial<Claim>[] | null>(null);
   const [isModalWindow, setIsModalWindow] = useState<boolean>(false);
-  const [claimId, setClaimId] = useState<string | null>(null);
-
-  const [modalClaim, setModalClaim] = useState<Partial<Claim>>(null);
+  const { context, setContext } = useAllContext();
+  const newClaim = 'unHandled';
+  const inProgress = 'inProgress';
+  const done = 'done';
+  const [expandState, setExpandState] = useState(newClaim);
+  const [modalClaim, setModalClaim] = useState<Partial<Claim> | null>(null);
+  const [mobileHeight, setModileHeight] = useState({
+    newClaim: 6,
+    inProgress: 6,
+    done: 6,
+  });
   // const [claims, setClaims] = useState<Partial<Claim>[]>([]);
-  const matches = useMediaQuery((theme) => theme.breakpoints.up('sm'));
+  const matches = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
+
   useEffect(() => {
     // fetch claim data from API
     setClaims(sampleClaims);
@@ -59,20 +62,44 @@ const AdminHome = (props: Props) => {
 
   useEffect(() => {
     if (claims !== null) {
-      const modalClaim = claims.filter((element) => element.id === claimId)[0];
+      const modalClaim = claims?.filter(
+        (element) => element._id === context.claimsId
+      )[0];
       setModalClaim(modalClaim);
       handleOpen();
     } else {
       handleClose();
     }
-  }, [claimId]);
-
-  // console.log(claimId, 'this is Id');
+  }, [context.claimsId]);
 
   // const filteredClaims = () =>
   //   claims.filter((claim: Claim) =>
   //     claim.message?.toLowerCase().includes(query.toLowerCase())
   //   );
+
+  useEffect(() => {
+    console.log(context, 'roren');
+  }, [context.claimsId]);
+  const columns = [
+    {
+      id: 'unHandled',
+      width: matches ? 25 : 50,
+      height: matches ? 70 : 6,
+      label: 'New Claims',
+    },
+    {
+      id: 'inProgress',
+      width: matches ? 25 : 50,
+      height: matches ? 70 : 6,
+      label: 'In Progress',
+    },
+    {
+      id: 'done',
+      width: matches ? 25 : 50,
+      height: matches ? 70 : 6,
+      label: 'Done',
+    },
+  ];
 
   const handleOnDragEnd = function (result) {
     if (!result.destination) return;
@@ -132,20 +159,54 @@ const AdminHome = (props: Props) => {
               {/* {claims && <MainWindow claim={claims[0]}></MainWindow>} */}
               {claims && (
                 <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-around',
-                    alignItems: 'center',
-                    width: '100%',
-                    height: '100%',
-                  }}
+                  style={
+                    matches
+                      ? {
+                          display: 'flex',
+                          justifyContent: 'space-around',
+                          alignItems: 'center',
+                          width: '100%',
+                          height: '100%',
+                        }
+                      : {
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'space-around',
+                          alignItems: 'center',
+                          width: '100%',
+                          height: '90%',
+                        }
+                  }
                 >
                   {columns.map((column) => (
                     <ClaimBox
+                      animate={
+                        !matches
+                          ? expandState === column.id
+                            ? { height: '70%' }
+                            : { height: '6%' }
+                          : { height: '70%' }
+                      }
+                      transition={{ duration: 0.5 }}
+                      onHoverStart={(e) => {
+                        setExpandState(column.id);
+                      }}
+                      onTap={(e) => {
+                        setExpandState(column.id);
+                      }}
                       width={column.width}
                       height={column.height}
                       label={column.label}
                       id={column.id}
+                      sx={
+                        matches
+                          ? {}
+                          : {
+                              width: '95%',
+                              height: '10px',
+                              marginTop: '1%',
+                            }
+                      }
                       key={column.id}
                       claims={claims.filter(
                         (claim) => claim.status === column.id
@@ -157,26 +218,14 @@ const AdminHome = (props: Props) => {
             </Box>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={
-              claimId !== ''
-                ? { opacity: 1, zIndex: '50' }
-                : { opacity: 0, zIndex: '-50' }
-            }
-            transition={{ duration: 0.3 }}
-            style={{
-              position: 'absolute',
-              width: '100vw',
-              height: '100vh',
-              // top: '-21vh',
-              marginTop: '-10%',
-            }}
-          >
-            <Modal innerBoxStyle={{ width: '100%', height: '100%' }}>
+          {modalClaim && (
+            <Modal
+              outerBoxStyle={{ maxWidth: '1200px' }}
+              innerBoxStyle={{ width: '100%', height: '100%' }}
+            >
               <MainWindow claim={modalClaim}></MainWindow>
             </Modal>
-          </motion.div>
+          )}
         </div>
       </DragDropContext>
     </>

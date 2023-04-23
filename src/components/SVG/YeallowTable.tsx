@@ -1,13 +1,17 @@
 import * as React from 'react';
-import { Avatar, Box } from '@mui/material';
+import { Avatar, Box, useMediaQuery } from '@mui/material';
+import { Component } from 'react';
 
 type Props = {
   url: string | undefined;
   initials?: string;
 };
+
 function Yeallowtable({ url, initials }: Props) {
   console.log('url', url);
   console.log('initials', initials);
+
+  const matches = useMediaQuery((theme) => theme.breakpoints.up('md'));
 
   return (
     <>
@@ -23,8 +27,10 @@ function Yeallowtable({ url, initials }: Props) {
       >
         <div style={{ position: 'absolute' }}>
           <svg
-            width="75"
-            height="71"
+            // width="75"
+            // height="71"
+            widths={matches ? '75' : '55'}
+            height={matches ? '71' : '51'}
             viewBox="0 0 75 71"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -83,9 +89,9 @@ function Yeallowtable({ url, initials }: Props) {
               borderRadius: '50%',
               // display: 'flex',
               // position: 'absolute',
-              width: '50px',
-              height: '50px',
-              top: '-30px',
+              width: matches ? '50px' : '30px',
+              height: matches ? '50px' : '30px',
+              top: matches ? '-30px' : '-20px',
               // left: '0%',
               // backgroundColor: 'red',
               // justifyContent: 'center',
