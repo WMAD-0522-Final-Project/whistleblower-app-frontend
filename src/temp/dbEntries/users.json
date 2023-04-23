@@ -1,0 +1,124 @@
+[
+  {
+    "firstName": "Riley",
+    "lastName": "Systemmanagement",
+    "email": "riley.nelson@example.com",
+    "password": "$2a$10$4XKZqOTfEXlXJxidxDHqheBtJwV0jq3LyzEJdaEHh/8JQLMwtJq.u",
+    "companyId": ObjectId("641deedb79eda92774f093c6"),
+    "roleId": ObjectId("64444ce32e27f7878cb96e19"),
+    "departmentId": "64444f1c2e27f7878cb96e21",
+    "role": "admin",
+    "permissions": [
+      ObjectId("6444b6912e27f7878cb96e34")
+    ]
+  },
+  {
+    "firstName": "Ava",
+    "lastName": "Casemmanagement",
+    "email": "ava.parker@example.com",
+    "password": "$2a$10$4XKZqOTfEXlXJxidxDHqheBtJwV0jq3LyzEJdaEHh/8JQLMwtJq.u",
+    "companyId": ObjectId("641deedb79eda92774f093c6"),
+    "roleId": ObjectId("64444ce32e27f7878cb96e19"),
+    "departmentId": "64444f1c2e27f7878cb96e21",
+    "role": "admin",
+    "permissions": [
+      ObjectId("64446d932e27f7878cb96e2d")
+    ]
+  },
+  {
+    "firstName": "Mia",
+    "lastName": "ReportViewing",
+    "email": "mia.garcia@example.com",
+    "password": "$2a$10$4XKZqOTfEXlXJxidxDHqheBtJwV0jq3LyzEJdaEHh/8JQLMwtJq.u",
+    "companyId": ObjectId("641deedb79eda92774f093c6"),
+    "roleId": ObjectId("64444ce32e27f7878cb96e19"),
+    "departmentId": "64444f1c2e27f7878cb96e21",
+    "role": "admin",
+    "permissions": [
+      ObjectId("644445eb2e27f7878cb96e0e")
+    ]
+  },
+  {
+    "firstName": "Ethan",
+    "lastName": "UserManagement",
+    "email": "ethan.murphy@example.com",
+    "password": "$2a$10$4XKZqOTfEXlXJxidxDHqheBtJwV0jq3LyzEJdaEHh/8JQLMwtJq.u",
+    "companyId": ObjectId("641deedb79eda92774f093c6"),
+    "roleId": ObjectId("64444ce32e27f7878cb96e19"),
+    "departmentId": "64444f1c2e27f7878cb96e21",
+    "role": "admin",
+    "permissions": [
+      ObjectId("6444b69d2e27f7878cb96e35")
+    ]
+  },
+  {
+    "email": "joshua.wilson@example.com",
+    "password": "$2a$10$4XKZqOTfEXlXJxidxDHqheBtJwV0jq3LyzEJdaEHh/8JQLMwtJq.u",
+    "firstName": "Joshua",
+    "lastName": "Wilson",
+    "companyId": ObjectId("641deedb79eda92774f093c6"),
+    "permissions": [
+      ObjectId("644445eb2e27f7878cb96e0e"),
+      ObjectId("64446d932e27f7878cb96e2d")
+    ],
+    "roleId": ObjectId("64444ce32e27f7878cb96e19"),
+    "departmentId": "64444f1c2e27f7878cb96e21",
+    "role": "admin"
+  },
+  {
+    "email": "olivia.johnson@example.com",
+    "password": "$2a$10$4XKZqOTfEXlXJxidxDHqheBtJwV0jq3LyzEJdaEHh/8JQLMwtJq.u",
+    "firstName": "Olivia",
+    "lastName": "Johnson",
+    "companyId": ObjectId("641deedb79eda92774f093c6"),
+    "permissions": [
+      ObjectId("644445eb2e27f7878cb96e0e"),
+      ObjectId("64446d932e27f7878cb96e2d")
+    ],
+    "roleId": ObjectId("64444ce32e27f7878cb96e19"),
+    "departmentId": ObjectId("64444f1c2e27f7878cb96e21"),
+    "role": "admin"
+  },
+  {
+    "email": "christopher.davis@example.com",
+    "password": "$2a$10$4XKZqOTfEXlXJxidxDHqheBtJwV0jq3LyzEJdaEHh/8JQLMwtJq.u",
+    "firstName": "Christopher",
+    "lastName": "Davis",
+    "companyId": ObjectId("641deedb79eda92774f093c6"),
+    "permissions": [
+      ObjectId("644445eb2e27f7878cb96e0e"),
+      ObjectId("64446d932e27f7878cb96e2d")
+    ],
+    "roleId": ObjectId("64444ce32e27f7878cb96e19"),
+    "departmentId": ObjectId("64444f1c2e27f7878cb96e21"),
+    "role": "admin"
+  },
+  {
+    "email": "emma.brown@example.com",
+    "password": "$2a$10$4XKZqOTfEXlXJxidxDHqheBtJwV0jq3LyzEJdaEHh/8JQLMwtJq.u",
+    "firstName": "Emma",
+    "lastName": "Brown",
+    "companyId": ObjectId("641deedb79eda92774f093c6"),
+    "permissions": [
+      ObjectId("644445eb2e27f7878cb96e0e"),
+      ObjectId("64446d932e27f7878cb96e2d")
+    ],
+    "roleId": ObjectId("64444ce32e27f7878cb96e19"),
+    "departmentId": ObjectId("64444f1c2e27f7878cb96e21"),
+    "role": "admin"
+  },
+  {
+    "email": "jacob.anderson@example.com",
+    "password": "$2a$10$4XKZqOTfEXlXJxidxDHqheBtJwV0jq3LyzEJdaEHh/8JQLMwtJq.u",
+    "firstName": "Jacob",
+    "lastName": "Anderson",
+    "companyId": ObjectId("641deedb79eda92774f093c6"),
+    "permissions": [
+      ObjectId("644445eb2e27f7878cb96e0e"),
+      ObjectId("64446d932e27f7878cb96e2d")
+    ],
+    "roleId": ObjectId("64444ce32e27f7878cb96e19"),
+    "departmentId": ObjectId("64444f1c2e27f7878cb96e21"),
+    "role": "admin"
+  }
+]

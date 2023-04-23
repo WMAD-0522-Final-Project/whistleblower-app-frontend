@@ -68,7 +68,7 @@ const Login = (props: Props) => {
       );
       localStorageHelper('set', 'token', data.token);
       localStorageHelper('set', 'refreshToken', data.refreshToken);
-      navigator(`/${data.user.role}`);
+      navigator(`/${data.user.role.name}`);
     },
   });
 
