@@ -112,16 +112,6 @@ function MainWindow({ claim }: Props) {
     });
   };
 
-  const { data: labelsData, isLoading: isLabelLoading } = useQuery({
-    queryKey: ['labels'],
-    queryFn: getLabelList,
-  });
-
-  const { data: adminUsersData, isLoading: isAdminUsersLoading } = useQuery({
-    queryKey: ['admin-users'],
-    queryFn: getAdminUserList,
-  });
-
   const addNewLabel = (): Promise<AxiosResponse<NewLabelResponseData>> => {
     return axios({
       method: 'POST',
@@ -151,8 +141,6 @@ function MainWindow({ claim }: Props) {
   };
 
   const attachLabel = (labels: string[]): Promise<AxiosResponse> => {
-    console.log('labels', labels);
-
     return axios({
       method: 'PUT',
       url: `${import.meta.env.VITE_BACKEND_URL}/api/claim/${
@@ -166,6 +154,16 @@ function MainWindow({ claim }: Props) {
       },
     });
   };
+
+  const { data: labelsData, isLoading: isLabelLoading } = useQuery({
+    queryKey: ['labels'],
+    queryFn: getLabelList,
+  });
+
+  const { data: adminUsersData, isLoading: isAdminUsersLoading } = useQuery({
+    queryKey: ['admin-users'],
+    queryFn: getAdminUserList,
+  });
 
   const newLabelMutation = useMutation({
     mutationFn: addNewLabel,
