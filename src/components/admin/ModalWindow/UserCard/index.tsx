@@ -39,7 +39,7 @@ const UserCard = React.forwardRef(
             alignItems: 'center',
             justifyContent: 'space-between',
             minHeight: '16px',
-            padding: '0.5rem 0.5rem 0.5rem 1rem',
+            padding: '0.5rem 0.5rem 0.5rem 3rem',
             position: 'relative',
             width: `${width}%`,
             height: `${height}px`,
@@ -60,7 +60,7 @@ const UserCard = React.forwardRef(
               alignItems: 'center',
             }}
           >
-            <Yeallowtable url={url}></Yeallowtable>
+            <Yeallowtable url={url || undefined} initials={`PT`}></Yeallowtable>
           </div>
 
           <Typography
@@ -71,8 +71,7 @@ const UserCard = React.forwardRef(
               pt: '0.2rem',
               whiteSpace: 'nowrap',
               textOverflow: 'ellipsis',
-              display: 'flex',
-              justifyContent: 'center',
+              textAlign: 'center',
               fontSize: '1rem',
             }}
           >

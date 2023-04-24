@@ -44,13 +44,13 @@ const AvatarIcon = ({ onClick, sx }: Props) => {
           border: `2px solid ${companyData.themeColors.secondary}`,
           borderRadius: '0 50% 50% 0',
           display: 'block',
-          width: '30%',
+          width: '25%',
         }}
       />
       <Typography
         sx={{ marginLeft: '4%', textTransform: 'capitalize' }}
         color={companyData.themeColors.secondary}
-        fontSize="0.9rem"
+        fontSize="0.85rem"
       >
         {userData.firstName} {userData.lastName}
       </Typography>

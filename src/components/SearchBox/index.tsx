@@ -24,6 +24,7 @@ const SearchBox = ({ onChange, sx }: Props) => {
       />
       <input
         onChange={onChange}
+        placeholder="Search.."
         style={{
           backgroundColor: companyData.themeColors.primary,
           color: companyData.themeColors.secondary,

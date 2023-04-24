@@ -17,6 +17,7 @@ import localStorageHelper from '../../helpers/localStorageHelper';
 import { useMutation } from '@tanstack/react-query';
 import AlertCustom from '../MUI_comp/AlertCustom';
 import getAuthorizationValue from '../../helpers/getAuthorizationValue';
+import formatDatetime from '../../helpers/formatDatetime';
 
 type Props = {
   claimId: string;
@@ -161,7 +162,7 @@ const ClaimChat = ({ claimId, chatData }: Props) => {
                       mt: '0.5rem',
                     }}
                   >
-                    {format(new Date(item.createdAt), 'yyyy/MM/dd HH:mm')}
+                    {formatDatetime(new Date(item.createdAt))}
                   </Typography>
                 </Typography>
               </Box>
