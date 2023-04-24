@@ -38,12 +38,12 @@ const ClaimCardGeneral = ({ claim, onClick, sx }: Props) => {
             claim.status === ClaimStatus.Unhandled ? 'To be checked' : 'Checked'
           }
           bgColor={
-            claim.status === ClaimStatus.InProcess
+            claim.status === ClaimStatus.InProgress
               ? companyData.themeColors.primary
               : companyData.themeColors.secondary
           }
           textColor={
-            claim.status === ClaimStatus.InProcess
+            claim.status === ClaimStatus.InProgress
               ? companyData.themeColors.secondary
               : companyData.themeColors.primary
           }

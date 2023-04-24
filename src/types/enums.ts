@@ -1,6 +1,6 @@
 export enum ClaimStatus {
   Unhandled = 'unHandled',
-  InProcess = 'inProgress',
+  InProgress = 'inProgress',
   Done = 'done',
 }
 
