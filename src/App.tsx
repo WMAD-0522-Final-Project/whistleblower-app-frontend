@@ -32,6 +32,7 @@ import AdminLayout from './components/admin/AdminLayout';
 import GeneralLayout from './components/general/GeneralLayout';
 import CompanySetting from './pages/CompanySetting';
 import AvatarIcon from './components/admin/AvatarIcon';
+import UserInquiries from './pages/UserInquiries';
 
 import { ContextType } from './types';
 import { useAllContext } from './context/ClaimIdContext';
@@ -98,17 +99,20 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/contact" element={<Contact />} />
           {/* TODO: protect these routes */}
+          <Route path="admin">
+            <Route element={<AdminLayout />}>
+              <Route index element={<AdminHome />} />
+              <Route path="adminUserView" element={<AdminUserView />} />
+              <Route path="generalUserView" element={<GeneralUserView />} />
+              <Route path="userView" element={<UserViewer />} />
+              <Route path="user-inquiries" element={<UserInquiries />} />
+              <Route path="settings" element={<Settings />} />
+            </Route>
+          </Route>
           <Route path="general">
             <Route element={<GeneralLayout />}>
               <Route index element={<GeneralHome />} />
             </Route>
-          </Route>
-          <Route path="admin">
-            <Route element={<AdminLayout />}>
-              <Route index element={<AdminHome />} />
-              <Route path="userView" element={<UserViewer />} />
-            </Route>
-            <Route path="settings" element={<Settings />} />
           </Route>
         </Routes>
       </Box>

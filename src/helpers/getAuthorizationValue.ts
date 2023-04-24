@@ -5,7 +5,7 @@ const getAuthorizationValue = () => {
   const refreshToken = localStorageHelper('get', 'refreshToken')!;
 
   return `Bearer ${token.data}`; // TODO: use until refresh token in ready from backend
-  // return `Bearer ${token.data},${refreshToken.data}`;
+  // return `Bearer ${token.data} ${refreshToken.data}`;
 };
 
 export default getAuthorizationValue;

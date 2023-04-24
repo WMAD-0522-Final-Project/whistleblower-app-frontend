@@ -63,7 +63,7 @@ function AdminUserView() {
               alignItems: 'center',
               width: '100%',
               height: '400px',
-              overflow: 'scroll',
+              overflowY: 'scroll',
               marginTop: '6%',
             }}
             className={styles.box}

@@ -1,11 +1,16 @@
 import * as React from 'react';
+import { Avatar, useMediaQuery } from '@mui/material';
 import { Component } from 'react';
-import { Badge, Box, SxProps, Typography, useMediaQuery } from '@mui/material';
 
 type Props = {
-  url: string;
+  url: string | undefined;
+  initials?: string;
 };
-function Yeallowtable({ url }: Props) {
+
+function Yeallowtable({ url, initials }: Props) {
+  console.log('url', url);
+  console.log('initials', initials);
+
   const matches = useMediaQuery((theme) => theme.breakpoints.up('md'));
 
   return (
@@ -75,19 +80,23 @@ function Yeallowtable({ url }: Props) {
             </defs>
           </svg>
         </div>
-        <Box
-          component="img"
+        <Avatar
+          alt={initials}
           src={url}
-          alt=""
           sx={{
-            borderRadius: '50%',
-            width: matches ? '50px' : '30px',
-            height: matches ? '50px' : '30px',
-            // top: '-40px',
-            top: matches ? '-30px' : '-20px',
+            backgroundColor: '#848484',
+            fontSize: '0.9rem',
+            letterSpacing: '0',
+            width: matches ? '48px' : '30px',
+            height: matches ? '48px' : '30px',
             position: 'absolute',
+            top: '45%',
+            left: '50%',
+            translate: '-50% -55%',
           }}
-        ></Box>
+        >
+          {initials}
+        </Avatar>
       </div>
     </>
   );
