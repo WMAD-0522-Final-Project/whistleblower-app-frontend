@@ -40,15 +40,16 @@ const Header = ({ hasMenu = false }: Props) => {
   };
 
   return (
-    <>
+    <Box>
       <Box
         sx={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          margin: '0 auto',
+          ml: '0.8rem',
+          // margin: '0 auto',
           padding: '4% 0',
-          width: '90%',
+          // width: '90%',
           [theme.breakpoints.up('md')]: {
             padding: '25px 0',
             justifyContent: 'flex-start',
@@ -61,7 +62,7 @@ const Header = ({ hasMenu = false }: Props) => {
             color: '#fff',
             fontSize: '1.4rem',
             [theme.breakpoints.up('md')]: {
-              fontSize: '2rem',
+              fontSize: '1.5rem',
             },
           }}
         >
@@ -181,7 +182,7 @@ const Header = ({ hasMenu = false }: Props) => {
           </Box>
         </>
       )}
-    </>
+    </Box>
   );
 };
 

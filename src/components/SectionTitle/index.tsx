@@ -21,6 +21,7 @@ const SectionTitle = ({ title }: type) => {
         fontWeight: '500',
         mb: '0.6rem',
         [theme.breakpoints.up('lg')]: {
+          fontSize: '1.6rem',
           mb: '1.6rem',
         },
       }}

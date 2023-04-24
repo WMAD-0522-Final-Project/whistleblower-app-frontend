@@ -138,3 +138,9 @@ export type ContextType = {
   AdminUserIdAdmin: string;
   yellowRotate: number;
 };
+
+export interface Log {
+  _id?: string;
+  content: string;
+  createdAt: number;
+}
