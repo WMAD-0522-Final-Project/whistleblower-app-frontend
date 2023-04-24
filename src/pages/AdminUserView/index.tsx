@@ -12,9 +12,13 @@ import { NativeSelect, Theme, useMediaQuery } from '@mui/material';
 import ItemLabel from '../../components/ItemLabel';
 import UserViewCard from '../../components/admin/AdminUserViewCard';
 import styles from './AdminUserView.module.scss';
+import axios, { AxiosResponse } from 'axios';
+import { useQueries, useQuery } from '@tanstack/react-query';
+import getAuthorizationValue from '../../helpers/getAuthorizationValue';
 
 function AdminUserView() {
   const [text, setText] = useState('');
+  const [allUsers, setAllUsers] = useState<null | adminUser[]>(null);
   const matches = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
   const smallmatches = useMediaQuery((theme: Theme) =>
     theme.breakpoints.up('md')
@@ -23,18 +27,43 @@ function AdminUserView() {
   const { companyData } = useSelector(selectCompanyData);
   const { context, setContext } = useAllContext();
   const [nowUser, setNowUser] = useState<Partial<adminUser> | null>(null);
+
   useEffect(() => {
-    if (context.AdminUserIdAdmin) {
-      const user = sampleUserDatas.filter(
-        (user) => user._id === context.AdminUserIdAdmin
-      )[0];
-      setNowUser(user);
+    if (context.AdminUserIdAdmin !== '') {
+      if (allUsers) {
+        const user = allUsers.filter(
+          (user) => user._id === context.AdminUserIdAdmin
+        )[0];
+        setNowUser(user);
+      }
     }
   }, [context.AdminUserIdAdmin]);
 
   const modifySubmit = () => {
     //submit nowUser with fetch
   };
+
+  const getUser = async (): Promise<AxiosResponse<adminUser[]>> => {
+    const res = await axios({
+      method: 'GET',
+      url: `${import.meta.env.VITE_BACKEND_URL}/api/user/list`,
+      params: { role: 'admin' },
+      headers: {
+        Authorization: getAuthorizationValue(),
+      },
+    });
+
+    return res.data;
+  };
+
+  const { data: users } = useQuery({
+    queryFn: getUser,
+    queryKey: ['adminUsers'],
+  });
+
+  useEffect(() => {
+    if (users) setAllUsers(users.users);
+  }, [users]);
   return (
     <>
       <div
@@ -68,42 +97,43 @@ function AdminUserView() {
             }}
             className={styles.box}
           >
-            {sampleUserDatas
-              .filter((user, i) => {
-                if (text == '') {
-                  return user;
-                } else if (
-                  user.firstName.toLowerCase().includes(text.toLowerCase())
-                ) {
-                  return user;
-                }
-              })
-              .map((user, i) => {
-                return (
-                  <div
-                    style={{
-                      position: 'absolute',
-                      width: '100%',
-                      height: '30%',
-                      marginTop: smallmatches ? `${25 * i}%` : `${30 * i}%`,
-                      display: 'flex',
-                      justifyContent: 'center',
-                      top: 10,
-                    }}
-                    key={i}
-                  >
-                    <UserViewCard
-                      whileHover={{ x: 20 }}
-                      user={user}
-                      width={80}
-                      height={100}
-                      url={user.avatarUrl}
-                      edit={true}
-                      sx={{ marginBottom: '20px' }}
-                    ></UserViewCard>
-                  </div>
-                );
-              })}
+            {allUsers &&
+              allUsers
+                .filter((user, i) => {
+                  if (text == '') {
+                    return user;
+                  } else if (
+                    user.firstName.toLowerCase().includes(text.toLowerCase())
+                  ) {
+                    return user;
+                  }
+                })
+                .map((user, i) => {
+                  return (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        width: '100%',
+                        height: '30%',
+                        marginTop: smallmatches ? `${25 * i}%` : `${30 * i}%`,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        top: 10,
+                      }}
+                      key={i}
+                    >
+                      <UserViewCard
+                        whileHover={{ x: 20 }}
+                        user={user}
+                        width={80}
+                        height={100}
+                        url={user.avatarUrl}
+                        edit={true}
+                        sx={{ marginBottom: '20px' }}
+                      ></UserViewCard>
+                    </div>
+                  );
+                })}
           </div>
         </CustomBox>
 

@@ -45,10 +45,6 @@ function MainWindow({ claim }: Props) {
   const [showLabelForm, setShowLabelForm] = useState(false);
   const [newLabelName, setNewLabelName] = useState('');
 
-  const closeModalWindow = () => {
-    setContext({ userId: '', claimsId: '' });
-  };
-
   useEffect(() => {
     return setActiveClaim(claim);
   }, []);
@@ -59,9 +55,9 @@ function MainWindow({ claim }: Props) {
 
   const selectLabel = (e) => {
     const name = labelData?.data.labels.find(
-      (label: ClaimLabel) => label.id === e.target.value
+      (label: ClaimLabel) => label._id === e.target.value
     ).name;
-    if (activeClaim.labels.includes(name)) return;
+    if (activeClaim?.labels.includes(name)) return;
 
     // add as active label
     setActiveClaim((prev) => ({
@@ -482,7 +478,7 @@ function MainWindow({ claim }: Props) {
           </div>
         </motion.div>
         <div className="chat">
-          <ClaimChat chatData={sampleClaimDetail.chats} />
+          {/* <ClaimChat chatData={sampleClaimDetail.chats} /> */}
         </div>
       </div>
     </div>

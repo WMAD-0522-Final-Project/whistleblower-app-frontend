@@ -20,6 +20,9 @@ import { motion } from 'framer-motion';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import CustomBox from '../../components/CustomBox/CustomBox';
 import { DragDropContext } from 'react-beautiful-dnd';
+import axios, { AxiosResponse } from 'axios';
+import getAuthorizationValue from '../../helpers/getAuthorizationValue';
+import { useQuery } from '@tanstack/react-query';
 
 type Props = {};
 
@@ -37,9 +40,9 @@ const addTo = (column, index: number, item) => {
 
 const AdminHome = (props: Props) => {
   const { companyData } = useSelector(selectCompanyData);
-  const { Modal, handleOpen, handleClose } = useModal();
+  const { Modal, handleOpen, handleClose, open } = useModal();
   const [query, setQuery] = useState('');
-  const [claims, setClaims] = useState<Partial<Claim>[] | null>(null);
+  const [claims, setClaims] = useState<Claim[] | null>(null);
   const [isModalWindow, setIsModalWindow] = useState<boolean>(false);
   const { context, setContext } = useAllContext();
   const newClaim = 'unHandled';
@@ -59,6 +62,34 @@ const AdminHome = (props: Props) => {
     // fetch claim data from API
     setClaims(sampleClaims);
   }, []);
+
+  useEffect(() => {
+    setContext((context) => ({
+      ...context,
+      claimsId: null,
+    }));
+  }, [open]);
+
+  // const getClaims = async (): Promise<AxiosResponse<Claim[]>> => {
+  //   const res = await axios({
+  //     method: 'GET',
+  //     url: `${import.meta.env.VITE_BACKEND_URL}/api/user/list`,
+  //     headers: {
+  //       Authorization: getAuthorizationValue(),
+  //     },
+  //   });
+  //   return res.data;
+  // };
+
+  // const { data: claimsAxios } = useQuery({
+  //   queryFn: getClaims,
+  //   queryKey: ['claims'],
+  // });
+
+  // useEffect(() => {
+  //   // fetch claim data from API
+  //   if (claimsAxios) setClaims(claimsAxios);
+  // }, [claimsAxios]);
 
   useEffect(() => {
     if (claims !== null) {
