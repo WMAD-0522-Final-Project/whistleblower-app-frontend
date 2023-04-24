@@ -40,7 +40,7 @@ const GeneralLayout = (props: Props) => {
     staleTime: 1000 * 10 * 10,
     retry: 0,
     onSuccess: ({ data }) => {
-      if (data.user.role !== UserRoleOption.GENERAL) {
+      if (data.user.role.name !== UserRoleOption.GENERAL) {
         navigator('/login');
       }
       dispatch(

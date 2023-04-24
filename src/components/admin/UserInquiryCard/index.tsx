@@ -30,7 +30,7 @@ const UserInquiryCard = React.forwardRef(
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-around',
-          padding: '0.6rem',
+          padding: '0.6rem 0.4rem 0.6rem 1.4rem;',
           position: 'relative',
           width: '80%',
           ...sx,
@@ -44,7 +44,6 @@ const UserInquiryCard = React.forwardRef(
             )}`}
           ></Yeallowtable>
         </div>
-        <div></div>
         <div>
           {user.firstName} {user.lastName}
         </div>

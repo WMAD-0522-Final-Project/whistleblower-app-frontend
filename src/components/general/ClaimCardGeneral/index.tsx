@@ -6,6 +6,7 @@ import { selectCompanyData } from '../../../RTK/companySlice';
 import ItemLabel from '../../ItemLabel';
 import { ClaimCardDataGeneral } from '../../../types';
 import { ClaimStatus } from '../../../types/enums';
+import formatDatetime from '../../../helpers/formatDatetime';
 
 type Props = {
   claim: ClaimCardDataGeneral;
@@ -38,12 +39,12 @@ const ClaimCardGeneral = ({ claim, onClick, sx }: Props) => {
             claim.status === ClaimStatus.Unhandled ? 'To be checked' : 'Checked'
           }
           bgColor={
-            claim.status === ClaimStatus.InProcess
+            claim.status === ClaimStatus.InProgress
               ? companyData.themeColors.primary
               : companyData.themeColors.secondary
           }
           textColor={
-            claim.status === ClaimStatus.InProcess
+            claim.status === ClaimStatus.InProgress
               ? companyData.themeColors.secondary
               : companyData.themeColors.primary
           }
@@ -54,7 +55,7 @@ const ClaimCardGeneral = ({ claim, onClick, sx }: Props) => {
           }}
         />
         <Typography component="span" fontSize="0.7rem">
-          Submitted on: {format(new Date(claim.createdAt), 'yyyy/MM/dd hh:mm')}
+          Submitted on: {formatDatetime(new Date(claim.createdAt))}
         </Typography>
       </Box>
       <Typography sx={{ mt: '4%', lineHeight: '1.2', fontSize: '0.9rem' }}>

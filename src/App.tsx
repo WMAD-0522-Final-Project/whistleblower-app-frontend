@@ -33,31 +33,17 @@ import GeneralLayout from './components/general/GeneralLayout';
 import CompanySetting from './pages/CompanySetting';
 import AvatarIcon from './components/admin/AvatarIcon';
 import UserInquiries from './pages/UserInquiries';
-
 import { ContextType } from './types';
 import { useAllContext } from './context/ClaimIdContext';
 import UserViewer from './pages/UserViewer';
+import AdminLogList from './pages/AdminLogList';
+
 const App = () => {
   const { companyData } = useSelector(selectCompanyData);
   const { context, setContext } = useAllContext();
-  const loadingDispatch = useDispatch();
-  loadingDispatch(setLoading(true));
 
-  let location = useLocation();
-
+  const location = useLocation();
   const yellowControl = useAnimationControls();
-
-  // TODO: get user data from store
-  const userData = useSelector(selectUserData);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    setUserData({ firstName: 'Isaac', lastName: 'Wu', profileImg: 'n/a' });
-  }, []);
-
-  useEffect(() => {
-    console.log(userData);
-  }, [userData]);
 
   useEffect(() => {
     // if (location.pathname === '/admin') yellowControl.start({ rotate: 100 });
@@ -69,12 +55,6 @@ const App = () => {
     yellowControl.start({ rotate: context.yellowRotate });
     console.log(context.yellowRotate, 'yellowrotate');
   }, [location]);
-
-  // use Redux for alert state
-  const sampleAlert = {
-    message: 'test alert!',
-    type: 'success',
-  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -98,7 +78,6 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/contact" element={<Contact />} />
-          {/* TODO: protect these routes */}
           <Route path="admin">
             <Route element={<AdminLayout />}>
               <Route index element={<AdminHome />} />
@@ -107,6 +86,7 @@ const App = () => {
               <Route path="userView" element={<UserViewer />} />
               <Route path="user-inquiries" element={<UserInquiries />} />
               <Route path="settings" element={<Settings />} />
+              <Route path="logs" element={<AdminLogList />} />
             </Route>
           </Route>
           <Route path="general">

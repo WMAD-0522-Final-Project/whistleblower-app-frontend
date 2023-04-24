@@ -1,5 +1,5 @@
 import { AxiosResponse, AxiosError } from 'axios';
-import { ClaimStatus } from './enums';
+import { ClaimStatus, inquiryOption } from './enums';
 
 export interface AxiosCustomErrorData {
   type: string;
@@ -27,6 +27,7 @@ export interface InquiryUser {
   email: string;
   firstName: string;
   lastName: string;
+  inquiry: inquiryOption;
 }
 
 export interface ClaimCardDataGeneral {
@@ -137,3 +138,9 @@ export type ContextType = {
   AdminUserIdAdmin: string;
   yellowRotate: number;
 };
+
+export interface Log {
+  _id?: string;
+  content: string;
+  createdAt: number;
+}
