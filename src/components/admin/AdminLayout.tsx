@@ -56,7 +56,7 @@ const AdminLayout = (props: Props) => {
     staleTime: 1000 * 10,
     retry: 0,
     onSuccess: ({ data }) => {
-      if (data.user.role !== UserRoleOption.ADMIN) {
+      if (data.user.role.name !== UserRoleOption.ADMIN) {
         navigator('/login');
       }
       dispatch(
