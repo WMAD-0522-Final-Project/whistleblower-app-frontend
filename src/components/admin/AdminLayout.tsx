@@ -78,7 +78,8 @@ const AdminLayout = (props: Props) => {
     },
   });
 
-  return true ? (
+  return (
+    // return true ? (
     <>
       <Header hasMenu={true} />
       <AvatarIcon
@@ -100,7 +101,8 @@ const AdminLayout = (props: Props) => {
       </Modal>
       <Outlet />
     </>
-  ) : null;
+    // ) : null;
+  );
 };
 
 export default AdminLayout;

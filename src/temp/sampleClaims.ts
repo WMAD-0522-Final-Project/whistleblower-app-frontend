@@ -5,7 +5,16 @@ export default [
     _id: 'lkjhgfdsa',
     createdAt: '2023/04/02',
     message: 'The Curry rice in the cafeteria is terrible',
-    labels: ['high priority', 'custom label 2'],
+    labels: [
+      {
+        _id: '64362b2e645b409cbf101cd7',
+        name: 'lorem',
+      },
+      {
+        _id: '64362bfa645b409cbf101cda',
+        name: 'ipsum',
+      },
+    ],
     category: 'category 1',
     members: [
       {
@@ -27,7 +36,16 @@ export default [
     _id: 'lkjhgfdsa1',
     createdAt: '2023/03/02',
     message: 'Boss forces me to say “sayonara”',
-    labels: ['lorem', 'ipsum', 'consectetur'],
+    labels: [
+      {
+        _id: '64362b2e645b409cbf101cd7',
+        name: 'lorem',
+      },
+      {
+        _id: '64362bfa645b409cbf101cda',
+        name: 'ipsum',
+      },
+    ],
     category: 'category 1',
     members: [
       {
@@ -49,7 +67,16 @@ export default [
     _id: 'asdfghjkiu',
     createdAt: '2023/03/08',
     message: 'Boss forces me to say “konnichiwa”',
-    labels: ['lorem', 'ipsum', 'dolor', 'amet', 'consectetur'],
+    labels: [
+      {
+        _id: '64362b2e645b409cbf101cd7',
+        name: 'lorem',
+      },
+      {
+        _id: '64362bfa645b409cbf101cda',
+        name: 'ipsum',
+      },
+    ],
     category: 'category 1',
     members: [
       {
@@ -67,8 +94,17 @@ export default [
     _id: 'mnbvcxzkjhg',
     createdAt: '2023/03/17',
     message: 'Boss forces me to say “konnichiwaaaaa”',
-    labels: ['ipsum', 'dolor'],
     category: 'category 1',
+    labels: [
+      {
+        _id: '64362b2e645b409cbf101cd7',
+        name: 'lorem',
+      },
+      {
+        _id: '64362bfa645b409cbf101cda',
+        name: 'ipsum',
+      },
+    ],
     members: [
       {
         userId: 'lkjhgfdsa',
@@ -89,8 +125,17 @@ export default [
     _id: 'lkjhgfdsast',
     createdAt: '2023/03/21',
     message: 'Boss forces me to say “konnichiwaaaaa”',
-    labels: ['ipsum'],
     category: 'category 1',
+    labels: [
+      {
+        _id: '64362b2e645b409cbf101cd7',
+        name: 'lorem',
+      },
+      {
+        _id: '64362bfa645b409cbf101cda',
+        name: 'ipsum',
+      },
+    ],
     members: [
       {
         userId: 'lkjhgfdsa',
@@ -115,8 +160,17 @@ export default [
     _id: 'lbbrgrgst',
     createdAt: '2023/03/21',
     message: 'Boss forces me to say “konnichiwaaaaa”',
-    labels: [],
     category: 'category 1',
+    labels: [
+      {
+        _id: '64362b2e645b409cbf101cd7',
+        name: 'lorem',
+      },
+      {
+        _id: '64362bfa645b409cbf101cda',
+        name: 'ipsum',
+      },
+    ],
     members: [
       {
         userId: 'lkjhgfdsa',
@@ -141,8 +195,17 @@ export default [
     _id: 'lkj@apsofst',
     createdAt: '2023/03/21',
     message: 'Boss forces me to say “konnichiwaaaaa”',
-    labels: ['amet'],
     category: 'category 1',
+    labels: [
+      {
+        _id: '64362b2e645b409cbf101cd7',
+        name: 'lorem',
+      },
+      {
+        _id: '64362bfa645b409cbf101cda',
+        name: 'ipsum',
+      },
+    ],
     members: [
       {
         userId: 'lkjhgfdsa',
@@ -167,8 +230,17 @@ export default [
     _id: 'aaosdifj',
     createdAt: '2023/03/21',
     message: 'Boss forces me to say “konnichiwaaaaa”',
-    labels: ['lorem', 'ipsum'],
     category: 'category 1',
+    labels: [
+      {
+        _id: '64362b2e645b409cbf101cd7',
+        name: 'lorem',
+      },
+      {
+        _id: '64362bfa645b409cbf101cda',
+        name: 'ipsum',
+      },
+    ],
     members: [
       {
         userId: 'lkjhgfdsa',
@@ -192,8 +264,17 @@ export default [
     _id: 'nenenene',
     createdAt: '2023/03/21',
     message: 'Boss forces me to say “konnichiwaaaaa”',
-    labels: ['amet'],
     category: 'category 1',
+    labels: [
+      {
+        _id: '64362b2e645b409cbf101cd7',
+        name: 'lorem',
+      },
+      {
+        _id: '64362bfa645b409cbf101cda',
+        name: 'ipsum',
+      },
+    ],
     members: [
       {
         userId: 'lkjhgfdsa',
@@ -218,8 +299,17 @@ export default [
     _id: 'bnshpoasd',
     createdAt: '2023/03/21',
     message: 'Boss forces me to say “konnichiwaaaaa”',
-    labels: ['dolor', 'amet'],
     category: 'category 1',
+    labels: [
+      {
+        _id: '64362b2e645b409cbf101cd7',
+        name: 'lorem',
+      },
+      {
+        _id: '64362bfa645b409cbf101cda',
+        name: 'ipsum',
+      },
+    ],
     members: [
       {
         userId: 'lkjhgfdsa',

@@ -1,50 +1,31 @@
 export default {
-  id: 'poiuytrdfghjmnbv',
-  submissionDate: '2022/12/02 15:48',
-  message: 'Boss forces me to say “sayonara',
-  labels: [],
-  category: null,
-  members: [
+  _id: '643889a9daeffe4dee278b6b',
+  companyId: '641deedb79eda92774f093c6',
+  hasNewComment: false,
+  inChargeAdmins: [
     {
-      userId: '',
-      avatarUrl: '',
+      _id: '643b309a4f853a0dbd6d2ee7',
+      firstName: 'John',
+      lastName: 'Doe',
+      profileImg: '/images/profileImg.jpg',
     },
   ],
-  chats: [
+  title: 'Test claim using api (anonymous)',
+  body: 'Test claim message body from database',
+  status: 'inProcess',
+  category: [
     {
-      id: 'fdfdfdfdf',
-      datetime: '2022/12/02 10:24',
-      user: {
-        id: 'ertyuiolkjhgf',
-        // avatarUrl: '/images/profileImg.jpg',
-      },
-      content: 'Thanks for the claim. We will get back to you soon.',
-    },
-    {
-      id: 'uyuyuyuyuy',
-      datetime: '2022/12/02 15:48',
-      user: {
-        id: 'poiuytresdfgh',
-      },
-      content: 'Arigato',
-    },
-    {
-      id: 'ewewewewwe',
-      datetime: '2022/12/02 10:24',
-      user: {
-        id: 'ertyuiolkjhgf',
-        // avatarUrl: '/images/profileImg.jpg',
-      },
-      content:
-        'I have a question. I have a question. I have a question. I have a question. I have a question.',
-    },
-    {
-      id: 'rerererere',
-      datetime: '2022/12/02 15:48',
-      user: {
-        id: 'poiuytresdfgh',
-      },
-      content: 'Yes?',
+      _id: '6438855f4f853a0dbd6d2edf',
+      name: 'Category 1 from db',
     },
   ],
+  labels: [
+    {
+      _id: '64362b2e645b409cbf101cd7',
+      name: 'lorem',
+      color: 'f4f4f4',
+    },
+  ],
+  createdAt: 1681426857277,
+  updatedAt: 1681426857282,
 };

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Avatar, Box, useMediaQuery } from '@mui/material';
+import { Avatar, useMediaQuery } from '@mui/material';
 import { Component } from 'react';
 
 type Props = {
@@ -80,46 +80,23 @@ function Yeallowtable({ url, initials }: Props) {
             </defs>
           </svg>
         </div>
-        {url ? (
-          <Box
-            component="img"
-            src={url}
-            alt=""
-            sx={{
-              borderRadius: '50%',
-              // display: 'flex',
-              // position: 'absolute',
-              width: matches ? '50px' : '30px',
-              height: matches ? '50px' : '30px',
-              top: matches ? '-30px' : '-20px',
-              // left: '0%',
-              // backgroundColor: 'red',
-              // justifyContent: 'center',
-              // alignItems: 'center',
-              // // top: '0',
-              // // minWidth: '40px',
-              // // maxWidth: '60px',
-              // // backgroundColor: 'red',
-              position: 'absolute',
-            }}
-          ></Box>
-        ) : (
-          <Avatar
-            alt={initials}
-            src={url}
-            sx={{
-              backgroundColor: '#848484',
-              fontSize: '0.9rem',
-              letterSpacing: '0',
-              width: '50px',
-              height: '50px',
-              position: 'absolute',
-              top: '-30px',
-            }}
-          >
-            {initials}
-          </Avatar>
-        )}
+        <Avatar
+          alt={initials}
+          src={url}
+          sx={{
+            backgroundColor: '#848484',
+            fontSize: '0.9rem',
+            letterSpacing: '0',
+            width: matches ? '48px' : '30px',
+            height: matches ? '48px' : '30px',
+            position: 'absolute',
+            top: '45%',
+            left: '50%',
+            translate: '-50% -55%',
+          }}
+        >
+          {initials}
+        </Avatar>
       </div>
     </>
   );
