@@ -3,9 +3,9 @@ import FileInput from '../FileInput';
 import { ChangeEventHandler, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectUserData } from '../../RTK/userDataSlice';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import getAuthorizationValue from '../../helpers/getAuthorizationValue';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 type Props = {
   handleClose: () => void;
@@ -39,15 +39,27 @@ const userData = {
   profileImg: '/images/profileImg.jpg',
 };
 
-const putAdminImg=()=>{
+const putAdminImg = ({
+  userId,
+  image,
+}: {
+  userId: string;
+  image: string;
+}): Promise<AxiosResponse> => {
   const authorizationValue = getAuthorizationValue();
-//Waiting for PUT endpoint
-  return axios({method:'PUT',url:`${import.meta.env.VITE_BACKEND_URL}/`})
-}
+  return axios({
+    method: 'PUT',
+    url: `${
+      import.meta.env.VITE_BACKEND_URL
+    }/api/user/${userId}/profileImg/update`,
+    headers: { Authorization: authorizationValue },
+  });
+};
 
 const CustomAvatar = ({ handleClose }: Props) => {
-  // const { userData } = useSelector(selectUserData);
+  const { userData } = useSelector(selectUserData);
   const [img, setImg] = useState<string>();
+  const AdminImgMutation = useMutation({ mutationFn: putAdminImg });
 
   useEffect(() => {
     setImg(userData.profileImg);
@@ -58,9 +70,13 @@ const CustomAvatar = ({ handleClose }: Props) => {
     setImg(tempImgUrl);
   };
 
-useMutation({mutationFn:})
-
-  const handleApply = () => {};
+  const handleApply = () => {
+    AdminImgMutation.mutate({
+      userId: userData._id,
+      image: userData.profileImg,
+    });
+    handleClose;
+  };
 
   return (
     <>
