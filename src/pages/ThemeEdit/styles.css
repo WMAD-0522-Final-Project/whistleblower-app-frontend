@@ -83,6 +83,11 @@
   justify-content: center;
   padding: 0 50px;
 }
+@media (max-width: 800px) {
+  .global .gv_sub_cont {
+    flex-direction: column;
+  }
+}
 .global .gv_sub_cont .gv_company_name p {
   font-weight: 900;
   text-align: left;
@@ -115,7 +120,6 @@
   overflow: hidden;
   position: relative;
   cursor: pointer;
-  margin-right: 50px;
 }
 @media (max-width: 800px) {
   .global .gv_img_cont {
@@ -260,4 +264,23 @@
 .gv_submit_cont .gv_button:hover {
   color: #686868;
   border: 1px sorgb(130, 130, 130) 82a3;
+}
+
+.gv_file-upload {
+  width: 130px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 30px;
+}
+.gv_file-upload button {
+  background-color: transparent;
+  border: 2px solid transparent;
+  border-radius: 80px;
+}
+@media (max-width: 800px) {
+  .gv_file-upload {
+    margin-right: 0px;
+  }
 }/*# sourceMappingURL=styles.css.map */

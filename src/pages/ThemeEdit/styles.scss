@@ -81,7 +81,9 @@ $screen-xs: 800px;
         align-items: center;
         justify-content: center;
         padding: 0 50px;
-     
+        @media (max-width: $screen-xs) {
+            flex-direction: column;
+         }
 
         .gv_company_name{
             p{
@@ -119,10 +121,10 @@ $screen-xs: 800px;
         overflow: hidden;
         position: relative;
         cursor: pointer;
-        margin-right: 50px;
         @media (max-width: $screen-xs) {
             margin-right: 0;
         }
+       
         &:hover{
             & > .img_hover_edit{
                 transform: translateY(100%);
@@ -265,4 +267,20 @@ $screen-xs: 800px;
         }
     }
 
+}
+.gv_file-upload{
+    width: 130px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 30px;
+    button{
+        background-color: transparent;
+        border: 2px solid transparent ;
+        border-radius: 80px;
+    }
+    @media (max-width: $screen-xs) {
+        margin-right: 0px;
+     }
 }
