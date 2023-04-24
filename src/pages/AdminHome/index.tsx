@@ -1,6 +1,6 @@
+import React, { useEffect, useState } from 'react';
 import { Box, Theme, useMediaQuery } from '@mui/material';
 import useModal from '../../hooks/useModal';
-import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import ClaimListAdmin from '../../components/admin/ClaimListAdmin';
 import { selectCompanyData } from '../../RTK/companySlice';
@@ -19,18 +19,17 @@ import ClaimBox from '../../components/admin/ClaimBox';
 import { motion } from 'framer-motion';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import CustomBox from '../../components/CustomBox/CustomBox';
-import { DragDropContext } from 'react-beautiful-dnd';
+import {
+  DragDropContext,
+  DragDropContextProps,
+  DropResult,
+} from 'react-beautiful-dnd';
 import axios, { AxiosResponse } from 'axios';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import getAuthorizationValue from '../../helpers/getAuthorizationValue';
 import { da } from 'date-fns/locale';
 
 type Props = {};
-
-interface DndResult {
-  destination: { droppableId: string; index: number };
-  source: { droppableId: string; index: number };
-}
 
 const removeFrom = (column: Claim[], index: number): [Claim, Claim[]] => {
   const output = [...column];
@@ -162,7 +161,7 @@ const AdminHome = (props: Props) => {
     console.log('claims', claims);
   }, [claims]);
 
-  const handleOnDragEnd = (result: DndResult) => {
+  const handleOnDragEnd = (result: DropResult) => {
     if (!result.destination) return;
     let claimsCopy = [...claims!];
 
@@ -171,7 +170,7 @@ const AdminHome = (props: Props) => {
     );
 
     const destinationColumn = claimsCopy.filter(
-      (claim) => claim.status === result.destination.droppableId
+      (claim) => claim.status === result.destination!.droppableId
     );
 
     const [removedClaim, removedColumn] = removeFrom(
