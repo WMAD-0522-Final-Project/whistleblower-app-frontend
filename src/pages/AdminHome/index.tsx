@@ -62,8 +62,8 @@ const putStatus = ({
   claimId: string;
   status: string;
 }): Promise<AxiosResponse> => {
-  // console.log('claimId', claimId);
-  // console.log('status', status);
+  console.log('claimId', claimId);
+  console.log('status', status);
 
   const authorizationValue = getAuthorizationValue();
   return axios({

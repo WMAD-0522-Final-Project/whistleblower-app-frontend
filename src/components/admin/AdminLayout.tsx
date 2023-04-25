@@ -100,7 +100,8 @@ const AdminLayout = (props: Props) => {
       </Modal>
       <Outlet />
     </>
-  ) : null;
+    // ) : null;
+  );
 };
 
 export default AdminLayout;
