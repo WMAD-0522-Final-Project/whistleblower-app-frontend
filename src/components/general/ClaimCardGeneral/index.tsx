@@ -61,6 +61,18 @@ const ClaimCardGeneral = ({ claim, onClick, sx }: Props) => {
       <Typography sx={{ mt: '4%', lineHeight: '1.2', fontSize: '0.9rem' }}>
         Title: <b>{claim.title}</b>
       </Typography>
+      <Typography
+        sx={{
+          mt: '1rem',
+          fontSize: '0.9rem',
+          width: '100%',
+          overflow: 'hidden',
+          whiteSpace: 'nowrap',
+          textOverflow: 'ellipsis',
+        }}
+      >
+        Details: <b>{claim.body}</b>
+      </Typography>
     </Box>
   );
 };
