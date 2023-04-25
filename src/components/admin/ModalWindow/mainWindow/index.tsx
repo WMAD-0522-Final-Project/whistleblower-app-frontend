@@ -145,7 +145,7 @@ function MainWindow({ claim }: Props) {
       method: 'PUT',
       url: `${import.meta.env.VITE_BACKEND_URL}/api/claim/${
         currentClaim!._id
-      }/changeStatus`,
+      }/changeLabel`,
       data: {
         labels,
       },
