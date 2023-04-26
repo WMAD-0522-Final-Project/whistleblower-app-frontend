@@ -49,7 +49,7 @@ export interface ClaimDetail {
   body: string;
   status: string;
   category: ClaimCategory[];
-  labels: ClaimLabel[];
+  labels: string[];
   createdAt: number;
   updatedAt: number;
 }

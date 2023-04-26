@@ -1,6 +1,13 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { Badge, Box, SxProps, Typography } from '@mui/material';
+import {
+  Badge,
+  Box,
+  SxProps,
+  Theme,
+  Typography,
+  useMediaQuery,
+} from '@mui/material';
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../../RTK/companySlice';
 import Yeallowtable from '../../SVG/YeallowTable';
@@ -33,6 +40,18 @@ const AdminUserViewCard = React.forwardRef(
         }));
       console.log(';lkjiwatani');
     };
+
+    const matches = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
+    const smallmatches = useMediaQuery((theme: Theme) =>
+      theme.breakpoints.up('md')
+    );
+    const middlematches = useMediaQuery((theme: Theme) =>
+      theme.breakpoints.up('md')
+    );
+
+    const semilargematches = useMediaQuery((theme: Theme) =>
+      theme.breakpoints.between(770, 1300)
+    );
     return (
       <>
         <Box
@@ -45,6 +64,11 @@ const AdminUserViewCard = React.forwardRef(
             color: companyData.themeColors.secondary,
             cursor: 'pointer',
             display: 'flex',
+            flexDirection: semilargematches
+              ? 'column'
+              : smallmatches
+              ? 'row'
+              : 'column',
             alignItems: 'center',
             justifyContent: 'space-around',
             minHeight: '16px',
@@ -59,7 +83,6 @@ const AdminUserViewCard = React.forwardRef(
             <Yeallowtable url={url}></Yeallowtable>
           </div>
 
-          <div></div>
           <div
             style={{
               display: 'flex',
@@ -72,23 +95,33 @@ const AdminUserViewCard = React.forwardRef(
             <div style={{ fontSize: '1.1rem' }}>
               {user.firstName} {user.lastName}
             </div>
-            <div style={{}}>
-              <div style={{ fontSize: '0.8rem' }}>email : {user.email}</div>
-              <div style={{ fontSize: '0.8rem' }}>
-                department : {user.department?.name}
-              </div>
+            <div
+              style={{
+                fontSize: semilargematches
+                  ? '0.6rem'
+                  : middlematches
+                  ? '0.9rem'
+                  : '0.6rem',
+              }}
+            >
+              <div>email : {user.email}</div>
+              <div>department : {user.department?.name}</div>
             </div>
           </div>
           <div
             className={styles.permmisions}
             style={{
-              width: '30%',
+              width: semilargematches ? '90%' : smallmatches ? '30%' : '90%',
               height: '95%',
               border: '2px solid white',
               borderRadius: '20px',
               overflow: 'scroll',
               display: 'flex',
-              flexDirection: 'column',
+              flexDirection: semilargematches
+                ? 'row'
+                : smallmatches
+                ? 'column'
+                : 'row',
               alignItems: 'center',
               justifyContent: 'space-around',
               fontSize: '0.7rem',
@@ -123,12 +156,40 @@ const AdminUserViewCard = React.forwardRef(
               width: '12%',
               height: '70%',
               // backgroundColor: 'red',
+              display: semilargematches
+                ? 'none'
+                : smallmatches
+                ? 'flex'
+                : 'none',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
             <EditIcon
               animate={
                 context.AdminUserIdAdmin === user._id ? { rotate: 90 } : {}
               }
+              transition={{ duration: 0.5 }}
+            ></EditIcon>
+          </div>
+
+          <div
+            onClick={editHandle}
+            style={{
+              width: '40px',
+              height: '40px',
+              position: 'absolute',
+              right: '5%',
+              top: '20%',
+              display: semilargematches
+                ? 'block'
+                : smallmatches
+                ? 'none'
+                : 'block',
+            }}
+          >
+            <EditIcon
+              animate={context.GeneralUserId === user._id ? { rotate: 90 } : {}}
               transition={{ duration: 0.5 }}
             ></EditIcon>
           </div>

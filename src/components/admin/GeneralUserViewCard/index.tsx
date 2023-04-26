@@ -35,7 +35,9 @@ const GeneralUserViewCard = React.forwardRef(
     const smallmatches = useMediaQuery((theme: Theme) =>
       theme.breakpoints.up('sm')
     );
-
+    const semilargematches = useMediaQuery((theme: Theme) =>
+      theme.breakpoints.between(770, 1300)
+    );
     const middlematches = useMediaQuery((theme: Theme) =>
       theme.breakpoints.up('md')
     );
@@ -59,7 +61,11 @@ const GeneralUserViewCard = React.forwardRef(
             color: companyData.themeColors.secondary,
             cursor: 'pointer',
             display: 'flex',
-            flexDirection: smallmatches ? 'row' : 'column',
+            flexDirection: semilargematches
+              ? 'column'
+              : smallmatches
+              ? 'row'
+              : 'column',
             alignItems: 'center',
             justifyContent: 'space-around',
             minHeight: '16px',
@@ -77,52 +83,63 @@ const GeneralUserViewCard = React.forwardRef(
           <div>
             {user.firstName} {user.lastName}
           </div>
-          <div style={{ fontSize: middlematches ? '0.9rem' : '0.6rem' }}>
+          <div
+            style={{
+              fontSize: semilargematches
+                ? '0.6rem'
+                : middlematches
+                ? '0.9rem'
+                : '0.6rem',
+            }}
+          >
             <div>email : {user.email}</div>
             <div>department : {user.department?.name}</div>
           </div>
-          {smallmatches && (
-            <div
-              onClick={editHandle}
-              style={{
-                width: '8%',
-                height: '90%',
-                position: 'relative',
-                right: '3%',
-                // display: !middlematches && 'none',
 
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <EditIcon
-                animate={
-                  context.GeneralUserId === user._id ? { rotate: 90 } : {}
-                }
-                transition={{ duration: 0.5 }}
-              ></EditIcon>
-            </div>
-          )}
-          {!smallmatches && (
-            <div
-              onClick={editHandle}
-              style={{
-                width: '15%',
-                height: '15%',
-                position: 'absolute',
-                right: '5%',
-                top: '20%',
-              }}
-            >
-              <EditIcon
-                animate={
-                  context.GeneralUserId === user._id ? { rotate: 90 } : {}
-                }
-                transition={{ duration: 0.5 }}
-              ></EditIcon>
-            </div>
-          )}
+          <div
+            onClick={editHandle}
+            style={{
+              width: '8%',
+              height: '90%',
+              position: 'relative',
+              right: '3%',
+              // display: !middlematches && 'none',
+
+              display: semilargematches
+                ? 'none'
+                : smallmatches
+                ? 'flex'
+                : 'none',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <EditIcon
+              animate={context.GeneralUserId === user._id ? { rotate: 90 } : {}}
+              transition={{ duration: 0.5 }}
+            ></EditIcon>
+          </div>
+
+          <div
+            onClick={editHandle}
+            style={{
+              width: '40px',
+              height: '40px',
+              position: 'absolute',
+              right: '5%',
+              top: '20%',
+              display: semilargematches
+                ? 'block'
+                : smallmatches
+                ? 'none'
+                : 'block',
+            }}
+          >
+            <EditIcon
+              animate={context.GeneralUserId === user._id ? { rotate: 90 } : {}}
+              transition={{ duration: 0.5 }}
+            ></EditIcon>
+          </div>
         </Box>
       </>
     );

@@ -4,7 +4,7 @@ import useModal from '../../hooks/useModal';
 import { useSelector } from 'react-redux';
 import ClaimListAdmin from '../../components/admin/ClaimListAdmin';
 import { selectCompanyData } from '../../RTK/companySlice';
-import { Claim } from '../../types';
+import { Claim, ClaimDetail } from '../../types';
 import sampleClaims from '../../temp/sampleClaims';
 import UserCard from '../../components/admin/ModalWindow/UserCard';
 import LabelCard from '../../components/admin/ModalWindow/LabelCard';
@@ -84,14 +84,16 @@ const AdminHome = (props: Props) => {
   const { companyData } = useSelector(selectCompanyData);
   const { Modal, handleOpen, handleClose, open } = useModal();
   const [query, setQuery] = useState('');
-  const [claims, setClaims] = useState<Claim[] | null>(null);
+  const [claims, setClaims] = useState<ClaimDetail[] | null>(null);
   const [isModalWindow, setIsModalWindow] = useState<boolean>(false);
   const { context, setContext } = useAllContext();
   const newClaim = 'unHandled';
   const inProgress = 'inProgress';
   const done = 'done';
   const [expandState, setExpandState] = useState(newClaim);
-  const [modalClaim, setModalClaim] = useState<Partial<Claim> | null>(null);
+  const [modalClaim, setModalClaim] = useState<Partial<ClaimDetail> | null>(
+    null
+  );
   const [mobileHeight, setModileHeight] = useState({
     newClaim: 6,
     inProgress: 6,

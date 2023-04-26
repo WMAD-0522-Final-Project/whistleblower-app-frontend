@@ -37,6 +37,13 @@ function GeneralUserView() {
   const smallmatches = useMediaQuery((theme: Theme) =>
     theme.breakpoints.up('sm')
   );
+  const semilargematches = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.between(770, 1300)
+  );
+
+  useEffect(() => {
+    console.log(semilargematches, 'semioarge');
+  }, [semilargematches]);
 
   useEffect(() => {
     if (context.GeneralUserId !== '') {
@@ -85,6 +92,7 @@ function GeneralUserView() {
       url: `${import.meta.env.VITE_BACKEND_URL}/api/user/${
         data.userId
       }/info/update`,
+      headers: { Authorization: getAuthorizationValue() },
       data: data.userInfo,
     });
     return res.data;
