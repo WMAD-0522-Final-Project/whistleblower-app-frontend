@@ -58,7 +58,7 @@ export interface Claim {
   _id: string;
   submissionDate: string;
   message: string;
-  labels: ClaimLabel[];
+  labels: string[];
   category: ClaimCategory | null;
   members: {
     userId: string;
@@ -130,7 +130,7 @@ export type adminUser = {
   permissions: permission[];
   department: department;
 };
-export type generalUser = {
+export type GeneralUser = {
   _id: string;
   email: string;
   firstName: string;

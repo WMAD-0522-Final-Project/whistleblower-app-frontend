@@ -112,7 +112,9 @@ const UserInquiries = () => {
       }}
     >
       <Modal outerBoxStyle={{ width: '50%' }}>
-        <PasswordResetModal userId={''}></PasswordResetModal>
+        <PasswordResetModal
+          userId={'6444d96195bf5bad7ad1dbc9'}
+        ></PasswordResetModal>
       </Modal>
       <button onClick={() => handleOpen()}>open</button>
       {/* TODO: Use this in future for other inquiries other than password

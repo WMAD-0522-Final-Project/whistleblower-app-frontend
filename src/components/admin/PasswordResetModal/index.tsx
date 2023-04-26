@@ -13,10 +13,7 @@ import { useMutation } from '@tanstack/react-query';
 type Props = {
   userId: string;
 };
-type passwordRequestBody = {
-  userId: string;
-  updatedPassword: string;
-};
+
 function PasswordResetModal({ userId }: Props) {
   const { Modal } = useModal();
   const [password, setPassword] = useState('');
@@ -30,21 +27,19 @@ function PasswordResetModal({ userId }: Props) {
     if (password !== comfirmPassword) {
       console.log('doesnt much ');
     } else {
-      passwordMutation.mutate({
-        userId,
-        updatedPassword: password,
-      });
+      passwordMutation.mutate(password);
+      console.log('submit');
     }
   };
 
-  const passwordChangeForm = async (data: passwordRequestBody) => {
+  const passwordChangeForm = async (password: string) => {
     const res: AxiosResponse<string> = await axios({
       method: 'PUT',
-      url: `${import.meta.env.VITE_BACKEND_URL}/api/user/${
-        data.userId
-      }/password/update`,
+      url: `${
+        import.meta.env.VITE_BACKEND_URL
+      }/api/user/${userId}/password/update`,
       headers: { Authorization: getAuthorizationValue() },
-      data: data.updatedPassword,
+      data: password,
     });
 
     return res.data;
