@@ -57,6 +57,7 @@ export interface ClaimDetail {
 export interface Claim {
   _id: string;
   submissionDate: string;
+  createdAt: number;
   message: string;
   labels: ClaimLabel[];
   category: ClaimCategory | null;
@@ -77,7 +78,7 @@ export interface ClaimMessageData {
   user: User[];
 }
 
-export type ClaimStatusRes = 'unHandled' | 'inProcess' | 'done' | 'archived';
+export type ClaimStatusRes = 'unHandled' | 'inProgress' | 'done' | 'archived';
 
 export type ClaimCategory = {
   _id: string;

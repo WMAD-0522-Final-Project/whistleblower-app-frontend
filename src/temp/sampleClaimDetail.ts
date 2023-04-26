@@ -12,7 +12,7 @@ export default {
   ],
   title: 'Test claim using api (anonymous)',
   body: 'Test claim message body from database',
-  status: 'inProcess',
+  status: 'inProgress',
   category: [
     {
       _id: '6438855f4f853a0dbd6d2edf',

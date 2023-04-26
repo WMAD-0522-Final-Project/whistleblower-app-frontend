@@ -6,7 +6,8 @@ import { Draggable } from 'react-beautiful-dnd';
 import { v4 as uuidv4, v4 } from 'uuid';
 
 type Props = {
-  claims: Partial<Claim>[];
+  // claims: Partial<Claim>[];
+  claims: Claim[];
 };
 
 const ClaimListAdmin = ({ claims }: Props) => {

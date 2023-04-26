@@ -103,6 +103,8 @@ const AdminHome = (props: Props) => {
   const claimQuery = useQuery({
     queryKey: ['getClaimData'],
     queryFn: getClaimData,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
   let fetchedClaims = claimQuery.data?.data.claims;
 
@@ -122,6 +124,10 @@ const AdminHome = (props: Props) => {
       handleClose();
     }
   }, [context.claimsId]);
+
+  useEffect(() => {
+    console.log('modalClaim: ', modalClaim);
+  }, [modalClaim]);
 
   // const filteredClaims = () =>
   //   claims.filter((claim: Claim) =>
