@@ -10,6 +10,7 @@ import { Box, Typography } from '@mui/material';
 import { InquiryUser, User } from '../../types';
 import { inquiryOption } from '../../types/enums';
 import getAuthorizationValue from '../../helpers/getAuthorizationValue';
+import PasswordResetModal from '../../components/admin/PasswordResetModal';
 
 interface InquiryListData {
   message: string;
@@ -25,7 +26,7 @@ const UserInquiries = () => {
   const [currentInquiryUser, setCurrentInquiryUser] =
     useState<InquiryUser | null>(null);
   // const [activeInquiryUser, setActiveInquiryUser] = useState(null);
-  const { handleOpen, Modal } = useModal();
+  const { handleOpen, Modal, handleClose } = useModal();
 
   const getInquiryUserList = async () => {
     const res: AxiosResponse<InquiryListData> = await axios({
@@ -110,7 +111,11 @@ const UserInquiries = () => {
         marginTop: '1%',
       }}
     >
-      {/* TODO: Use this in future for other inquiries other than password */}
+      <Modal outerBoxStyle={{ width: '50%' }}>
+        <PasswordResetModal userId={''}></PasswordResetModal>
+      </Modal>
+      <button onClick={() => handleOpen()}>open</button>
+      {/* TODO: Use this in future for other inquiries other than password
       <Modal>
         <Box>
           <h2>
@@ -179,7 +184,7 @@ const UserInquiries = () => {
             </Typography>
           )}
         </Box>
-      </CustomBox>
+      </CustomBox> */}
     </div>
   );
 };

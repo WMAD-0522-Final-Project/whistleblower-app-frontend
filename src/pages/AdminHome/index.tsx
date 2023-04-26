@@ -28,6 +28,7 @@ import axios, { AxiosResponse } from 'axios';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import getAuthorizationValue from '../../helpers/getAuthorizationValue';
 import { da } from 'date-fns/locale';
+import PasswordResetModal from '../../components/admin/PasswordResetModal';
 
 type Props = {};
 
@@ -330,6 +331,7 @@ const AdminHome = (props: Props) => {
         </DragDropContext>
       </>
     )
+
     // <Box sx={{ backgroundColor: '#fff', height: '100vh' }}>
     //   {/* TODO: temporary claim data */}
     //   <ClaimChat chatData={sampleClaimDetail.chats} />
