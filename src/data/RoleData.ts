@@ -1,6 +1,6 @@
 export const permissionNames = [
   'systemAdministrator',
   'caseManagement',
-  'reportViewer',
+  'reportViewing',
   'userManagement',
 ];

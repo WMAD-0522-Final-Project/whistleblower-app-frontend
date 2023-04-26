@@ -40,10 +40,6 @@ function MainWindow({ claim }: Props) {
   const [showLabelForm, setShowLabelForm] = useState(false);
   const [newLabelName, setNewLabelName] = useState('');
 
-  const closeModalWindow = () => {
-    setContext({ userId: '', claimsId: '' });
-  };
-
   useEffect(() => {
     return setCurrentClaim(sampleClaimDetail);
   }, []);

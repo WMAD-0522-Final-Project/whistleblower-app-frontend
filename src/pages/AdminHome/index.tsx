@@ -4,7 +4,7 @@ import useModal from '../../hooks/useModal';
 import { useSelector } from 'react-redux';
 import ClaimListAdmin from '../../components/admin/ClaimListAdmin';
 import { selectCompanyData } from '../../RTK/companySlice';
-import { Claim } from '../../types';
+import { Claim, ClaimDetail } from '../../types';
 import sampleClaims from '../../temp/sampleClaims';
 import UserCard from '../../components/admin/ModalWindow/UserCard';
 import LabelCard from '../../components/admin/ModalWindow/LabelCard';
@@ -28,6 +28,7 @@ import axios, { AxiosResponse } from 'axios';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import getAuthorizationValue from '../../helpers/getAuthorizationValue';
 import { da } from 'date-fns/locale';
+import PasswordResetModal from '../../components/admin/PasswordResetModal';
 
 type Props = {};
 
@@ -82,16 +83,18 @@ const putStatus = ({
 
 const AdminHome = (props: Props) => {
   const { companyData } = useSelector(selectCompanyData);
-  const { Modal, handleOpen, handleClose } = useModal();
+  const { Modal, handleOpen, handleClose, open } = useModal();
   const [query, setQuery] = useState('');
-  const [claims, setClaims] = useState<Claim[] | null>(null);
+  const [claims, setClaims] = useState<ClaimDetail[] | null>(null);
   const [isModalWindow, setIsModalWindow] = useState<boolean>(false);
   const { context, setContext } = useAllContext();
   const newClaim = 'unHandled';
   const inProgress = 'inProgress';
   const done = 'done';
   const [expandState, setExpandState] = useState(newClaim);
-  const [modalClaim, setModalClaim] = useState<Partial<Claim> | null>(null);
+  const [modalClaim, setModalClaim] = useState<Partial<ClaimDetail> | null>(
+    null
+  );
   const [mobileHeight, setModileHeight] = useState({
     newClaim: 6,
     inProgress: 6,
@@ -110,6 +113,34 @@ const AdminHome = (props: Props) => {
     console.log('claimQuery.data', claimQuery.data);
     claimQuery.data && setClaims(fetchedClaims);
   }, [claimQuery.data]);
+
+  useEffect(() => {
+    setContext((context) => ({
+      ...context,
+      claimsId: null,
+    }));
+  }, [open]);
+
+  // const getClaims = async (): Promise<AxiosResponse<Claim[]>> => {
+  //   const res = await axios({
+  //     method: 'GET',
+  //     url: `${import.meta.env.VITE_BACKEND_URL}/api/user/list`,
+  //     headers: {
+  //       Authorization: getAuthorizationValue(),
+  //     },
+  //   });
+  //   return res.data;
+  // };
+
+  // const { data: claimsAxios } = useQuery({
+  //   queryFn: getClaims,
+  //   queryKey: ['claims'],
+  // });
+
+  // useEffect(() => {
+  //   // fetch claim data from API
+  //   if (claimsAxios) setClaims(claimsAxios);
+  // }, [claimsAxios]);
 
   useEffect(() => {
     if (claims !== null) {
@@ -300,6 +331,7 @@ const AdminHome = (props: Props) => {
         </DragDropContext>
       </>
     )
+
     // <Box sx={{ backgroundColor: '#fff', height: '100vh' }}>
     //   {/* TODO: temporary claim data */}
     //   <ClaimChat chatData={sampleClaimDetail.chats} />

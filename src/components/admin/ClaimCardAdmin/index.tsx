@@ -1,6 +1,6 @@
 import React, { ContextType } from 'react';
 import { Box, SxProps, Typography, useTheme } from '@mui/material';
-import { Claim } from '../../../types';
+import { Claim, ClaimDetail } from '../../../types';
 import { useSelector } from 'react-redux';
 import stc from 'string-to-color';
 import { selectCompanyData } from '../../../RTK/companySlice';
@@ -11,7 +11,7 @@ import { motion } from 'framer-motion';
 import ItemLabel from '../../ItemLabel';
 
 type Props = {
-  claim: Partial<Claim>;
+  claim: Partial<ClaimDetail>;
   sx?: SxProps;
 };
 
@@ -21,13 +21,18 @@ const ClaimCardAdmin = React.forwardRef(({ claim, sx }: Props, ref) => {
   const { context, setContext } = useAllContext();
   const handleClaimClick = () => {
     // open detail window using a state variable
-    if (claim._id)
+    if (claim._id) {
+      if (claim._id === context.claimsId) {
+        setContext((context) => ({
+          ...context,
+          claimsId: null,
+        }));
+      }
       setContext((context) => ({
         ...context,
         claimsId: claim._id,
       }));
-
-    console.log(context, ';lkj;lkj');
+    }
   };
 
   return (
@@ -72,7 +77,7 @@ const ClaimCardAdmin = React.forwardRef(({ claim, sx }: Props, ref) => {
             alignItems: 'center',
           }}
         >
-          <Typography fontSize="0.7rem">{claim.submissionDate}</Typography>
+          <Typography fontSize="0.7rem">{claim.updatedAt}</Typography>
           <Box
             sx={{
               background: companyData.themeColors.secondary,
@@ -119,7 +124,7 @@ const ClaimCardAdmin = React.forwardRef(({ claim, sx }: Props, ref) => {
             textOverflow: 'ellipsis',
           }}
         >
-          {claim.message}
+          {claim.body}
         </Typography>
       </Box>
       <ClaimYellowTable claim={claim} sx={{ width: '25%' }}></ClaimYellowTable>

@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../RTK/companySlice';
 import sampleUserDatas from '../../temp/sampleUserDatas';
 import { useAllContext } from '../../context/ClaimIdContext';
-import { adminUser } from '../../types';
+import { adminUser, generalUser } from '../../types';
 import RoleToggles from '../../components/admin/RoleToggles';
 import { NativeSelect, TextField, Theme, useMediaQuery } from '@mui/material';
 import ItemLabel from '../../components/ItemLabel';
@@ -15,10 +15,18 @@ import styles from './GeneralUserView.module.scss';
 import GeneralUserViewCard from '../../components/admin/GeneralUserViewCard';
 import Closebutton from '../../components/SVG/Closebutton';
 import TextFieldCustom from '../../components/MUI_comp/TextFieldCustom';
+import ButtonComponent from '../../components/MUI_comp/ButtonComponent';
+import axios, { AxiosResponse } from 'axios';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import getAuthorizationValue from '../../helpers/getAuthorizationValue';
 
+type UserUpdataReqBody = {
+  userId: string | undefined;
+  userInfo: Partial<adminUser> | undefined;
+};
 function GeneralUserView() {
   const [text, setText] = useState('');
-
+  const [allUsers, setAllUsers] = useState<null | adminUser[]>(null);
   const { companyData } = useSelector(selectCompanyData);
   const { context, setContext } = useAllContext();
   const [nowUser, setNowUser] = useState<Partial<adminUser> | null>(null);
@@ -29,19 +37,75 @@ function GeneralUserView() {
   const smallmatches = useMediaQuery((theme: Theme) =>
     theme.breakpoints.up('sm')
   );
+  const semilargematches = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.between(770, 1300)
+  );
+
+  useEffect(() => {
+    console.log(semilargematches, 'semioarge');
+  }, [semilargematches]);
 
   useEffect(() => {
     if (context.GeneralUserId !== '') {
-      const user = sampleUserDatas.filter(
-        (user) => user._id === context.GeneralUserId
-      )[0];
-      setNowUser(user);
+      if (allUsers) {
+        const user = allUsers.filter(
+          (user) => user._id === context.GeneralUserId
+        )[0];
+        setNowUser(user);
+      }
     }
   }, [context.GeneralUserId]);
 
+  const getUser = async (): Promise<AxiosResponse<adminUser[]>> => {
+    const res = await axios({
+      method: 'GET',
+      url: `${import.meta.env.VITE_BACKEND_URL}/api/user/list`,
+      params: { role: 'general' },
+      headers: {
+        Authorization: getAuthorizationValue(),
+      },
+    });
+
+    return res.data;
+  };
+
+  const { data: users } = useQuery({
+    queryFn: getUser,
+    queryKey: ['generalUsers'],
+  });
+
+  useEffect(() => {
+    if (users) setAllUsers(users.users);
+    console.log(users, 'users');
+  }, [users]);
+
   const modifySubmit = () => {
     //submit nowUser with fetch
+    if (nowUser) {
+      userMutation.mutate({ userId: nowUser._id, userInfo: nowUser });
+    }
   };
+
+  const userModifyForm = async (data: UserUpdataReqBody) => {
+    const res: AxiosResponse<adminUser> = await axios({
+      method: 'PUT',
+      url: `${import.meta.env.VITE_BACKEND_URL}/api/user/${
+        data.userId
+      }/info/update`,
+      headers: { Authorization: getAuthorizationValue() },
+      data: data.userInfo,
+    });
+    return res.data;
+    //submit nowUser with fetch
+  };
+
+  const userMutation = useMutation({
+    mutationFn: userModifyForm,
+    onSuccess: () => {
+      console.log('success');
+    },
+    onError: () => console.log('failed'),
+  });
 
   const closeEdit = () => {
     setContext((context) => ({
@@ -92,44 +156,45 @@ function GeneralUserView() {
               }}
               className={styles.bix}
             >
-              {sampleUserDatas
-                .filter((user, i) => {
-                  if (text == '') {
-                    return user;
-                  } else if (
-                    user.firstName.toLowerCase().includes(text.toLowerCase())
-                  ) {
-                    return user;
-                  }
-                })
-                .map((user, i) => {
-                  return (
-                    <div
-                      style={{
-                        position: 'absolute',
-                        width: '100%',
-                        height: '30%',
-                        // marginTop: `${13 * i}%`,
-                        marginTop: middlemaches
-                          ? `${25 * i - 5 * i}%`
-                          : `${25 * i}%`,
-                        display: 'flex',
-                        justifyContent: 'center',
-                        top: 10,
-                      }}
-                    >
-                      <GeneralUserViewCard
-                        whileHover={{ x: 20 }}
-                        user={user}
-                        width={80}
-                        height={60}
-                        url={user.avatarUrl}
-                        edit={true}
-                        sx={{ marginBottom: '20px' }}
-                      ></GeneralUserViewCard>
-                    </div>
-                  );
-                })}
+              {allUsers &&
+                allUsers
+                  .filter((user, i) => {
+                    if (text == '') {
+                      return user;
+                    } else if (
+                      user.firstName.toLowerCase().includes(text.toLowerCase())
+                    ) {
+                      return user;
+                    }
+                  })
+                  .map((user, i) => {
+                    return (
+                      <div
+                        style={{
+                          position: 'absolute',
+                          width: '100%',
+                          height: '30%',
+                          // marginTop: `${13 * i}%`,
+                          marginTop: middlemaches
+                            ? `${25 * i - 5 * i}%`
+                            : `${25 * i}%`,
+                          display: 'flex',
+                          justifyContent: 'center',
+                          top: 10,
+                        }}
+                      >
+                        <GeneralUserViewCard
+                          whileHover={{ x: 20 }}
+                          user={user}
+                          width={80}
+                          height={60}
+                          url={user.profileImg}
+                          edit={true}
+                          sx={{ marginBottom: '20px' }}
+                        ></GeneralUserViewCard>
+                      </div>
+                    );
+                  })}
             </div>
           </CustomBox>
         )}
@@ -169,7 +234,7 @@ function GeneralUserView() {
                     left: '10%',
                   }}
                 >
-                  user id : {nowUser.firstName}
+                  user id : {nowUser._id}
                 </div>
                 <div
                   onClick={closeEdit}
@@ -468,18 +533,19 @@ function GeneralUserView() {
                   height: '10%',
                 }}
               >
-                <button
+                <ButtonComponent
+                  customColor={companyData.themeColors.tertiary}
+                  type="submit"
                   onClick={modifySubmit}
-                  style={{
-                    backgroundColor: companyData.themeColors.tertiary,
-                    border: 'none',
-                    padding: '15px',
-                    borderRadius: '10px',
-                    fontSize: '1.2rem',
+                  sx={{
+                    color: 'black',
+                    boxShadow: '2px 2px 2px 2px rgba(0.2,0.2,0.2,0.2)',
+                    padding: '0.7rem',
+                    borderRadius: '7px',
                   }}
                 >
                   submit
-                </button>
+                </ButtonComponent>
               </div>
             </div>
           </CustomBox>
