@@ -46,7 +46,7 @@ const Contact = (props: Props) => {
   const sendContactForm = async (data: ContactFormReqBody) => {
     const res: AxiosResponse<ContactFormRes> = await axios({
       method: 'POST',
-      url: `${import.meta.env.VITE_BACKEND_URL}/api/contact`, // TODO: need correct endpoint
+      url: `${import.meta.env.VITE_BACKEND_URL}/api/contact`,
       data,
     });
     return res.data;
