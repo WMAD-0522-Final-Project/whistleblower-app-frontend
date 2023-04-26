@@ -58,7 +58,7 @@ export interface Claim {
   _id: string;
   submissionDate: string;
   message: string;
-  labels: string[];
+  labels: ClaimLabel[];
   category: ClaimCategory | null;
   members: {
     userId: string;
