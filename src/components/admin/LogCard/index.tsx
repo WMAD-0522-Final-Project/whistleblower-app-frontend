@@ -37,13 +37,12 @@ const LogCard = React.forwardRef(({ log, sx }: Props, ref) => {
           {formatDatetime(new Date(log.createdAt))}
         </Typography>
         <Typography
+          dangerouslySetInnerHTML={{ __html: log.content }}
           sx={{
             fontSize: '0.9rem',
             mt: '0.4rem',
           }}
-        >
-          {log.content}
-        </Typography>
+        ></Typography>
       </Box>
     </Box>
   );
