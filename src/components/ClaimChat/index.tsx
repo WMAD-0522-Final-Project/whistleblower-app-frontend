@@ -62,6 +62,20 @@ const ClaimChat = ({ claimId, chatData }: Props) => {
     return res.data;
   };
 
+  const setReadNewMessage = async () => {
+    const res = await axios({
+      method: 'PUT',
+      url: `${
+        import.meta.env.VITE_BACKEND_URL
+      }/api/claim/${claimId}/message/changeReadStatus`,
+      headers: {
+        Authorization: getAuthorizationValue(),
+      },
+      data: { hasNewComment: false },
+    });
+    return res.data;
+  };
+
   const sendNewMessage = async (
     message: string
   ): Promise<AxiosResponse<NewClaimResponseData>> => {
@@ -84,6 +98,16 @@ const ClaimChat = ({ claimId, chatData }: Props) => {
     staleTime: 1000 * 60 * 10,
     onError: () => {
       console.log('Failed to fetch chat message data');
+    },
+  });
+
+  const setReadNewMessageMutation = useMutation({
+    mutationFn: setReadNewMessage,
+    onSuccess: (data) => {
+      // invalidate claim list
+    },
+    onError: (data) => {
+      console.log('Error:', error);
     },
   });
 
@@ -122,6 +146,10 @@ const ClaimChat = ({ claimId, chatData }: Props) => {
     if (!message) return;
     sendNewMessageMutation.mutate(message);
   };
+
+  useEffect(() => {
+    setReadNewMessageMutation.mutate();
+  }, []);
 
   useEffect(() => {
     if (messageData) {

@@ -1,5 +1,5 @@
 import React, { ContextType } from 'react';
-import { Box, SxProps, Typography } from '@mui/material';
+import { Box, SxProps, Typography, useTheme } from '@mui/material';
 import { Claim } from '../../../types';
 import { useSelector } from 'react-redux';
 import stc from 'string-to-color';
@@ -8,6 +8,7 @@ import ClaimYellowTable from '../../SVG/ClaimYellowTable';
 import { useAllContext } from '../../../context/ClaimIdContext';
 import ClaimLabel from '../../SVG/ClaimLabel';
 import { motion } from 'framer-motion';
+import ItemLabel from '../../ItemLabel';
 
 type Props = {
   claim: Partial<Claim>;
@@ -16,6 +17,7 @@ type Props = {
 
 const ClaimCardAdmin = React.forwardRef(({ claim, sx }: Props, ref) => {
   const { companyData } = useSelector(selectCompanyData);
+  const theme = useTheme();
   const { context, setContext } = useAllContext();
   const handleClaimClick = () => {
     // open detail window using a state variable
@@ -50,6 +52,20 @@ const ClaimCardAdmin = React.forwardRef(({ claim, sx }: Props, ref) => {
       }}
     >
       <Box sx={{ width: '75%' }}>
+        {claim.hasNewComment && (
+          <ItemLabel
+            text="New Message"
+            bgColor="#ff1919"
+            textColor="#fff"
+            sx={{
+              display: 'inline-block',
+              translate: '-10px -18px',
+              [theme.breakpoints.up('lg')]: {
+                fontSize: '0.7rem',
+              },
+            }}
+          />
+        )}
         <Box
           sx={{
             display: 'flex',
