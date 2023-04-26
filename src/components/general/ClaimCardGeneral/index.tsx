@@ -14,6 +14,12 @@ type Props = {
   sx?: SxProps;
 };
 
+const claimStatusDisplay = {
+  unHandled: 'To be checked',
+  inProgress: 'In progress',
+  done: 'Handled',
+};
+
 const ClaimCardGeneral = ({ claim, onClick, sx }: Props) => {
   const { companyData } = useSelector(selectCompanyData);
   const theme = useTheme();
@@ -35,9 +41,7 @@ const ClaimCardGeneral = ({ claim, onClick, sx }: Props) => {
     >
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <ItemLabel
-          text={
-            claim.status === ClaimStatus.Unhandled ? 'To be checked' : 'Checked'
-          }
+          text={claimStatusDisplay[claim.status]}
           bgColor={
             claim.status === ClaimStatus.InProgress
               ? companyData.themeColors.primary
