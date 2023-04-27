@@ -49,7 +49,7 @@ export interface ClaimDetail {
   body: string;
   status: string;
   category: ClaimCategory[];
-  labels: ClaimLabel[];
+  labels: string[];
   createdAt: number;
   updatedAt: number;
 }
@@ -124,12 +124,20 @@ export type department = {
 export type adminUser = {
   _id: string;
   email: string;
-  password: string;
   firstName: string;
   lastName: string;
-  avatarUrl: string;
+  profileImg: string;
+  departmentId: string;
   permissions: permission[];
-  role: string;
+  department: department;
+};
+export type GeneralUser = {
+  _id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  profileImg: string;
+  departmentId: string;
   department: department;
 };
 

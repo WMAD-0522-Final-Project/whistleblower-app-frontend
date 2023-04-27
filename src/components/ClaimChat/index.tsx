@@ -1,5 +1,6 @@
 import React, {
   FormEventHandler,
+  useEffect,
   useLayoutEffect,
   useRef,
   useState,
@@ -13,8 +14,7 @@ import { AxiosCustomError, Chat } from '../../types';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { selectUserData } from '../../RTK/userDataSlice';
 import axios, { AxiosResponse } from 'axios';
-import localStorageHelper from '../../helpers/localStorageHelper';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import AlertCustom from '../MUI_comp/AlertCustom';
 import getAuthorizationValue from '../../helpers/getAuthorizationValue';
 import formatDatetime from '../../helpers/formatDatetime';
@@ -27,6 +27,9 @@ type Props = {
 interface NewClaimResponseData {
   message: string;
   msg: { [key: string]: any };
+}
+interface MessagesResponseData {
+  messages: Chat[];
 }
 
 const ClaimChat = ({ claimId, chatData }: Props) => {
@@ -46,6 +49,33 @@ const ClaimChat = ({ claimId, chatData }: Props) => {
     p: '0.4rem 1.2rem',
   };
 
+  const getAllMessages = async (): Promise<MessagesResponseData> => {
+    const res = await axios({
+      method: 'GET',
+      url: `${
+        import.meta.env.VITE_BACKEND_URL
+      }/api/claim/${claimId}/message/list`,
+      headers: {
+        Authorization: getAuthorizationValue(),
+      },
+    });
+    return res.data;
+  };
+
+  const setReadNewMessage = async () => {
+    const res = await axios({
+      method: 'PUT',
+      url: `${
+        import.meta.env.VITE_BACKEND_URL
+      }/api/claim/${claimId}/message/changeReadStatus`,
+      headers: {
+        Authorization: getAuthorizationValue(),
+      },
+      data: { hasNewComment: false },
+    });
+    return res.data;
+  };
+
   const sendNewMessage = async (
     message: string
   ): Promise<AxiosResponse<NewClaimResponseData>> => {
@@ -61,6 +91,25 @@ const ClaimChat = ({ claimId, chatData }: Props) => {
     });
     return res.data;
   };
+
+  const { data: messageData } = useQuery({
+    queryKey: ['messages'],
+    queryFn: getAllMessages,
+    staleTime: 1000 * 60 * 10,
+    onError: () => {
+      console.log('Failed to fetch chat message data');
+    },
+  });
+
+  const setReadNewMessageMutation = useMutation({
+    mutationFn: setReadNewMessage,
+    onSuccess: (data) => {
+      // invalidate claim list
+    },
+    onError: (data) => {
+      console.log('Error:', error);
+    },
+  });
 
   const sendNewMessageMutation = useMutation({
     mutationFn: sendNewMessage,
@@ -97,6 +146,16 @@ const ClaimChat = ({ claimId, chatData }: Props) => {
     if (!message) return;
     sendNewMessageMutation.mutate(message);
   };
+
+  useEffect(() => {
+    setReadNewMessageMutation.mutate();
+  }, []);
+
+  useEffect(() => {
+    if (messageData) {
+      setMessageList(messageData.messages);
+    }
+  }, [messageData]);
 
   useLayoutEffect(() => {
     const scroll =
@@ -215,6 +274,7 @@ const ClaimChat = ({ claimId, chatData }: Props) => {
           style={{
             backgroundColor: `${companyData.themeColors.primary}`,
             color: `${companyData.themeColors.secondary}`,
+            cursor: 'pointer',
             padding: '0.9rem 0.5rem',
             border: 'none',
             borderRadius: '5px',

@@ -7,26 +7,48 @@ import localStorageHelper from '../helpers/localStorageHelper';
 import { selectCompanyData } from '../RTK/companySlice';
 import theme from '../theme';
 import ButtonComponent from './MUI_comp/ButtonComponent';
+import axios from 'axios';
+import getAuthorizationValue from '../helpers/getAuthorizationValue';
 
 type Props = {
   sx?: SxProps;
 };
+interface LogoutResponse {
+  message: string;
+}
 
 const LogoutButton = ({ sx }: Props) => {
   const { companyData } = useSelector(selectCompanyData);
   const navigator = useNavigate();
 
-  const logout = () => {
-    localStorageHelper('set', 'token', '');
-    localStorageHelper('set', 'refreshToken', '');
-    navigator('/login');
+  const logout = async (): Promise<LogoutResponse> => {
+    const authorizationValue = getAuthorizationValue();
+    const res = await axios({
+      method: 'GET',
+      url: `${import.meta.env.VITE_BACKEND_URL}/api/auth/logout`,
+      headers: {
+        Authorization: authorizationValue,
+      },
+    });
+    return res.data;
+  };
+
+  const handleClick = async () => {
+    try {
+      await logout();
+      localStorageHelper('set', 'token', '');
+      localStorageHelper('set', 'refreshToken', '');
+      navigator('/login');
+    } catch (error) {
+      console.log('error', error);
+    }
   };
 
   return (
     <ButtonComponent
       customColor={companyData.themeColors.secondary}
       type="submit"
-      onClick={logout}
+      onClick={handleClick}
       sx={{
         boxShadow: '2px 2px 2px 2px rgba(0,0,0,0.2)',
         display: 'block',
