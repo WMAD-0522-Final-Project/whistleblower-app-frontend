@@ -64,7 +64,7 @@ const ClaimCardAdmin = React.forwardRef(({ claim, sx }: Props, ref) => {
             textColor="#fff"
             sx={{
               display: 'inline-block',
-              translate: '-10px -18px',
+              translate: '0 -15px',
               [theme.breakpoints.up('lg')]: {
                 fontSize: '0.7rem',
               },
