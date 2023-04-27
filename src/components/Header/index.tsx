@@ -116,7 +116,7 @@ const Header = ({ hasMenu = false }: Props) => {
           >
             <MuiLink
               component={RouterLink}
-              to="/users"
+              to="/admin/userView"
               sx={{
                 ...muiLinkStyles,
                 right: '110%',
@@ -134,7 +134,7 @@ const Header = ({ hasMenu = false }: Props) => {
             </MuiLink>
             <MuiLink
               component={RouterLink}
-              to="/settings"
+              to="/admin/settings"
               sx={{
                 ...muiLinkStyles,
                 right: '98%',
@@ -152,7 +152,7 @@ const Header = ({ hasMenu = false }: Props) => {
             </MuiLink>
             <MuiLink
               component={RouterLink}
-              to="/claims"
+              to="/admin/user-inquiries"
               sx={{
                 ...muiLinkStyles,
                 right: '72%',
@@ -170,7 +170,7 @@ const Header = ({ hasMenu = false }: Props) => {
             </MuiLink>
             <MuiLink
               component={RouterLink}
-              to="/logs"
+              to="/admin/logs"
               sx={{
                 ...muiLinkStyles,
                 right: '37%',
