@@ -89,6 +89,7 @@ const AvatarIcon = ({ onClick, sx }: Props) => {
             borderRadius: '0 50% 50% 0',
             display: 'block',
             width: '25%',
+            maxHeight: '50px',
           }}
         />
       ) : (
