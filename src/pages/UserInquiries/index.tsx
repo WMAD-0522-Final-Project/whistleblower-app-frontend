@@ -3,7 +3,6 @@ import axios, { AxiosResponse } from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import CustomBox from '../../components/CustomBox/CustomBox';
 import SearchBox from '../../components/SearchBox';
-import sampleInquiryUserList from '../../temp/sampleInquiryUserList';
 import UserInquiryCard from '../../components/admin/UserInquiryCard';
 import useModal from '../../hooks/useModal';
 import { Box, Typography } from '@mui/material';
@@ -92,7 +91,7 @@ const UserInquiries = () => {
   ============================================================================= */
 
   const handleInquiryCardClick = (userId: string) => {
-    const user = sampleInquiryUserList.find((user) => user._id === userId);
+    const user = userListData!.users.find((user) => user._id === userId);
     setCurrentInquiryUser(user!);
     handleOpen();
 
@@ -111,30 +110,13 @@ const UserInquiries = () => {
         marginTop: '1%',
       }}
     >
-      <Modal outerBoxStyle={{ width: '50%' }}>
-        <PasswordResetModal
-          userId={'6444d96195bf5bad7ad1dbc9'}
-        ></PasswordResetModal>
-      </Modal>
-      <button onClick={() => handleOpen()}>open</button>
-      {/* TODO: Use this in future for other inquiries other than password
+      {/* TODO: Use this in future for other inquiries other than password */}
       <Modal>
-        <Box>
-          <h2>
-            Change password for: {currentInquiryUser?.firstName}{' '}
-            {currentInquiryUser?.lastName}
-          </h2>
-          <ul>
-            <li>
-              New password:
-              <input type="text" />
-            </li>
-            <li>
-              Confirm new password:
-              <input type="text" />
-            </li>
-          </ul>
-        </Box>
+        {currentInquiryUser && (
+          <PasswordResetModal
+            userId={currentInquiryUser._id}
+          ></PasswordResetModal>
+        )}
       </Modal>
       <CustomBox sx={{ height: '90%', width: '100%', maxWidth: '800px' }}>
         <SearchBox
@@ -186,7 +168,7 @@ const UserInquiries = () => {
             </Typography>
           )}
         </Box>
-      </CustomBox> */}
+      </CustomBox>
     </div>
   );
 };
