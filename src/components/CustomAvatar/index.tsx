@@ -124,6 +124,7 @@ const CustomAvatar = ({ handleClose }: Props) => {
               display: 'block',
               width: '30%',
               maxWidth: '200px',
+              maxHeight: '200px',
             }}
           />
         ) : (
