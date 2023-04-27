@@ -14,7 +14,7 @@ import { AxiosCustomError, Chat } from '../../types';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { selectUserData } from '../../RTK/userDataSlice';
 import axios, { AxiosResponse } from 'axios';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import AlertCustom from '../MUI_comp/AlertCustom';
 import getAuthorizationValue from '../../helpers/getAuthorizationValue';
 import formatDatetime from '../../helpers/formatDatetime';
@@ -35,6 +35,7 @@ interface MessagesResponseData {
 const ClaimChat = ({ claimId, chatData }: Props) => {
   const { companyData } = useSelector(selectCompanyData);
   const { userData } = useSelector(selectUserData);
+  const queryClient = useQueryClient();
   const [alert, setAlert] = useState({
     type: '' as AlertColor,
     message: '',
@@ -103,8 +104,8 @@ const ClaimChat = ({ claimId, chatData }: Props) => {
 
   const setReadNewMessageMutation = useMutation({
     mutationFn: setReadNewMessage,
-    onSuccess: (data) => {
-      // invalidate claim list
+    onSuccess: () => {
+      queryClient.invalidateQueries(['claims']);
     },
     onError: (data) => {
       console.log('Error:', error);
