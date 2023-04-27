@@ -144,3 +144,19 @@ export interface Log {
   content: string;
   createdAt: number;
 }
+
+export interface CompanyDataTypes{ 
+  company: 
+        {
+            _id: string,
+            name: string,
+            logoImg: string,
+            themeColors: {
+                primary: string,
+                secondary: string,
+                tertiary: string
+            },
+            __v: number,
+            departments: [department]
+        }
+}

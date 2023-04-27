@@ -2,25 +2,33 @@
   margin: 0;
 }
 
-.super {
-  width: 100vw;
-  height: 100vh;
+.companySettings .super {
+  position: relative;
+  z-index: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 90vh;
 }
-
-.window {
-  width: 500px;
-  height: 80%;
+.companySettings .window {
+  width: 400px;
+  height: 550px;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   flex-direction: column;
 }
-
-.inputFields {
+@media (max-width: 391px) {
+  .companySettings .window {
+    border-radius: 0px;
+  }
+}
+.companySettings .setting_title {
+  font-size: 1.5em;
+  font-weight: bolder;
+}
+.companySettings .inputFields {
   height: 70%;
   width: 100%;
   display: flex;
@@ -28,7 +36,7 @@
   align-items: center;
   justify-content: center;
 }
-.inputFields .textInputs {
+.companySettings .inputFields .textInputs {
   width: 100%;
   height: 50%;
   display: flex;
@@ -37,17 +45,29 @@
   align-items: center;
   justify-content: space-between;
 }
-.inputFields .colorInputSelector {
+.companySettings .inputFields .colorInputSelector {
   margin-top: 15px;
   width: 90%;
   display: flex;
   justify-content: space-evenly;
 }
-.inputFields .colorPalletes {
+.companySettings .inputFields .colorPalletes {
   margin-top: 10px;
   height: 50%;
   background-color: white;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, 1fr);
-} /*# sourceMappingURL=styleColor.css.map */
+}
+.companySettings .bg_decoration {
+  position: absolute;
+  z-index: -1;
+  width: 40%;
+  height: 70%;
+  right: 0;
+  top: 0;
+  background-color: transparent;
+  background-size: 10px 10px;
+  background-position: 0 0, 50px 50px;
+  border-radius: 100% 0% 0% 100%/0% 79% 21% 100%;
+}/*# sourceMappingURL=styleColor.css.map */
