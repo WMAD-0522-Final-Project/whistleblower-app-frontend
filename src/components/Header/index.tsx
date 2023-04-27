@@ -59,7 +59,7 @@ const Header = ({ hasMenu = false }: Props) => {
       >
         <MuiLink
           component={RouterLink}
-          to="/admin"
+          to="/"
           sx={{
             textDecoration: 'none',
             '&:hover': {
