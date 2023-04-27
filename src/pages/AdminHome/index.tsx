@@ -1,34 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Theme, useMediaQuery } from '@mui/material';
 import useModal from '../../hooks/useModal';
 import { useSelector } from 'react-redux';
-import ClaimListAdmin from '../../components/admin/ClaimListAdmin';
 import { selectCompanyData } from '../../RTK/companySlice';
 import { Claim, ClaimDetail } from '../../types';
-import sampleClaims from '../../temp/sampleClaims';
-import UserCard from '../../components/admin/ModalWindow/UserCard';
-import LabelCard from '../../components/admin/ModalWindow/LabelCard';
 import MainWindow from '../../components/admin/ModalWindow/mainWindow';
 // import { useAllContext } from '../../custom/ClaimIdContext';
 import { useAllContext } from '../../context/ClaimIdContext';
-import ClaimChat from '../../components/ClaimChat';
-import sampleClaimDetail from '../../temp/sampleClaimDetail';
-import Frame from '../../components/admin/ModalWindow/Frame.tsx/Frame';
 import ClaimBox from '../../components/admin/ClaimBox';
 
-import { motion } from 'framer-motion';
-import ConfirmationModal from '../../components/ConfirmationModal';
-import CustomBox from '../../components/CustomBox/CustomBox';
-import {
-  DragDropContext,
-  DragDropContextProps,
-  DropResult,
-} from 'react-beautiful-dnd';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import axios, { AxiosResponse } from 'axios';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import getAuthorizationValue from '../../helpers/getAuthorizationValue';
-import { da } from 'date-fns/locale';
-import PasswordResetModal from '../../components/admin/PasswordResetModal';
 
 type Props = {};
 
@@ -63,9 +47,6 @@ const putStatus = ({
   claimId: string;
   status: string;
 }): Promise<AxiosResponse> => {
-  console.log('claimId', claimId);
-  console.log('status', status);
-
   const authorizationValue = getAuthorizationValue();
   return axios({
     method: 'PUT',
@@ -112,7 +93,6 @@ const AdminHome = (props: Props) => {
   let fetchedClaims = claimQuery.data?.data.claims;
 
   useEffect(() => {
-    console.log('claimQuery.data', claimQuery.data);
     claimQuery.data && setClaims(fetchedClaims);
   }, [claimQuery.data]);
 
@@ -156,35 +136,26 @@ const AdminHome = (props: Props) => {
     }
   }, [context.claimsId]);
 
-  useEffect(() => {
-    console.log('modalClaim: ', modalClaim);
-  }, [modalClaim]);
-
   // const filteredClaims = () =>
   //   claims.filter((claim: Claim) =>
   //     claim.message?.toLowerCase().includes(query.toLowerCase())
   //   );
-
-  useEffect(() => {
-    console.log(context, 'roren');
-  }, [context.claimsId]);
-
   const columns = [
     {
       id: 'unHandled',
-      width: matches ? 25 : 50,
+      width: matches ? 30 : 50,
       height: matches ? 70 : 6,
       label: 'New Claims',
     },
     {
       id: 'inProgress',
-      width: matches ? 25 : 50,
+      width: matches ? 30 : 50,
       height: matches ? 70 : 6,
       label: 'In Progress',
     },
     {
       id: 'done',
-      width: matches ? 25 : 50,
+      width: matches ? 30 : 50,
       height: matches ? 70 : 6,
       label: 'Done',
     },
@@ -193,10 +164,6 @@ const AdminHome = (props: Props) => {
   const statusMutation = useMutation({
     mutationFn: putStatus,
   });
-
-  useEffect(() => {
-    console.log('claims', claims);
-  }, [claims]);
 
   const handleOnDragEnd = (result: DropResult) => {
     if (!result.destination) return;
@@ -223,13 +190,9 @@ const AdminHome = (props: Props) => {
       removedClaim
     );
 
-    console.log('removedClaim', removedClaim);
-
     claimsCopy = [
       ...new Set([...claimsCopy, ...newDestinationColumn, ...removedColumn]),
     ];
-
-    console.log('claimsCopy:', claimsCopy);
 
     setClaims(claimsCopy);
 

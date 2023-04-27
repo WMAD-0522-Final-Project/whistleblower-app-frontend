@@ -39,6 +39,7 @@ const ClaimBox = React.forwardRef(
               justifyContent: 'space-around',
               alignItems: 'center',
               backgroundColor: companyData.themeColors.secondary,
+              maxWidth: '600px',
             }}
           >
             <Box
@@ -46,7 +47,7 @@ const ClaimBox = React.forwardRef(
                 borderRadius: '20px',
                 color: companyData.themeColors.secondary,
                 backgroundColor: companyData.themeColors.primary,
-                padding: '5%',
+                padding: '3% 6%',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',

@@ -15,7 +15,7 @@ type Props = {
 };
 
 const claimStatusDisplay = {
-  unHandled: 'To be checked',
+  unHandled: 'To be handled',
   inProgress: 'In progress',
   done: 'Handled',
 };

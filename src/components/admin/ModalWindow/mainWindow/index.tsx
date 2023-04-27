@@ -41,7 +41,7 @@ function MainWindow({ claim }: Props) {
   const [newLabelName, setNewLabelName] = useState('');
 
   useEffect(() => {
-    return setCurrentClaim(sampleClaimDetail);
+    return setCurrentClaim(claim);
   }, []);
 
   const selectLabel = (e: SelectChangeEvent<string>) => {
