@@ -15,3 +15,10 @@ export enum inquiryOption {
   SYSTEM_ISSUE = 'System Issue',
   OTHERS = 'Others',
 }
+
+export enum UserPermissionOption {
+  SYSTEM_MANAGEMENT = 'systemManagement',
+  CASE_MANAGEMENT = 'caseManagement',
+  REPORT_VIEWING = 'reportViewing',
+  USER_MANAGEMENT = 'userManagement',
+}

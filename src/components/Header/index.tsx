@@ -12,6 +12,10 @@ import { selectCompanyData } from '../../RTK/companySlice';
 import { APP_NAME } from '../../data/appData';
 import LogoutButton from '../LogoutButton';
 import appLogo from '../../assets/images/app-logo.png';
+import { selectUserData } from '../../RTK/userDataSlice';
+import checkPermission from '../../helpers/checkPermission';
+import { UserPermissionOption } from '../../types/enums';
+import commonStyles from '../../styles/common.module.scss';
 
 type Props = {
   hasMenu?: boolean;
@@ -19,7 +23,7 @@ type Props = {
 
 const Header = ({ hasMenu = false }: Props) => {
   const { companyData } = useSelector(selectCompanyData);
-
+  const { userData } = useSelector(selectUserData);
   const muiLinkStyles = {
     padding: '5px',
     position: 'absolute',
@@ -117,6 +121,12 @@ const Header = ({ hasMenu = false }: Props) => {
             <MuiLink
               component={RouterLink}
               to="/admin/userView"
+              className={
+                !checkPermission(
+                  UserPermissionOption.USER_MANAGEMENT,
+                  userData.permissions
+                ) && commonStyles.disabled
+              }
               sx={{
                 ...muiLinkStyles,
                 right: '110%',
@@ -135,6 +145,12 @@ const Header = ({ hasMenu = false }: Props) => {
             <MuiLink
               component={RouterLink}
               to="/admin/settings"
+              className={
+                !checkPermission(
+                  UserPermissionOption.SYSTEM_MANAGEMENT,
+                  userData.permissions
+                ) && commonStyles.disabled
+              }
               sx={{
                 ...muiLinkStyles,
                 right: '98%',
