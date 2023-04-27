@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Box, Theme, useMediaQuery } from '@mui/material';
+import { AlertColor, Box, Theme, useMediaQuery } from '@mui/material';
 import useModal from '../../hooks/useModal';
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../RTK/companySlice';
@@ -13,6 +13,10 @@ import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import axios, { AxiosResponse } from 'axios';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import getAuthorizationValue from '../../helpers/getAuthorizationValue';
+import checkPermission from '../../helpers/checkPermission';
+import { UserPermissionOption } from '../../types/enums';
+import { selectUserData } from '../../RTK/userDataSlice';
+import AlertCustom from '../../components/MUI_comp/AlertCustom';
 
 type Props = {};
 
@@ -64,7 +68,12 @@ const putStatus = ({
 
 const AdminHome = (props: Props) => {
   const { companyData } = useSelector(selectCompanyData);
+  const { userData } = useSelector(selectUserData);
   const { Modal, handleOpen, handleClose, open } = useModal();
+  const [alert, setAlert] = useState({
+    type: '' as AlertColor,
+    message: '',
+  });
   const [query, setQuery] = useState('');
   const [claims, setClaims] = useState<ClaimDetail[] | null>(null);
   const [isModalWindow, setIsModalWindow] = useState<boolean>(false);
@@ -167,6 +176,21 @@ const AdminHome = (props: Props) => {
 
   const handleOnDragEnd = (result: DropResult) => {
     if (!result.destination) return;
+
+    // check permission
+    if (
+      !checkPermission(
+        UserPermissionOption.CASE_MANAGEMENT,
+        userData.permissions
+      )
+    ) {
+      setAlert({
+        type: 'error',
+        message: "You don't have permission for this action",
+      });
+      return;
+    }
+
     let claimsCopy = [...claims!];
 
     const sourceColumn = claimsCopy.filter(
@@ -206,6 +230,9 @@ const AdminHome = (props: Props) => {
     claims && (
       // TODO: temporary styling until Mateus's task is done
       <>
+        {alert.message && (
+          <AlertCustom text={alert.message} type={alert.type} />
+        )}
         <DragDropContext onDragEnd={handleOnDragEnd}>
           <div style={{ position: 'relative' }}>
             <div

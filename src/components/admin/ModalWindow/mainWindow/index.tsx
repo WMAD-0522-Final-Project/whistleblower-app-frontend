@@ -18,6 +18,10 @@ import SelectBoxCustom from '../../../MUI_comp/SelectBoxCustom';
 
 import { motion, useCycle } from 'framer-motion';
 import getAuthorizationValue from '../../../../helpers/getAuthorizationValue';
+import checkPermission from '../../../../helpers/checkPermission';
+import { UserPermissionOption } from '../../../../types/enums';
+import { selectUserData } from '../../../../RTK/userDataSlice';
+import commonStyles from '../../../../styles/common.module.scss';
 
 type Props = {
   claim: Partial<Claim>;
@@ -34,11 +38,19 @@ function MainWindow({ claim }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
   const { companyData } = useSelector(selectCompanyData);
+  const { userData } = useSelector(selectUserData);
+  console.log('userData', userData);
+
   const { context, setContext } = useAllContext();
   const queryClient = useQueryClient();
   const [currentClaim, setCurrentClaim] = useState<ClaimDetail | null>(null);
   const [showLabelForm, setShowLabelForm] = useState(false);
   const [newLabelName, setNewLabelName] = useState('');
+
+  const hasPermission = checkPermission(
+    UserPermissionOption.CASE_MANAGEMENT,
+    userData.permissions
+  );
 
   useEffect(() => {
     return setCurrentClaim(claim);
@@ -218,7 +230,9 @@ function MainWindow({ claim }: Props) {
           </div>
           <Box className="extras">
             <Box
-              className="extra extra_left"
+              className={`extra extra_left ${
+                !hasPermission && commonStyles.disabled
+              }`}
               sx={{
                 maxWidth: '240px',
                 maxHeight: '300px',
@@ -337,7 +351,9 @@ function MainWindow({ claim }: Props) {
               )}
             </Box>
             <Box
-              className="extra extra_right"
+              className={`extra extra_right ${
+                !hasPermission && commonStyles.disabled
+              }`}
               sx={{
                 maxHeight: '300px',
                 maxWidth: '240px',
@@ -424,7 +440,9 @@ function MainWindow({ claim }: Props) {
                 <div className="desc">{claim.message}</div>
               </div>
               <Box
-                className="extra extra_left"
+                className={`extra extra_left ${
+                  !hasPermission && commonStyles.disabled
+                }`}
                 sx={{
                   maxWidth: '240px',
                   maxHeight: '300px',
@@ -543,7 +561,12 @@ function MainWindow({ claim }: Props) {
                   </Box>
                 )}
               </Box>
-              <div className="extra extra_rigth" style={{ marginTop: '10px' }}>
+              <div
+                className={`extra extra_rigth ${
+                  !hasPermission && commonStyles.disabled
+                }`}
+                style={{ marginTop: '10px' }}
+              >
                 <p
                   className="titles_extras"
                   style={{

@@ -128,7 +128,7 @@ const UserInquiries = () => {
             position: 'relative',
             width: '100%',
             height: '400px',
-            overflowY: 'scroll',
+            overflowY: 'auto',
             marginTop: '3%',
           }}
         >

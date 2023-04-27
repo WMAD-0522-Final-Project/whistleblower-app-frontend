@@ -52,7 +52,6 @@ const Login = (props: Props) => {
         profileImg,
         permissions,
       } = data.user;
-      console.log('userData after login', data);
 
       dispatch(
         setUserData({

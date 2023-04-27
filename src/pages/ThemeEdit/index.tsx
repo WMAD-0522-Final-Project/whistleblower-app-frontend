@@ -1,16 +1,33 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
-
 import { selectCompanyData } from '../../RTK/companySlice'
 import Settings from '../../components/MUI_comp/Settings';
 import TextFieldCustom from '../../components/MUI_comp/TextFieldCustom';
 import ButtonComponent from '../../components/MUI_comp/ButtonComponent';
+import checkPermission from '../../helpers/checkPermission';
+import { UserPermissionOption } from '../../types/enums';
+import { selectUserData } from '../../RTK/userDataSlice';
 
 
 const ThemeEdit = () => {
   const { companyData } = useSelector(selectCompanyData);
   const [admin, setAdmin] = useState(false)
+  const { userData } = useSelector(selectUserData);
+  const navigator = useNavigate();
+
+  useEffect(() => {
+    // check permission
+    if (
+      !checkPermission(
+        UserPermissionOption.SYSTEM_MANAGEMENT,
+        userData.permissions
+      )
+    ) {
+      navigator('/');
+    }
+  }, [])
    
   const StylesAdmin = {display: 'flex',
   borderRadius: '10px',

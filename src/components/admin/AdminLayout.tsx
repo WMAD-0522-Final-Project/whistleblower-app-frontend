@@ -41,7 +41,7 @@ const AdminLayout = (props: Props) => {
   const navigator = useNavigate();
   const { Modal, handleOpen, handleClose } = useModal();
   const dispatch = useDispatch();
-  const [isTokenChecked, setIsTokenChecked] = useState(false);
+  // const [isTokenChecked, setIsTokenChecked] = useState(false);
 
   const verifyToken = (): Promise<AxiosResponse<VerifyTokenResponseData>> => {
     const authorizationValue = getAuthorizationValue();
@@ -77,7 +77,7 @@ const AdminLayout = (props: Props) => {
       if (data.user.role.name !== UserRoleOption.ADMIN) {
         navigator('/login');
       }
-      setIsTokenChecked(true);
+      // setIsTokenChecked(true);
       dispatch(
         setUserData({
           _id: data.user._id,
@@ -103,7 +103,7 @@ const AdminLayout = (props: Props) => {
     },
   });
 
-  return isTokenChecked ? (
+  return (
     <>
       <Header hasMenu={true} />
       <AvatarIcon
@@ -125,7 +125,7 @@ const AdminLayout = (props: Props) => {
       </Modal>
       <Outlet />
     </>
-  ) : null;
+  );
 };
 
 export default AdminLayout;
