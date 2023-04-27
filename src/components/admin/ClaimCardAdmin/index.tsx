@@ -29,6 +29,10 @@ const ClaimCardAdmin = React.forwardRef(({ claim, sx }: Props, ref) => {
           claimsId: null,
         }));
       }
+      setContext((context) => ({
+        ...context,
+        claimsId: claim._id,
+      }));
     }
   };
 
