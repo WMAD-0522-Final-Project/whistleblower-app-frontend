@@ -1,4 +1,4 @@
-import React, { ContextType } from 'react';
+import React, { ContextType, useEffect } from 'react';
 import { Box, SxProps, Typography, useTheme } from '@mui/material';
 import { Claim, ClaimDetail } from '../../../types';
 import { useSelector } from 'react-redux';
@@ -9,9 +9,10 @@ import { useAllContext } from '../../../context/ClaimIdContext';
 import ClaimLabel from '../../SVG/ClaimLabel';
 import { motion } from 'framer-motion';
 import ItemLabel from '../../ItemLabel';
+import formatDatetime from '../../../helpers/formatDatetime';
 
 type Props = {
-  claim: Partial<ClaimDetail>;
+  claim: Claim;
   sx?: SxProps;
 };
 
@@ -28,10 +29,6 @@ const ClaimCardAdmin = React.forwardRef(({ claim, sx }: Props, ref) => {
           claimsId: null,
         }));
       }
-      setContext((context) => ({
-        ...context,
-        claimsId: claim._id,
-      }));
     }
   };
 
