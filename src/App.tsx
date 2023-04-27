@@ -37,6 +37,7 @@ import { ContextType } from './types';
 import { useAllContext } from './context/ClaimIdContext';
 import UserViewer from './pages/UserViewer';
 import AdminLogList from './pages/AdminLogList';
+import ControlRoute from './components/ControlRoute';
 
 const App = () => {
   const { companyData } = useSelector(selectCompanyData);
@@ -94,6 +95,7 @@ const App = () => {
               <Route index element={<GeneralHome />} />
             </Route>
           </Route>
+          <Route path="/" element={<ControlRoute />} />
         </Routes>
       </Box>
     </ThemeProvider>
