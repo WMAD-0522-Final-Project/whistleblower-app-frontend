@@ -8,9 +8,6 @@ type Props = {
 };
 
 function Yeallowtable({ url, initials }: Props) {
-  console.log('url', url);
-  console.log('initials', initials);
-
   const matches = useMediaQuery((theme) => theme.breakpoints.up('md'));
 
   return (

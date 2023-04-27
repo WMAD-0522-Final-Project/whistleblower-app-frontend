@@ -222,9 +222,6 @@ const AdminHome = (props: Props) => {
                   zIndex: '-1',
                 }}
               >
-                {/* TODO: temporary claim data */}
-                {/* <ClaimChat chatData={sampleClaimDetail.chats} /> */}
-                {/* {claims && <MainWindow claim={claims[0]}></MainWindow>} */}
                 {claimQuery.isLoading && <>Loading...</>}
                 {claimQuery.isError && <>{claimQuery.error}</>}
                 {claims && (
@@ -300,11 +297,6 @@ const AdminHome = (props: Props) => {
         </DragDropContext>
       </>
     )
-
-    // <Box sx={{ backgroundColor: '#fff', height: '100vh' }}>
-    //   {/* TODO: temporary claim data */}
-    //   <ClaimChat chatData={sampleClaimDetail.chats} />
-    // </Box>
   );
 };
 

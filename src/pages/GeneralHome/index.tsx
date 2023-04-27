@@ -99,7 +99,7 @@ const GeneralHome = (props: Props) => {
           outerBoxStyle={{ maxWidth: '600px' }}
           onClose={() => setCurrentClaimId(null)}
         >
-          <ClaimChat claimId={currentClaimId} chatData={data?.messages} />
+          <ClaimChat claimId={currentClaimId} />
         </Modal>
       )}
     </Box>

@@ -597,7 +597,7 @@ function MainWindow({ claim }: Props) {
               borderRadius: '10px',
             }}
           >
-            <ClaimChat claimId={claim._id} chatData={sampleClaimDetail.chats} />
+            <ClaimChat claimId={claim._id} />
           </Box>
         </div>
       </div>

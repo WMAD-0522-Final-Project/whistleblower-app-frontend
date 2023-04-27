@@ -21,7 +21,6 @@ import formatDatetime from '../../helpers/formatDatetime';
 
 type Props = {
   claimId: string;
-  chatData: Chat[] | undefined;
 };
 
 interface NewClaimResponseData {
@@ -32,7 +31,7 @@ interface MessagesResponseData {
   messages: Chat[];
 }
 
-const ClaimChat = ({ claimId, chatData }: Props) => {
+const ClaimChat = ({ claimId }: Props) => {
   const { companyData } = useSelector(selectCompanyData);
   const { userData } = useSelector(selectUserData);
   const queryClient = useQueryClient();
@@ -40,7 +39,7 @@ const ClaimChat = ({ claimId, chatData }: Props) => {
     type: '' as AlertColor,
     message: '',
   });
-  const [messageList, setMessageList] = useState<Chat[]>(chatData || []);
+  const [messageList, setMessageList] = useState<Chat[]>([]);
   const [message, setMessage] = useState('');
   const scrollRef = useRef<HTMLElement>(null);
 
@@ -96,7 +95,6 @@ const ClaimChat = ({ claimId, chatData }: Props) => {
   const { data: messageData } = useQuery({
     queryKey: ['messages'],
     queryFn: getAllMessages,
-    staleTime: 1000 * 60 * 10,
     onError: () => {
       console.log('Failed to fetch chat message data');
     },
