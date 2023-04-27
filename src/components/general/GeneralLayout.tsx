@@ -25,7 +25,7 @@ interface RefreshTokenResponseData {
 const GeneralLayout = (props: Props) => {
   const navigator = useNavigate();
   const dispatch = useDispatch();
-  const [isTokenChecked, setIsTokenChecked] = useState(false);
+  // const [isTokenChecked, setIsTokenChecked] = useState(false);
 
   const verifyToken = (): Promise<AxiosResponse<VerifyTokenResponseData>> => {
     const authorizationValue = getAuthorizationValue();
@@ -87,7 +87,7 @@ const GeneralLayout = (props: Props) => {
     },
   });
 
-  return isTokenChecked ? (
+  return (
     <Box
       sx={{
         maxWidth: '1200px',
@@ -114,7 +114,7 @@ const GeneralLayout = (props: Props) => {
         </Link>
       </Typography>
     </Box>
-  ) : null;
+  );
 };
 
 export default GeneralLayout;
