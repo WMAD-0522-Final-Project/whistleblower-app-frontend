@@ -1,11 +1,12 @@
 import localStorageHelper from './localStorageHelper';
 
-const getAuthorizationValue = () => {
-  const token = localStorageHelper('get', 'token')!;
+const getAuthorizationValue = (refreshOnly = false) => {
   const refreshToken = localStorageHelper('get', 'refreshToken')!;
 
-  return `Bearer ${token.data}`; // TODO: use until refresh token in ready from backend
-  // return `Bearer ${token.data} ${refreshToken.data}`;
+  if (refreshOnly) return `Bearer ${refreshToken.data}`;
+  const token = localStorageHelper('get', 'token')!;
+
+  return `Bearer ${token.data} ${refreshToken.data}`;
 };
 
 export default getAuthorizationValue;

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { Claim } from '../../types';
+import { Claim, ClaimDetail } from '../../types';
 import { Badge, Box, SxProps, Typography } from '@mui/material';
 
-type Props = { claim: Partial<Claim>; sx?: SxProps };
+type Props = { claim: Partial<ClaimDetail>; sx?: SxProps };
 const ClaimYellowTable = ({ claim, sx }: Props) => {
   return (
     <Box

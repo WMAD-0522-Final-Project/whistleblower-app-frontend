@@ -8,12 +8,18 @@ import { useDispatch } from 'react-redux';
 import { setUserData } from '../../RTK/userDataSlice';
 import { UserRoleOption } from '../../types/enums';
 import getAuthorizationValue from '../../helpers/getAuthorizationValue';
+import localStorageHelper from '../../helpers/localStorageHelper';
 
 type Props = {};
 
 interface VerifyTokenResponseData {
   message: string;
   user: { [key: string]: any };
+}
+interface RefreshTokenResponseData {
+  message: string;
+  accessToken: string;
+  refreshToken: string;
 }
 
 const GeneralLayout = (props: Props) => {
@@ -32,6 +38,18 @@ const GeneralLayout = (props: Props) => {
         Authorization: authorizationValue,
       },
     });
+  };
+
+  const getNewToken = async (): Promise<RefreshTokenResponseData> => {
+    const authorizationValue = getAuthorizationValue(true);
+    const res = await axios({
+      method: 'GET',
+      url: `${import.meta.env.VITE_BACKEND_URL}/api/auth/refresh`,
+      headers: {
+        Authorization: authorizationValue,
+      },
+    });
+    return res.data;
   };
 
   useQuery({
@@ -57,8 +75,15 @@ const GeneralLayout = (props: Props) => {
         })
       );
     },
-    onError: () => {
-      navigator('/login');
+    onError: async (error) => {
+      // try to get new token
+      try {
+        const data = await getNewToken();
+        localStorageHelper('set', 'token', data.accessToken);
+        localStorageHelper('set', 'refreshToken', data.refreshToken);
+      } catch (error) {
+        navigator('/login');
+      }
     },
   });
 

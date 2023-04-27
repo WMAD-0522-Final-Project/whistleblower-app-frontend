@@ -1,13 +1,12 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import { Claim } from '../../../types';
+import { Claim, ClaimDetail } from '../../../types';
 import ClaimCardAdmin from '../ClaimCardAdmin';
 import { Draggable } from 'react-beautiful-dnd';
 import { v4 as uuidv4, v4 } from 'uuid';
 
 type Props = {
-  // claims: Partial<Claim>[];
-  claims: Claim[];
+  claims: Partial<ClaimDetail>[];
 };
 
 const ClaimListAdmin = ({ claims }: Props) => {

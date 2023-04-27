@@ -9,6 +9,7 @@ const useModal = () => {
   const handleClose = () => {
     setOpen(false);
   };
+  const isOpen = open;
 
   const outerBoxStyleDefault = {
     position: 'absolute',
@@ -71,7 +72,7 @@ const useModal = () => {
     </MuiModal>
   );
 
-  return { handleOpen, handleClose, Modal };
+  return { handleOpen, handleClose, Modal, open };
 };
 
 export default useModal;

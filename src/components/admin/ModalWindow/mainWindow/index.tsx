@@ -40,10 +40,6 @@ function MainWindow({ claim }: Props) {
   const [showLabelForm, setShowLabelForm] = useState(false);
   const [newLabelName, setNewLabelName] = useState('');
 
-  const closeModalWindow = () => {
-    setContext({ userId: '', claimsId: '' });
-  };
-
   useEffect(() => {
     return setCurrentClaim(sampleClaimDetail);
   }, []);
@@ -592,9 +588,17 @@ function MainWindow({ claim }: Props) {
               </div>
             </div>
           </motion.div>
-          <div className="chat">
-            {/* <ClaimChat chatData={sampleClaimDetail.chats} /> */}
-          </div>
+          <Box
+            className="chat"
+            sx={{
+              border: '1px solid #ccc',
+              width: '100%',
+              padding: '10px',
+              borderRadius: '10px',
+            }}
+          >
+            <ClaimChat claimId={claim._id} chatData={sampleClaimDetail.chats} />
+          </Box>
         </div>
       </div>
     )

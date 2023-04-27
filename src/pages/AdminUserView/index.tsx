@@ -12,29 +12,127 @@ import { NativeSelect, Theme, useMediaQuery } from '@mui/material';
 import ItemLabel from '../../components/ItemLabel';
 import UserViewCard from '../../components/admin/AdminUserViewCard';
 import styles from './AdminUserView.module.scss';
+import axios, { AxiosResponse } from 'axios';
+import { useMutation, useQueries, useQuery } from '@tanstack/react-query';
+import getAuthorizationValue from '../../helpers/getAuthorizationValue';
+import ButtonComponent from '../../components/MUI_comp/ButtonComponent';
+import Closebutton from '../../components/SVG/Closebutton';
+type adminUserUpdate = {
+  email: string;
+  firstName: string;
+  lastName: string;
+  departmentId: string;
+  permissions: string[];
+  role: string;
+};
 
+type UserUpdataReqBody = {
+  userId: string | undefined;
+  userInfo: Partial<adminUserUpdate> | undefined;
+};
 function AdminUserView() {
   const [text, setText] = useState('');
+  const [allUsers, setAllUsers] = useState<null | adminUser[]>(null);
   const matches = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
   const smallmatches = useMediaQuery((theme: Theme) =>
     theme.breakpoints.up('md')
   );
+  const middlematches = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.up('md')
+  );
 
+  const semilargematches = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.between(770, 1300)
+  );
   const { companyData } = useSelector(selectCompanyData);
   const { context, setContext } = useAllContext();
   const [nowUser, setNowUser] = useState<Partial<adminUser> | null>(null);
+
   useEffect(() => {
-    if (context.AdminUserIdAdmin) {
-      const user = sampleUserDatas.filter(
-        (user) => user._id === context.AdminUserIdAdmin
-      )[0];
-      setNowUser(user);
+    console.log(nowUser, 'nowUserdesuuuuuuu');
+  }, [nowUser]);
+
+  useEffect(() => {
+    if (context.AdminUserIdAdmin !== '') {
+      if (allUsers) {
+        const user = allUsers.filter(
+          (user) => user._id === context.AdminUserIdAdmin
+        )[0];
+        setNowUser(user);
+      }
     }
   }, [context.AdminUserIdAdmin]);
 
+  const getUser = async (): Promise<AxiosResponse<adminUser[]>> => {
+    const res = await axios({
+      method: 'GET',
+      url: `${import.meta.env.VITE_BACKEND_URL}/api/user/list`,
+      params: { role: 'admin' },
+      headers: {
+        Authorization: getAuthorizationValue(),
+      },
+    });
+
+    return res.data;
+  };
+
+  const { data: users } = useQuery({
+    queryFn: getUser,
+    queryKey: ['adminUsers'],
+  });
+
+  useEffect(() => {
+    if (users) setAllUsers(users.users);
+  }, [users]);
+
   const modifySubmit = () => {
     //submit nowUser with fetch
+    if (nowUser) {
+      console.log(nowUser, 'submit imgonna');
+      userMutation.mutate({
+        userId: nowUser._id,
+        userInfo: {
+          email: nowUser.email,
+          firstName: nowUser.firstName,
+          lastName: nowUser.lastName,
+          departmentId: nowUser.departmentId,
+          permissions: nowUser.permissions
+            ? nowUser.permissions.map((perm) => perm.name)
+            : [],
+          role: 'admin',
+        },
+      });
+    }
   };
+
+  const userModifyForm = async (data: UserUpdataReqBody) => {
+    const res: AxiosResponse<adminUser> = await axios({
+      method: 'PUT',
+      url: `${import.meta.env.VITE_BACKEND_URL}/api/user/${
+        data.userId
+      }/info/update`,
+      headers: { Authorization: getAuthorizationValue() },
+      data: data.userInfo,
+    });
+    return res.data;
+  };
+
+  const userMutation = useMutation({
+    mutationFn: userModifyForm,
+    onSuccess: () => {
+      console.log('suceess');
+    },
+    onError: () => console.log('failed'),
+  });
+
+  const closeEdit = () => {
+    setContext((context) => ({
+      ...context,
+      AdminUserIdAdmin: '',
+    }));
+    setNowUser(null);
+  };
+
   return (
     <>
       <div
@@ -43,75 +141,82 @@ function AdminUserView() {
           flexDirection: matches ? 'row' : 'column',
           justifyContent: 'space-around',
           // marginTop: '-3%',
-          marginTop: matches ? '-3%' : '-19%',
+          marginTop: matches ? '-3%' : '-14%',
           marginBottom: matches ? '-3%' : '-7%',
           width: '100vw',
           height: '70vh',
         }}
       >
-        <CustomBox sx={{ height: '90%', width: matches ? '40%' : '90%' }}>
-          <SearchBox
-            onChange={(e) => setText(e.target.value)}
-            sx={{ width: 300, height: 50 }}
-          ></SearchBox>
-          <div
-            style={{
-              position: 'relative',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-around',
-              alignItems: 'center',
-              width: '100%',
-              height: '400px',
-              overflowY: 'scroll',
-              marginTop: '6%',
-            }}
-            className={styles.box}
-          >
-            {sampleUserDatas
-              .filter((user, i) => {
-                if (text == '') {
-                  return user;
-                } else if (
-                  user.firstName.toLowerCase().includes(text.toLowerCase())
-                ) {
-                  return user;
-                }
-              })
-              .map((user, i) => {
-                return (
-                  <div
-                    style={{
-                      position: 'absolute',
-                      width: '100%',
-                      height: '30%',
-                      marginTop: smallmatches ? `${25 * i}%` : `${30 * i}%`,
-                      display: 'flex',
-                      justifyContent: 'center',
-                      top: 10,
-                    }}
-                    key={i}
-                  >
-                    <UserViewCard
-                      whileHover={{ x: 20 }}
-                      user={user}
-                      width={80}
-                      height={100}
-                      url={user.avatarUrl}
-                      edit={true}
-                      sx={{ marginBottom: '20px' }}
-                    ></UserViewCard>
-                  </div>
-                );
-              })}
-          </div>
-        </CustomBox>
+        {!matches && nowUser ? (
+          <div></div>
+        ) : (
+          <CustomBox sx={{ height: '90%', width: matches ? '40%' : '90%' }}>
+            <SearchBox
+              onChange={(e) => setText(e.target.value)}
+              sx={{ width: 300, height: 50 }}
+            ></SearchBox>
+            <div
+              style={{
+                position: 'relative',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-around',
+                alignItems: 'center',
+                width: '100%',
+                height: '400px',
+                overflowY: 'scroll',
+                marginTop: '6%',
+              }}
+              className={styles.box}
+            >
+              {allUsers &&
+                allUsers
+                  .filter((user, i) => {
+                    if (text == '') {
+                      return user;
+                    } else if (
+                      user.firstName.toLowerCase().includes(text.toLowerCase())
+                    ) {
+                      return user;
+                    }
+                  })
+                  .map((user, i) => {
+                    return (
+                      <div
+                        style={{
+                          position: 'absolute',
+                          width: '100%',
+                          height: '30%',
+                          marginTop: middlematches
+                            ? `${32 * i - 5 * i}%`
+                            : `${30 * i}%`,
+                          display: 'flex',
+                          justifyContent: 'center',
+                          top: 10,
+                        }}
+                        key={i}
+                      >
+                        <UserViewCard
+                          whileHover={{ x: 20 }}
+                          user={user}
+                          width={80}
+                          height={100}
+                          url={user.avatarUrl}
+                          edit={true}
+                          sx={{ marginBottom: '20px' }}
+                        ></UserViewCard>
+                      </div>
+                    );
+                  })}
+            </div>
+          </CustomBox>
+        )}
 
         {nowUser && (
           <CustomBox
             // animate={claimId !== '' ? { display: 'inline-block' } : {}}
             sx={{
-              width: '40%',
+              width: matches ? '40%' : '90%',
               height: '90%',
               fontSize: '1rem',
             }}
@@ -135,9 +240,34 @@ function AdminUserView() {
                   height: '90%',
                 }}
               >
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  user setting : {nowUser.firstName}
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    width: '100%',
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      position: 'relative',
+                      left: '10%',
+                    }}
+                  >
+                    user id : {nowUser._id}
+                  </div>
+                  <div
+                    onClick={closeEdit}
+                    style={{
+                      position: 'relative',
+                      top: matches ? '-46%' : '-20%',
+                    }}
+                  >
+                    <Closebutton></Closebutton>
+                  </div>
                 </div>
+
                 <div
                   style={{
                     width: '100%',
@@ -410,20 +540,22 @@ function AdminUserView() {
                   alignItems: 'center',
                   width: '100%',
                   height: '10%',
+                  marginTop: '-2%',
                 }}
               >
-                <button
+                <ButtonComponent
+                  customColor={companyData.themeColors.tertiary}
+                  type="submit"
                   onClick={modifySubmit}
-                  style={{
-                    backgroundColor: companyData.themeColors.tertiary,
-                    border: 'none',
-                    padding: '15px',
-                    borderRadius: '10px',
-                    fontSize: '1.2rem',
+                  sx={{
+                    color: 'black',
+                    boxShadow: '2px 2px 2px 2px rgba(0.2,0.2,0.2,0.2)',
+                    padding: '0.7rem',
+                    borderRadius: '7px',
                   }}
                 >
                   submit
-                </button>
+                </ButtonComponent>
               </div>
             </div>
           </CustomBox>
