@@ -26,6 +26,7 @@ const CreateContext = createContext<ClaimIdContextType>({
     AdminUserIdAdmin: '',
     yellowRotate: 0,
   },
+  // setContext: (c) => {},
   setContext: (c) => {},
 });
 

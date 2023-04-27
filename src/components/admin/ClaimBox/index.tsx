@@ -12,7 +12,8 @@ type Props = {
   width: number;
   height: number;
   label: string;
-  claims: Partial<Claim>[];
+  // claims: Partial<Claim>[];
+  claims: Claim[];
   id: string;
   sx?: SxProps;
 };
