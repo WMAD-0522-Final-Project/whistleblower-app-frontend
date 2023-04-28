@@ -37,7 +37,7 @@ const UserInquiryCard = React.forwardRef(
           justifyContent: 'space-around',
           padding: '0.6rem 0.4rem 0.6rem 2.8rem;',
           position: 'relative',
-          width: '80%',
+          width: '90%',
           ...sx,
         }}
       >
@@ -49,12 +49,35 @@ const UserInquiryCard = React.forwardRef(
             )}`}
           ></Yeallowtable>
         </div>
-        <div>
-          {user.firstName} {user.lastName}
-        </div>
-        <div style={{ fontSize: '0.9rem' }}>
-          <div>email : {user.email}</div>
-        </div>
+        <Box
+          sx={(theme) => ({
+            [theme.breakpoints.up('md')]: {
+              display: 'flex',
+            },
+          })}
+        >
+          <Box
+            sx={(theme) => ({
+              fontSize: '0.8rem',
+              [theme.breakpoints.down('md')]: {
+                fontSize: '0.9rem',
+              },
+            })}
+          >
+            {user.firstName} {user.lastName}
+          </Box>
+          <Box
+            sx={(theme) => ({
+              fontSize: '0.8rem',
+              [theme.breakpoints.up('md')]: {
+                fontSize: '0.9rem',
+                ml: '2rem',
+              },
+            })}
+          >
+            <div>email : {user.email}</div>
+          </Box>
+        </Box>
         <ButtonComponent
           customColor={companyData.themeColors.primary}
           type="submit"
@@ -71,6 +94,7 @@ const UserInquiryCard = React.forwardRef(
             fontSize: '0.6rem',
             transition: 'scale 100ms ease-in-out',
             width: '20%',
+            ml: '0.6rem',
             '&:hover': {
               backgroundColor: companyData.themeColors.secondary,
               scale: '1.07',

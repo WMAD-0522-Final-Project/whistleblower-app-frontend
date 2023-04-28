@@ -152,19 +152,19 @@ const AdminHome = (props: Props) => {
   const columns = [
     {
       id: 'unHandled',
-      width: matches ? 30 : 50,
+      width: matches ? 30 : 80,
       height: matches ? 70 : 6,
       label: 'New Claims',
     },
     {
       id: 'inProgress',
-      width: matches ? 30 : 50,
+      width: matches ? 30 : 80,
       height: matches ? 70 : 6,
       label: 'In Progress',
     },
     {
       id: 'done',
-      width: matches ? 30 : 50,
+      width: matches ? 30 : 80,
       height: matches ? 70 : 6,
       label: 'Done',
     },
@@ -267,6 +267,7 @@ const AdminHome = (props: Props) => {
                             flexDirection: 'column',
                             justifyContent: 'space-around',
                             alignItems: 'center',
+                            marginTop: '2rem',
                             width: '100%',
                             height: '90%',
                           }

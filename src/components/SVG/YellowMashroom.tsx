@@ -25,7 +25,6 @@ const YellowMashroom = React.forwardRef(
               fill={companyData.themeColors.tertiary}
             />
           </svg>
-          ;lk
         </div>
       </>
     );

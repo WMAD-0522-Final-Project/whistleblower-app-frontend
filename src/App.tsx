@@ -1,7 +1,13 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import { Box, ThemeProvider } from '@mui/material';
+import {
+  Box,
+  Theme,
+  ThemeProvider,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import theme from './theme';
 import { useSelector } from 'react-redux';
 import Login from './pages/Login';
@@ -29,6 +35,8 @@ const App = () => {
 
   const location = useLocation();
   const yellowControl = useAnimationControls();
+  const theme = useTheme();
+  const isLg = useMediaQuery(theme.breakpoints.up('lg'));
 
   useEffect(() => {
     // if (location.pathname === '/admin') yellowControl.start({ rotate: 100 });
@@ -46,19 +54,23 @@ const App = () => {
       <Box
         sx={{
           backgroundColor: companyData.themeColors.primary,
-          minHeight: '100vh',
+          minHeight: '110vh',
           overflowX: 'hidden',
           position: 'relative',
-          overflow: 'hidden',
           zIndex: '1',
+          [theme.breakpoints.up('lg')]: {
+            overflow: 'hidden',
+          },
         }}
       >
-        <div style={{ position: 'absolute', zIndex: '-1' }}>
-          <YellowMashroom
-            animate={yellowControl}
-            transition={{ duration: 1 }}
-          ></YellowMashroom>
-        </div>
+        {isLg && (
+          <div style={{ position: 'absolute', zIndex: '-1' }}>
+            <YellowMashroom
+              animate={yellowControl}
+              transition={{ duration: 1 }}
+            ></YellowMashroom>
+          </div>
+        )}
 
         <Routes>
           <Route path="/login" element={<Login />} />

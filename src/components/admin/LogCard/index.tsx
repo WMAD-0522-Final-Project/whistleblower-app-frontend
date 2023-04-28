@@ -28,7 +28,7 @@ const LogCard = React.forwardRef(({ log, sx }: Props, ref) => {
         justifyContent: 'space-around',
         padding: '0.2rem',
         position: 'relative',
-        width: '80%',
+        width: '90%',
         ...sx,
       }}
     >
