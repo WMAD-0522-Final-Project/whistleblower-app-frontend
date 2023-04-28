@@ -122,9 +122,9 @@ const CustomAvatar = ({ handleClose }: Props) => {
               // border: `2px solid ${companyData.themeColors.secondary}`,
               borderRadius: '50%',
               display: 'block',
-              width: '30%',
-              maxWidth: '200px',
-              maxHeight: '200px',
+              width: '200px',
+              height: '200px',
+              objectFit: 'cover',
             }}
           />
         ) : (
