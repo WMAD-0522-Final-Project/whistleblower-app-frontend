@@ -23,7 +23,7 @@ function UserViewer() {
     // check permission
     if (
       !checkPermission(
-        UserPermissionOption.CASE_MANAGEMENT,
+        UserPermissionOption.USER_MANAGEMENT,
         userData.permissions
       )
     ) {

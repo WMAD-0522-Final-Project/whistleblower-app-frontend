@@ -21,6 +21,7 @@ import { useAllContext } from './context/ClaimIdContext';
 import UserViewer from './pages/UserViewer';
 import AdminLogList from './pages/AdminLogList';
 import ControlRoute from './components/ControlRoute';
+import ThemeEdit from './pages/ThemeEdit';
 
 const App = () => {
   const { companyData } = useSelector(selectCompanyData);
@@ -69,7 +70,7 @@ const App = () => {
               <Route path="generalUserView" element={<GeneralUserView />} />
               <Route path="userView" element={<UserViewer />} />
               <Route path="user-inquiries" element={<UserInquiries />} />
-              <Route path="settings" element={<Settings />} />
+              <Route path="settings" element={<ThemeEdit />} />
               <Route path="logs" element={<AdminLogList />} />
             </Route>
           </Route>

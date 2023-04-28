@@ -1,19 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Box, Typography } from '@mui/material';
-import { selectCompanyData } from '../../RTK/companySlice'
-import Settings from '../../components/MUI_comp/Settings';
-import TextFieldCustom from '../../components/MUI_comp/TextFieldCustom';
-import ButtonComponent from '../../components/MUI_comp/ButtonComponent';
+import { selectCompanyData } from '../../RTK/companySlice';
+import SettingsGlobal from './SettingsGlobal';
 import checkPermission from '../../helpers/checkPermission';
 import { UserPermissionOption } from '../../types/enums';
 import { selectUserData } from '../../RTK/userDataSlice';
 
-
 const ThemeEdit = () => {
   const { companyData } = useSelector(selectCompanyData);
-  const [admin, setAdmin] = useState(false)
+  const [admin, setAdmin] = useState(false);
   const { userData } = useSelector(selectUserData);
   const navigator = useNavigate();
 
@@ -27,56 +23,68 @@ const ThemeEdit = () => {
     ) {
       navigator('/');
     }
-  }, [])
-   
-  const StylesAdmin = {display: 'flex',
-  borderRadius: '10px',
-  flexDirection: 'row',
-  backgroundColor: '#FFF',
-  m: '5rem auto',
-  maxWidth: '1000px',
-  '& > :nth-child(1)': {
-   
-   display: 'grid',
-   placeItems: 'center',
-    width: '60%',
- },
- '& > :nth-child(2)': {
-  width: '40%',
-   marginTop: '0'
- },
-  '@media (max-width: 1024px)': {
-   flexDirection: 'column',
-   maxWidth: '450px',
-   '& > :nth-child(1)': {
-     width: '100%',
-   },
-   '& > :nth-child(2)': {
-       width: '100%',
-       marginTop: '10px'
-   },
- }}
- const StyleUser = {
- borderRadius: '10px',
- backgroundColor: '#FFF',
- m: '5rem auto',
- maxWidth: '450px',
- padding: '40px 10px 40px 10px',
- '& > :nth-child(1)': {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  '& > :last-child': {
-    marginTop: '30px',
-  },
-},
+  }, []);
 
-}
-   
+  const StylesAdmin = {
+    display: 'flex',
+    borderRadius: '10px',
+    flexDirection: 'row',
+    backgroundColor: '#FFF',
+    m: '5rem auto',
+    maxWidth: '1000px',
+    '& > :nth-child(1)': {
+      display: 'grid',
+      placeItems: 'center',
+      width: '60%',
+    },
+    '& > :nth-child(2)': {
+      width: '40%',
+      marginTop: '0',
+    },
+    '@media (max-width: 1024px)': {
+      flexDirection: 'column',
+      maxWidth: '450px',
+      '& > :nth-child(1)': {
+        width: '100%',
+      },
+      '& > :nth-child(2)': {
+        width: '100%',
+        marginTop: '10px',
+      },
+    },
+  };
+  const StyleUser = {
+    borderRadius: '10px',
+    backgroundColor: '#FFF',
+    m: '5rem auto',
+    maxWidth: '450px',
+    padding: '40px 10px 40px 10px',
+    '& > :nth-child(1)': {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      '& > :last-child': {
+        marginTop: '30px',
+      },
+    },
+  };
+
   return (
-    <>
-    <button onClick={()=>{setAdmin(!admin)}}>{admin? 'admin': 'user'}</button>
+    <div
+      style={{
+        position: 'absolute',
+        width: '100vw',
+        height: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        top: '0%',
+      }}
+    >
+      {/* width: '100vs', height: '70vh', display: 'grid', placeContent: 'center' */}
+      <SettingsGlobal />
+      {/* <button onClick={()=>{setAdmin(!admin)}}>{admin? 'admin': 'user'}</button>
       <Box sx={admin? StylesAdmin: StyleUser}>
        
         {admin? 
@@ -136,9 +144,9 @@ const ThemeEdit = () => {
         </div>
         }
         
-      </Box>
-      </>
-  )
-}
+      </Box> */}
+    </div>
+  );
+};
 
-export default ThemeEdit
+export default ThemeEdit;
