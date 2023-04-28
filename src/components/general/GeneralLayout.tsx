@@ -61,7 +61,7 @@ const GeneralLayout = (props: Props) => {
       if (data.user.role.name !== UserRoleOption.GENERAL) {
         navigator('/login');
       }
-      setIsTokenChecked(true);
+      // setIsTokenChecked(true);
       dispatch(
         setUserData({
           _id: data.user._id,

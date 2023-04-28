@@ -1,7 +1,7 @@
-import React, { FormEventHandler, useState } from 'react';
+import { FormEventHandler, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import { AlertColor, Box, useTheme } from '@mui/material';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import CustomBox from '../../CustomBox/CustomBox';
 import SectionTitle from '../../SectionTitle';
 import TextareaLabel from '../../TextareaLabel';
@@ -12,10 +12,8 @@ import FileInput from '../../FileInput';
 import CheckboxLabel from '../../CheckboxLabel';
 import ButtonComponent from '../../MUI_comp/ButtonComponent';
 import InputLabel from '../../InputLabel';
-import localStorageHelper from '../../../helpers/localStorageHelper';
 import AlertCustom from '../../MUI_comp/AlertCustom';
-import sampleClaimCategories from '../../../temp/sampleClaimCategories';
-import { AxiosCustomError } from '../../../types';
+import { AxiosCustomError, ClaimCategory } from '../../../types';
 import getAuthorizationValue from '../../../helpers/getAuthorizationValue';
 
 type Props = {};
@@ -31,6 +29,9 @@ interface NewClaimResponseData {
   message: string;
   claim: { [key: string]: any };
 }
+interface CategoriesResponseData {
+  categories: ClaimCategory[];
+}
 
 const ClaimForm = (props: Props) => {
   const { companyData } = useSelector(selectCompanyData);
@@ -38,6 +39,27 @@ const ClaimForm = (props: Props) => {
   const [alert, setAlert] = useState({
     type: '' as AlertColor,
     message: '',
+  });
+
+  const getCategoryList = async (): Promise<CategoriesResponseData> => {
+    const res = await axios({
+      method: 'GET',
+      url: `${import.meta.env.VITE_BACKEND_URL}/api/claim/category/list`,
+      headers: {
+        Authorization: getAuthorizationValue(),
+      },
+    });
+    return res.data;
+  };
+
+  const { data: categoriesData } = useQuery({
+    queryKey: ['claim-categories'],
+    queryFn: getCategoryList,
+    staleTime: Infinity,
+    retry: 0,
+    onError: async (error) => {
+      console.log('failed to fetch category list');
+    },
   });
 
   const createNewClaim = ({
@@ -145,19 +167,21 @@ const ClaimForm = (props: Props) => {
               width: '100%',
             }}
           />
-          <SelectBoxLabel
-            placeholder="Choose category"
-            label="Category"
-            name="category"
-            options={sampleClaimCategories}
-            color={companyData.themeColors.primary}
-            selectBoxSx={{
-              '& .MuiSelect-select': {
-                padding: '1rem',
-              },
-            }}
-            sx={{ mt: '1rem', width: '100%' }}
-          />
+          {categoriesData && (
+            <SelectBoxLabel
+              placeholder="Choose category"
+              label="Category"
+              name="category"
+              options={categoriesData.categories}
+              color={companyData.themeColors.primary}
+              selectBoxSx={{
+                '& .MuiSelect-select': {
+                  padding: '1rem',
+                },
+              }}
+              sx={{ mt: '1rem', width: '100%' }}
+            />
+          )}
           <TextareaLabel
             placeholder="Enter message"
             label="Message"
