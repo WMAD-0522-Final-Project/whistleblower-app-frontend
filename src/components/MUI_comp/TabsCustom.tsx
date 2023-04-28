@@ -3,7 +3,7 @@ import { Box, SxProps, Tab, Tabs } from '@mui/material';
 import TabPanel from './TabPanelCustom';
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../RTK/companySlice';
-
+import useLetterColor from '../../hooks/useLetterColor';
 const a11yProps = (index: number) => {
   return {
     id: `simple-tab-${index}`,
@@ -20,6 +20,7 @@ interface Props {
 const TabsCustom = ({ options, contents, sx, currentState }: Props) => {
   const [value, setValue] = React.useState(0);
   const { companyData } = useSelector(selectCompanyData);
+  const { letterColor } = useLetterColor();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -37,7 +38,7 @@ const TabsCustom = ({ options, contents, sx, currentState }: Props) => {
           aria-label="basic tabs example"
           sx={{
             '& .MuiTabs-indicator': {
-              bgcolor: companyData.themeColors.primary,
+              bgcolor: companyData.themeColors.secondary,
             },
           }}
         >
@@ -46,7 +47,7 @@ const TabsCustom = ({ options, contents, sx, currentState }: Props) => {
               label={option}
               {...a11yProps(index)}
               sx={{
-                color: companyData.themeColors.secondary,
+                color: letterColor,
                 '&.Mui-selected': {
                   bgcolor: '#fff',
                   borderRadius: '5px',

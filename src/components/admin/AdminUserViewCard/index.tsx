@@ -11,7 +11,7 @@ import {
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../../RTK/companySlice';
 import Yeallowtable from '../../SVG/YeallowTable';
-
+import useLetterColor from '../../../hooks/useLetterColor';
 import { Claim } from '../../../types';
 import { motion } from 'framer-motion';
 import EditIcon from '../../SVG/EditIcon';
@@ -32,6 +32,8 @@ const AdminUserViewCard = React.forwardRef(
   ({ user, width, height, url, edit, sx }: Props, ref) => {
     const { companyData } = useSelector(selectCompanyData);
     const { context, setContext } = useAllContext();
+    const { letterColor } = useLetterColor();
+
     const editHandle = () => {
       if (user)
         setContext((context) => ({
@@ -61,7 +63,7 @@ const AdminUserViewCard = React.forwardRef(
             backgroundColor: companyData.themeColors.primary,
             borderRadius: '2rem',
             boxShadow: '1px 3px 2px 1px rgba(0,0,0,0.2)',
-            color: companyData.themeColors.secondary,
+            color: letterColor,
             cursor: 'pointer',
             display: 'flex',
             flexDirection: semilargematches
@@ -131,8 +133,8 @@ const AdminUserViewCard = React.forwardRef(
               return (
                 <div
                   style={{
-                    backgroundColor: companyData.themeColors.tertiary,
-                    color: 'black',
+                    backgroundColor: companyData.themeColors.secondary,
+                    color: letterColor,
                     padding: '0.1rem',
                     width: '80%',
                     display: 'flex',

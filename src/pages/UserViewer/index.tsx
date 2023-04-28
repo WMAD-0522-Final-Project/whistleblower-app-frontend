@@ -64,6 +64,7 @@ function UserViewer() {
             flexDirection: 'column',
             alignItems: 'center',
             width: boxSizeOperator(),
+            color: 'black',
           }}
         ></TabsCustom>
       </div>

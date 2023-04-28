@@ -9,12 +9,12 @@ import {
   useTheme,
 } from '@mui/material';
 import theme from './theme';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Login from './pages/Login';
 import GeneralHome from './pages/GeneralHome';
 import AdminHome from './pages/AdminHome';
 import Contact from './pages/Contact';
-import { selectCompanyData } from './RTK/companySlice';
+import { selectCompanyData, setCompanyData } from './RTK/companySlice';
 import YellowMashroom from './components/SVG/YellowMashroom';
 import { useAnimationControls } from 'framer-motion';
 import AdminUserView from './pages/AdminUserView';
@@ -28,15 +28,50 @@ import UserViewer from './pages/UserViewer';
 import AdminLogList from './pages/AdminLogList';
 import ControlRoute from './components/ControlRoute';
 import ThemeEdit from './pages/ThemeEdit';
+import { CompanyDataTypes } from './types';
+import axios from 'axios';
+import getAuthorizationValue from './helpers/getAuthorizationValue';
+import { useQuery } from '@tanstack/react-query';
 
 const App = () => {
   const { companyData } = useSelector(selectCompanyData);
   const { context, setContext } = useAllContext();
+  const dispatch = useDispatch();
 
   const location = useLocation();
   const yellowControl = useAnimationControls();
   const theme = useTheme();
   const isLg = useMediaQuery(theme.breakpoints.up('lg'));
+
+  const getCompanyData = async (): Promise<CompanyDataTypes> => {
+    const res = await axios({
+      method: 'GET',
+      url: `${import.meta.env.VITE_BACKEND_URL}/api/company/info`,
+      headers: {
+        Authorization: getAuthorizationValue(),
+      },
+    });
+
+    return res.data;
+  };
+
+  const { data: CompanyDataBend } = useQuery({
+    queryFn: getCompanyData,
+    queryKey: ['CompanyDataFromBackend'],
+  });
+
+  useEffect(() => {
+    const setBackEnd = () => {
+      dispatch(
+        setCompanyData({
+          ...CompanyDataBend?.company,
+        })
+      );
+    };
+    if (CompanyDataBend !== undefined) {
+      setBackEnd();
+    }
+  }, [CompanyDataBend]);
 
   useEffect(() => {
     // if (location.pathname === '/admin') yellowControl.start({ rotate: 100 });

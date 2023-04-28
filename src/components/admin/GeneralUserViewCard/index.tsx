@@ -11,7 +11,7 @@ import {
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../../RTK/companySlice';
 import Yeallowtable from '../../SVG/YeallowTable';
-
+import useLetterColor from '../../../hooks/useLetterColor';
 import { Claim } from '../../../types';
 import { motion } from 'framer-motion';
 import EditIcon from '../../SVG/EditIcon';
@@ -31,6 +31,8 @@ const GeneralUserViewCard = React.forwardRef(
   ({ user, width, height, url, edit, sx }: Props, ref) => {
     const { companyData } = useSelector(selectCompanyData);
     const { context, setContext } = useAllContext();
+    const { letterColor } = useLetterColor();
+
     const matches = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
     const smallmatches = useMediaQuery((theme: Theme) =>
       theme.breakpoints.up('sm')
@@ -58,7 +60,7 @@ const GeneralUserViewCard = React.forwardRef(
             backgroundColor: companyData.themeColors.primary,
             borderRadius: '2rem',
             boxShadow: '1px 3px 2px 1px rgba(0,0,0,0.2)',
-            color: companyData.themeColors.secondary,
+            color: letterColor,
             cursor: 'pointer',
             display: 'flex',
             flexDirection: semilargematches

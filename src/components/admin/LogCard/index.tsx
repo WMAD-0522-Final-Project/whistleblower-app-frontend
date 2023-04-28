@@ -5,6 +5,7 @@ import { selectCompanyData } from '../../../RTK/companySlice';
 import { motion } from 'framer-motion';
 import { Log } from '../../../types/index';
 import formatDatetime from '../../../helpers/formatDatetime';
+import useLetterColor from '../../../hooks/useLetterColor';
 
 type Props = {
   log: Log;
@@ -13,6 +14,7 @@ type Props = {
 
 const LogCard = React.forwardRef(({ log, sx }: Props, ref) => {
   const { companyData } = useSelector(selectCompanyData);
+  const { letterColor } = useLetterColor();
 
   return (
     <Box
@@ -22,7 +24,7 @@ const LogCard = React.forwardRef(({ log, sx }: Props, ref) => {
         backgroundColor: companyData.themeColors.primary,
         borderRadius: '2rem',
         boxShadow: '1px 3px 2px 1px rgba(0,0,0,0.2)',
-        color: companyData.themeColors.secondary,
+        color: letterColor,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-around',

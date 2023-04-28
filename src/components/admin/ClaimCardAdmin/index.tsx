@@ -10,6 +10,7 @@ import ClaimLabel from '../../SVG/ClaimLabel';
 import { motion } from 'framer-motion';
 import ItemLabel from '../../ItemLabel';
 import formatDatetime from '../../../helpers/formatDatetime';
+import useLetterColor from '../../../hooks/useLetterColor';
 
 type Props = {
   claim: ClaimDetail;
@@ -17,6 +18,7 @@ type Props = {
 };
 
 const ClaimCardAdmin = React.forwardRef(({ claim, sx }: Props, ref) => {
+  const { letterColor } = useLetterColor();
   const { companyData } = useSelector(selectCompanyData);
   const theme = useTheme();
   const { context, setContext } = useAllContext();
@@ -49,7 +51,7 @@ const ClaimCardAdmin = React.forwardRef(({ claim, sx }: Props, ref) => {
         backgroundColor: companyData.themeColors.primary,
         borderRadius: '2rem',
         boxShadow: '1px 3px 2px 1px rgba(0,0,0,0.2)',
-        color: companyData.themeColors.secondary,
+        color: letterColor,
         cursor: 'pointer',
         display: 'flex',
         alignItems: 'center',
@@ -88,7 +90,7 @@ const ClaimCardAdmin = React.forwardRef(({ claim, sx }: Props, ref) => {
           </Typography>
           <Box
             sx={{
-              background: companyData.themeColors.secondary,
+              background: 'white',
               boxShadow: '1px 1px 2px 1px inset rgba(0,0,0,0.3)',
               borderRadius: '50px',
               display: 'flex',
