@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useQuery } from '@tanstack/react-query';
 import AvatarIcon from './AvatarIcon';
 import Header from '../Header';
@@ -12,6 +12,7 @@ import LogoutButton from '../LogoutButton';
 import useModal from '../../hooks/useModal';
 import CustomAvatar from '../CustomAvatar';
 import localStorageHelper from '../../helpers/localStorageHelper';
+import { selectCompanyData } from '../../RTK/companySlice';
 
 type Props = {};
 interface VerifyTokenResponseData {
@@ -24,25 +25,12 @@ interface RefreshTokenResponseData {
   refreshToken: string;
 }
 
-const outerBoxStyle = {
-  // width: 250,
-  // height: 250,
-  bgcolor: '#FFCB14',
-  boxShadow: 24,
-};
-
-const innerBoxStyle = {
-  // width: 200,
-  // height: 200,
-  border: '5px solid white',
-};
-
 const AdminLayout = (props: Props) => {
   const navigator = useNavigate();
   const { Modal, handleOpen, handleClose } = useModal();
   const dispatch = useDispatch();
   // const [isTokenChecked, setIsTokenChecked] = useState(false);
-
+  const { companyData } = useSelector(selectCompanyData);
   const verifyToken = (): Promise<AxiosResponse<VerifyTokenResponseData>> => {
     const authorizationValue = getAuthorizationValue();
     if (!authorizationValue) navigator('/login');
@@ -120,7 +108,14 @@ const AdminLayout = (props: Props) => {
           zIndex: '100',
         }}
       />
-      <Modal outerBoxStyle={outerBoxStyle} innerBoxStyle={innerBoxStyle}>
+      <Modal
+        outerBoxStyle={{
+          bgcolor: companyData.themeColors.secondary,
+          boxShadow: 24,
+          width: '45%',
+        }}
+        innerBoxStyle={{ border: '5px solid white' }}
+      >
         <CustomAvatar handleClose={handleClose} />
       </Modal>
       <Outlet />

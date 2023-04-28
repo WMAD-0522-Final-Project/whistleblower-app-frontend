@@ -17,6 +17,7 @@ import { useMutation, useQueries, useQuery } from '@tanstack/react-query';
 import getAuthorizationValue from '../../helpers/getAuthorizationValue';
 import ButtonComponent from '../../components/MUI_comp/ButtonComponent';
 import Closebutton from '../../components/SVG/Closebutton';
+import useLetterColor from '../../hooks/useLetterColor';
 type adminUserUpdate = {
   email: string;
   firstName: string;
@@ -33,6 +34,7 @@ type UserUpdataReqBody = {
 function AdminUserView() {
   const [text, setText] = useState('');
   const [allUsers, setAllUsers] = useState<null | adminUser[]>(null);
+  const { letterColor } = useLetterColor();
   const matches = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
   const smallmatches = useMediaQuery((theme: Theme) =>
     theme.breakpoints.up('md')
@@ -188,7 +190,7 @@ function AdminUserView() {
                           width: '100%',
                           height: '30%',
                           marginTop: middlematches
-                            ? `${32 * i - 5 * i}%`
+                            ? `${32 * i - 10 * i}%`
                             : `${30 * i}%`,
                           display: 'flex',
                           justifyContent: 'center',
@@ -254,9 +256,7 @@ function AdminUserView() {
                       position: 'relative',
                       left: '10%',
                     }}
-                  >
-                    user id : {nowUser._id}
-                  </div>
+                  ></div>
                   <div
                     onClick={closeEdit}
                     style={{
@@ -285,7 +285,7 @@ function AdminUserView() {
                   >
                     <ItemLabel
                       bgColor={companyData.themeColors.primary}
-                      textColor={companyData.themeColors.secondary}
+                      textColor={letterColor}
                       text="first name"
                       sx={{
                         fontSize: '1rem',
@@ -327,7 +327,7 @@ function AdminUserView() {
                   >
                     <ItemLabel
                       bgColor={companyData.themeColors.primary}
-                      textColor={companyData.themeColors.secondary}
+                      textColor={letterColor}
                       text="last name"
                       sx={{
                         fontSize: '1rem',
@@ -369,7 +369,7 @@ function AdminUserView() {
                   >
                     <ItemLabel
                       bgColor={companyData.themeColors.primary}
-                      textColor={companyData.themeColors.secondary}
+                      textColor={letterColor}
                       text="email"
                       sx={{
                         fontSize: '1rem',
@@ -412,7 +412,7 @@ function AdminUserView() {
                   >
                     <ItemLabel
                       bgColor={companyData.themeColors.primary}
-                      textColor={companyData.themeColors.secondary}
+                      textColor={letterColor}
                       text="department"
                       sx={{
                         fontSize: '1rem',
@@ -495,7 +495,7 @@ function AdminUserView() {
                   >
                     <ItemLabel
                       bgColor={companyData.themeColors.primary}
-                      textColor={companyData.themeColors.secondary}
+                      textColor={letterColor}
                       text="permissions"
                       sx={{
                         fontSize: '1rem',
@@ -544,7 +544,7 @@ function AdminUserView() {
                 }}
               >
                 <ButtonComponent
-                  customColor={companyData.themeColors.tertiary}
+                  customColor={companyData.themeColors.secondary}
                   type="submit"
                   onClick={modifySubmit}
                   sx={{
