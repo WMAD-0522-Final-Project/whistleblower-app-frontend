@@ -36,7 +36,7 @@ function CompanySetting() {
           topLabel={''}
           value={'iwatani'}
         ></InputLabel>
-        <FileInput name="file" sx={{ mt: '1rem' }} />
+        <FileInput name="file" sx={{ mt: '1rem' }} text={''} />
 
         <div style={{}}>
           <Settings></Settings>

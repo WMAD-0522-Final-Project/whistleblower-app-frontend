@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import axios, { AxiosResponse } from 'axios';
 import getAuthorizationValue from '../../../helpers/getAuthorizationValue';
 import { useQuery } from '@tanstack/react-query';
+import useLetterColor from '../../../hooks/useLetterColor';
 
 type Props = {
   onClick: () => void;
@@ -43,6 +44,7 @@ const AvatarIcon = ({ onClick, sx }: Props) => {
   const dispatch = useDispatch();
   const { companyData } = useSelector(selectCompanyData);
   const { userData } = useSelector(selectUserData);
+  const { letterColor } = useLetterColor();
 
   useQuery({
     queryKey: ['getImgPath'],
@@ -68,7 +70,7 @@ const AvatarIcon = ({ onClick, sx }: Props) => {
       sx={{
         alignItems: 'center',
         backgroundColor: companyData.themeColors.primary,
-        border: `5px solid ${companyData.themeColors.secondary}`,
+        border: `5px solid white`,
         borderRadius: '0 16px 16px 0',
         display: 'flex',
         maxWidth: '200px',
@@ -118,7 +120,7 @@ const AvatarIcon = ({ onClick, sx }: Props) => {
 
       <Typography
         sx={{ marginLeft: '4%', textTransform: 'capitalize' }}
-        color={companyData.themeColors.secondary}
+        color={letterColor}
         fontSize="0.85rem"
       >
         {userData.firstName} {userData.lastName}

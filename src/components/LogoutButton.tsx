@@ -46,7 +46,7 @@ const LogoutButton = ({ sx }: Props) => {
 
   return (
     <ButtonComponent
-      customColor={companyData.themeColors.secondary}
+      customColor="white"
       type="submit"
       onClick={handleClick}
       sx={{

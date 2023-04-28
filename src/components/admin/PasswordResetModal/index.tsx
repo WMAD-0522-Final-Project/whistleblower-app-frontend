@@ -39,7 +39,7 @@ function PasswordResetModal({ userId }: Props) {
         import.meta.env.VITE_BACKEND_URL
       }/api/user/${userId}/password/update`,
       headers: { Authorization: getAuthorizationValue() },
-      data: { password },
+      data: password,
     });
 
     return res.data;

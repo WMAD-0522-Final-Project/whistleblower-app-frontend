@@ -16,7 +16,7 @@ const SearchBox = ({ onChange, sx }: Props) => {
   return (
     <Box
       className={styles.searchBox}
-      style={{ backgroundColor: companyData.themeColors.tertiary }}
+      style={{ backgroundColor: companyData.themeColors.secondary }}
       sx={{ ...sx }}
     >
       <SearchIcon
