@@ -69,7 +69,7 @@ const App = () => {
               <Route path="generalUserView" element={<GeneralUserView />} />
               <Route path="userView" element={<UserViewer />} />
               <Route path="user-inquiries" element={<UserInquiries />} />
-              <Route path="settings" element={<Settings />} />
+              <Route path="settings" element={<ThemeEdit />} />
               <Route path="logs" element={<AdminLogList />} />
             </Route>
           </Route>

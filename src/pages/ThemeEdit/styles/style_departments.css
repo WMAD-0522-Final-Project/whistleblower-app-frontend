@@ -1,0 +1,116 @@
+.departments_super {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.departments_container {
+  width: 90%;
+  height: 70%;
+  overflow-y: auto;
+  background-color: rgba(222, 222, 222, 0.288);
+  border-radius: 10px;
+}
+
+.depatments_depart {
+  width: 100%;
+  height: 20%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(143, 143, 143, 0.21);
+}
+.depatments_depart input {
+  background-color: rgba(161, 161, 161, 0.13);
+  border: 1px solid transparent;
+  padding: 5px;
+  border-radius: 5px;
+}
+.depatments_depart input:focus {
+  outline: none;
+}
+
+.upper_departments {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.upper_departments input {
+  background-color: rgba(161, 161, 161, 0.167);
+  border: 5px solid transparent;
+  border-radius: 5px;
+  padding: 5px;
+  width: 40%;
+  font-size: 0.8rem;
+}
+.upper_departments input:focus {
+  outline: none;
+}
+.upper_departments .button_addNewDepartment {
+  position: absolute;
+  right: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  padding: 10px;
+  border: 5px solid transparent;
+}
+@media (max-width: 800px) {
+  .upper_departments .button_addNewDepartment {
+    right: 5%;
+  }
+}
+
+.button_deleteDepartment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  padding: 3px;
+  border-radius: 20px;
+  border: 2px solid rgba(132, 0, 0, 0.8);
+}
+.button_deleteDepartment .icon {
+  color: rgba(132, 0, 0, 0.8);
+}
+
+.button_addDepartment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  padding: 3px;
+  border-radius: 20px;
+  border: 2px solid rgba(0, 132, 9, 0.8);
+}
+.button_addDepartment .icon {
+  color: rgba(0, 132, 9, 0.8);
+}
+
+.add_buttonsCont {
+  display: flex;
+}
+.add_buttonsCont .button_cancelDepartment {
+  margin-left: 10px;
+}
+
+.button_seveDept {
+  padding: 5px 10px;
+  font-weight: 700;
+  background-color: transparent;
+  border-radius: 10px;
+  color: rgba(77, 77, 77, 0.7450980392);
+  border: 2px solid rgba(77, 77, 77, 0.5019607843);
+}
+.button_seveDept:hover {
+  color: #4d4d4d;
+  border: 2px solid rgba(77, 77, 77, 0.9647058824);
+}/*# sourceMappingURL=style_departments.css.map */

@@ -5,7 +5,7 @@ const initialState = {
   // TODO: temporary data
   companyData: {
     name: 'company name',
-    logo: '/images/logo.jpg',
+    logoImg: '/images/logo.jpg',
     themeColors: {
       primary: '#f96a02',
       secondary: '#ffffff',
