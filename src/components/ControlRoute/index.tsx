@@ -47,6 +47,7 @@ const ControlInitialRoute = (props: Props) => {
   useQuery({
     queryKey: ['token'],
     queryFn: verifyToken,
+    retry: 0,
     onSuccess: ({ data }) => {
       navigator(`/${data.user.role.name}`);
     },
