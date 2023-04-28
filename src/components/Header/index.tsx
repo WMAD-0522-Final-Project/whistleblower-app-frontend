@@ -15,6 +15,7 @@ import appLogo from '../../assets/images/app-logo.png';
 import { selectUserData } from '../../RTK/userDataSlice';
 import checkPermission from '../../helpers/checkPermission';
 import { UserPermissionOption } from '../../types/enums';
+import PasswordIcon from '@mui/icons-material/Password';
 import commonStyles from '../../styles/common.module.scss';
 
 type Props = {
