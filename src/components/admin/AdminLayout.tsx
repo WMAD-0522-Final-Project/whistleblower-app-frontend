@@ -71,7 +71,7 @@ const AdminLayout = (props: Props) => {
   useQuery({
     queryKey: ['token'],
     queryFn: verifyToken,
-    staleTime: 1000 * 10,
+    staleTime: 1000 * 60 * 10,
     retry: 0,
     onSuccess: ({ data }) => {
       if (data.user.role.name !== UserRoleOption.ADMIN) {
