@@ -10,6 +10,7 @@ import { InquiryUser, User } from '../../types';
 import { inquiryOption } from '../../types/enums';
 import getAuthorizationValue from '../../helpers/getAuthorizationValue';
 import PasswordResetModal from '../../components/admin/PasswordResetModal';
+import SectionTitle from '../../components/SectionTitle';
 
 interface InquiryListData {
   message: string;
@@ -106,10 +107,10 @@ const UserInquiries = () => {
   return (
     <div
       style={{
-        display: 'flex',
-        marginTop: '1%',
+        marginTop: '1rem',
       }}
     >
+      <SectionTitle title="Reset Password Requests" />
       {/* TODO: Use this in future for other inquiries other than password */}
       <Modal>
         {currentInquiryUser && (

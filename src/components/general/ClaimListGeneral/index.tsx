@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios, { AxiosResponse } from 'axios';
-import { Box, SxProps, useTheme } from '@mui/material';
+import { Box, SxProps, Typography, useTheme } from '@mui/material';
 import CustomBox from '../../CustomBox/CustomBox';
 import SectionTitle from '../../SectionTitle';
 import ClaimCardGeneral from '../ClaimCardGeneral';
@@ -51,7 +51,7 @@ const ClaimListGeneral = ({ onClaimClick, sx }: Props) => {
           },
         }}
       >
-        {claims?.data.claims.length && (
+        {claims?.data.claims.length ? (
           <Box component="ul" sx={{ width: '88%' }}>
             {claims?.data.claims.map((claim) => (
               <ClaimCardGeneral
@@ -70,6 +70,8 @@ const ClaimListGeneral = ({ onClaimClick, sx }: Props) => {
               />
             ))}
           </Box>
+        ) : (
+          <Typography>No claims found</Typography>
         )}
       </CustomBox>
     </Box>
