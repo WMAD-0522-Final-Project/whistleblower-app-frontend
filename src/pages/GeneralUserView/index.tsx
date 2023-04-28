@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../RTK/companySlice';
 import sampleUserDatas from '../../temp/sampleUserDatas';
 import { useAllContext } from '../../context/ClaimIdContext';
-import { adminUser, generalUser } from '../../types';
+import { adminUser } from '../../types';
 import RoleToggles from '../../components/admin/RoleToggles';
 import { NativeSelect, TextField, Theme, useMediaQuery } from '@mui/material';
 import ItemLabel from '../../components/ItemLabel';
@@ -19,6 +19,7 @@ import ButtonComponent from '../../components/MUI_comp/ButtonComponent';
 import axios, { AxiosResponse } from 'axios';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import getAuthorizationValue from '../../helpers/getAuthorizationValue';
+import useLetterColor from '../../hooks/useLetterColor';
 
 type UserUpdataReqBody = {
   userId: string | undefined;
@@ -28,6 +29,7 @@ function GeneralUserView() {
   const [text, setText] = useState('');
   const [allUsers, setAllUsers] = useState<null | adminUser[]>(null);
   const { companyData } = useSelector(selectCompanyData);
+  const { letterColor } = useLetterColor();
   const { context, setContext } = useAllContext();
   const [nowUser, setNowUser] = useState<Partial<adminUser> | null>(null);
   const matches = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
@@ -176,7 +178,7 @@ function GeneralUserView() {
                           height: '30%',
                           // marginTop: `${13 * i}%`,
                           marginTop: middlemaches
-                            ? `${25 * i - 5 * i}%`
+                            ? `${25 * i - 10 * i}%`
                             : `${25 * i}%`,
                           display: 'flex',
                           justifyContent: 'center',
@@ -233,9 +235,7 @@ function GeneralUserView() {
                     position: 'relative',
                     left: '10%',
                   }}
-                >
-                  user id : {nowUser._id}
-                </div>
+                ></div>
                 <div
                   onClick={closeEdit}
                   style={{
@@ -279,7 +279,7 @@ function GeneralUserView() {
                       >
                         <ItemLabel
                           bgColor={companyData.themeColors.primary}
-                          textColor={companyData.themeColors.secondary}
+                          textColor={letterColor}
                           text="first name"
                           sx={{
                             fontSize: '1rem',
@@ -342,7 +342,7 @@ function GeneralUserView() {
                       >
                         <ItemLabel
                           bgColor={companyData.themeColors.primary}
-                          textColor={companyData.themeColors.secondary}
+                          textColor={letterColor}
                           text="last name"
                           sx={{
                             fontSize: '1rem',
@@ -405,7 +405,7 @@ function GeneralUserView() {
                       >
                         <ItemLabel
                           bgColor={companyData.themeColors.primary}
-                          textColor={companyData.themeColors.secondary}
+                          textColor={letterColor}
                           text="email"
                           sx={{
                             fontSize: '1rem',
@@ -469,7 +469,7 @@ function GeneralUserView() {
                       >
                         <ItemLabel
                           bgColor={companyData.themeColors.primary}
-                          textColor={companyData.themeColors.secondary}
+                          textColor={letterColor}
                           text="department"
                           sx={{
                             fontSize: '1rem',
@@ -534,7 +534,7 @@ function GeneralUserView() {
                 }}
               >
                 <ButtonComponent
-                  customColor={companyData.themeColors.tertiary}
+                  customColor={companyData.themeColors.secondary}
                   type="submit"
                   onClick={modifySubmit}
                   sx={{

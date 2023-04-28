@@ -31,6 +31,20 @@ function UserViewer() {
     }
   }, []);
 
+  useEffect(() => {
+    if (state === 0) {
+      setContext((context) => ({
+        ...context,
+        GeneralUserId: '',
+      }));
+    } else {
+      setContext((context) => ({
+        ...context,
+        AdminUserIdAdmin: '',
+      }));
+    }
+  }, [state]);
+
   const boxSizeOperator = () => {
     if (matches) {
       if (state === 0) {

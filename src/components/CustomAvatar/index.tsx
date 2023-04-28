@@ -5,6 +5,8 @@ import {
   Box,
   Avatar,
   useMediaQuery,
+  Theme,
+  lighten,
 } from '@mui/material';
 import FileInput from '../FileInput';
 import { ChangeEventHandler, useEffect, useState } from 'react';
@@ -14,42 +16,16 @@ import { useMutation } from '@tanstack/react-query';
 import getAuthorizationValue from '../../helpers/getAuthorizationValue';
 import axios from 'axios';
 import AvatarIcon from '../admin/AvatarIcon';
-
+import { selectCompanyData } from '../../RTK/companySlice';
+import useLetterColor from '../../hooks/useLetterColor';
 type Props = {
   handleClose: () => void;
 };
 
-const buttonStyle = {
-  width: '150px',
-  bgcolor: '#F96A02',
-  color: 'white',
-  borderRadius: '25px',
-  borderStyle: 'none',
-  //   margin: '0 30px',
-  boxShadow:
-    '0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
-  '&:hover': {
-    borderStyle: 'none',
-    bgcolor: '#eab676',
-  },
-};
-
-const companyData = {
-  themeColors: {
-    primary: 'f96a02',
-    secondary: '#fff',
-  },
-};
-// TODO: get user data from store
-// const userData = {
-//   firstName: 'john',
-//   lastName: 'doe',
-//   profileImg: '/images/profileImg.jpg',
-// };
-
 const putAdminImg = ({ userId, data }: { userId: string; data: FormData }) => {
   const authorizationValue = getAuthorizationValue();
   //Waiting for PUT endpoint
+
   return axios({
     method: 'PUT',
     url: `${
@@ -65,10 +41,12 @@ const putAdminImg = ({ userId, data }: { userId: string; data: FormData }) => {
 
 const CustomAvatar = ({ handleClose }: Props) => {
   const { userData } = useSelector(selectUserData);
+  const { companyData } = useSelector(selectCompanyData);
   const [imgPath, setImgPath] = useState<string>('');
   const [imgFile, setImgFile] = useState<File | null>(null);
+  const { letterColor } = useLetterColor();
 
-  const matches = useMediaQuery((theme) => theme.breakpoints.up('md'));
+  const matches = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
 
   useEffect(() => {
     setImgPath(userData.profileImg);
@@ -100,7 +78,20 @@ const CustomAvatar = ({ handleClose }: Props) => {
       handleClose();
     }
   };
-
+  const buttonStyle = {
+    width: '150px',
+    bgcolor: companyData.themeColors.primary,
+    color: 'white',
+    borderRadius: '25px',
+    borderStyle: 'none',
+    //   margin: '0 30px',
+    boxShadow:
+      '0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
+    '&:hover': {
+      borderStyle: 'none',
+      bgcolor: lighten(companyData.themeColors.primary, 0.3),
+    },
+  };
   return (
     <>
       <Box
@@ -157,16 +148,16 @@ const CustomAvatar = ({ handleClose }: Props) => {
           text="Upload new image"
         />
         <Box>
-          <Typography fontSize={12} color={'red'}>
+          <Typography fontSize={12} color={letterColor}>
             File restrictions:
           </Typography>
-          <Typography fontSize={12} color={'red'}>
+          <Typography fontSize={12} color={letterColor}>
             1. Support formats: .png or .jpg(.jpeg)
           </Typography>
-          <Typography fontSize={12} color={'red'}>
+          <Typography fontSize={12} color={letterColor}>
             2. Maximum file size: 500KB
           </Typography>
-          <Typography fontSize={12} color={'red'}>
+          <Typography fontSize={12} color={letterColor}>
             3. Dimensions: 300 * 300px
           </Typography>
         </Box>
