@@ -21,6 +21,7 @@ import { useAllContext } from './context/ClaimIdContext';
 import UserViewer from './pages/UserViewer';
 import AdminLogList from './pages/AdminLogList';
 import ControlRoute from './components/ControlRoute';
+import ThemeEdit from './pages/ThemeEdit';
 
 const App = () => {
   const { companyData } = useSelector(selectCompanyData);
