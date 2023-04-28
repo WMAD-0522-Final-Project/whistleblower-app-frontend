@@ -12,11 +12,13 @@ import ItemLabel from '../../ItemLabel';
 import formatDatetime from '../../../helpers/formatDatetime';
 
 type Props = {
-  claim: Claim;
+  claim: ClaimDetail;
   sx?: SxProps;
 };
 
 const ClaimCardAdmin = React.forwardRef(({ claim, sx }: Props, ref) => {
+  console.log('claim', claim);
+
   const { companyData } = useSelector(selectCompanyData);
   const theme = useTheme();
   const { context, setContext } = useAllContext();
@@ -135,7 +137,14 @@ const ClaimCardAdmin = React.forwardRef(({ claim, sx }: Props, ref) => {
           {claim.title}
         </Typography>
       </Box>
-      <ClaimYellowTable claim={claim} sx={{ width: '25%' }}></ClaimYellowTable>
+      {claim.inChargeAdmins.length ? (
+        <ClaimYellowTable
+          claim={claim}
+          sx={{ width: '25%' }}
+        ></ClaimYellowTable>
+      ) : (
+        ''
+      )}
     </Box>
   );
 });

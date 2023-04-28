@@ -27,7 +27,7 @@ const ClaimYellowTable = ({ claim, sx }: Props) => {
       >
         {claim.inChargeAdmins?.length &&
           (claim.inChargeAdmins!.length > 3 ||
-          claim.inChargeAdmins!.length === 0 ? (
+          claim.inChargeAdmins!.length === 1 ? (
             <svg
               width={`160px`}
               height={`100px`}
