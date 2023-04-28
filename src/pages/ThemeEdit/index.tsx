@@ -6,6 +6,7 @@ import SettingsGlobal from './SettingsGlobal';
 import checkPermission from '../../helpers/checkPermission';
 import { UserPermissionOption } from '../../types/enums';
 import { selectUserData } from '../../RTK/userDataSlice';
+import SectionTitle from '../../components/SectionTitle';
 
 const ThemeEdit = () => {
   const { companyData } = useSelector(selectCompanyData);
@@ -71,59 +72,61 @@ const ThemeEdit = () => {
   };
 
   return (
-    <div
-      style={{
-        position: 'absolute',
-        width: '100vw',
-        height: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        // backgroundColor: 'red',
-      }}
-    >
-      {/* width: '100vs', height: '70vh', display: 'grid', placeContent: 'center' */}
-      <SettingsGlobal />
-      {/* <button onClick={()=>{setAdmin(!admin)}}>{admin? 'admin': 'user'}</button>
+    <>
+      <SectionTitle title="Company Setting" />
+      <div
+        style={{
+          position: 'absolute',
+          width: '100vw',
+          height: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          // backgroundColor: 'red',
+        }}
+      >
+        {/* width: '100vs', height: '70vh', display: 'grid', placeContent: 'center' */}
+        <SettingsGlobal />
+        {/* <button onClick={()=>{setAdmin(!admin)}}>{admin? 'admin': 'user'}</button>
       <Box sx={admin? StylesAdmin: StyleUser}>
-       
-        {admin? 
+      
+      {admin? 
         <>
-          <div style={{backgroundColor: 'gray'}}>Users List Here!</div>
-          <div>
-            <Settings/>
-          </div>
-        </>:
+        <div style={{backgroundColor: 'gray'}}>Users List Here!</div>
         <div>
-            <p style={{paddingBottom: '30px',
-             color: companyData.themeColors.primary,
-              fontWeight: 'bolder',
-              fontSize: '2rem'}}>General Settings</p>
-
-            <TextFieldCustom
-              label="First Name"
+        <Settings/>
+          </div>
+          </>:
+          <div>
+          <p style={{paddingBottom: '30px',
+          color: companyData.themeColors.primary,
+          fontWeight: 'bolder',
+          fontSize: '2rem'}}>General Settings</p>
+          
+          <TextFieldCustom
+          label="First Name"
               error={false}
               width="80%"
               mainColor={companyData.themeColors.primary}
               textColor="black"
               required
-            />
-            <TextFieldCustom
+              />
+              <TextFieldCustom
               label="Last Name"
               error={false}
               width="80%"
               mainColor={companyData.themeColors.primary}
               textColor="black"
               required
-            />
-            <TextFieldCustom
+              />
+              <TextFieldCustom
               label="Mail"
               error={false}
               width="80%"
               mainColor={companyData.themeColors.primary}
               textColor="black"
               required
-            />
+              />
             <TextFieldCustom
               label="Department"
               error={false}
@@ -131,21 +134,22 @@ const ThemeEdit = () => {
               mainColor={companyData.themeColors.primary}
               textColor="black"
               required
-            />
-            <ButtonComponent
+              />
+              <ButtonComponent
               onClick={()=>{}}
               variant="contained"
               customColor={companyData.themeColors.primary}
               width= "50%"
               >
-            Clickme
-            </ButtonComponent>
-
-        </div>
-        }
-        
-      </Box> */}
-    </div>
+              Clickme
+              </ButtonComponent>
+              
+              </div>
+            }
+            
+          </Box> */}
+      </div>
+    </>
   );
 };
 
