@@ -60,7 +60,12 @@ const UserCard = React.forwardRef(
               alignItems: 'center',
             }}
           >
-            <Yeallowtable url={url || undefined} initials={`PT`}></Yeallowtable>
+            <Yeallowtable
+              url={url || undefined}
+              initials={`${name.split(' ')[0].charAt(0)} ${name
+                .split(' ')[1]
+                .charAt(0)}`}
+            ></Yeallowtable>
           </div>
 
           <Typography

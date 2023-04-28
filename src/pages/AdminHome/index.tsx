@@ -1,33 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Theme, useMediaQuery } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { AlertColor, Box, Theme, useMediaQuery } from '@mui/material';
 import useModal from '../../hooks/useModal';
 import { useSelector } from 'react-redux';
-import ClaimListAdmin from '../../components/admin/ClaimListAdmin';
 import { selectCompanyData } from '../../RTK/companySlice';
-import { Claim } from '../../types';
-import sampleClaims from '../../temp/sampleClaims';
-import UserCard from '../../components/admin/ModalWindow/UserCard';
-import LabelCard from '../../components/admin/ModalWindow/LabelCard';
+import { Claim, ClaimDetail } from '../../types';
 import MainWindow from '../../components/admin/ModalWindow/mainWindow';
 // import { useAllContext } from '../../custom/ClaimIdContext';
 import { useAllContext } from '../../context/ClaimIdContext';
-import ClaimChat from '../../components/ClaimChat';
-import sampleClaimDetail from '../../temp/sampleClaimDetail';
-import Frame from '../../components/admin/ModalWindow/Frame.tsx/Frame';
 import ClaimBox from '../../components/admin/ClaimBox';
 
-import { motion } from 'framer-motion';
-import ConfirmationModal from '../../components/ConfirmationModal';
-import CustomBox from '../../components/CustomBox/CustomBox';
-import {
-  DragDropContext,
-  DragDropContextProps,
-  DropResult,
-} from 'react-beautiful-dnd';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import axios, { AxiosResponse } from 'axios';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import getAuthorizationValue from '../../helpers/getAuthorizationValue';
-import { da } from 'date-fns/locale';
+import checkPermission from '../../helpers/checkPermission';
+import { UserPermissionOption } from '../../types/enums';
+import { selectUserData } from '../../RTK/userDataSlice';
+import AlertCustom from '../../components/MUI_comp/AlertCustom';
 
 type Props = {};
 
@@ -62,9 +51,6 @@ const putStatus = ({
   claimId: string;
   status: string;
 }): Promise<AxiosResponse> => {
-  console.log('claimId', claimId);
-  console.log('status', status);
-
   const authorizationValue = getAuthorizationValue();
   return axios({
     method: 'PUT',
@@ -82,16 +68,23 @@ const putStatus = ({
 
 const AdminHome = (props: Props) => {
   const { companyData } = useSelector(selectCompanyData);
-  const { Modal, handleOpen, handleClose } = useModal();
+  const { userData } = useSelector(selectUserData);
+  const { Modal, handleOpen, handleClose, open } = useModal();
+  const [alert, setAlert] = useState({
+    type: '' as AlertColor,
+    message: '',
+  });
   const [query, setQuery] = useState('');
-  const [claims, setClaims] = useState<Claim[] | null>(null);
+  const [claims, setClaims] = useState<ClaimDetail[] | null>(null);
   const [isModalWindow, setIsModalWindow] = useState<boolean>(false);
   const { context, setContext } = useAllContext();
   const newClaim = 'unHandled';
   const inProgress = 'inProgress';
   const done = 'done';
   const [expandState, setExpandState] = useState(newClaim);
-  const [modalClaim, setModalClaim] = useState<Partial<Claim> | null>(null);
+  const [modalClaim, setModalClaim] = useState<Partial<ClaimDetail> | null>(
+    null
+  );
   const [mobileHeight, setModileHeight] = useState({
     newClaim: 6,
     inProgress: 6,
@@ -103,13 +96,42 @@ const AdminHome = (props: Props) => {
   const claimQuery = useQuery({
     queryKey: ['getClaimData'],
     queryFn: getClaimData,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
   let fetchedClaims = claimQuery.data?.data.claims;
 
   useEffect(() => {
-    console.log('claimQuery.data', claimQuery.data);
     claimQuery.data && setClaims(fetchedClaims);
   }, [claimQuery.data]);
+
+  useEffect(() => {
+    setContext((context) => ({
+      ...context,
+      claimsId: null,
+    }));
+  }, [open]);
+
+  // const getClaims = async (): Promise<AxiosResponse<Claim[]>> => {
+  //   const res = await axios({
+  //     method: 'GET',
+  //     url: `${import.meta.env.VITE_BACKEND_URL}/api/user/list`,
+  //     headers: {
+  //       Authorization: getAuthorizationValue(),
+  //     },
+  //   });
+  //   return res.data;
+  // };
+
+  // const { data: claimsAxios } = useQuery({
+  //   queryFn: getClaims,
+  //   queryKey: ['claims'],
+  // });
+
+  // useEffect(() => {
+  //   // fetch claim data from API
+  //   if (claimsAxios) setClaims(claimsAxios);
+  // }, [claimsAxios]);
 
   useEffect(() => {
     if (claims !== null) {
@@ -127,27 +149,22 @@ const AdminHome = (props: Props) => {
   //   claims.filter((claim: Claim) =>
   //     claim.message?.toLowerCase().includes(query.toLowerCase())
   //   );
-
-  useEffect(() => {
-    console.log(context, 'roren');
-  }, [context.claimsId]);
-
   const columns = [
     {
       id: 'unHandled',
-      width: matches ? 25 : 50,
+      width: matches ? 30 : 50,
       height: matches ? 70 : 6,
       label: 'New Claims',
     },
     {
       id: 'inProgress',
-      width: matches ? 25 : 50,
+      width: matches ? 30 : 50,
       height: matches ? 70 : 6,
       label: 'In Progress',
     },
     {
       id: 'done',
-      width: matches ? 25 : 50,
+      width: matches ? 30 : 50,
       height: matches ? 70 : 6,
       label: 'Done',
     },
@@ -157,12 +174,23 @@ const AdminHome = (props: Props) => {
     mutationFn: putStatus,
   });
 
-  useEffect(() => {
-    console.log('claims', claims);
-  }, [claims]);
-
   const handleOnDragEnd = (result: DropResult) => {
     if (!result.destination) return;
+
+    // check permission
+    if (
+      !checkPermission(
+        UserPermissionOption.CASE_MANAGEMENT,
+        userData.permissions
+      )
+    ) {
+      setAlert({
+        type: 'error',
+        message: "You don't have permission for this action",
+      });
+      return;
+    }
+
     let claimsCopy = [...claims!];
 
     const sourceColumn = claimsCopy.filter(
@@ -186,13 +214,9 @@ const AdminHome = (props: Props) => {
       removedClaim
     );
 
-    console.log('removedClaim', removedClaim);
-
     claimsCopy = [
       ...new Set([...claimsCopy, ...newDestinationColumn, ...removedColumn]),
     ];
-
-    console.log('claimsCopy:', claimsCopy);
 
     setClaims(claimsCopy);
 
@@ -206,6 +230,9 @@ const AdminHome = (props: Props) => {
     claims && (
       // TODO: temporary styling until Mateus's task is done
       <>
+        {alert.message && (
+          <AlertCustom text={alert.message} type={alert.type} />
+        )}
         <DragDropContext onDragEnd={handleOnDragEnd}>
           <div style={{ position: 'relative' }}>
             <div
@@ -222,9 +249,6 @@ const AdminHome = (props: Props) => {
                   zIndex: '-1',
                 }}
               >
-                {/* TODO: temporary claim data */}
-                {/* <ClaimChat chatData={sampleClaimDetail.chats} /> */}
-                {/* {claims && <MainWindow claim={claims[0]}></MainWindow>} */}
                 {claimQuery.isLoading && <>Loading...</>}
                 {claimQuery.isError && <>{claimQuery.error}</>}
                 {claims && (
@@ -300,10 +324,6 @@ const AdminHome = (props: Props) => {
         </DragDropContext>
       </>
     )
-    // <Box sx={{ backgroundColor: '#fff', height: '100vh' }}>
-    //   {/* TODO: temporary claim data */}
-    //   <ClaimChat chatData={sampleClaimDetail.chats} />
-    // </Box>
   );
 };
 

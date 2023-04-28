@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { Claim } from '../../types';
-import { Badge, Box, SxProps, Typography } from '@mui/material';
+import { Claim, ClaimDetail } from '../../types';
+import { Avatar, Badge, Box, SxProps, Typography } from '@mui/material';
 
-type Props = { claim: Partial<Claim>; sx?: SxProps };
+type Props = { claim: Partial<ClaimDetail>; sx?: SxProps };
 const ClaimYellowTable = ({ claim, sx }: Props) => {
   return (
     <Box
@@ -20,13 +20,14 @@ const ClaimYellowTable = ({ claim, sx }: Props) => {
       <div
         style={{
           position: 'absolute',
-          right: '-20px',
-          top: '-17px',
+          right: '-23px',
+          top: '-22px',
           scale: '1',
         }}
       >
-        {claim.members?.length &&
-          (claim.members!.length > 3 || claim.members!.length === 0 ? (
+        {claim.inChargeAdmins?.length &&
+          (claim.inChargeAdmins!.length > 3 ||
+          claim.inChargeAdmins!.length === 0 ? (
             <svg
               width={`160px`}
               height={`100px`}
@@ -78,7 +79,7 @@ const ClaimYellowTable = ({ claim, sx }: Props) => {
                 </filter>
               </defs>
             </svg>
-          ) : claim.members!.length > 2 ? (
+          ) : claim.inChargeAdmins!.length > 2 ? (
             <svg
               width="199"
               height="93"
@@ -131,7 +132,7 @@ const ClaimYellowTable = ({ claim, sx }: Props) => {
               </defs>
             </svg>
           ) : (
-            claim.members!.length > 1 && (
+            claim.inChargeAdmins!.length > 1 && (
               <svg
                 width="163"
                 height="94"
@@ -199,26 +200,29 @@ const ClaimYellowTable = ({ claim, sx }: Props) => {
             translate: '25%',
           }}
         >
-          {claim.members?.length &&
+          {claim.inChargeAdmins?.length &&
             // Show badge with number
-            (claim.members!.length > 3 ? (
+            (claim.inChargeAdmins!.length > 3 ? (
               <>
-                <Box
-                  component="img"
-                  src={claim.members[0].avatarUrl}
+                <Avatar
+                  src={claim.inChargeAdmins[0].profileImg}
                   alt=""
                   sx={{
                     borderRadius: '50%',
                     // display: 'block',
                     // pl: '0.2rem',
                     // margin: '-18%',
-                    width: '40px',
-                    height: '70%',
+                    // width: '40px',
+                    // height: '70%',
                     zIndex: '1',
                   }}
-                />
+                >
+                  {`${claim.inChargeAdmins[0].firstName.charAt(
+                    0
+                  )} ${claim.inChargeAdmins[0].lastName.charAt(0)}`}
+                </Avatar>
                 <Badge
-                  badgeContent={`+${claim.members.length - 1}`}
+                  badgeContent={`+${claim.inChargeAdmins.length - 1}`}
                   color="error"
                   sx={{
                     bottom: '15px',
@@ -228,20 +232,21 @@ const ClaimYellowTable = ({ claim, sx }: Props) => {
               </>
             ) : (
               // Show all avatars
-              claim.members.map((member, index) => (
-                <Box
-                  component="img"
-                  src={member.avatarUrl}
+              claim.inChargeAdmins.map((member, index) => (
+                <Avatar
+                  src={member.profileImg}
                   alt={`${index}`}
                   sx={{
                     borderRadius: '50%',
-                    width: '40px',
-                    height: '70%',
+                    // width: '40px',
+                    // height: '70%',
                     zIndex: index + 1,
                     ml: '-15px',
                   }}
-                  key={member.userId}
-                />
+                  key={member._id}
+                >
+                  {`${member.firstName.charAt(0)} ${member.lastName.charAt(0)}`}
+                </Avatar>
               ))
             ))}
         </Box>

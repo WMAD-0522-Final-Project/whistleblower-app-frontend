@@ -11,6 +11,11 @@ import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../RTK/companySlice';
 import { APP_NAME } from '../../data/appData';
 import LogoutButton from '../LogoutButton';
+import appLogo from '../../assets/images/app-logo.png';
+import { selectUserData } from '../../RTK/userDataSlice';
+import checkPermission from '../../helpers/checkPermission';
+import { UserPermissionOption } from '../../types/enums';
+import commonStyles from '../../styles/common.module.scss';
 
 type Props = {
   hasMenu?: boolean;
@@ -18,7 +23,7 @@ type Props = {
 
 const Header = ({ hasMenu = false }: Props) => {
   const { companyData } = useSelector(selectCompanyData);
-
+  const { userData } = useSelector(selectUserData);
   const muiLinkStyles = {
     padding: '5px',
     position: 'absolute',
@@ -56,18 +61,45 @@ const Header = ({ hasMenu = false }: Props) => {
           },
         }}
       >
-        <Typography
-          component="h1"
+        <MuiLink
+          component={RouterLink}
+          to="/"
           sx={{
-            color: '#fff',
-            fontSize: '1.4rem',
-            [theme.breakpoints.up('md')]: {
-              fontSize: '1.5rem',
+            textDecoration: 'none',
+            '&:hover': {
+              transition: 'scale 100ms ease',
+              scale: '1.03',
             },
           }}
         >
-          {APP_NAME}
-        </Typography>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            <img
+              src={appLogo}
+              alt={APP_NAME}
+              style={{
+                width: '60px',
+              }}
+            />
+            <Typography
+              component="h1"
+              sx={{
+                color: '#fff',
+                fontSize: '1.4rem',
+                ml: '0.6rem',
+                [theme.breakpoints.up('md')]: {
+                  fontSize: '1.5rem',
+                },
+              }}
+            >
+              {APP_NAME}
+            </Typography>
+          </Box>
+        </MuiLink>
         {!hasMenu && (
           <LogoutButton
             sx={{
@@ -88,7 +120,13 @@ const Header = ({ hasMenu = false }: Props) => {
           >
             <MuiLink
               component={RouterLink}
-              to="/users"
+              to="/admin/userView"
+              className={
+                !checkPermission(
+                  UserPermissionOption.USER_MANAGEMENT,
+                  userData.permissions
+                ) && commonStyles.disabled
+              }
               sx={{
                 ...muiLinkStyles,
                 right: '110%',
@@ -106,7 +144,13 @@ const Header = ({ hasMenu = false }: Props) => {
             </MuiLink>
             <MuiLink
               component={RouterLink}
-              to="/settings"
+              to="/admin/settings"
+              className={
+                !checkPermission(
+                  UserPermissionOption.SYSTEM_MANAGEMENT,
+                  userData.permissions
+                ) && commonStyles.disabled
+              }
               sx={{
                 ...muiLinkStyles,
                 right: '98%',
@@ -124,7 +168,7 @@ const Header = ({ hasMenu = false }: Props) => {
             </MuiLink>
             <MuiLink
               component={RouterLink}
-              to="/claims"
+              to="/admin/user-inquiries"
               sx={{
                 ...muiLinkStyles,
                 right: '72%',
@@ -142,7 +186,7 @@ const Header = ({ hasMenu = false }: Props) => {
             </MuiLink>
             <MuiLink
               component={RouterLink}
-              to="/logs"
+              to="/admin/logs"
               sx={{
                 ...muiLinkStyles,
                 right: '37%',

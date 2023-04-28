@@ -3,13 +3,13 @@ import axios, { AxiosResponse } from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import CustomBox from '../../components/CustomBox/CustomBox';
 import SearchBox from '../../components/SearchBox';
-import sampleInquiryUserList from '../../temp/sampleInquiryUserList';
 import UserInquiryCard from '../../components/admin/UserInquiryCard';
 import useModal from '../../hooks/useModal';
 import { Box, Typography } from '@mui/material';
 import { InquiryUser, User } from '../../types';
 import { inquiryOption } from '../../types/enums';
 import getAuthorizationValue from '../../helpers/getAuthorizationValue';
+import PasswordResetModal from '../../components/admin/PasswordResetModal';
 
 interface InquiryListData {
   message: string;
@@ -25,7 +25,7 @@ const UserInquiries = () => {
   const [currentInquiryUser, setCurrentInquiryUser] =
     useState<InquiryUser | null>(null);
   // const [activeInquiryUser, setActiveInquiryUser] = useState(null);
-  const { handleOpen, Modal } = useModal();
+  const { handleOpen, Modal, handleClose } = useModal();
 
   const getInquiryUserList = async () => {
     const res: AxiosResponse<InquiryListData> = await axios({
@@ -91,7 +91,7 @@ const UserInquiries = () => {
   ============================================================================= */
 
   const handleInquiryCardClick = (userId: string) => {
-    const user = sampleInquiryUserList.find((user) => user._id === userId);
+    const user = userListData!.users.find((user) => user._id === userId);
     setCurrentInquiryUser(user!);
     handleOpen();
 
@@ -112,22 +112,11 @@ const UserInquiries = () => {
     >
       {/* TODO: Use this in future for other inquiries other than password */}
       <Modal>
-        <Box>
-          <h2>
-            Change password for: {currentInquiryUser?.firstName}{' '}
-            {currentInquiryUser?.lastName}
-          </h2>
-          <ul>
-            <li>
-              New password:
-              <input type="text" />
-            </li>
-            <li>
-              Confirm new password:
-              <input type="text" />
-            </li>
-          </ul>
-        </Box>
+        {currentInquiryUser && (
+          <PasswordResetModal
+            userId={currentInquiryUser._id}
+          ></PasswordResetModal>
+        )}
       </Modal>
       <CustomBox sx={{ height: '90%', width: '100%', maxWidth: '800px' }}>
         <SearchBox
@@ -139,7 +128,7 @@ const UserInquiries = () => {
             position: 'relative',
             width: '100%',
             height: '400px',
-            overflowY: 'scroll',
+            overflowY: 'auto',
             marginTop: '3%',
           }}
         >

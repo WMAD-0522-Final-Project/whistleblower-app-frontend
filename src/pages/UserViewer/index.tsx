@@ -7,15 +7,29 @@ import { Theme, lighten, useMediaQuery } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { selectCompanyData } from '../../RTK/companySlice';
 import { useAllContext } from '../../context/ClaimIdContext';
+import { useNavigate } from 'react-router-dom';
+import checkPermission from '../../helpers/checkPermission';
+import { UserPermissionOption } from '../../types/enums';
+import { selectUserData } from '../../RTK/userDataSlice';
 function UserViewer() {
   const { companyData } = useSelector(selectCompanyData);
   const [state, setState] = useState<number | null>(null);
   const { context, setContext } = useAllContext();
   const matches = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
+  const navigator = useNavigate();
+  const { userData } = useSelector(selectUserData);
 
   useEffect(() => {
-    console.log(state, 'state');
-  }, [state]);
+    // check permission
+    if (
+      !checkPermission(
+        UserPermissionOption.CASE_MANAGEMENT,
+        userData.permissions
+      )
+    ) {
+      navigator('/');
+    }
+  }, []);
 
   const boxSizeOperator = () => {
     if (matches) {

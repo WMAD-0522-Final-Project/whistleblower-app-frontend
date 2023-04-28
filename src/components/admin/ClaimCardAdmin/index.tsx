@@ -1,6 +1,6 @@
-import React, { ContextType } from 'react';
-import { Box, SxProps, Typography } from '@mui/material';
-import { Claim } from '../../../types';
+import React, { ContextType, useEffect } from 'react';
+import { Box, SxProps, Typography, useTheme } from '@mui/material';
+import { Claim, ClaimDetail } from '../../../types';
 import { useSelector } from 'react-redux';
 import stc from 'string-to-color';
 import { selectCompanyData } from '../../../RTK/companySlice';
@@ -8,25 +8,38 @@ import ClaimYellowTable from '../../SVG/ClaimYellowTable';
 import { useAllContext } from '../../../context/ClaimIdContext';
 import ClaimLabel from '../../SVG/ClaimLabel';
 import { motion } from 'framer-motion';
+import ItemLabel from '../../ItemLabel';
+import formatDatetime from '../../../helpers/formatDatetime';
 
 type Props = {
-  claim: Partial<Claim>;
+  claim: Claim;
   sx?: SxProps;
 };
 
 const ClaimCardAdmin = React.forwardRef(({ claim, sx }: Props, ref) => {
   const { companyData } = useSelector(selectCompanyData);
+  const theme = useTheme();
   const { context, setContext } = useAllContext();
   const handleClaimClick = () => {
     // open detail window using a state variable
-    if (claim._id)
+    if (claim._id) {
+      if (claim._id === context.claimsId) {
+        setContext((context) => ({
+          ...context,
+          claimsId: null,
+        }));
+      }
       setContext((context) => ({
         ...context,
         claimsId: claim._id,
       }));
-
-    console.log(context, ';lkj;lkj');
+    }
   };
+
+  // useEffect(() => {
+  //   console.log('claimId', claim._id);
+  //   console.log('claim', claim);
+  // }, []);
 
   return (
     <Box
@@ -50,13 +63,29 @@ const ClaimCardAdmin = React.forwardRef(({ claim, sx }: Props, ref) => {
       }}
     >
       <Box sx={{ width: '75%' }}>
+        {claim.hasNewComment && (
+          <ItemLabel
+            text="New Message"
+            bgColor="#ff1919"
+            textColor="#fff"
+            sx={{
+              display: 'inline-block',
+              translate: '0 -15px',
+              [theme.breakpoints.up('lg')]: {
+                fontSize: '0.7rem',
+              },
+            }}
+          />
+        )}
         <Box
           sx={{
             display: 'flex',
             alignItems: 'center',
           }}
         >
-          <Typography fontSize="0.7rem">{claim.submissionDate}</Typography>
+          <Typography fontSize="0.7rem">
+            {formatDatetime(new Date(claim.createdAt))}
+          </Typography>
           <Box
             sx={{
               background: companyData.themeColors.secondary,
@@ -103,7 +132,7 @@ const ClaimCardAdmin = React.forwardRef(({ claim, sx }: Props, ref) => {
             textOverflow: 'ellipsis',
           }}
         >
-          {claim.message}
+          {claim.title}
         </Typography>
       </Box>
       <ClaimYellowTable claim={claim} sx={{ width: '25%' }}></ClaimYellowTable>

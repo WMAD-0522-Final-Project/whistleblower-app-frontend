@@ -1,5 +1,6 @@
 import React, {
   FormEventHandler,
+  useEffect,
   useLayoutEffect,
   useRef,
   useState,
@@ -13,30 +14,32 @@ import { AxiosCustomError, Chat } from '../../types';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { selectUserData } from '../../RTK/userDataSlice';
 import axios, { AxiosResponse } from 'axios';
-import localStorageHelper from '../../helpers/localStorageHelper';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import AlertCustom from '../MUI_comp/AlertCustom';
 import getAuthorizationValue from '../../helpers/getAuthorizationValue';
 import formatDatetime from '../../helpers/formatDatetime';
 
 type Props = {
   claimId: string;
-  chatData: Chat[] | undefined;
 };
 
 interface NewClaimResponseData {
   message: string;
   msg: { [key: string]: any };
 }
+interface MessagesResponseData {
+  messages: Chat[];
+}
 
-const ClaimChat = ({ claimId, chatData }: Props) => {
+const ClaimChat = ({ claimId }: Props) => {
   const { companyData } = useSelector(selectCompanyData);
   const { userData } = useSelector(selectUserData);
+  const queryClient = useQueryClient();
   const [alert, setAlert] = useState({
     type: '' as AlertColor,
     message: '',
   });
-  const [messageList, setMessageList] = useState<Chat[]>(chatData || []);
+  const [messageList, setMessageList] = useState<Chat[]>([]);
   const [message, setMessage] = useState('');
   const scrollRef = useRef<HTMLElement>(null);
 
@@ -44,6 +47,33 @@ const ClaimChat = ({ claimId, chatData }: Props) => {
     borderRadius: '30px',
     fontSize: '0.9rem',
     p: '0.4rem 1.2rem',
+  };
+
+  const getAllMessages = async (): Promise<MessagesResponseData> => {
+    const res = await axios({
+      method: 'GET',
+      url: `${
+        import.meta.env.VITE_BACKEND_URL
+      }/api/claim/${claimId}/message/list`,
+      headers: {
+        Authorization: getAuthorizationValue(),
+      },
+    });
+    return res.data;
+  };
+
+  const setReadNewMessage = async () => {
+    const res = await axios({
+      method: 'PUT',
+      url: `${
+        import.meta.env.VITE_BACKEND_URL
+      }/api/claim/${claimId}/message/changeReadStatus`,
+      headers: {
+        Authorization: getAuthorizationValue(),
+      },
+      data: { hasNewComment: false },
+    });
+    return res.data;
   };
 
   const sendNewMessage = async (
@@ -61,6 +91,24 @@ const ClaimChat = ({ claimId, chatData }: Props) => {
     });
     return res.data;
   };
+
+  const { data: messageData } = useQuery({
+    queryKey: ['messages'],
+    queryFn: getAllMessages,
+    onError: () => {
+      console.log('Failed to fetch chat message data');
+    },
+  });
+
+  const setReadNewMessageMutation = useMutation({
+    mutationFn: setReadNewMessage,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['claims']);
+    },
+    onError: (data) => {
+      console.log('Error:', error);
+    },
+  });
 
   const sendNewMessageMutation = useMutation({
     mutationFn: sendNewMessage,
@@ -97,6 +145,16 @@ const ClaimChat = ({ claimId, chatData }: Props) => {
     if (!message) return;
     sendNewMessageMutation.mutate(message);
   };
+
+  useEffect(() => {
+    setReadNewMessageMutation.mutate();
+  }, []);
+
+  useEffect(() => {
+    if (messageData) {
+      setMessageList(messageData.messages);
+    }
+  }, [messageData]);
 
   useLayoutEffect(() => {
     const scroll =
@@ -215,6 +273,7 @@ const ClaimChat = ({ claimId, chatData }: Props) => {
           style={{
             backgroundColor: `${companyData.themeColors.primary}`,
             color: `${companyData.themeColors.secondary}`,
+            cursor: 'pointer',
             padding: '0.9rem 0.5rem',
             border: 'none',
             borderRadius: '5px',

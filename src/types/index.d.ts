@@ -49,7 +49,7 @@ export interface ClaimDetail {
   body: string;
   status: string;
   category: ClaimCategory[];
-  labels: ClaimLabel[];
+  labels: string[];
   createdAt: number;
   updatedAt: number;
 }
@@ -57,6 +57,7 @@ export interface ClaimDetail {
 export interface Claim {
   _id: string;
   submissionDate: string;
+  createdAt: number;
   message: string;
   labels: ClaimLabel[];
   category: ClaimCategory | null;
@@ -77,7 +78,7 @@ export interface ClaimMessageData {
   user: User[];
 }
 
-export type ClaimStatusRes = 'unHandled' | 'inProcess' | 'done' | 'archived';
+export type ClaimStatusRes = 'unHandled' | 'inProgress' | 'done' | 'archived';
 
 export type ClaimCategory = {
   _id: string;
@@ -110,7 +111,7 @@ export interface InChargeAdmin {
   lastName: string;
   profileImg?: string;
 }
-export type permission = {
+export type Permission = {
   _id: string;
   name: string;
 };
@@ -123,12 +124,20 @@ export type department = {
 export type adminUser = {
   _id: string;
   email: string;
-  password: string;
   firstName: string;
   lastName: string;
-  avatarUrl: string;
-  permissions: permission[];
-  role: string;
+  profileImg: string;
+  departmentId: string;
+  permissions: Permission[];
+  department: department;
+};
+export type GeneralUser = {
+  _id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  profileImg: string;
+  departmentId: string;
   department: department;
 };
 

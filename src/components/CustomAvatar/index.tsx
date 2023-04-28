@@ -1,6 +1,19 @@
-import { Typography, Button, Stack, Box } from '@mui/material';
+import {
+  Typography,
+  Button,
+  Stack,
+  Box,
+  Avatar,
+  useMediaQuery,
+} from '@mui/material';
 import FileInput from '../FileInput';
 import { ChangeEventHandler, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectUserData } from '../../RTK/userDataSlice';
+import { useMutation } from '@tanstack/react-query';
+import getAuthorizationValue from '../../helpers/getAuthorizationValue';
+import axios from 'axios';
+import AvatarIcon from '../admin/AvatarIcon';
 
 type Props = {
   handleClose: () => void;
@@ -28,25 +41,65 @@ const companyData = {
   },
 };
 // TODO: get user data from store
-const userData = {
-  firstName: 'john',
-  lastName: 'doe',
-  profileImg: '/images/profileImg.jpg',
+// const userData = {
+//   firstName: 'john',
+//   lastName: 'doe',
+//   profileImg: '/images/profileImg.jpg',
+// };
+
+const putAdminImg = ({ userId, data }: { userId: string; data: FormData }) => {
+  const authorizationValue = getAuthorizationValue();
+  //Waiting for PUT endpoint
+  return axios({
+    method: 'PUT',
+    url: `${
+      import.meta.env.VITE_BACKEND_URL
+    }/api/user/${userId}/info/profileImg/update`,
+    headers: {
+      Authorization: authorizationValue,
+      'Content-Type': 'multipart/form-data',
+    },
+    data,
+  });
 };
 
 const CustomAvatar = ({ handleClose }: Props) => {
-  const [img, setImg] = useState<string>();
+  const { userData } = useSelector(selectUserData);
+  const [imgPath, setImgPath] = useState<string>('');
+  const [imgFile, setImgFile] = useState<File | null>(null);
+
+  const matches = useMediaQuery((theme) => theme.breakpoints.up('md'));
 
   useEffect(() => {
-    setImg(userData.profileImg);
+    setImgPath(userData.profileImg);
   }, []);
 
   const getUploadedImg: ChangeEventHandler<HTMLInputElement> = (e) => {
     const tempImgUrl = URL.createObjectURL(e.target.files![0]);
-    setImg(tempImgUrl);
+    setImgPath(tempImgUrl);
+    setImgFile(e.target.files![0]);
   };
 
-  const handleApply = () => {};
+  const AdminImgMutation = useMutation({ mutationFn: putAdminImg });
+
+  const handleApply = () => {
+    const formData = new FormData();
+    formData.append('userProfileImg', imgFile!);
+    AdminImgMutation.mutate({ userId: userData._id, data: formData });
+
+    // if (AdminImgMutation.isLoading) {
+    //   let link = document.querySelector("link[rel~='icon']");
+    //   if (!link) {
+    //     link = document.createElement('link');
+    //     link.rel = 'icon';
+    //     document.getElementsByTagName('head')[0].appendChild(link);
+    //   }
+    //   link.href=
+    // }
+    if (!AdminImgMutation.isLoading) {
+      handleClose();
+    }
+  };
 
   return (
     <>
@@ -58,19 +111,45 @@ const CustomAvatar = ({ handleClose }: Props) => {
           gap: '10px',
         }}
       >
-        <Box
-          component="img"
-          src={img}
-          alt=""
-          sx={{
-            border: `1px solid #FFF`,
-            // border: `2px solid ${companyData.themeColors.secondary}`,
-            borderRadius: '50%',
-            display: 'block',
-            width: '30%',
-            maxWidth: '200px',
-          }}
-        />
+        {imgPath ? (
+          <Box
+            component="img"
+            // src={imgPath}
+            src={imgPath}
+            alt=""
+            sx={{
+              border: `1px solid #FFF`,
+              // border: `2px solid ${companyData.themeColors.secondary}`,
+              borderRadius: '50%',
+              display: 'block',
+              width: '30%',
+              maxWidth: '200px',
+              maxHeight: '200px',
+            }}
+          />
+        ) : (
+          <Avatar
+            src={userData.profileImg}
+            sx={{
+              backgroundColor: '#848484',
+              fontSize: '4rem',
+              letterSpacing: '0',
+              width: '9rem',
+              height: '9rem',
+              // width: matches ? '48px' : '30px',
+              // height: matches ? '48px' : '30px',
+              // position: 'absolute',
+              // top: '45%',
+              // left: '50%',
+              // translate: '-50% -55%',
+            }}
+          >
+            {`${userData?.firstName?.charAt(0)} ${userData?.lastName?.charAt(
+              0
+            )}`}
+          </Avatar>
+        )}
+
         <FileInput
           onChange={getUploadedImg}
           sx={{ width: '150px' }}
@@ -92,7 +171,26 @@ const CustomAvatar = ({ handleClose }: Props) => {
           </Typography>
         </Box>
         <Stack spacing={2}>
-          <Button variant="contained" sx={buttonStyle} onClick={handleApply}>
+          {/* {imgFile ? (
+            <Button variant="contained" sx={buttonStyle} onClick={handleApply}>
+              Apply
+            </Button>
+          ) : (
+            <Button
+              disabled
+              variant="contained"
+              sx={buttonStyle}
+              onClick={handleApply}
+            >
+              Apply
+            </Button>
+          )} */}
+          <Button
+            disabled={!imgFile}
+            variant="contained"
+            sx={buttonStyle}
+            onClick={handleApply}
+          >
             Apply
           </Button>
           <Button variant="outlined" sx={buttonStyle} onClick={handleClose}>

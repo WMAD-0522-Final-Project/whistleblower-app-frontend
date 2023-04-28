@@ -1,6 +1,6 @@
 import React, { FormEventHandler, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
-import { AlertColor, Box } from '@mui/material';
+import { AlertColor, Box, Typography } from '@mui/material';
 import CustomBox from '../../components/CustomBox/CustomBox';
 import InputLabel from '../../components/InputLabel';
 import ButtonComponent from '../../components/MUI_comp/ButtonComponent';
@@ -12,6 +12,7 @@ import { useMutation } from '@tanstack/react-query';
 import { AxiosCustomError } from '../../types';
 import AlertCustom from '../../components/MUI_comp/AlertCustom';
 import sampleClaimCategories from '../../temp/sampleClaimCategories';
+import { Link } from 'react-router-dom';
 
 type Props = {};
 
@@ -121,6 +122,21 @@ const Contact = (props: Props) => {
         >
           Submit
         </ButtonComponent>
+        <Typography
+          variant="h1"
+          sx={{ fontSize: '.8rem', textAlign: 'center', mt: '1.4rem' }}
+        >
+          <Link
+            to="/login"
+            style={{
+              color: 'inherit',
+              fontWeight: '500',
+              paddingLeft: '0.4em',
+            }}
+          >
+            Go back to login page
+          </Link>
+        </Typography>
       </CustomBox>
     </Box>
   );

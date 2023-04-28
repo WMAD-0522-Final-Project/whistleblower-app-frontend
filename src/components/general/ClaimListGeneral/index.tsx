@@ -45,7 +45,7 @@ const ClaimListGeneral = ({ onClaimClick, sx }: Props) => {
       <CustomBox
         sx={{
           maxHeight: '100vw',
-          overflowY: 'scroll',
+          overflowY: 'auto',
           [theme.breakpoints.up('md')]: {
             maxHeight: '600px',
           },

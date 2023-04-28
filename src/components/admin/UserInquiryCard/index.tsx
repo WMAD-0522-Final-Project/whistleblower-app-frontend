@@ -6,6 +6,10 @@ import Yeallowtable from '../../SVG/YeallowTable';
 import { motion } from 'framer-motion';
 import ButtonComponent from '../../MUI_comp/ButtonComponent';
 import { InquiryUser } from '../../../types/index';
+import checkPermission from '../../../helpers/checkPermission';
+import { UserPermissionOption } from '../../../types/enums';
+import { selectUserData } from '../../../RTK/userDataSlice';
+import commonStyles from '../../../styles/common.module.scss';
 
 type Props = {
   user: InquiryUser;
@@ -17,6 +21,7 @@ type Props = {
 const UserInquiryCard = React.forwardRef(
   ({ user, onClick, sx }: Props, ref) => {
     const { companyData } = useSelector(selectCompanyData);
+    const { userData } = useSelector(selectUserData);
 
     return (
       <Box
@@ -30,7 +35,7 @@ const UserInquiryCard = React.forwardRef(
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-around',
-          padding: '0.6rem 0.4rem 0.6rem 1.4rem;',
+          padding: '0.6rem 0.4rem 0.6rem 2.8rem;',
           position: 'relative',
           width: '80%',
           ...sx,
@@ -54,6 +59,12 @@ const UserInquiryCard = React.forwardRef(
           customColor={companyData.themeColors.primary}
           type="submit"
           onClick={onClick}
+          className={
+            !checkPermission(
+              UserPermissionOption.USER_MANAGEMENT,
+              userData.permissions
+            ) && commonStyles.disabled
+          }
           sx={{
             background: companyData.themeColors.secondary,
             color: companyData.themeColors.primary,

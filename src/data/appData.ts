@@ -1,1 +1,1 @@
-export const APP_NAME = 'Whistle Blower App';
+export const APP_NAME = 'Whistler App';
