@@ -17,8 +17,6 @@ type Props = {
 };
 
 const ClaimCardAdmin = React.forwardRef(({ claim, sx }: Props, ref) => {
-  console.log('claim', claim);
-
   const { companyData } = useSelector(selectCompanyData);
   const theme = useTheme();
   const { context, setContext } = useAllContext();

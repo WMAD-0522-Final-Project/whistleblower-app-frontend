@@ -49,7 +49,7 @@ export interface ClaimDetail {
   body: string;
   status: string;
   category: ClaimCategory[];
-  labels: string[];
+  labels: ClaimLabel[];
   createdAt: number;
   updatedAt: number;
 }
@@ -154,18 +154,17 @@ export interface Log {
   createdAt: number;
 }
 
-export interface CompanyDataTypes{ 
-  company: 
-        {
-            _id: string,
-            name: string,
-            logoImg: string,
-            themeColors: {
-                primary: string,
-                secondary: string,
-                tertiary: string
-            },
-            __v: number,
-            departments: [department]
-        }
+export interface CompanyDataTypes {
+  company: {
+    _id: string;
+    name: string;
+    logoImg: string;
+    themeColors: {
+      primary: string;
+      secondary: string;
+      tertiary: string;
+    };
+    __v: number;
+    departments: [department];
+  };
 }

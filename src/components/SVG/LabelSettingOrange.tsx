@@ -103,9 +103,7 @@ function LabelSettingOrange({ name, sx }: Props) {
           left: '-10%',
           top: '-10%',
         }}
-      >
-        <Garbege></Garbege>
-      </div>
+      ></div>
     </>
   );
 }
