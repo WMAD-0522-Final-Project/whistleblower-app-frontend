@@ -11,14 +11,14 @@ import SelectBoxLabel from '../../components/SelectBoxLabel';
 import { useMutation } from '@tanstack/react-query';
 import { AxiosCustomError } from '../../types';
 import AlertCustom from '../../components/MUI_comp/AlertCustom';
-import sampleClaimCategories from '../../temp/sampleClaimCategories';
 import { Link } from 'react-router-dom';
+import contactCategories from '../../data/contactCategories';
 
 type Props = {};
 
 interface ContactFormReqBody {
   email: string;
-  category: string;
+  inquiryType: string;
   message: string;
 }
 interface ContactFormRes {
@@ -37,7 +37,7 @@ const Contact = (props: Props) => {
     const values = (e.target as HTMLFormElement).email.value;
     const data = {
       email: (e.target as HTMLFormElement).email.value,
-      category: (e.target as HTMLFormElement).category.value,
+      inquiryType: (e.target as HTMLFormElement).inquiryType.value,
       message: (e.target as HTMLFormElement).message.value,
     };
     contactFormMutation.mutate(data);
@@ -49,12 +49,15 @@ const Contact = (props: Props) => {
       url: `${import.meta.env.VITE_BACKEND_URL}/api/contact`, // TODO: need correct endpoint
       data,
     });
+    console.log('res', res.data);
+
     return res.data;
   };
 
   const contactFormMutation = useMutation({
     mutationFn: sendContactForm,
     onSuccess: () => {
+      console.log('success');
       setAlert({
         type: 'success',
         message:
@@ -95,8 +98,8 @@ const Contact = (props: Props) => {
           label={'What is the issue?'}
           topLabel={'Issue'}
           placeholder={'Choose your issue'}
-          options={sampleClaimCategories}
-          name="category"
+          options={contactCategories}
+          name="inquiryType"
           sx={{ mt: '1.2rem', maxWidth: '400px', width: '100%' }}
           color={companyData.themeColors.primary}
         />
