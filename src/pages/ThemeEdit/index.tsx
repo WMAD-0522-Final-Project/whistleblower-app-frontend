@@ -79,7 +79,7 @@ const ThemeEdit = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        top: '0%',
+        // backgroundColor: 'red',
       }}
     >
       {/* width: '100vs', height: '70vh', display: 'grid', placeContent: 'center' */}
