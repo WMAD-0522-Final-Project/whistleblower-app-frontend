@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import checkPermission from '../../helpers/checkPermission';
 import { UserPermissionOption } from '../../types/enums';
 import { selectUserData } from '../../RTK/userDataSlice';
+import SectionTitle from '../../components/SectionTitle';
 function UserViewer() {
   const { companyData } = useSelector(selectCompanyData);
   const [state, setState] = useState<number | null>(null);
@@ -31,6 +32,20 @@ function UserViewer() {
     }
   }, []);
 
+  useEffect(() => {
+    if (state === 0) {
+      setContext((context) => ({
+        ...context,
+        GeneralUserId: '',
+      }));
+    } else {
+      setContext((context) => ({
+        ...context,
+        AdminUserIdAdmin: '',
+      }));
+    }
+  }, [state]);
+
   const boxSizeOperator = () => {
     if (matches) {
       if (state === 0) {
@@ -50,6 +65,7 @@ function UserViewer() {
   };
   return (
     <>
+      <SectionTitle title="User View" />
       <div
         style={{ display: 'flex', justifyContent: 'center', margin: '20px' }}
       >
