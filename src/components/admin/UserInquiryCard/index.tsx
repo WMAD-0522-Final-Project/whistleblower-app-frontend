@@ -10,7 +10,7 @@ import checkPermission from '../../../helpers/checkPermission';
 import { UserPermissionOption } from '../../../types/enums';
 import { selectUserData } from '../../../RTK/userDataSlice';
 import commonStyles from '../../../styles/common.module.scss';
-
+import useLetterColor from '../../../hooks/useLetterColor';
 type Props = {
   user: InquiryUser;
   url: string | undefined;
@@ -22,6 +22,7 @@ const UserInquiryCard = React.forwardRef(
   ({ user, onClick, sx }: Props, ref) => {
     const { companyData } = useSelector(selectCompanyData);
     const { userData } = useSelector(selectUserData);
+    const { letterColor } = useLetterColor();
 
     return (
       <Box
@@ -31,7 +32,7 @@ const UserInquiryCard = React.forwardRef(
           backgroundColor: companyData.themeColors.primary,
           borderRadius: '2rem',
           boxShadow: '1px 3px 2px 1px rgba(0,0,0,0.2)',
-          color: companyData.themeColors.secondary,
+          color: letterColor,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-around',

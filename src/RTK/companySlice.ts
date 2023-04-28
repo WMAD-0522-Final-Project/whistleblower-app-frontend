@@ -8,8 +8,8 @@ const initialState = {
     logoImg: '/images/logo.jpg',
     themeColors: {
       primary: '#f96a02',
-      secondary: '#ffffff',
-      tertiary: '#ffcb14',
+      secondary: '#ffcb14',
+      tertiary: '#ffffff',
     },
     departments: [
       {

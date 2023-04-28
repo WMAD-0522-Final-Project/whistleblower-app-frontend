@@ -8,6 +8,7 @@ import { Claim } from '../../../types';
 import styles from './ClaimBox.module.scss';
 import { motion } from 'framer-motion';
 import { StrictModeDroppable as Droppable } from '../../../helpers/StrictModeDroppable';
+import useLetterColor from '../../../hooks/useLetterColor';
 type Props = {
   width: number;
   height: number;
@@ -24,6 +25,7 @@ const ClaimBox = React.forwardRef(
 
     {
       const { companyData } = useSelector(selectCompanyData);
+      const { letterColor } = useLetterColor();
 
       return (
         <>
@@ -38,14 +40,14 @@ const ClaimBox = React.forwardRef(
               flexDirection: 'column',
               justifyContent: 'space-around',
               alignItems: 'center',
-              backgroundColor: companyData.themeColors.secondary,
+              backgroundColor: 'white',
               maxWidth: '600px',
             }}
           >
             <Box
               sx={{
                 borderRadius: '20px',
-                color: companyData.themeColors.secondary,
+                color: letterColor,
                 backgroundColor: companyData.themeColors.primary,
                 padding: '3% 6%',
                 display: 'flex',

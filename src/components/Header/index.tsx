@@ -34,7 +34,7 @@ const Header = ({ hasMenu = false }: Props) => {
     },
   };
   const iconButtonStyles = {
-    border: `4px solid ${companyData.themeColors.secondary}`,
+    border: `4px solid white`,
   };
 
   const iconStyles = {
@@ -205,7 +205,7 @@ const Header = ({ hasMenu = false }: Props) => {
             </MuiLink>
             <Box
               sx={{
-                backgroundColor: companyData.themeColors.secondary,
+                backgroundColor: 'white',
                 borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
