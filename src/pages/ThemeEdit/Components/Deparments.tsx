@@ -4,6 +4,7 @@ import { selectCompanyData } from '../../../RTK/companySlice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
+
 //MUI
 import ClearIcon from '@mui/icons-material/Clear';
 import AddIcon from '@mui/icons-material/Add';
@@ -52,9 +53,7 @@ const Departments = () => {
       url: `${import.meta.env.VITE_BACKEND_URL}/api/company/department/update`,
       headers: { Authorization: getAuthorizationValue() },
       data: {
-        departments: companyData.departments.map((dep) => {
-          return { name: dep.name };
-        }),
+        departments: companyData.departments,
       },
     });
   };
