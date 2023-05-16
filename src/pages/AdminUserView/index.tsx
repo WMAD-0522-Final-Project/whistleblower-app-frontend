@@ -152,7 +152,7 @@ function AdminUserView() {
         {!matches && nowUser ? (
           <div></div>
         ) : (
-          <CustomBox sx={{ height: '90%', width: matches ? '40%' : '90%' }}>
+          <CustomBox sx={{ height: '90%', width: matches ? '70%' : '90%' }}>
             <SearchBox
               onChange={(e) => setText(e.target.value)}
               sx={{ width: 300, height: 50 }}

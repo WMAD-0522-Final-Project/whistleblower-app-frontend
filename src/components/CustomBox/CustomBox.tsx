@@ -18,7 +18,7 @@ const CustomBox = React.forwardRef(({ children, sx, ...props }: Props, ref) => {
     padding: '1.2rem 0',
     borderRadius: '10px',
     width: '90%',
-    maxWidth: '600px',
+    maxWidth: '700px',
     margin: '0 auto ',
     display: 'flex',
     flexDirection: 'column',

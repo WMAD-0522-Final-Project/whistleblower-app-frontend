@@ -52,13 +52,13 @@ function UserViewer() {
         if (context.GeneralUserId !== '') {
           return '100%';
         } else {
-          return '50%';
+          return '60%';
         }
       } else if (state === 1) {
         if (context.AdminUserIdAdmin !== '') {
           return '100%';
         } else {
-          return '50%';
+          return '60%';
         }
       }
     }

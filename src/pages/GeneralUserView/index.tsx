@@ -130,7 +130,7 @@ function GeneralUserView() {
         {!matches && nowUser ? (
           <div></div>
         ) : (
-          <CustomBox sx={{ height: '90%', width: matches ? '40%' : '90%' }}>
+          <CustomBox sx={{ height: '90%', width: matches ? '70%' : '90%' }}>
             <div
               style={{
                 display: 'flex',
